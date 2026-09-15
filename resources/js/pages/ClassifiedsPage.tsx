@@ -86,12 +86,12 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
     const currentImage = images[currentIndex] || '/placeholder-image.jpg';
 
     // Check if the current image is the site logo for special styling
-    const isLogo = currentImage.includes('/build/assets/sitelogo.png');
+    const isLogo = currentImage.includes('/assets/sitelogo.png');
 
     return (
         <div className="absolute inset-0 w-full h-full">
             {images.map((img, index) => {
-                const isImgLogo = img.includes('/build/assets/sitelogo.png');
+                const isImgLogo = img.includes('/assets/sitelogo.png');
                 return (
                     <img
                         key={index}
@@ -660,13 +660,13 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         {/* 1. Logo (Using the absolute public path) */}
                         <div className="flex items-center">
                             <img
-                                src="/build/assets/siteicon.png" // ABSOLUTE PUBLIC PATH
+                                src="/assets/siteicon.png" // ABSOLUTE PUBLIC PATH
                                 alt="ClassifiedHub Logo"
                                 className="h-15 mr-3"
                             />
 
                             <img
-                                src="/build/assets/sitetxt.png" // ABSOLUTE PUBLIC PATH
+                                src="/assets/sitetxt.png" // ABSOLUTE PUBLIC PATH
                                 alt="ClassifiedHub Logo"
                                 className="h-8 mr-3"
                             />

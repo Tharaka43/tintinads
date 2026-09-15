@@ -56,12 +56,12 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
     const currentImage = images[currentIndex] || '/placeholder-image.jpg';
 
     // Check if the current image is the site logo for special styling
-    const isLogo = currentImage.includes('/build/assets/sitelogo.png');
+    const isLogo = currentImage.includes('/assets/sitelogo.png');
 
     return (
         <div className="absolute inset-0 w-full h-full">
             {images.map((img, index) => {
-                const isImgLogo = img.includes('/build/assets/sitelogo.png');
+                const isImgLogo = img.includes('/assets/sitelogo.png');
                 return (
                     <img
                         key={index}
@@ -230,8 +230,8 @@ const SavedAdsPage: React.FC<SavedAdsPageProps> = ({
                     <div className="flex items-center justify-between h-16 sm:h-20">
                         {/* Logo */}
                         <a href="/" className="flex items-center">
-                            <img src="/build/assets/siteicon.png" alt="Logo" className="h-10 sm:h-12 mr-2" />
-                            <img src="/build/assets/sitetxt.png" alt="Text" className="h-6 sm:h-8 hidden sm:block" />
+                            <img src="/assets/siteicon.png" alt="Logo" className="h-10 sm:h-12 mr-2" />
+                            <img src="/assets/sitetxt.png" alt="Text" className="h-6 sm:h-8 hidden sm:block" />
                         </a>
                         
                         {/* Navigation */}

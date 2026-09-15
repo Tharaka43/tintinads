@@ -74,12 +74,12 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
     const currentImage = images[currentIndex] || '/placeholder-image.jpg';
 
     // Check if the current image is the site logo for special styling
-    const isLogo = currentImage.includes('/build/assets/sitelogo.png');
+    const isLogo = currentImage.includes('/assets/sitelogo.png');
 
     return (
         <div className="absolute inset-0 w-full h-full">
             {images.map((img, index) => {
-                const isImgLogo = img.includes('/build/assets/sitelogo.png');
+                const isImgLogo = img.includes('/assets/sitelogo.png');
                 return (
                     <img
                         key={index}
@@ -497,7 +497,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                     src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
                                     alt={ad.title}
                                     onClick={() => setIsFullScreen(true)}
-                                    className={`w-full h-[500px] cursor-pointer ${ad.images[currentImageIndex]?.includes('/build/assets/sitelogo.png') || !ad.images[currentImageIndex]
+                                    className={`w-full h-[500px] cursor-pointer ${ad.images[currentImageIndex]?.includes('/assets/sitelogo.png') || !ad.images[currentImageIndex]
                                         ? 'object-contain bg-gray-100'
                                         : 'object-cover'
                                         }`}
@@ -555,7 +555,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                         <img
                                             src={src || '/placeholder-image.jpg'}
                                             alt={`${ad.title} ${index + 1}`}
-                                            className={`w-full h-[80px] ${src?.includes('/build/assets/sitelogo.png') || !src
+                                            className={`w-full h-[80px] ${src?.includes('/assets/sitelogo.png') || !src
                                                 ? 'object-contain bg-gray-100'
                                                 : 'object-cover'
                                                 }`}

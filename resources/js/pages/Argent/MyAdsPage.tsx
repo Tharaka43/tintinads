@@ -134,7 +134,7 @@ const MyAdsPage: React.FC<MyAdsPageProps> = ({ ads }) => {
                                 <img
                                     src={ad.image_url || PLACEHOLDER_IMAGE}
                                     alt={ad.title}
-                                    className={`h-48 md:h-full w-full ${ad.image_url?.includes('/build/assets/') || !ad.image_url
+                                    className={`h-48 md:h-full w-full ${ad.image_url?.includes('/assets/') || !ad.image_url
                                         ? 'object-contain bg-gray-50 p-4'
                                         : 'object-cover'
                                     }`}

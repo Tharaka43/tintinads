@@ -178,8 +178,8 @@ const AgentsPage: React.FC<AgentsPageProps> = ({
                     <div className="flex items-center justify-between h-16 sm:h-20">
                         {/* Logo */}
                         <a href="/" className="flex items-center">
-                            <img src="/build/assets/siteicon.png" alt="Logo" className="h-10 sm:h-12 mr-2" />
-                            <img src="/build/assets/sitetxt.png" alt="Text" className="h-6 sm:h-8 hidden sm:block" />
+                            <img src="/assets/siteicon.png" alt="Logo" className="h-10 sm:h-12 mr-2" />
+                            <img src="/assets/sitetxt.png" alt="Text" className="h-6 sm:h-8 hidden sm:block" />
                         </a>
                         
                         {/* Navigation */}

@@ -46,8 +46,8 @@ const AgentLoginPage: React.FC = () => {
                         {/* Logo and Header */}
                         <div className="text-center mb-8">
                             <a href="/" className="inline-flex items-center justify-center mb-6">
-                                <img src="/build/assets/siteicon.png" alt="Logo Icon" className="h-12 w-auto mr-2" />
-                                <img src="/build/assets/sitetxt.png" alt="Logo Text" className="h-8 w-auto" />
+                                <img src="/assets/siteicon.png" alt="Logo Icon" className="h-12 w-auto mr-2" />
+                                <img src="/assets/sitetxt.png" alt="Logo Text" className="h-8 w-auto" />
                             </a>
                             <h1 className="text-2xl font-black text-gray-900 tracking-tight">Agent Portal</h1>
                             <p className="text-gray-500 mt-2 text-sm font-medium">Log in to post and manage your advertisements</p>
