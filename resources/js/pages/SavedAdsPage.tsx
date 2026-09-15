@@ -191,7 +191,7 @@ const SavedAdsPage: React.FC<SavedAdsPageProps> = ({
             const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
             if (!csrfToken) return;
 
-            const endpoint = shouldSave ? /ads/ + adId + /save : /ads/ + adId + /unsave;
+            const endpoint = shouldSave ? `/ads/${adId}/save` : `/ads/${adId}/unsave`;
             const response = await fetch(endpoint, {
                 method: 'POST',
                 headers: {
