@@ -75,7 +75,7 @@ class ClassifiedsController extends Controller
                 if (!empty($images)) {
                     $imageUrl = $images[0];
                 } else {
-                    $imageUrl = '/build/assets/sitelogo.png';
+                    $imageUrl = '/placeholder-image.jpg';
                     $images = [$imageUrl]; // Ensure images array has at least the default
                 }
 
@@ -254,7 +254,7 @@ class ClassifiedsController extends Controller
                 if (!empty($images)) {
                     $imageUrl = $images[0];
                 } else {
-                    $imageUrl = '/build/assets/sitelogo.png';
+                    $imageUrl = '/placeholder-image.jpg';
                     $images = [$imageUrl];
                 }
 
@@ -325,7 +325,7 @@ class ClassifiedsController extends Controller
 
         // If no images, use default header image
         if (empty($images)) {
-            $images = ['/build/assets/sitelogo.png'];
+            $images = ['/placeholder-image.jpg'];
         }
 
         // Calculate time ago
@@ -367,7 +367,7 @@ class ClassifiedsController extends Controller
                 if (!empty($images)) {
                     $imageUrl = $images[0];
                 } else {
-                    $imageUrl = '/build/assets/sitelogo.png';
+                    $imageUrl = '/placeholder-image.jpg';
                     $images = [$imageUrl];
                 }
 

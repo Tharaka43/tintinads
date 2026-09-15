@@ -82,7 +82,7 @@ class AdminAdvertisementController extends Controller
                 // Get first image URL, or use default header image
                 $imageUrl = $advertisement->images->first()
                     ? Storage::url($advertisement->images->first()->path)
-                    : '/build/assets/sitelogo.png';
+                    : '/placeholder-image.jpg';
 
                 // Determine if featured (check listing category for VIP/Premium)
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';

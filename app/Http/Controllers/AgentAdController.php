@@ -396,7 +396,7 @@ class AgentAdController extends Controller
                     'sub_category' => optional($advertisement->subCategory)->name,
                     'image_url' => $advertisement->images->first()
                         ? Storage::url($advertisement->images->first()->path)
-                        : '/build/assets/sitelogo.png',
+                        : '/placeholder-image.jpg',
                 ];
             })->values();
 
