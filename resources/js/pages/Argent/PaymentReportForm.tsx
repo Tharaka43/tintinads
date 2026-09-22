@@ -357,16 +357,7 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
             return;
         }
 
-        if (!ocrResults) {
-            alert('Please scan the receipt before submitting the form.');
-            return;
-        }
 
-        const verified = runVerification();
-        if (!verified) {
-            alert('Receipt details do not match the OCR results yet. Please review and ensure they are verified.');
-            return;
-        }
 
         setIsSubmitting(true);
         setSubmitError(null);
