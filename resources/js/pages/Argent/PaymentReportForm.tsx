@@ -195,11 +195,23 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                 next.bankAccountNumber = '';
             }
             
-            // When ad is selected, auto-load listing category price into amount field
+            // When ad is selected, auto-load the Admin's cut into amount field
             if (name === 'adId' && value) {
                 const selectedAd = adOptions.find(ad => String(ad.id) === value);
                 if (selectedAd && selectedAd.listing_category_price) {
-                    next.amount = selectedAd.listing_category_price;
+                    const fullPrice = parseFloat(selectedAd.listing_category_price);
+                    let payableToAdmin = fullPrice;
+                    
+                    // Business Logic: Agent keeps their commission, transfers the rest to Admin
+                    if (fullPrice === 300) {
+                        payableToAdmin = 200; // Agent keeps 100
+                    } else if (fullPrice === 500) {
+                        payableToAdmin = 300; // Agent keeps 200
+                    } else if (fullPrice === 700) {
+                        payableToAdmin = 400; // Agent keeps 300
+                    }
+                    
+                    next.amount = String(payableToAdmin);
                 }
             } else if (name === 'adId' && !value) {
                 // Clear amount when ad is deselected
@@ -667,7 +679,7 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                                         {formData.adId && (
                                             <p className="text-xs text-blue-600 mt-1">
                                                 <i className="fas fa-info-circle mr-1"></i>
-                                                Amount automatically loaded from the selected advertisement's listing category price.
+                                                Amount automatically loaded (Your commission is already deducted).
                                             </p>
                                         )}
                                         {!formData.adId && (
