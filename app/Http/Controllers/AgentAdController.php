@@ -382,13 +382,19 @@ class AgentAdController extends Controller
             ->latest('post_date')
             ->get()
             ->map(function (Advertisement $advertisement) {
+                $isExpired = $advertisement->post_date && $advertisement->post_date->lt(now()->subDays(14));
+                $displayStatus = $advertisement->status;
+                if ($displayStatus === 'activated' && $isExpired) {
+                    $displayStatus = 'expired';
+                }
+
                 return [
                     'id' => $advertisement->id,
                     'title' => $advertisement->title,
                     'description' => $advertisement->description,
                     'price' => (string) $advertisement->price,
                     'location' => $advertisement->location,
-                    'status' => $advertisement->status,
+                    'status' => $displayStatus,
                     'code' => $advertisement->code,
                     'post_date' => optional($advertisement->post_date)->toDateTimeString(),
                     'common_category' => optional($advertisement->commonCategory)->name,

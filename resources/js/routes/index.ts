@@ -79,7 +79,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     home.form = homeForm
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
 export const agents = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ agents.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
 agents.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ agents.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
 agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
 agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
     const agentsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
         agentsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:449
+ * @see app/Http/Controllers/ClassifiedsController.php:453
  * @route '/agents'
  */
         agentsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     agents.form = agentsForm
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
 export const savedAds = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -172,7 +172,7 @@ savedAds.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
 savedAds.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ savedAds.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
 savedAds.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -190,7 +190,7 @@ savedAds.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
 savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -200,7 +200,7 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
     const savedAdsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -210,7 +210,7 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
         savedAdsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -219,7 +219,7 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:210
+ * @see app/Http/Controllers/ClassifiedsController.php:211
  * @route '/saved-ads'
  */
         savedAdsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

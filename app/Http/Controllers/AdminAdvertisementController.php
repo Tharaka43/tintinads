@@ -86,11 +86,18 @@ class AdminAdvertisementController extends Controller
 
                 // Determine if featured (check listing category for VIP/Premium)
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
-                $isFeatured = in_array(strtolower($listingCategoryName), ['vip', 'premium', 'featured']) 
+                $isFeatured = in_array(strtolower($listingCategoryName), ['vip', 'premium', 'super', 'featured']) 
                     && strtolower($advertisement->status) === 'activated';
 
+                $rawStatus = $advertisement->status;
+                $isExpired = $advertisement->post_date && $advertisement->post_date->lt(now()->subDays(14));
+                if ($rawStatus === 'activated' && $isExpired) {
+                    $rawStatus = 'expired';
+                    $isFeatured = false;
+                }
+
                 // Map status to frontend format
-                $status = $this->mapStatus($advertisement->status, $isFeatured);
+                $status = $this->mapStatus($rawStatus, $isFeatured);
 
                 // Get latest transaction receipt if exists
                 $latestTransaction = $advertisement->transactions->sortByDesc('created_at')->first();
