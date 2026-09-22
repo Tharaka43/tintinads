@@ -686,16 +686,33 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 {isMobileMenuOpen && (
                     <div className="md:hidden bg-white border-t border-gray-200">
                         <div className="px-4 py-2 space-y-2">
-                            <a href="/" className="block py-2 text-gray-700">Browse</a>
-                            <a href="/saved-ads" className="block py-2 text-gray-700 relative">
-                                Saved Ads
+                            <a href="/" className="block py-2 text-gray-700 hover:text-pink-600">
+                                <i className="fas fa-search w-6 text-center text-gray-400 mr-2"></i> Browse
+                            </a>
+                            <a href="/agents" className="block py-2 text-gray-700 hover:text-pink-600">
+                                <i className="fas fa-user-shield w-6 text-center text-pink-500 mr-2"></i> Agents
+                            </a>
+                            <a href="/premium" className="block py-2 text-gray-700 hover:text-amber-500">
+                                <i className="fas fa-crown w-6 text-center text-amber-500 mr-2"></i> Premium
+                            </a>
+                            <a href="/saved-ads" className="block py-2 text-gray-700 hover:text-red-600 relative">
+                                <i className="far fa-heart w-6 text-center text-red-500 mr-2"></i> Saved Ads
                                 {savedAds.length > 0 && (
                                     <span className="ml-2 bg-pink-500 text-white text-xs rounded-full px-2 py-0.5">
                                         {savedAds.length}
                                     </span>
                                 )}
                             </a>
-                            <a href="/terms-and-conditions" className="block py-2 text-gray-700">Terms & Conditions</a>
+                            <a href="/blog" className="block py-2 text-gray-700 hover:text-cyan-600">
+                                <i className="far fa-newspaper w-6 text-center text-cyan-500 mr-2"></i> Blog
+                            </a>
+                            <a href="/terms-and-conditions" className="block py-2 text-gray-700 hover:text-gray-900">
+                                <i className="fas fa-file-contract w-6 text-center text-gray-400 mr-2"></i> Terms & Conditions
+                            </a>
+                            <div className="border-t border-gray-100 my-2 pt-2"></div>
+                            <a href="/login" className="block py-2 font-bold text-gray-900 hover:text-pink-600">
+                                <i className="fas fa-lock w-6 text-center text-slate-800 mr-2"></i> Agent Login
+                            </a>
                         </div>
                     </div>
                 )}
