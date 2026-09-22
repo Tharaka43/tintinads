@@ -483,36 +483,6 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                             <p className="text-xs text-gray-500 mt-2">This is mandatory proof of payment received</p>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                            <button
-                                type="button"
-                                onClick={handleOcrScan}
-                                disabled={ocrLoading || !formData.receiptFile}
-                                className="inline-flex items-center justify-center px-4 py-3 rounded-lg text-white font-semibold transition-colors duration-200 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300"
-                            >
-                                {ocrLoading ? 'Scanning receipt...' : 'Scan receipt for OCR'}
-                            </button>
-                            {verificationStatus === 'verified' && (
-                                <span className="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-sm font-semibold">
-                                    verified
-                                </span>
-                            )}
-                            {verificationStatus === 'failed' && ocrResults && (
-                                <span className="text-sm text-yellow-600">Awaiting verification</span>
-                            )}
-                        </div>
-
-                        {ocrError && (
-                            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-                                {ocrError}
-                            </p>
-                        )}
-                        {submitError && (
-                            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
-                                {submitError}
-                            </p>
-                        )}
-
                         {/* Bank Selection - Show before OCR scan */}
                         <div>
                             <label htmlFor="bankId" className="block text-sm font-semibold text-gray-700 mb-2">
@@ -539,49 +509,7 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                             </p>
                         </div>
 
-                        {ocrResults && (
-                            <>
-                                <div className="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                                    <h4 className="font-semibold text-gray-700 mb-2">Receipt OCR Summary</h4>
-                                    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm">
-                                        <div>
-                                            <dt className="font-medium text-gray-600">Bank Reference</dt>
-                                            <dd className="text-gray-900">{ocrResults.bank_reference_number || 'N/A'}</dd>
-                                        </div>
-                                        <div>
-                                            <dt className="font-medium text-gray-600">Beneficiary Name</dt>
-                                            <dd className="text-gray-900">{ocrResults.beneficiary_name || 'N/A'}</dd>
-                                        </div>
-                                        <div>
-                                            <dt className="font-medium text-gray-600">Transfer Amount</dt>
-                                            <dd className="text-gray-900">
-                                                {ocrResults.transfer_amount} {ocrResults.transfer_currency}
-                                            </dd>
-                                        </div>
-                                        <div>
-                                            <dt className="font-medium text-gray-600">Transaction Date/Time</dt>
-                                            <dd className="text-gray-900">{ocrResults.transaction_datetime || 'N/A'}</dd>
-                                        </div>
-                                        {ocrResults.account_number_status && (
-                                            <div>
-                                                <dt className="font-medium text-gray-600">Account Number Verification</dt>
-                                                <dd className={`font-semibold ${
-                                                    ocrResults.account_number_match 
-                                                        ? 'text-green-600' 
-                                                        : 'text-red-600'
-                                                }`}>
-                                                    {ocrResults.account_number_status}
-                                                </dd>
-                                            </div>
-                                        )}
-                                    </dl>
-                                    <details className="mt-3">
-                                        <summary className="text-sm text-blue-600 cursor-pointer">View full OCR text</summary>
-                                        <pre className="mt-2 whitespace-pre-wrap text-xs bg-white border border-gray-200 rounded-lg p-3">
-                                            {ocrResults.full_text}
-                                        </pre>
-                                    </details>
-                                </div>
+
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                                     <div>
@@ -707,38 +635,6 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                                 </div>
 
                                 <div>
-                                    <h4 className="text-sm font-semibold text-gray-700 mb-2">Verification status</h4>
-                                    <ul className="space-y-1 text-sm">
-                                        <li>
-                                            account number —{' '}
-                                            <span className={accountNumberStatus === 'verified' ? 'text-green-600' : accountNumberStatus === 'failed' ? 'text-red-600' : 'text-gray-500'}>
-                                                {accountNumberStatus === 'verified' ? 'verified' : accountNumberStatus === 'failed' ? 'failed' : 'pending'}
-                                            </span>
-                                        </li>
-                                        <li>
-                                            bank reference number —{' '}
-                                            <span className={referenceStatus === 'verified' ? 'text-green-600' : referenceStatus === 'failed' ? 'text-red-600' : 'text-gray-500'}>
-                                                {referenceStatus === 'verified' ? 'verified' : referenceStatus === 'failed' ? 'failed' : 'pending'}
-                                            </span>
-                                        </li>
-                                        <li>
-                                            amount —{' '}
-                                            <span className={amountStatus === 'verified' ? 'text-green-600' : amountStatus === 'failed' ? 'text-red-600' : 'text-gray-500'}>
-                                                {amountStatus === 'verified' ? 'verified' : amountStatus === 'failed' ? 'failed' : 'pending'}
-                                            </span>
-                                        </li>
-                                    </ul>
-                                    <button
-                                        type="button"
-                                        onClick={runVerification}
-                                        disabled={!ocrResults}
-                                        className="mt-3 inline-flex items-center justify-center px-4 py-3 rounded-lg text-white font-semibold transition-colors duration-200 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-300"
-                                    >
-                                        Check verification
-                                    </button>
-                                </div>
-
-                                <div>
                                     <label htmlFor="notes" className="block text-sm font-semibold text-gray-700 mb-2">
                                         Description/Notes
                                     </label>
@@ -759,13 +655,11 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                                         type="submit"
                                         className={`w-full text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${isSubmitting ? 'bg-pink-400 cursor-not-allowed' : 'bg-pink-500 hover:bg-pink-600'}`}
                                         style={{ backgroundColor: isSubmitting ? '#F472B6' : PINK_500 }}
-                                        disabled={isSubmitting || !hasAdOptions || verificationStatus !== 'verified'}
+                                        disabled={isSubmitting || !hasAdOptions || !formData.receiptFile}
                                     >
                                         {isSubmitting ? 'Submitting Proof...' : 'Submit Payment Proof'}
                                     </button>
                                 </div>
-                            </>
-                        )}
                     </form>
                 </div>
 
