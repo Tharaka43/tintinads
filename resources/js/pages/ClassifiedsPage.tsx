@@ -796,11 +796,11 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
 
                     {/* Ad Grid */}
                     <main className="flex-1">
-                        <div className="flex items-center justify-between mb-6">
-                            <h2 className="text-xl font-semibold text-gray-900">Latest Ads in {initialCategory}</h2>
-                            <div className="flex items-center space-x-4">
-                                <span className="text-sm text-gray-600">{filteredAds.length} results</span>
-                                <select className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none text-sm focus:border-light-blue" style={{ borderColor: LIGHT_BLUE }}>
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Latest Ads in {initialCategory}</h2>
+                            <div className="flex items-center space-x-4 self-start sm:self-auto">
+                                <span className="text-sm text-gray-600 whitespace-nowrap">{filteredAds.length} results</span>
+                                <select className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none text-sm focus:border-light-blue w-full sm:w-auto" style={{ borderColor: LIGHT_BLUE }}>
                                     <option>Sort by: Latest</option>
                                     <option>Price: Low to High</option>
                                     <option>Price: High to Low</option>
