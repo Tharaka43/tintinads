@@ -240,11 +240,19 @@ const CommissionReview: React.FC = () => {
                         >
                             Close
                         </button>
-                        <img
-                            src={slipImage}
-                            alt="Payment Receipt"
-                            className="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl bg-white"
-                        />
+                        {slipImage.toLowerCase().endsWith('.pdf') ? (
+                            <iframe 
+                                src={slipImage} 
+                                title="Payment Receipt PDF"
+                                className="w-full min-h-[70vh] rounded-xl shadow-2xl bg-white"
+                            ></iframe>
+                        ) : (
+                            <img
+                                src={slipImage}
+                                alt="Payment Receipt"
+                                className="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl bg-white"
+                            />
+                        )}
                     </div>
                 </div>
             )}

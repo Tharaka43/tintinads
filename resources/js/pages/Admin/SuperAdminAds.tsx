@@ -259,7 +259,15 @@ const SuperAdminAds: React.FC = () => {
                 <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm" onClick={() => setSlipImage(null)}>
                     <div className="relative max-w-2xl w-full" onClick={e => e.stopPropagation()}>
                         <button className="absolute -top-10 right-0 text-white font-semibold text-sm px-3 py-1 bg-white/10 hover:bg-white/20 rounded-lg transition" onClick={() => setSlipImage(null)}>Close</button>
-                        <img src={slipImage} alt="Payment Receipt" className="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl bg-white" />
+                        {slipImage.toLowerCase().endsWith('.pdf') ? (
+                            <iframe 
+                                src={slipImage} 
+                                title="Payment Receipt PDF"
+                                className="w-full min-h-[70vh] rounded-xl shadow-2xl bg-white"
+                            ></iframe>
+                        ) : (
+                            <img src={slipImage} alt="Payment Receipt" className="w-full h-auto max-h-[80vh] object-contain rounded-xl shadow-2xl bg-white" />
+                        )}
                     </div>
                 </div>
             )}
