@@ -1,4 +1,4 @@
-﻿import React, { FormEvent } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 
 type AgentLoginForm = {
@@ -20,6 +20,8 @@ const AgentLoginPage: React.FC = () => {
         password: '',
         remember: false,
     });
+
+    const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
@@ -88,15 +90,22 @@ const AgentLoginPage: React.FC = () => {
                                             <i className="fas fa-lock text-gray-400"></i>
                                         </div>
                                         <input 
-                                            type="password" 
+                                            type={showPassword ? "text" : "password"} 
                                             id="password" 
-                                            className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white text-sm" 
+                                            className="w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all bg-gray-50 focus:bg-white text-sm" 
                                             placeholder="••••••••"
                                             value={data.password}
                                             onChange={(e) => setData('password', e.target.value)}
                                             required
                                             disabled={processing}
                                         />
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-pink-500 focus:outline-none"
+                                        >
+                                            <i className={showPassword ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+                                        </button>
                                     </div>
                                     {errors.password && (
                                         <p className="mt-1 text-sm text-red-500 font-medium">{errors.password}</p>
