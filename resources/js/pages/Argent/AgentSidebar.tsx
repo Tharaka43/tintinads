@@ -18,8 +18,6 @@ const NAV_ITEMS: NavItem[] = [
     { key: 'mainhome', title: 'Dashboard', icon: 'fas fa-home', routePath: '/agent/mainhome' },
     { key: 'ads', title: 'My Ads', icon: 'fas fa-ad', routePath: '/agent/ads' },
     { key: 'post', title: 'Post New', icon: 'fas fa-plus-circle', routePath: '/agent/post' },
-    { key: 'payments', title: 'Payments', icon: 'fas fa-credit-card', routePath: '/agent/payments' },
-    { key: 'commission', title: 'Commission', icon: 'fas fa-percentage', routePath: '/agent/commission' },
     { key: 'profile', title: 'My Profile', icon: 'fas fa-user', routePath: '/agent/profile' },
 ];
 
