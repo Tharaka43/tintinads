@@ -352,8 +352,24 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
         e.preventDefault();
         if (isSubmitting) return;
 
-        if (!formData.adId || formData.amount === '' || !formData.paymentDate || !formData.receiptFile) {
-            alert('Please select an advertisement and fill out all required fields.');
+        if (!formData.receiptFile) {
+            alert('Please upload the receipt image.');
+            return;
+        }
+        if (!formData.bankId) {
+            alert('Please select the Admin Beneficiary Bank.');
+            return;
+        }
+        if (!formData.adId) {
+            alert('Please select the Associated Ad.');
+            return;
+        }
+        if (!formData.paymentDate) {
+            alert('Please select the Date/Time of Payment.');
+            return;
+        }
+        if (formData.amount === '') {
+            alert('Please fill out all required fields.');
             return;
         }
 
@@ -696,9 +712,9 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                                 <div className="pt-4">
                                     <button
                                         type="submit"
-                                        className={`w-full text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${isSubmitting ? 'bg-pink-400 cursor-not-allowed' : 'bg-pink-500 hover:bg-pink-600'}`}
-                                        style={{ backgroundColor: isSubmitting ? '#F472B6' : PINK_500 }}
-                                        disabled={isSubmitting || !hasAdOptions || !formData.receiptFile}
+                                        className={`w-full text-white font-semibold py-4 px-6 rounded-lg transition-colors duration-200 text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 ${isSubmitting || !hasAdOptions ? 'bg-pink-400 cursor-not-allowed' : 'bg-pink-500 hover:bg-pink-600'}`}
+                                        style={{ backgroundColor: (isSubmitting || !hasAdOptions) ? '#F472B6' : PINK_500 }}
+                                        disabled={isSubmitting || !hasAdOptions}
                                     >
                                         {isSubmitting ? 'Submitting Proof...' : 'Submit Payment Proof'}
                                     </button>
