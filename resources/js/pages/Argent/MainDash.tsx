@@ -32,8 +32,8 @@ interface Activity {
 const KPI_DATA: KPI[] = [
     { id: 1, title: 'Total Active Ads', value: '0', trend: 'Ads currently live', trendColor: 'text-green-600', icon: 'fas fa-ad', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
     { id: 2, title: 'Ads Under Review', value: '0', trend: 'Waiting for approval', trendColor: 'text-yellow-600', icon: 'fas fa-hourglass-half', iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600' },
-    { id: 3, title: 'Pending Payments', value: 'Rs. 0', trend: 'To be paid to you', trendColor: 'text-blue-600', icon: 'fas fa-credit-card', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
-    { id: 4, title: 'Total Commission', value: 'Rs. 0', trend: 'Total earned', trendColor: 'text-green-600', icon: 'fas fa-percentage', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
+    { id: 3, title: 'Payable to Admin', value: 'Rs. 0', trend: 'Money you owe to platform', trendColor: 'text-blue-600', icon: 'fas fa-file-invoice-dollar', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
+    { id: 4, title: 'Your Commission', value: 'Rs. 0', trend: 'Total profit earned', trendColor: 'text-green-600', icon: 'fas fa-percentage', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
 ];
 
 const ACTIVITY_FEED: Activity[] = [
