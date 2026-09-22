@@ -532,10 +532,10 @@ class AgentAdController extends Controller
                 'status' => 'Pending Review',
             ]);
 
-            // Update advertisement status to activated and payment_status to paid
+            // Leave the advertisement as deactivated until Admin approves it
+            // but we can set payment_status to 'review' if needed (currently we just wait for transaction approval)
             $advertisement->update([
-                'status' => 'activated',
-                'payment_status' => 'paid',
+                'payment_status' => 'review',
             ]);
 
             Log::info('Payment transaction created', [

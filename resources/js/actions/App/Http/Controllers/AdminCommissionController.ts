@@ -153,7 +153,7 @@ confirm.post = (args: { id: string | number } | [id: string | number ] | string 
     confirm.form = confirmForm
 /**
 * @see \App\Http\Controllers\AdminCommissionController::reject
- * @see app/Http/Controllers/AdminCommissionController.php:172
+ * @see app/Http/Controllers/AdminCommissionController.php:181
  * @route '/admin/api/commissions/{id}/reject'
  */
 export const reject = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -168,7 +168,7 @@ reject.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminCommissionController::reject
- * @see app/Http/Controllers/AdminCommissionController.php:172
+ * @see app/Http/Controllers/AdminCommissionController.php:181
  * @route '/admin/api/commissions/{id}/reject'
  */
 reject.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -196,7 +196,7 @@ reject.url = (args: { id: string | number } | [id: string | number ] | string | 
 
 /**
 * @see \App\Http\Controllers\AdminCommissionController::reject
- * @see app/Http/Controllers/AdminCommissionController.php:172
+ * @see app/Http/Controllers/AdminCommissionController.php:181
  * @route '/admin/api/commissions/{id}/reject'
  */
 reject.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -206,7 +206,7 @@ reject.post = (args: { id: string | number } | [id: string | number ] | string |
 
     /**
 * @see \App\Http\Controllers\AdminCommissionController::reject
- * @see app/Http/Controllers/AdminCommissionController.php:172
+ * @see app/Http/Controllers/AdminCommissionController.php:181
  * @route '/admin/api/commissions/{id}/reject'
  */
     const rejectForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -216,7 +216,7 @@ reject.post = (args: { id: string | number } | [id: string | number ] | string |
 
             /**
 * @see \App\Http\Controllers\AdminCommissionController::reject
- * @see app/Http/Controllers/AdminCommissionController.php:172
+ * @see app/Http/Controllers/AdminCommissionController.php:181
  * @route '/admin/api/commissions/{id}/reject'
  */
         rejectForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -139,11 +139,6 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                 <div className={`flex flex-row w-full h-full bg-white ${isVip ? 'bg-amber-50 rounded-lg' : isPremium ? 'bg-pink-50 rounded-lg' : ''}`}>
                     {/* Left: Image */}
                     <div className="relative w-[130px] sm:w-[180px] h-full flex-shrink-0">
-                        {/* Fake Ad Badge */}
-                        <div className="absolute top-0 left-0 z-20 bg-red-600 text-white px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-br-lg shadow-sm flex items-center">
-                            Fake Ad
-                        </div>
-
                         {/* Top Right Badges */}
                         <div className="absolute top-1 right-1 z-20 flex flex-col gap-1">
                             {isVip && (
@@ -298,11 +293,7 @@ const FilterSidebarContent = ({ selectedCategory, setSelectedCategory, categorie
                     <span className="flex-1 text-center text-gray-900">Premium</span>
                     <i className="fas fa-crown opacity-80 text-gray-900"></i>
                 </a>
-                <a href="/fake-ads" className="w-full bg-gradient-to-r from-gray-800 to-gray-900 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-between hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
-                    <span className="flex-1 text-center">Fake Ads</span>
-                    <i className="fas fa-bug opacity-80"></i>
-                </a>
-                <a href="/saved" className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-between hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
+                <a href="/saved-ads" className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-between hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
                     <span className="flex-1 text-center">My Saved Ads</span>
                     <i className="far fa-heart opacity-80"></i>
                 </a>

@@ -141,6 +141,15 @@ class AdminCommissionController extends Controller
             $transaction->update([
                 'status' => 'Confirmed',
             ]);
+
+            // Activate the advertisement now that payment is confirmed
+            $ad = \App\Models\Advertisement::find($transaction->advertisement_id);
+            if ($ad) {
+                $ad->update([
+                    'status' => 'activated',
+                    'payment_status' => 'paid',
+                ]);
+            }
             
             Log::info('Commission confirmed by admin', [
                 'transaction_id' => $transaction->id,

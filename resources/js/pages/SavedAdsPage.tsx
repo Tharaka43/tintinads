@@ -104,11 +104,6 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                 <div className={`flex flex-row w-full h-full bg-white ${isVip ? 'bg-amber-50 rounded-lg' : isPremium ? 'bg-pink-50 rounded-lg' : ''}`}>
                     {/* Left: Image */}
                     <div className="relative w-[130px] sm:w-[180px] h-full flex-shrink-0">
-                        {/* Fake Ad Badge */}
-                        <div className="absolute top-0 left-0 z-20 bg-red-600 text-white px-2 py-0.5 text-[10px] sm:text-xs font-bold rounded-br-lg shadow-sm flex items-center">
-                            Fake Ad
-                        </div>
-
                         {/* Top Right Badges */}
                         <div className="absolute top-1 right-1 z-20 flex flex-col gap-1">
                             {isVip && (
