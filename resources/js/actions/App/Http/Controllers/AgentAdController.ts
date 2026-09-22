@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
 export const codes = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ codes.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
 codes.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ codes.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
 codes.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ codes.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
 codes.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ codes.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
     const codesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ codes.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
         codesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ codes.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\AgentAdController::codes
- * @see app/Http/Controllers/AgentAdController.php:587
+ * @see app/Http/Controllers/AgentAdController.php:599
  * @route '/agent/ads/codes'
  */
         codesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -461,7 +461,7 @@ update.post = (args: { id: string | number } | [id: string | number ] | string |
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\AgentAdController::toggleStatus
- * @see app/Http/Controllers/AgentAdController.php:635
+ * @see app/Http/Controllers/AgentAdController.php:647
  * @route '/agent/ads/{id}/toggle'
  */
 export const toggleStatus = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -476,7 +476,7 @@ toggleStatus.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::toggleStatus
- * @see app/Http/Controllers/AgentAdController.php:635
+ * @see app/Http/Controllers/AgentAdController.php:647
  * @route '/agent/ads/{id}/toggle'
  */
 toggleStatus.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -504,7 +504,7 @@ toggleStatus.url = (args: { id: string | number } | [id: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\AgentAdController::toggleStatus
- * @see app/Http/Controllers/AgentAdController.php:635
+ * @see app/Http/Controllers/AgentAdController.php:647
  * @route '/agent/ads/{id}/toggle'
  */
 toggleStatus.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -514,7 +514,7 @@ toggleStatus.post = (args: { id: string | number } | [id: string | number ] | st
 
     /**
 * @see \App\Http\Controllers\AgentAdController::toggleStatus
- * @see app/Http/Controllers/AgentAdController.php:635
+ * @see app/Http/Controllers/AgentAdController.php:647
  * @route '/agent/ads/{id}/toggle'
  */
     const toggleStatusForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -524,7 +524,7 @@ toggleStatus.post = (args: { id: string | number } | [id: string | number ] | st
 
             /**
 * @see \App\Http\Controllers\AgentAdController::toggleStatus
- * @see app/Http/Controllers/AgentAdController.php:635
+ * @see app/Http/Controllers/AgentAdController.php:647
  * @route '/agent/ads/{id}/toggle'
  */
         toggleStatusForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -535,7 +535,7 @@ toggleStatus.post = (args: { id: string | number } | [id: string | number ] | st
     toggleStatus.form = toggleStatusForm
 /**
 * @see \App\Http\Controllers\AgentAdController::bumpAd
- * @see app/Http/Controllers/AgentAdController.php:653
+ * @see app/Http/Controllers/AgentAdController.php:665
  * @route '/agent/ads/{id}/bump'
  */
 export const bumpAd = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -550,7 +550,7 @@ bumpAd.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::bumpAd
- * @see app/Http/Controllers/AgentAdController.php:653
+ * @see app/Http/Controllers/AgentAdController.php:665
  * @route '/agent/ads/{id}/bump'
  */
 bumpAd.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -578,7 +578,7 @@ bumpAd.url = (args: { id: string | number } | [id: string | number ] | string | 
 
 /**
 * @see \App\Http\Controllers\AgentAdController::bumpAd
- * @see app/Http/Controllers/AgentAdController.php:653
+ * @see app/Http/Controllers/AgentAdController.php:665
  * @route '/agent/ads/{id}/bump'
  */
 bumpAd.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -588,7 +588,7 @@ bumpAd.post = (args: { id: string | number } | [id: string | number ] | string |
 
     /**
 * @see \App\Http\Controllers\AgentAdController::bumpAd
- * @see app/Http/Controllers/AgentAdController.php:653
+ * @see app/Http/Controllers/AgentAdController.php:665
  * @route '/agent/ads/{id}/bump'
  */
     const bumpAdForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -598,7 +598,7 @@ bumpAd.post = (args: { id: string | number } | [id: string | number ] | string |
 
             /**
 * @see \App\Http\Controllers\AgentAdController::bumpAd
- * @see app/Http/Controllers/AgentAdController.php:653
+ * @see app/Http/Controllers/AgentAdController.php:665
  * @route '/agent/ads/{id}/bump'
  */
         bumpAdForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -609,7 +609,7 @@ bumpAd.post = (args: { id: string | number } | [id: string | number ] | string |
     bumpAd.form = bumpAdForm
 /**
 * @see \App\Http\Controllers\AgentAdController::deleteAd
- * @see app/Http/Controllers/AgentAdController.php:666
+ * @see app/Http/Controllers/AgentAdController.php:678
  * @route '/agent/ads/{id}/delete'
  */
 export const deleteAd = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -624,7 +624,7 @@ deleteAd.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::deleteAd
- * @see app/Http/Controllers/AgentAdController.php:666
+ * @see app/Http/Controllers/AgentAdController.php:678
  * @route '/agent/ads/{id}/delete'
  */
 deleteAd.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -652,7 +652,7 @@ deleteAd.url = (args: { id: string | number } | [id: string | number ] | string 
 
 /**
 * @see \App\Http\Controllers\AgentAdController::deleteAd
- * @see app/Http/Controllers/AgentAdController.php:666
+ * @see app/Http/Controllers/AgentAdController.php:678
  * @route '/agent/ads/{id}/delete'
  */
 deleteAd.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -662,7 +662,7 @@ deleteAd.delete = (args: { id: string | number } | [id: string | number ] | stri
 
     /**
 * @see \App\Http\Controllers\AgentAdController::deleteAd
- * @see app/Http/Controllers/AgentAdController.php:666
+ * @see app/Http/Controllers/AgentAdController.php:678
  * @route '/agent/ads/{id}/delete'
  */
     const deleteAdForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -677,7 +677,7 @@ deleteAd.delete = (args: { id: string | number } | [id: string | number ] | stri
 
             /**
 * @see \App\Http\Controllers\AgentAdController::deleteAd
- * @see app/Http/Controllers/AgentAdController.php:666
+ * @see app/Http/Controllers/AgentAdController.php:678
  * @route '/agent/ads/{id}/delete'
  */
         deleteAdForm.delete = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -693,7 +693,7 @@ deleteAd.delete = (args: { id: string | number } | [id: string | number ] | stri
     deleteAd.form = deleteAdForm
 /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
 export const commissionHistory = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -708,7 +708,7 @@ commissionHistory.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
 commissionHistory.url = (options?: RouteQueryOptions) => {
@@ -717,7 +717,7 @@ commissionHistory.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
 commissionHistory.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -726,7 +726,7 @@ commissionHistory.get = (options?: RouteQueryOptions): RouteDefinition<'get'> =>
 })
 /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
 commissionHistory.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -736,7 +736,7 @@ commissionHistory.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
 
     /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
     const commissionHistoryForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -746,7 +746,7 @@ commissionHistory.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
 
             /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
         commissionHistoryForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -755,7 +755,7 @@ commissionHistory.head = (options?: RouteQueryOptions): RouteDefinition<'head'> 
         })
             /**
 * @see \App\Http\Controllers\AgentAdController::commissionHistory
- * @see app/Http/Controllers/AgentAdController.php:597
+ * @see app/Http/Controllers/AgentAdController.php:609
  * @route '/agent/commission'
  */
         commissionHistoryForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -904,7 +904,7 @@ storeTransaction.post = (options?: RouteQueryOptions): RouteDefinition<'post'> =
     storeTransaction.form = storeTransactionForm
 /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
 export const profile = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -919,7 +919,7 @@ profile.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
 profile.url = (options?: RouteQueryOptions) => {
@@ -928,7 +928,7 @@ profile.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
 profile.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -937,7 +937,7 @@ profile.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
 profile.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -947,7 +947,7 @@ profile.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
     const profileForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -957,7 +957,7 @@ profile.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
         profileForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -966,7 +966,7 @@ profile.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\AgentAdController::profile
- * @see app/Http/Controllers/AgentAdController.php:678
+ * @see app/Http/Controllers/AgentAdController.php:690
  * @route '/agent/profile'
  */
         profileForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -982,7 +982,7 @@ profile.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     profile.form = profileForm
 /**
 * @see \App\Http\Controllers\AgentAdController::updateProfile
- * @see app/Http/Controllers/AgentAdController.php:704
+ * @see app/Http/Controllers/AgentAdController.php:716
  * @route '/agent/profile/update'
  */
 export const updateProfile = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -997,7 +997,7 @@ updateProfile.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::updateProfile
- * @see app/Http/Controllers/AgentAdController.php:704
+ * @see app/Http/Controllers/AgentAdController.php:716
  * @route '/agent/profile/update'
  */
 updateProfile.url = (options?: RouteQueryOptions) => {
@@ -1006,7 +1006,7 @@ updateProfile.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AgentAdController::updateProfile
- * @see app/Http/Controllers/AgentAdController.php:704
+ * @see app/Http/Controllers/AgentAdController.php:716
  * @route '/agent/profile/update'
  */
 updateProfile.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -1016,7 +1016,7 @@ updateProfile.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => (
 
     /**
 * @see \App\Http\Controllers\AgentAdController::updateProfile
- * @see app/Http/Controllers/AgentAdController.php:704
+ * @see app/Http/Controllers/AgentAdController.php:716
  * @route '/agent/profile/update'
  */
     const updateProfileForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -1026,7 +1026,7 @@ updateProfile.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => (
 
             /**
 * @see \App\Http\Controllers\AgentAdController::updateProfile
- * @see app/Http/Controllers/AgentAdController.php:704
+ * @see app/Http/Controllers/AgentAdController.php:716
  * @route '/agent/profile/update'
  */
         updateProfileForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

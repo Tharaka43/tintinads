@@ -498,7 +498,7 @@ class AgentAdController extends Controller
                 'receiptFile' => ['required', 'file', 'mimes:jpeg,png,jpg,pdf', 'max:5120'],
             ]);
 
-            $advertisement = Advertisement::where('agent_id', $agent->id)->findOrFail($validated['adId']);
+            $advertisement = Advertisement::with('listingCategory')->where('agent_id', $agent->id)->findOrFail($validated['adId']);
 
             $receiptFile = $request->file('receiptFile');
             if (!$receiptFile) {
@@ -514,15 +514,27 @@ class AgentAdController extends Controller
             try {
                 $paymentDateTime = Carbon::parse($validated['paymentDate']);
             } catch (\Exception $e) {
-                Log::error('Payment date parsing failed', [
-                    'paymentDate' => $validated['paymentDate'],
-                    'error' => $e->getMessage(),
-                ]);
                 return response()->json([
                     'success' => false,
                     'message' => 'Invalid payment date format.',
-                    'error' => $e->getMessage(),
                 ], 422);
+            }
+
+            // Calculate actual commission based on ad tier
+            $fullPrice = $advertisement->listingCategory ? (float) $advertisement->listingCategory->price : 0;
+            $paidAmount = (float) $validated['amount'];
+            
+            // Expected Business Logic:
+            // 300 Ad -> Admin gets 200, Agent commission = 100
+            // 500 Ad -> Admin gets 300, Agent commission = 200
+            // 700 Ad -> Admin gets 400, Agent commission = 300
+            $calculatedCommission = 100;
+            if ($fullPrice == 700) {
+                $calculatedCommission = 300;
+            } elseif ($fullPrice == 500) {
+                $calculatedCommission = 200;
+            } elseif ($fullPrice > 0 && $fullPrice > $paidAmount) {
+                $calculatedCommission = $fullPrice - $paidAmount;
             }
 
             AdTransaction::create([
@@ -530,8 +542,8 @@ class AgentAdController extends Controller
                 'advertisement_id' => $advertisement->id,
                 'account_number' => $validated['accountNumber'],
                 'bank_reference_number' => $validated['bankReference'],
-                'amount' => (float) $validated['amount'],
-                'commission' => 100,
+                'amount' => $paidAmount,
+                'commission' => $calculatedCommission,
                 'payment_datetime' => $paymentDateTime,
                 'receipt_path' => $receiptPath,
                 'notes' => $validated['notes'] ?? null,
