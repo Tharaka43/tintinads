@@ -30,7 +30,7 @@ class ClassifiedsController extends Controller
         ])
             ->where('status', 'activated') // Only show activated ads
             ->where('payment_status', 'paid') // Only show paid ads
-            ->orderByRaw('ISNULL(listing_category_id), listing_category_id ASC')
+            ->orderByRaw('listing_category_id IS NULL, listing_category_id ASC')
             ->latest('post_date');
 
         // Filter by category if not "All Categories"
