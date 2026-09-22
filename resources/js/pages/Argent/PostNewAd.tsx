@@ -395,13 +395,13 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             <div className="space-y-2">
                                 <label className="block text-sm font-medium text-gray-700">Price *</label>
                                 <div className="relative">
-                                    <span className="absolute inset-y-0 left-4 flex items-center text-gray-500">$</span>
+                                    <span className="absolute inset-y-0 left-4 flex items-center text-gray-500">Rs.</span>
                                     <input
                                         type="number"
                                         min="0"
                                         step="0.01"
                                         placeholder="0.00"
-                                        className="w-full rounded-lg border border-gray-300 pl-10 pr-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
+                                        className="w-full rounded-lg border border-gray-300 pl-12 pr-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
                                         value={data.price}
                                         onChange={(event) => setData('price', event.target.value)}
                                         required
