@@ -59,7 +59,7 @@ class ClassifiedsController extends Controller
                 // Determine if VIP or Premium based on listing category name
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
                 $isVip = strtolower($listingCategoryName) === 'vip';
-                $isPremium = strtolower($listingCategoryName) === 'premium';
+                $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
 
                 // Determine if has cash back guarantee based on sub category
                 $subCategoryName = optional($advertisement->subCategory)->name ?? '';
@@ -238,7 +238,7 @@ class ClassifiedsController extends Controller
                 // Determine if VIP or Premium based on listing category name
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
                 $isVip = strtolower($listingCategoryName) === 'vip';
-                $isPremium = strtolower($listingCategoryName) === 'premium';
+                $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
 
                 // Determine if has cash back guarantee based on sub category
                 $subCategoryName = optional($advertisement->subCategory)->name ?? '';
@@ -311,7 +311,7 @@ class ClassifiedsController extends Controller
         // Determine if VIP or Premium
         $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
         $isVip = strtolower($listingCategoryName) === 'vip';
-        $isPremium = strtolower($listingCategoryName) === 'premium';
+        $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
 
         // Determine if has cash back guarantee
         $subCategoryName = optional($advertisement->subCategory)->name ?? '';
@@ -354,7 +354,7 @@ class ClassifiedsController extends Controller
             ->map(function (Advertisement $ad) {
                 $listingCategoryName = optional($ad->listingCategory)->name ?? '';
                 $isVip = strtolower($listingCategoryName) === 'vip';
-                $isPremium = strtolower($listingCategoryName) === 'premium';
+                $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
                 $subCategoryName = optional($ad->subCategory)->name ?? '';
                 $hasCashBackGuarantee = stripos($subCategoryName, 'cash back') !== false 
                     || stripos($subCategoryName, 'cashback') !== false;
