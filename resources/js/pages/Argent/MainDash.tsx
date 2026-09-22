@@ -30,18 +30,14 @@ interface Activity {
 // --- Mock Data ---
 
 const KPI_DATA: KPI[] = [
-    { id: 1, title: 'Total Active Ads', value: '24', trend: '+12% from last month', trendColor: 'text-green-600', icon: 'fas fa-ad', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
-    { id: 2, title: 'Ads Under Review', value: '3', trend: 'Avg. 2 days review', trendColor: 'text-yellow-600', icon: 'fas fa-hourglass-half', iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600' },
-    { id: 3, title: 'Pending Payments', value: '$1,240', trend: 'Next payout: Dec 15', trendColor: 'text-blue-600', icon: 'fas fa-credit-card', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
-    { id: 4, title: 'Total Commission', value: '$8,450', trend: '+18% this quarter', trendColor: 'text-green-600', icon: 'fas fa-percentage', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
+    { id: 1, title: 'Total Active Ads', value: '0', trend: 'Ads currently live', trendColor: 'text-green-600', icon: 'fas fa-ad', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
+    { id: 2, title: 'Ads Under Review', value: '0', trend: 'Waiting for approval', trendColor: 'text-yellow-600', icon: 'fas fa-hourglass-half', iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600' },
+    { id: 3, title: 'Pending Payments', value: 'Rs. 0', trend: 'To be paid to you', trendColor: 'text-blue-600', icon: 'fas fa-credit-card', iconBg: 'bg-blue-100', iconColor: 'text-blue-600' },
+    { id: 4, title: 'Total Commission', value: 'Rs. 0', trend: 'Total earned', trendColor: 'text-green-600', icon: 'fas fa-percentage', iconBg: 'bg-pink-100', iconColor: 'text-primary-pink' },
 ];
 
 const ACTIVITY_FEED: Activity[] = [
-    { id: 1, title: 'Ad "Luxury Downtown Apartment" was approved', description: 'Your listing is now live and visible to potential buyers', time: '2 hours ago', icon: 'fas fa-check', iconColor: 'text-green-600', iconBg: 'bg-green-100' },
-    { id: 2, title: 'Commission payment of $320 processed', description: 'Payment for "Suburban Family Home" sale', time: '1 day ago', icon: 'fas fa-dollar-sign', iconColor: 'text-primary-pink', iconBg: 'bg-pink-100' },
-    { id: 3, title: 'New ad "Modern Condo with City View" posted', description: 'Currently under review by our team', time: '2 days ago', icon: 'fas fa-plus', iconColor: 'text-blue-600', iconBg: 'bg-blue-100' },
-    { id: 4, title: 'Ad "Beachfront Villa" received 45 new views', description: '3 inquiries and 1 showing request', time: '3 days ago', icon: 'fas fa-eye', iconColor: 'text-yellow-600', iconBg: 'bg-yellow-100' },
-    { id: 5, title: 'Updated pricing for "Garden Townhouse"', description: 'Price reduced by $15,000 to attract more buyers', time: '4 days ago', icon: 'fas fa-edit', iconColor: 'text-purple-600', iconBg: 'bg-purple-100' },
+    { id: 1, title: 'Welcome to TintinAds!', description: 'Your account has been successfully created. Start by posting your first ad.', time: 'Just now', icon: 'fas fa-star', iconColor: 'text-primary-pink', iconBg: 'bg-pink-100' },
 ];
 
 // --- Sub-Components ---
