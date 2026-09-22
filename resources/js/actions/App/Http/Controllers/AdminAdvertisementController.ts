@@ -244,7 +244,7 @@ activate.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     activate.form = activateForm
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:290
+ * @see app/Http/Controllers/AdminAdvertisementController.php:296
  * @route '/admin/api/advertisements/delete'
  */
 export const deleteMethod = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -259,7 +259,7 @@ deleteMethod.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:290
+ * @see app/Http/Controllers/AdminAdvertisementController.php:296
  * @route '/admin/api/advertisements/delete'
  */
 deleteMethod.url = (options?: RouteQueryOptions) => {
@@ -268,7 +268,7 @@ deleteMethod.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:290
+ * @see app/Http/Controllers/AdminAdvertisementController.php:296
  * @route '/admin/api/advertisements/delete'
  */
 deleteMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -278,7 +278,7 @@ deleteMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:290
+ * @see app/Http/Controllers/AdminAdvertisementController.php:296
  * @route '/admin/api/advertisements/delete'
  */
     const deleteMethodForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -288,7 +288,7 @@ deleteMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:290
+ * @see app/Http/Controllers/AdminAdvertisementController.php:296
  * @route '/admin/api/advertisements/delete'
  */
         deleteMethodForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -299,7 +299,7 @@ deleteMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     deleteMethod.form = deleteMethodForm
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::updatePaymentStatus
- * @see app/Http/Controllers/AdminAdvertisementController.php:344
+ * @see app/Http/Controllers/AdminAdvertisementController.php:350
  * @route '/admin/api/advertisements/update-payment-status'
  */
 export const updatePaymentStatus = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -314,7 +314,7 @@ updatePaymentStatus.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::updatePaymentStatus
- * @see app/Http/Controllers/AdminAdvertisementController.php:344
+ * @see app/Http/Controllers/AdminAdvertisementController.php:350
  * @route '/admin/api/advertisements/update-payment-status'
  */
 updatePaymentStatus.url = (options?: RouteQueryOptions) => {
@@ -323,7 +323,7 @@ updatePaymentStatus.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::updatePaymentStatus
- * @see app/Http/Controllers/AdminAdvertisementController.php:344
+ * @see app/Http/Controllers/AdminAdvertisementController.php:350
  * @route '/admin/api/advertisements/update-payment-status'
  */
 updatePaymentStatus.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -333,7 +333,7 @@ updatePaymentStatus.post = (options?: RouteQueryOptions): RouteDefinition<'post'
 
     /**
 * @see \App\Http\Controllers\AdminAdvertisementController::updatePaymentStatus
- * @see app/Http/Controllers/AdminAdvertisementController.php:344
+ * @see app/Http/Controllers/AdminAdvertisementController.php:350
  * @route '/admin/api/advertisements/update-payment-status'
  */
     const updatePaymentStatusForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -343,7 +343,7 @@ updatePaymentStatus.post = (options?: RouteQueryOptions): RouteDefinition<'post'
 
             /**
 * @see \App\Http\Controllers\AdminAdvertisementController::updatePaymentStatus
- * @see app/Http/Controllers/AdminAdvertisementController.php:344
+ * @see app/Http/Controllers/AdminAdvertisementController.php:350
  * @route '/admin/api/advertisements/update-payment-status'
  */
         updatePaymentStatusForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

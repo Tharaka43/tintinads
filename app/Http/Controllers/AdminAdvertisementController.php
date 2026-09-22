@@ -258,7 +258,13 @@ class AdminAdvertisementController extends Controller
             $count = Advertisement::whereIn('id', $validated['ad_ids'])
                 ->update([
                     'status' => 'activated',
+                    'payment_status' => 'paid',
+                    'post_date' => now(),
                 ]);
+
+            \App\Models\AdTransaction::whereIn('advertisement_id', $validated['ad_ids'])
+                ->where('status', 'Pending Review')
+                ->update(['status' => 'Confirmed']);
 
             Log::info('Advertisements activated by admin', [
                 'ad_ids' => $validated['ad_ids'],
