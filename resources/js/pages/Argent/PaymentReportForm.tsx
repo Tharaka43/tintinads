@@ -414,6 +414,20 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
     const hasAdOptions = adOptions.length > 0;
     const hasPriceOptions = priceOptions.length > 0;
 
+    let selectedAdDetails = null;
+    if (formData.adId) {
+        const selectedAd = adOptions.find(ad => String(ad.id) === formData.adId);
+        if (selectedAd && selectedAd.listing_category_price) {
+            const fullPrice = parseFloat(selectedAd.listing_category_price);
+            let payable = fullPrice;
+            let comm = 0;
+            if (fullPrice === 300) { payable = 200; comm = 100; }
+            else if (fullPrice === 500) { payable = 300; comm = 200; }
+            else if (fullPrice === 700) { payable = 400; comm = 300; }
+            selectedAdDetails = { fullPrice, payable, comm };
+        }
+    }
+
     return (
         <div className="bg-gray-50 min-h-screen py-6 px-4 sm:px-6 lg:px-8">
             <div
@@ -436,6 +450,25 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
 
                 <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 sm:p-8">
                     <form className="space-y-6" onSubmit={handleSubmit}>
+                        
+                        {/* Admin Bank Details Box */}
+                        {(bankAccounts || []).length > 0 && (
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-5 mb-6">
+                                <h3 className="text-blue-800 font-semibold mb-3 flex items-center">
+                                    <i className="fas fa-university mr-2"></i> Admin Bank Details for Deposit
+                                </h3>
+                                <p className="text-sm text-blue-700 mb-3">Please deposit your payable amount to one of the following accounts before submitting this form:</p>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    {bankAccounts?.map(bank => (
+                                        <div key={bank.id} className="bg-white p-3 rounded border border-blue-100 shadow-sm">
+                                            <div className="font-semibold text-gray-800">{bank.bank_name}</div>
+                                            <div className="text-gray-600 font-mono text-sm mt-1">{bank.account_number}</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-3">
                                 Receipt Image <span className="text-red-500">*</span>
@@ -577,6 +610,25 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                                     <p className="text-xs text-gray-500 mt-1">
                                         This links the payment to a specific advertisement. Only ads you have posted appear in this list.
                                     </p>
+
+                                    {/* Commission Breakdown Display */}
+                                    {selectedAdDetails && (
+                                        <div className="mt-4 bg-green-50 border border-green-200 rounded-lg p-4">
+                                            <h4 className="text-sm font-semibold text-green-800 mb-2 border-b border-green-200 pb-2">Commission Breakdown</h4>
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className="text-sm text-gray-600">Ad Package Price:</span>
+                                                <span className="text-sm font-medium text-gray-800">Rs. {selectedAdDetails.fullPrice.toFixed(2)}</span>
+                                            </div>
+                                            <div className="flex justify-between items-center mb-1">
+                                                <span className="text-sm text-gray-600">Your Commission:</span>
+                                                <span className="text-sm font-semibold text-green-600">Rs. {selectedAdDetails.comm.toFixed(2)}</span>
+                                            </div>
+                                            <div className="flex justify-between items-center mt-2 pt-2 border-t border-green-200">
+                                                <span className="font-semibold text-gray-700">Amount to Transfer to Admin:</span>
+                                                <span className="font-bold text-lg text-blue-700">Rs. {selectedAdDetails.payable.toFixed(2)}</span>
+                                            </div>
+                                        </div>
+                                    )}
                                 </div>
 
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
