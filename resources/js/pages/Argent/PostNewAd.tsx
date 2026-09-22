@@ -1,8 +1,24 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useForm, usePage, router } from '@inertiajs/react';
+import { Head, useForm, usePage, router } from '@inertiajs/react';
+import Select from 'react-select';
 
 const PINK = '#EC4899';
 const LIGHT_BLUE = '#60A5FA';
+
+const LOCATION_OPTIONS = [
+    { value: 'Colombo', label: 'Colombo' },
+    { value: 'Gampaha', label: 'Gampaha' },
+    { value: 'Kandy', label: 'Kandy' },
+    { value: 'Galle', label: 'Galle' },
+    { value: 'Kurunegala', label: 'Kurunegala' },
+    { value: 'Nugegoda', label: 'Nugegoda' },
+    { value: 'Maharagama', label: 'Maharagama' },
+    { value: 'Dehiwala', label: 'Dehiwala' },
+    { value: 'Mount Lavinia', label: 'Mount Lavinia' },
+    { value: 'Negombo', label: 'Negombo' },
+    { value: 'Malabe', label: 'Malabe' },
+    { value: 'Battaramulla', label: 'Battaramulla' },
+];
 
 interface ProgressStep {
     id: number;
@@ -262,15 +278,33 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-sm font-medium text-gray-700">Location *</label>
-                            <input
-                                type="text"
-                                placeholder="Enter address or area"
-                                className="w-full rounded-lg border border-gray-300 px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200"
-                                value={data.location}
-                                onChange={(event) => setData('location', event.target.value)}
-                                required
+                            <label className="block text-sm font-medium text-gray-700">Locations (Cities) *</label>
+                            <Select
+                                isMulti
+                                name="location"
+                                options={LOCATION_OPTIONS}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                placeholder="Select multiple cities..."
+                                value={data.location ? LOCATION_OPTIONS.filter(option => data.location.split(', ').includes(option.value)) : []}
+                                onChange={(selectedOptions) => {
+                                    const values = selectedOptions ? (selectedOptions as typeof LOCATION_OPTIONS).map(opt => opt.value).join(', ') : '';
+                                    setData('location', values);
+                                }}
+                                styles={{
+                                    control: (baseStyles, state) => ({
+                                      ...baseStyles,
+                                      borderColor: state.isFocused ? PINK : '#D1D5DB',
+                                      padding: '4px',
+                                      borderRadius: '0.5rem',
+                                      boxShadow: state.isFocused ? `0 0 0 2px rgba(236, 72, 153, 0.2)` : 'none',
+                                      '&:hover': {
+                                        borderColor: state.isFocused ? PINK : '#9CA3AF'
+                                      }
+                                    }),
+                                }}
                             />
+                            <p className="text-xs text-gray-500">You can select multiple cities to help users find your ad.</p>
                             {errors.location && <p className="text-sm text-red-500">{errors.location}</p>}
                         </div>
 
