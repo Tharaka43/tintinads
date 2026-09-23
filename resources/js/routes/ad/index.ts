@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../wayfinder'
 /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
 export const show = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
 show.url = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -44,7 +44,7 @@ show.url = (args: { adId: string | number } | [adId: string | number ] | string 
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
 show.get = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -53,7 +53,7 @@ show.get = (args: { adId: string | number } | [adId: string | number ] | string 
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
 show.head = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ show.head = (args: { adId: string | number } | [adId: string | number ] | string
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
     const showForm = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -73,7 +73,7 @@ show.head = (args: { adId: string | number } | [adId: string | number ] | string
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
         showForm.get = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ show.head = (args: { adId: string | number } | [adId: string | number ] | string
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::show
- * @see app/Http/Controllers/ClassifiedsController.php:301
+ * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
  */
         showForm.head = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

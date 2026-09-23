@@ -19,6 +19,7 @@ class ClassifiedsController extends Controller
         $category = $request->query('category', 'All Categories');
         $page = (int) $request->query('page', 1);
         $search = $request->query('search', '');
+        $location = $request->query('location', '');
         $perPage = 9;
 
         // Fetch advertisements with relationships
@@ -48,6 +49,11 @@ class ClassifiedsController extends Controller
                   ->orWhere('description', 'like', '%' . $search . '%')
                   ->orWhere('location', 'like', '%' . $search . '%');
             });
+        }
+
+        // Filter by location if provided
+        if (!empty($location) && $location !== 'All Sri Lanka') {
+            $query->where('location', 'like', '%' . $location . '%');
         }
 
         // Get total count for pagination
@@ -166,6 +172,7 @@ class ClassifiedsController extends Controller
             ],
             'selectedCategory' => $category,
             'searchTerm' => $search,
+            'selectedLocation' => $location,
             'savedAdIds' => $savedAdIds,
         ]);
     }

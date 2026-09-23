@@ -347,6 +347,22 @@ const FilterSidebarContent = ({ selectedCategory, setSelectedCategory, categorie
 
 // --- Main Component ---
 
+interface ClassifiedsPageProps {
+    ads: Ad[];
+    categories: string[];
+    topCategories: TopCategory[];
+    pagination: {
+        currentPage: number;
+        totalItems: number;
+        perPage: number;
+        totalPages: number;
+    };
+    selectedCategory: string;
+    searchTerm?: string;
+    selectedLocation?: string;
+    savedAdIds?: number[];
+}
+
 const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     ads = [],
     categories = [],
@@ -359,12 +375,14 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     },
     selectedCategory: initialCategory = 'All Categories',
     searchTerm: initialSearchTerm = '',
+    selectedLocation: initialLocation = 'All Sri Lanka',
     savedAdIds = []
 }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
     const [savedAds, setSavedAds] = useState<number[]>(savedAdIds);
     const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
+    const [locationInput, setLocationInput] = useState<string>(initialLocation || 'All Sri Lanka');
     const [showAgeVerification, setShowAgeVerification] = useState(false);
     const [isAdult, setIsAdult] = useState<boolean | null>(null);
 
@@ -404,16 +422,18 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         ];
     }, []);
 
-    // Sync search input with prop changes
+    // Sync inputs with prop changes
     useEffect(() => {
         setSearchInput(initialSearchTerm);
-    }, [initialSearchTerm]);
+        setLocationInput(initialLocation || 'All Sri Lanka');
+    }, [initialSearchTerm, initialLocation]);
 
     const toggleMobileMenu = useCallback(() => setIsMobileMenuOpen(prev => !prev), []);
     const toggleFilters = useCallback(() => setIsFilterOverlayOpen(prev => !prev), []);
 
     const handleClearSearch = useCallback(() => {
         setSearchInput('');
+        setLocationInput('All Sri Lanka');
         router.get('/', {
             category: initialCategory === 'All Categories' ? undefined : initialCategory,
             page: 1,
@@ -423,11 +443,12 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         });
     }, [initialCategory]);
 
-    const handlePaginate = useCallback((pageNumber: number, category: string, search: string = '') => {
+    const handlePaginate = useCallback((pageNumber: number, category: string, search: string = '', loc: string = 'All Sri Lanka') => {
         router.get('/', {
             category: category === 'All Categories' ? undefined : category,
             page: pageNumber,
             search: search || undefined,
+            location: loc === 'All Sri Lanka' ? undefined : loc,
         }, {
             preserveState: true,
             preserveScroll: true,
@@ -466,11 +487,12 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
             category: initialCategory === 'All Categories' ? undefined : initialCategory,
             page: 1,
             search: searchInput.trim() || undefined,
+            location: locationInput === 'All Sri Lanka' ? undefined : locationInput,
         }, {
             preserveState: true,
             preserveScroll: false,
         });
-    }, [searchInput, initialCategory]);
+    }, [searchInput, initialCategory, locationInput]);
 
     const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchInput(e.target.value);
@@ -721,34 +743,78 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
             {/* Search Section (Kept the same) */}
             <section className="bg-white py-8 shadow-sm">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Search Bar */}
-                    <form onSubmit={handleSearch} className="relative mb-6">
-                        <input
-                            type="text"
-                            placeholder="Search for anything..."
-                            value={searchInput}
-                            onChange={handleSearchChange}
-                            className="w-full px-6 py-4 pr-24 text-lg border-2 border-gray-300 rounded-xl focus:outline-none transition-colors focus:border-pink-500"
-                        />
-                        <div className="absolute right-3 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
+                    {/* Search Bar & Location Dropdown */}
+                    <form onSubmit={handleSearch} className="mb-6 flex flex-col md:flex-row gap-3">
+                        <div className="relative flex-grow">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i className="fas fa-search text-gray-400"></i>
+                            </div>
+                            <input
+                                type="text"
+                                placeholder="What are you looking for? (e.g. Massage, Girls)"
+                                value={searchInput}
+                                onChange={handleSearchChange}
+                                className="w-full pl-12 pr-10 py-4 text-base border-2 border-gray-200 rounded-xl focus:outline-none transition-colors focus:border-pink-500 bg-gray-50 focus:bg-white"
+                            />
                             {searchInput && (
                                 <button
                                     type="button"
-                                    onClick={handleClearSearch}
-                                    className="text-gray-400 hover:text-gray-600 transition-colors"
+                                    onClick={() => setSearchInput('')}
+                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                                     title="Clear search"
                                 >
                                     <i className="fas fa-times"></i>
                                 </button>
                             )}
-                            <button
-                                type="submit"
-                                className="text-white px-6 py-2 rounded-lg transition-colors hover:bg-pink-500"
-                                style={{ backgroundColor: PRIMARY_PINK }}
-                            >
-                                <i className="fas fa-search"></i>
-                            </button>
                         </div>
+                        <div className="relative md:w-64 flex-shrink-0">
+                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                <i className="fas fa-map-marker-alt text-gray-400"></i>
+                            </div>
+                            <select
+                                value={locationInput}
+                                onChange={(e) => setLocationInput(e.target.value)}
+                                className="w-full pl-10 pr-10 py-4 text-base border-2 border-gray-200 rounded-xl focus:outline-none transition-colors focus:border-pink-500 bg-gray-50 focus:bg-white appearance-none cursor-pointer"
+                            >
+                                <option value="All Sri Lanka">All Sri Lanka</option>
+                                <option value="Colombo">Colombo</option>
+                                <option value="Gampaha">Gampaha</option>
+                                <option value="Kandy">Kandy</option>
+                                <option value="Galle">Galle</option>
+                                <option value="Kurunegala">Kurunegala</option>
+                                <option value="Kalutara">Kalutara</option>
+                                <option value="Matara">Matara</option>
+                                <option value="Anuradhapura">Anuradhapura</option>
+                                <option value="Ratnapura">Ratnapura</option>
+                                <option value="Kegalle">Kegalle</option>
+                                <option value="Badulla">Badulla</option>
+                                <option value="Puttalam">Puttalam</option>
+                                <option value="Ampara">Ampara</option>
+                                <option value="Batticaloa">Batticaloa</option>
+                                <option value="Hambantota">Hambantota</option>
+                                <option value="Jaffna">Jaffna</option>
+                                <option value="Matale">Matale</option>
+                                <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                <option value="Polonnaruwa">Polonnaruwa</option>
+                                <option value="Trincomalee">Trincomalee</option>
+                                <option value="Monaragala">Monaragala</option>
+                                <option value="Vavuniya">Vavuniya</option>
+                                <option value="Mannar">Mannar</option>
+                                <option value="Kilinochchi">Kilinochchi</option>
+                                <option value="Mullaitivu">Mullaitivu</option>
+                            </select>
+                            <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                                <i className="fas fa-chevron-down text-gray-400 text-sm"></i>
+                            </div>
+                        </div>
+                        <button
+                            type="submit"
+                            className="text-white px-8 py-4 rounded-xl transition-colors hover:bg-pink-600 font-bold flex items-center justify-center gap-2 flex-shrink-0 shadow-md"
+                            style={{ backgroundColor: '#ec4899' }}
+                        >
+                            <i className="fas fa-search"></i>
+                            <span className="md:hidden">Search</span>
+                        </button>
                     </form>
                     {/* Top Categories - Static */}
                     <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
@@ -830,7 +896,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         <Pagination
                             totalItems={filteredAds.length}
                             currentPage={pagination.currentPage}
-                            paginate={(page) => handlePaginate(page, initialCategory, searchInput)}
+                            paginate={(page) => handlePaginate(page, initialCategory, searchInput, locationInput)}
                         />
                     </main>
                 </div>
