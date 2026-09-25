@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Head, useForm, usePage, router } from '@inertiajs/react';
 import Select from 'react-select';
+import ImageEditorModal from '../../components/ImageEditorModal';
 
 const PINK = '#EC4899';
 const LIGHT_BLUE = '#60A5FA';
@@ -214,7 +215,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
         const files = event.target.files;
         if (!files) return;
 
-        const newFiles = Array.from(files).slice(0, 3); // Limit to 3 files
+        const newFiles = Array.from(files).slice(0, 5); // Limit to 5 files
         setData('images', newFiles);
         clearErrors('images');
 
@@ -523,12 +524,21 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             {previewUrls.length > 0 ? (
                                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                                     {previewUrls.map((url, index) => (
-                                        <div key={index} className="overflow-hidden rounded-lg border border-gray-200 aspect-square">
-                                            <img
-                                                src={url}
-                                                alt={`Preview ${index + 1}`}
-                                                className="h-full w-full object-cover"
-                                            />
+                                        <div key={index} className="flex flex-col gap-2">
+                                            <div className="overflow-hidden rounded-lg border border-gray-200 aspect-square">
+                                                <img
+                                                    src={url}
+                                                    alt={`Preview ${index + 1}`}
+                                                    className="h-full w-full object-cover"
+                                                />
+                                            </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => setEditingImageIndex(index)}
+                                                className="w-full py-1.5 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-md font-medium transition-colors"
+                                            >
+                                                <i className="fas fa-magic mr-1"></i> Hide Face
+                                            </button>
                                         </div>
                                     ))}
                                 </div>

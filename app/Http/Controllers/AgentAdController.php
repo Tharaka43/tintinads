@@ -73,7 +73,7 @@ class AgentAdController extends Controller
             'common_category_id' => ['required', 'exists:common_categories,id'],
             'listing_category_id' => ['nullable', 'exists:listing_categories,id'],
             'sub_category_id' => ['nullable', 'exists:sub_categories,id'],
-            'images' => ['required', 'array', 'min:1', 'max:3'],
+            'images' => ['required', 'array', 'min:1', 'max:5'],
             'images.*' => ['image', 'max:5120'],
         ]);
 
@@ -279,7 +279,7 @@ class AgentAdController extends Controller
             'common_category_id' => ['required', 'exists:common_categories,id'],
             'listing_category_id' => ['nullable', 'exists:listing_categories,id'],
             'sub_category_id' => ['nullable', 'exists:sub_categories,id'],
-            'images' => ['nullable', 'array', 'min:1', 'max:3'],
+            'images' => ['nullable', 'array', 'min:1', 'max:5'],
             'images.*' => ['image', 'max:5120'],
         ]);
 

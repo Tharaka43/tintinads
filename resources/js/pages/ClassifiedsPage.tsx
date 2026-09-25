@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { router, Head, usePage } from '@inertiajs/react';
+import Select from 'react-select';
 
 // NOTE on Logo Path:
 // The logo is referenced using the absolute public path: "/assets/sitelogo.png"
@@ -22,6 +23,36 @@ const CATEGORY_COLORS = [
     { bg: '#EC4899', icon: '#DB2777', name: 'Pink' },     // Pink
     { bg: '#06B6D4', icon: '#0891B2', name: 'Cyan' },     // Cyan
     { bg: '#F97316', icon: '#EA580C', name: 'Orange' },   // Orange
+];
+
+
+const locationOptions = [
+    { value: 'All Sri Lanka', label: 'All Sri Lanka' },
+    { value: 'Colombo', label: 'Colombo' },
+    { value: 'Gampaha', label: 'Gampaha' },
+    { value: 'Kandy', label: 'Kandy' },
+    { value: 'Galle', label: 'Galle' },
+    { value: 'Kurunegala', label: 'Kurunegala' },
+    { value: 'Kalutara', label: 'Kalutara' },
+    { value: 'Matara', label: 'Matara' },
+    { value: 'Anuradhapura', label: 'Anuradhapura' },
+    { value: 'Ratnapura', label: 'Ratnapura' },
+    { value: 'Kegalle', label: 'Kegalle' },
+    { value: 'Badulla', label: 'Badulla' },
+    { value: 'Puttalam', label: 'Puttalam' },
+    { value: 'Ampara', label: 'Ampara' },
+    { value: 'Batticaloa', label: 'Batticaloa' },
+    { value: 'Hambantota', label: 'Hambantota' },
+    { value: 'Jaffna', label: 'Jaffna' },
+    { value: 'Matale', label: 'Matale' },
+    { value: 'Nuwara Eliya', label: 'Nuwara Eliya' },
+    { value: 'Polonnaruwa', label: 'Polonnaruwa' },
+    { value: 'Trincomalee', label: 'Trincomalee' },
+    { value: 'Monaragala', label: 'Monaragala' },
+    { value: 'Vavuniya', label: 'Vavuniya' },
+    { value: 'Mannar', label: 'Mannar' },
+    { value: 'Kilinochchi', label: 'Kilinochchi' },
+    { value: 'Mullaitivu', label: 'Mullaitivu' }
 ];
 
 // --- Types ---
@@ -767,44 +798,44 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                 </button>
                             )}
                         </div>
-                        <div className="relative md:w-64 flex-shrink-0">
-                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i className="fas fa-map-marker-alt text-gray-400"></i>
-                            </div>
-                            <select
-                                value={locationInput}
-                                onChange={(e) => setLocationInput(e.target.value)}
-                                className="w-full pl-10 pr-10 py-4 text-base border-2 border-gray-200 rounded-xl focus:outline-none transition-colors focus:border-pink-500 bg-gray-50 focus:bg-white appearance-none cursor-pointer"
-                            >
-                                <option value="All Sri Lanka">All Sri Lanka</option>
-                                <option value="Colombo">Colombo</option>
-                                <option value="Gampaha">Gampaha</option>
-                                <option value="Kandy">Kandy</option>
-                                <option value="Galle">Galle</option>
-                                <option value="Kurunegala">Kurunegala</option>
-                                <option value="Kalutara">Kalutara</option>
-                                <option value="Matara">Matara</option>
-                                <option value="Anuradhapura">Anuradhapura</option>
-                                <option value="Ratnapura">Ratnapura</option>
-                                <option value="Kegalle">Kegalle</option>
-                                <option value="Badulla">Badulla</option>
-                                <option value="Puttalam">Puttalam</option>
-                                <option value="Ampara">Ampara</option>
-                                <option value="Batticaloa">Batticaloa</option>
-                                <option value="Hambantota">Hambantota</option>
-                                <option value="Jaffna">Jaffna</option>
-                                <option value="Matale">Matale</option>
-                                <option value="Nuwara Eliya">Nuwara Eliya</option>
-                                <option value="Polonnaruwa">Polonnaruwa</option>
-                                <option value="Trincomalee">Trincomalee</option>
-                                <option value="Monaragala">Monaragala</option>
-                                <option value="Vavuniya">Vavuniya</option>
-                                <option value="Mannar">Mannar</option>
-                                <option value="Kilinochchi">Kilinochchi</option>
-                                <option value="Mullaitivu">Mullaitivu</option>
-                            </select>
-                            <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
-                                <i className="fas fa-chevron-down text-gray-400 text-sm"></i>
+                        <div className="relative md:w-64 flex-shrink-0" style={{ zIndex: 50 }}>
+                            <Select
+                                options={locationOptions}
+                                value={locationOptions.find(o => o.value === locationInput) || locationOptions[0]}
+                                onChange={(option) => setLocationInput(option?.value || 'All Sri Lanka')}
+                                isSearchable={true}
+                                styles={{
+                                    control: (base, state) => ({
+                                        ...base,
+                                        padding: '0.4rem 0.5rem',
+                                        paddingLeft: '2rem',
+                                        borderRadius: '0.75rem',
+                                        borderColor: state.isFocused ? '#ec4899' : '#e5e7eb',
+                                        backgroundColor: state.isFocused ? '#ffffff' : '#f9fafb',
+                                        boxShadow: state.isFocused ? '0 0 0 1px #ec4899' : 'none',
+                                        '&:hover': {
+                                            borderColor: '#ec4899'
+                                        }
+                                    }),
+                                    menu: (base) => ({
+                                        ...base,
+                                        borderRadius: '0.75rem',
+                                        overflow: 'hidden',
+                                        zIndex: 100
+                                    }),
+                                    option: (base, state) => ({
+                                        ...base,
+                                        backgroundColor: state.isSelected ? '#ec4899' : state.isFocused ? '#fce7f3' : 'transparent',
+                                        color: state.isSelected ? 'white' : '#374151',
+                                        '&:active': {
+                                            backgroundColor: '#ec4899',
+                                            color: 'white'
+                                        }
+                                    })
+                                }}
+                            />
+                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i className="fas fa-map-marker-alt text-gray-400 z-10"></i>
                             </div>
                         </div>
                         <button
