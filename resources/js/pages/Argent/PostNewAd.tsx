@@ -124,6 +124,27 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
     // Initialize existing images preview from ad data
     const [existingImages, setExistingImages] = useState<string[]>(ad?.formatted_images || []);
 
+    const [editingImageIndex, setEditingImageIndex] = useState<number | null>(null);
+
+    const handleImageEdited = (editedFile: File) => {
+        if (editingImageIndex === null) return;
+        
+        const currentImages = data.images as File[];
+        const newImages = [...currentImages];
+        newImages[editingImageIndex] = editedFile;
+        setData('images', newImages);
+        
+        setPreviewUrls(prev => {
+            const newUrls = [...prev];
+            URL.revokeObjectURL(newUrls[editingImageIndex]);
+            newUrls[editingImageIndex] = URL.createObjectURL(editedFile);
+            return newUrls;
+        });
+        
+        setEditingImageIndex(null);
+    };
+
+
     const imageInputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(() => {
