@@ -586,7 +586,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                                 </div>
                                 <div className="text-sm text-gray-500">
                                     <p>Supported formats: JPG, PNG, GIF</p>
-                                    <p>Maximum 3 files (5 MB each)</p>
+                                    <p>Maximum {maxImages} {maxImages === 1 ? 'file' : 'files'} (5 MB each)</p>
                                     {isEditing && <p className="text-orange-500 mt-1">Uploading new files will remove all existing images.</p>}
                                 </div>
                                 <span className="rounded-lg bg-pink-100 px-6 py-2 font-semibold text-pink-600 transition-colors hover:bg-pink-200">
