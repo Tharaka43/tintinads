@@ -142,6 +142,41 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
         [subCategories],
     );
 
+    
+    const handleDiscard = () => {
+        if (confirm('Are you sure you want to discard this ad? All entered details will be lost.')) {
+            reset();
+            localStorage.removeItem('post_ad_draft');
+            setCurrentStep(1);
+            setPreviewUrls([]);
+            setExistingImages([]);
+        }
+    };
+
+    // Load draft on mount
+    useEffect(() => {
+        const savedDraft = localStorage.getItem('post_ad_draft');
+        if (savedDraft && !isEditing) {
+            try {
+                const parsed = JSON.parse(savedDraft);
+                Object.keys(parsed).forEach(key => {
+                    if (key !== 'images') {
+                        setData(key as any, parsed[key]);
+                    }
+                });
+            } catch (e) {}
+        }
+    }, []);
+
+    // Save draft on data change
+    useEffect(() => {
+        if (!isEditing) {
+            const dataToSave = { ...data };
+            delete dataToSave.images;
+            localStorage.setItem('post_ad_draft', JSON.stringify(dataToSave));
+        }
+    }, [data.title, data.description, data.price, data.location, data.phone_number, data.whatsapp_number, data.common_category_id, data.listing_category_id, data.sub_category_id]);
+
     const handleNext = () => {
         if (currentStep < 3) {
             setCurrentStep((prev) => prev + 1);
@@ -170,6 +205,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
         const submitOptions = {
             forceFormData: true,
             onSuccess: () => {
+                localStorage.removeItem('post_ad_draft');
                 if (!isEditing) {
                     setCurrentStep(1);
                     reset();
@@ -651,6 +687,14 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                     )}
                 </form>
             </div>
+
+            {/* Image Editor Modal */}
+            <ImageEditorModal
+                isOpen={editingImageIndex !== null}
+                onClose={() => setEditingImageIndex(null)}
+                file={editingImageIndex !== null ? (data.images as File[])[editingImageIndex] : null}
+                onSave={handleImageEdited}
+            />
         </div>
     );
 };
