@@ -275,7 +275,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
 
     const maxImages = useMemo(() => {
         if (!data.listing_category_id) return 1;
-        const selectedCat = listingCategories.find(c => c.id === data.listing_category_id);
+        const selectedCat = listingCategories.find(c => String(c.id) === String(data.listing_category_id));
         if (!selectedCat || !selectedCat.price) return 1;
         const price = Number(selectedCat.price);
         if (price >= 700) return 5;
