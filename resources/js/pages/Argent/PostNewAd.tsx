@@ -164,14 +164,19 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
     );
 
     
+    const [showDiscardModal, setShowDiscardModal] = useState(false);
+
     const handleDiscard = () => {
-        if (confirm('Are you sure you want to discard this ad? All entered details will be lost.')) {
-            reset();
-            localStorage.removeItem('post_ad_draft');
-            setCurrentStep(1);
-            setPreviewUrls([]);
-            setExistingImages([]);
-        }
+        setShowDiscardModal(true);
+    };
+
+    const confirmDiscard = () => {
+        reset();
+        localStorage.removeItem('post_ad_draft');
+        setCurrentStep(1);
+        setPreviewUrls([]);
+        setExistingImages([]);
+        setShowDiscardModal(false);
     };
 
     // Load draft on mount
@@ -268,11 +273,21 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
         }
     };
 
+    const maxImages = useMemo(() => {
+        if (!data.listing_category_id) return 1;
+        const selectedCat = listingCategories.find(c => c.id === data.listing_category_id);
+        if (!selectedCat || !selectedCat.price) return 1;
+        const price = Number(selectedCat.price);
+        if (price >= 700) return 5;
+        if (price >= 500) return 3;
+        return 1;
+    }, [data.listing_category_id, listingCategories]);
+
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (!files) return;
 
-        const newFiles = Array.from(files).slice(0, 5); // Limit to 5 files
+        const newFiles = Array.from(files).slice(0, maxImages);
         setData('images', newFiles);
         clearErrors('images');
 
@@ -404,7 +419,14 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             </div>
                         </div>
 
-                        <div className="flex justify-end pt-6">
+                        <div className="flex justify-between pt-6 gap-4">
+<button
+                                onClick={handleDiscard}
+                                type="button"
+                                className="rounded-lg bg-gray-200 px-8 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-300 sm:mr-auto"
+                            >
+                                Discard Ad
+                            </button>
                             <button
                                 onClick={handleNext}
                                 type="button"
@@ -504,7 +526,15 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             </div>
                         </div>
 
-                        <div className="flex justify-between pt-6">
+                        <div className="flex justify-between pt-6 gap-4">
+<button
+                                onClick={handleDiscard}
+                                type="button"
+                                className="rounded-lg bg-gray-200 px-8 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-300 sm:mr-auto"
+                            >
+                                Discard Ad
+                            </button>
+<div className="flex gap-4">
                             <button
                                 onClick={handlePrev}
                                 type="button"
@@ -519,7 +549,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             >
                                 Continue to Media
                             </button>
-                        </div>
+                        </div></div>
                     </div>
                 );
             case 3:
@@ -622,7 +652,15 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             <p className="text-sm text-gray-500">The first image will be used as the main photo.</p>
                         </div>
 
-                        <div className="flex justify-between pt-6">
+                        <div className="flex justify-between pt-6 gap-4">
+<button
+                                onClick={handleDiscard}
+                                type="button"
+                                className="rounded-lg bg-gray-200 px-8 py-3 font-semibold text-gray-700 transition-colors hover:bg-gray-300 sm:mr-auto"
+                            >
+                                Discard Ad
+                            </button>
+<div className="flex gap-4">
                             <button
                                 onClick={handlePrev}
                                 type="button"
@@ -637,7 +675,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             >
                                 {processing ? (isEditing ? 'Updating…' : 'Publishing…') : (isEditing ? 'Update Ad' : 'Publish Ad')}
                             </button>
-                        </div>
+                        </div></div>
                     </div>
                 );
             default:
@@ -687,6 +725,39 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
 
                 </form>
             </div>
+
+                        {/* Custom Discard Confirmation Modal */}
+            {showDiscardModal && (
+                <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+                    <div className="bg-white rounded-2xl w-full max-w-sm overflow-hidden shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                        <div className="p-6 text-center">
+                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-red-100 mb-4">
+                                <svg className="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                </svg>
+                            </div>
+                            <h3 className="text-xl font-bold text-gray-900 mb-2">Discard Ad?</h3>
+                            <p className="text-gray-500 text-sm">Are you sure you want to discard this ad? All entered details and photos will be permanently lost.</p>
+                        </div>
+                        <div className="bg-gray-50 px-6 py-4 flex gap-3 justify-end">
+                            <button
+                                type="button"
+                                onClick={() => setShowDiscardModal(false)}
+                                className="px-4 py-2 font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                type="button"
+                                onClick={confirmDiscard}
+                                className="px-4 py-2 font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
+                            >
+                                Yes, Discard
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Image Editor Modal */}
             <ImageEditorModal

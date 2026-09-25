@@ -53,9 +53,20 @@ export default function ImageEditorModal({ isOpen, onClose, file, onSave }: Imag
         setHistoryDataUrl(canvas.toDataURL());
     };
 
-    const handleReset = () => {
-        if (originalImage) {
-            initCanvas(originalImage);
+    const handleReset = (e?: React.MouseEvent) => {
+        if (e) e.preventDefault();
+        
+        const canvas = canvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (originalImage && canvas && ctx) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(originalImage, 0, 0);
+            setHistoryDataUrl(canvas.toDataURL());
+            
+            // Also reset active states
+            setStartPos(null);
+            setCurrentPos(null);
+            setIsDrawing(false);
         }
     };
 
@@ -258,7 +269,7 @@ export default function ImageEditorModal({ isOpen, onClose, file, onSave }: Imag
                         </div>
                     )}
                     
-                    <button onClick={handleReset} className="text-sm font-medium text-gray-500 hover:text-gray-800">
+                    <button type="button" onClick={handleReset} className="text-sm font-medium text-gray-500 hover:text-gray-800">
                         <i className="fas fa-undo mr-1"></i> Reset Image
                     </button>
                 </div>
