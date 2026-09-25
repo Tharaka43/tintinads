@@ -661,28 +661,6 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             </div>
                         </div>
 
-                        {/* Locked Comments Section */}
-                        <div className="bg-white rounded-lg shadow-sm p-6 mt-6">
-                            <div className="flex items-center justify-between mb-4">
-                                <h3 className="text-xl font-bold text-gray-900">Comments (12)</h3>
-                            </div>
-                            <div className="relative rounded-lg overflow-hidden border border-gray-200 bg-gray-50 p-8 text-center flex flex-col items-center justify-center min-h-[200px]">
-                                <div className="absolute inset-0 bg-white/40 backdrop-blur-[2px] z-10"></div>
-                                <div className="z-20 flex flex-col items-center">
-                                    <div className="w-16 h-16 bg-gray-900 rounded-full flex items-center justify-center text-white mb-4 shadow-lg">
-                                        <i className="fas fa-lock text-2xl"></i>
-                                    </div>
-                                    <h4 className="text-lg font-bold text-gray-900 mb-2">Premium Members Only</h4>
-                                    <p className="text-gray-600 mb-6 max-w-md">
-                                        Unlock this section to read verified reviews and leave your own comments. Premium members get exclusive access to user feedback.
-                                    </p>
-                                    <a href="/premium" className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-3 px-8 rounded-full shadow-md transition-transform hover:scale-105">
-                                        Upgrade to Premium
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                         {/* Location */}
                         <div className="bg-white rounded-lg shadow-sm p-6 mt-6">
                             <h3 className="text-xl font-bold text-gray-900 mb-4">Location</h3>
