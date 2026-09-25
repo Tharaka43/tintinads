@@ -90,7 +90,7 @@ class AdminAdvertisementController extends Controller
                     && strtolower($advertisement->status) === 'activated';
 
                 $rawStatus = $advertisement->status;
-                $isExpired = $advertisement->post_date && $advertisement->post_date->lt(now()->subDays(14));
+                $isExpired = $advertisement->is_expired;
                 if ($rawStatus === 'activated' && $isExpired) {
                     $rawStatus = 'expired';
                     $isFeatured = false;

@@ -31,7 +31,7 @@ class ClassifiedsController extends Controller
         ])
             ->where('status', 'activated') // Only show activated ads
             ->where('payment_status', 'paid') // Only show paid ads
-            ->where('post_date', '>=', now()->subDays(14)) // 14 Days expiration rule
+            ->unexpired()
             ->orderByRaw('listing_category_id IS NULL, listing_category_id ASC')
             ->latest('post_date');
 
@@ -241,7 +241,7 @@ class ClassifiedsController extends Controller
             ->whereIn('id', $savedAdIds)
             ->where('status', 'activated')
             ->where('payment_status', 'paid')
-            ->where('post_date', '>=', now()->subDays(14))
+            ->unexpired()
             ->latest('post_date')
             ->get()
             ->map(function (Advertisement $advertisement) {
@@ -316,7 +316,7 @@ class ClassifiedsController extends Controller
         ])
             ->where('status', 'activated')
             ->where('payment_status', 'paid')
-            ->where('post_date', '>=', now()->subDays(14))
+            ->unexpired()
             ->findOrFail($adId);
 
         // Increment views count
@@ -360,7 +360,7 @@ class ClassifiedsController extends Controller
         ])
             ->where('status', 'activated')
             ->where('payment_status', 'paid')
-            ->where('post_date', '>=', now()->subDays(14))
+            ->unexpired()
             ->where('common_category_id', $advertisement->common_category_id)
             ->where('id', '!=', $adId)
             ->latest('post_date')
