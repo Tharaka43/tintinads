@@ -193,6 +193,11 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
 const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = [] }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [isSaved, setIsSaved] = useState(ad.isSaved || false);
+    const [isLiked, setIsLiked] = useState(() => {
+        const likedAds = JSON.parse(localStorage.getItem('liked_ads') || '[]');
+        return likedAds.includes(ad.id);
+    });
+    const [likesCount, setLikesCount] = useState(ad.likes || 0);
     const [savedAds, setSavedAds] = useState<number[]>(isSaved ? [ad.id] : []);
     const [isDisclaimerExpanded, setIsDisclaimerExpanded] = useState(false);
     const [showAgeVerification, setShowAgeVerification] = useState(false);
