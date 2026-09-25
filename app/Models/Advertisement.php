@@ -74,8 +74,13 @@ class Advertisement extends Model
     public function scopeUnexpired($query)
     {
         return $query->where(function ($q) {
-            // VIP (ID 1) -> 7 days
+            // Platinum (ID 4) -> 30 days
             $q->where(function ($sub) {
+                $sub->where('listing_category_id', 4)
+                    ->where('post_date', '>=', now()->subDays(30));
+            })
+            // VIP (ID 1) -> 7 days
+            ->orWhere(function ($sub) {
                 $sub->where('listing_category_id', 1)
                     ->where('post_date', '>=', now()->subDays(7));
             })
@@ -105,10 +110,12 @@ class Advertisement extends Model
         }
 
         $days = 3; // Default
-        if ($this->listing_category_id == 1) {
-            $days = 7;
+        if ($this->listing_category_id == 4) {
+            $days = 30; // Platinum
+        } elseif ($this->listing_category_id == 1) {
+            $days = 7;  // VIP
         } elseif ($this->listing_category_id == 2) {
-            $days = 5;
+            $days = 5;  // Super
         }
 
         return $this->post_date->lt(now()->subDays($days));
