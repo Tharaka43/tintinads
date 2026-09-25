@@ -18,6 +18,7 @@ Route::get('/agents', [ClassifiedsController::class, 'agents'])->name('agents');
 Route::get('/saved-ads', [ClassifiedsController::class, 'savedAds'])->name('saved-ads');
 Route::post('/ads/{adId}/save', [ClassifiedsController::class, 'saveAd'])->name('ads.save');
 Route::post('/ads/{adId}/unsave', [ClassifiedsController::class, 'unsaveAd'])->name('ads.unsave');
+Route::post('/ads/{adId}/like', [ClassifiedsController::class, 'likeAd'])->name('ads.like');
 Route::get('/ad/{adId}', [ClassifiedsController::class, 'show'])->name('ad.show');
 Route::get('/terms-and-conditions', function () {
     return Inertia::render('TermsAndConditions');

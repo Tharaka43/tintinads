@@ -147,9 +147,84 @@ unsave.post = (args: { adId: string | number } | [adId: string | number ] | stri
         })
     
     unsave.form = unsaveForm
+/**
+* @see \App\Http\Controllers\ClassifiedsController::like
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+export const like = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: like.url(args, options),
+    method: 'post',
+})
+
+like.definition = {
+    methods: ["post"],
+    url: '/ads/{adId}/like',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\ClassifiedsController::like
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+like.url = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { adId: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    adId: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        adId: args.adId,
+                }
+
+    return like.definition.url
+            .replace('{adId}', parsedArgs.adId.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\ClassifiedsController::like
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+like.post = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: like.url(args, options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\ClassifiedsController::like
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+    const likeForm = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: like.url(args, options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\ClassifiedsController::like
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+        likeForm.post = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: like.url(args, options),
+            method: 'post',
+        })
+    
+    like.form = likeForm
 const ads = {
     save: Object.assign(save, save),
 unsave: Object.assign(unsave, unsave),
+like: Object.assign(like, like),
 }
 
 export default ads

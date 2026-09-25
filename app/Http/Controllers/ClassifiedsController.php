@@ -319,6 +319,9 @@ class ClassifiedsController extends Controller
             ->where('post_date', '>=', now()->subDays(14))
             ->findOrFail($adId);
 
+        // Increment views count
+        $advertisement->increment('views_count');
+
         // Determine if VIP or Premium
         $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
         $isVip = strtolower($listingCategoryName) === 'vip';
@@ -421,6 +424,8 @@ class ClassifiedsController extends Controller
                 'phone_number' => $advertisement->phone_number ?? null,
                 'whatsapp_number' => $advertisement->whatsapp_number ?? null,
                 'telegram_number' => $advertisement->telegram_number ?? null,
+                'views' => $advertisement->views_count ?? 1,
+                'likes' => $advertisement->likes_count ?? 0,
             ],
             'relatedAds' => $relatedAds,
         ]);
@@ -496,5 +501,19 @@ class ClassifiedsController extends Controller
             ],
         ]);
     }
-}
 
+    /**
+     * Like an ad
+     */
+    public function likeAd(Request $request, int $adId): JsonResponse
+    {
+        $ad = Advertisement::findOrFail($adId);
+        $ad->increment('likes_count');
+        
+        return response()->json([
+            'success' => true,
+            'message' => 'Ad liked successfully',
+            'likes' => $ad->likes_count
+        ]);
+    }
+}

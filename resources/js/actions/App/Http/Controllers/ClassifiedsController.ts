@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
 export const agents = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ agents.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
 agents.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ agents.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
 agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
 agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
     const agentsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
         agentsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:460
+ * @see app/Http/Controllers/ClassifiedsController.php:465
  * @route '/agents'
  */
         agentsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -382,6 +382,80 @@ unsaveAd.post = (args: { adId: string | number } | [adId: string | number ] | st
     
     unsaveAd.form = unsaveAdForm
 /**
+* @see \App\Http\Controllers\ClassifiedsController::likeAd
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+export const likeAd = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: likeAd.url(args, options),
+    method: 'post',
+})
+
+likeAd.definition = {
+    methods: ["post"],
+    url: '/ads/{adId}/like',
+} satisfies RouteDefinition<["post"]>
+
+/**
+* @see \App\Http\Controllers\ClassifiedsController::likeAd
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+likeAd.url = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { adId: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    adId: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        adId: args.adId,
+                }
+
+    return likeAd.definition.url
+            .replace('{adId}', parsedArgs.adId.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\ClassifiedsController::likeAd
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+likeAd.post = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+    url: likeAd.url(args, options),
+    method: 'post',
+})
+
+    /**
+* @see \App\Http\Controllers\ClassifiedsController::likeAd
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+    const likeAdForm = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: likeAd.url(args, options),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\ClassifiedsController::likeAd
+ * @see app/Http/Controllers/ClassifiedsController.php:508
+ * @route '/ads/{adId}/like'
+ */
+        likeAdForm.post = (args: { adId: string | number } | [adId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: likeAd.url(args, options),
+            method: 'post',
+        })
+    
+    likeAd.form = likeAdForm
+/**
 * @see \App\Http\Controllers\ClassifiedsController::show
  * @see app/Http/Controllers/ClassifiedsController.php:308
  * @route '/ad/{adId}'
@@ -478,6 +552,6 @@ show.head = (args: { adId: string | number } | [adId: string | number ] | string
         })
     
     show.form = showForm
-const ClassifiedsController = { index, agents, savedAds, saveAd, unsaveAd, show }
+const ClassifiedsController = { index, agents, savedAds, saveAd, unsaveAd, likeAd, show }
 
 export default ClassifiedsController

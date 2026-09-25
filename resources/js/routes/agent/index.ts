@@ -138,7 +138,7 @@ logout.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     logout.form = logoutForm
 /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -152,7 +152,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -160,7 +160,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -168,7 +168,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -177,7 +177,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -186,7 +186,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -194,7 +194,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:138
+ * @see routes/web.php:139
  * @route '/agent'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -209,7 +209,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     dashboard.form = dashboardForm
 /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
 export const mainhome = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -223,7 +223,7 @@ mainhome.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
 mainhome.url = (options?: RouteQueryOptions) => {
@@ -231,7 +231,7 @@ mainhome.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
 mainhome.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -239,7 +239,7 @@ mainhome.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
 mainhome.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -248,7 +248,7 @@ mainhome.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
     const mainhomeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -257,7 +257,7 @@ mainhome.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
         mainhomeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -265,7 +265,7 @@ mainhome.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:144
+ * @see routes/web.php:145
  * @route '/agent/mainhome'
  */
         mainhomeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
