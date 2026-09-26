@@ -575,6 +575,10 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         return ads.some(ad => ad.isPremium);
     }, [ads]);
 
+    const hasPlatinumAds = useMemo(() => {
+        return ads.some(ad => ad.isPlatinum);
+    }, [ads]);
+
 
 
     return (
