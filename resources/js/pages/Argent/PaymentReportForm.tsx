@@ -209,6 +209,8 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                         payableToAdmin = 300; // Agent keeps 200
                     } else if (fullPrice === 700) {
                         payableToAdmin = 400; // Agent keeps 300
+                    } else if (fullPrice === 1500) {
+                        payableToAdmin = 1100; // Agent keeps 400
                     }
                     
                     next.amount = String(payableToAdmin);
