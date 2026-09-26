@@ -52,6 +52,8 @@ class AdminAgentController extends Controller
                         'number' => $agent->number,
                         'whatsapp_number' => $agent->whatsapp_number,
                         'telegram_number' => $agent->telegram_number,
+                        'last_login_at' => $agent->last_login_at ? $agent->last_login_at->format('Y-m-d H:i:s') : null,
+                        'raw_id' => $agent->id,
                     ];
                 });
 
@@ -161,6 +163,55 @@ class AdminAgentController extends Controller
     /**
      * Update an agent
      */
+    
+    /**
+     * Get single agent details with recent ads
+     */
+    public function show($id): JsonResponse
+    {
+        try {
+            $agent = Agent::with(['advertisements' => function($q) {
+                $q->orderBy('created_at', 'desc')->take(20);
+            }])->findOrFail($id);
+            
+            $status = 'Pending Approval';
+            if ($agent->is_active === true) {
+                $status = 'Active';
+            } elseif ($agent->is_active === false && $agent->created_at->diffInDays(now()) > 0) {
+                $status = 'Blocked';
+            }
+            
+            return response()->json([
+                'success' => true,
+                'agent' => [
+                    'id' => 'AG' . str_pad((string) $agent->id, 3, '0', STR_PAD_LEFT),
+                    'name' => $agent->name,
+                    'email' => $agent->email,
+                    'number' => $agent->number,
+                    'status' => $status,
+                    'last_login_at' => $agent->last_login_at ? $agent->last_login_at->format('Y-m-d h:i A') : 'Never',
+                    'ads' => $agent->advertisements->map(function($ad) {
+                        return [
+                            'id' => $ad->id,
+                            'title' => $ad->title,
+                            'category' => $ad->category,
+                            'created_at' => $ad->created_at->format('Y-m-d h:i A'),
+                            'status' => $ad->status,
+                        ];
+                    })
+                ]
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to fetch agent details', [
+                'error' => $e->getMessage()
+            ]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to fetch agent details.'
+            ], 500);
+        }
+    }
+
     public function update(Request $request, $id): JsonResponse
     {
         try {

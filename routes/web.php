@@ -100,6 +100,7 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     // Agent Management API Routes
     Route::get('/api/agents', [AdminAgentController::class, 'index'])->name('api.agents.index');
     Route::post('/api/agents', [AdminAgentController::class, 'store'])->name('api.agents.store');
+    Route::get('/api/agents/{id}', [AdminAgentController::class, 'show'])->name('api.agents.show');
     Route::put('/api/agents/{id}', [AdminAgentController::class, 'update'])->name('api.agents.update');
     Route::patch('/api/agents/{id}/toggle-status', [AdminAgentController::class, 'toggleStatus'])->name('api.agents.toggle-status');
 

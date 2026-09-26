@@ -39,6 +39,11 @@ class AgentAuthController extends Controller
             // Check if the authenticated agent is active
             $agent = Auth::guard('agent')->user();
             
+            
+            // Update last login timestamp
+            $agent->last_login_at = now();
+            $agent->save();
+
             if (!$agent || !$agent->is_active) {
                 // Agent is not active, log them out
                 Auth::guard('agent')->logout();

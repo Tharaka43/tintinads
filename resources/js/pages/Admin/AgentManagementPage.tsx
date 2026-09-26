@@ -6,6 +6,7 @@ type AgentStatus = 'Active' | 'Blocked' | 'Pending Approval';
 
 interface Agent {
     id: string;
+    raw_id?: number;
     name: string;
     email: string;
     status: AgentStatus;
@@ -15,6 +16,23 @@ interface Agent {
     isActive: boolean;
     advertisements_count?: number;
     ad_transactions_sum_commission?: number;
+}
+
+interface AgentDetails {
+    id: string;
+    raw_id?: number;
+    name: string;
+    email: string;
+    number: string;
+    status: string;
+    last_login_at: string;
+    ads: {
+        id: number;
+        title: string;
+        category: string;
+        created_at: string;
+        status: string;
+    }[];
 }
 
 const StatusBadge: React.FC<{ status: AgentStatus }> = ({ status }) => {
@@ -35,6 +53,8 @@ const StatusBadge: React.FC<{ status: AgentStatus }> = ({ status }) => {
 };
 
 const AgentManagementPage: React.FC = () => {
+    const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+    const [viewingAgent, setViewingAgent] = useState<AgentDetails | null>(null);
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingAgent, setEditingAgent] = useState<any>(null);
 
@@ -57,6 +77,23 @@ const AgentManagementPage: React.FC = () => {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const [newAgent, setNewAgent] = useState({ name: '', email: '', password: '', number: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    
+    const handleViewAgent = async (agent: Agent) => {
+        if (!agent.raw_id) return;
+        try {
+            toast.loading('Loading details...', { id: 'viewAgent' });
+            const response = await axios.get(`/admin/api/agents/${agent.raw_id}`);
+            if (response.data.success) {
+                setViewingAgent(response.data.agent);
+                setIsViewModalOpen(true);
+                toast.dismiss('viewAgent');
+            }
+        } catch (error) {
+            console.error('Failed to fetch details:', error);
+            toast.error('Failed to load agent details.', { id: 'viewAgent' });
+        }
+    };
 
     const handleCreateAgent = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -255,6 +292,71 @@ const AgentManagementPage: React.FC = () => {
             </div>
 
             
+            
+            {/* View Agent Modal */}
+            {isViewModalOpen && viewingAgent && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white rounded-2xl shadow-xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[90vh]">
+                        <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-4 border-b border-gray-100 flex justify-between items-center">
+                            <h2 className="text-lg font-bold text-gray-800">Agent Details: {viewingAgent.name}</h2>
+                            <button onClick={() => setIsViewModalOpen(false)} className="text-gray-400 hover:text-red-500 transition-colors">
+                                <i className="fas fa-times text-xl"></i>
+                            </button>
+                        </div>
+                        <div className="p-6 overflow-y-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <p className="text-sm text-gray-500 mb-1">Contact Info</p>
+                                    <p className="font-semibold text-gray-800"><i className="fas fa-envelope mr-2 text-pink-500"></i>{viewingAgent.email}</p>
+                                    <p className="font-semibold text-gray-800 mt-2"><i className="fas fa-phone mr-2 text-pink-500"></i>{viewingAgent.number || 'N/A'}</p>
+                                </div>
+                                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <p className="text-sm text-gray-500 mb-1">Last Logged In</p>
+                                    <p className="font-bold text-gray-800 text-lg"><i className="fas fa-clock mr-2 text-purple-500"></i>{viewingAgent.last_login_at}</p>
+                                </div>
+                                <div className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                                    <p className="text-sm text-gray-500 mb-1">Ads Posted</p>
+                                    <p className="font-bold text-gray-800 text-lg"><i className="fas fa-ad mr-2 text-blue-500"></i>{viewingAgent.ads.length} Ads (Recent)</p>
+                                </div>
+                            </div>
+                            
+                            <h3 className="text-lg font-bold text-gray-800 mb-4 border-b pb-2">Recent Advertisements</h3>
+                            {viewingAgent.ads.length > 0 ? (
+                                <div className="overflow-x-auto rounded-xl border border-gray-200">
+                                    <table className="min-w-full divide-y divide-gray-200">
+                                        <thead className="bg-gray-50">
+                                            <tr>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Ad Title</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Category</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Published Time</th>
+                                                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-white divide-y divide-gray-200">
+                                            {viewingAgent.ads.map(ad => (
+                                                <tr key={ad.id} className="hover:bg-gray-50">
+                                                    <td className="px-4 py-3 text-sm font-medium text-gray-900">{ad.title}</td>
+                                                    <td className="px-4 py-3 text-sm text-gray-500">{ad.category}</td>
+                                                    <td className="px-4 py-3 text-sm font-semibold text-pink-600">{ad.created_at}</td>
+                                                    <td className="px-4 py-3 text-sm">
+                                                        <span className={`px-2 py-1 rounded-full text-xs font-bold ${ad.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>{ad.status}</span>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            ) : (
+                                <div className="text-center py-8 bg-gray-50 rounded-xl border border-gray-200">
+                                    <i className="fas fa-folder-open text-3xl text-gray-300 mb-3"></i>
+                                    <p className="text-gray-500 font-medium">No ads posted yet.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {/* Edit Agent Modal */}
             {isEditModalOpen && editingAgent && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
