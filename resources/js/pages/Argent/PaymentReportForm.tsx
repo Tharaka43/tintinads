@@ -442,6 +442,7 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
             if (fullPrice === 300) { payable = 200; comm = 100; }
             else if (fullPrice === 500) { payable = 300; comm = 200; }
             else if (fullPrice === 700) { payable = 400; comm = 300; }
+            else if (fullPrice === 1500) { payable = 1100; comm = 400; }
             selectedAdDetails = { fullPrice, payable, comm };
         }
     }
