@@ -20,6 +20,10 @@ Route::post('/ads/{adId}/save', [ClassifiedsController::class, 'saveAd'])->name(
 Route::post('/ads/{adId}/unsave', [ClassifiedsController::class, 'unsaveAd'])->name('ads.unsave');
 Route::post('/ads/{adId}/like', [ClassifiedsController::class, 'likeAd'])->name('ads.like');
 Route::get('/ad/{adId}', [ClassifiedsController::class, 'show'])->name('ad.show');
+Route::get('/packages', function () {
+    return Inertia::render('PackagesPage');
+})->name('packages');
+
 Route::get('/terms-and-conditions', function () {
     return Inertia::render('TermsAndConditions');
 })->name('terms');

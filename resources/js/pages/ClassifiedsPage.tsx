@@ -751,6 +751,9 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                     </span>
                                 )}
                             </a>
+                            <a href="/packages" className="text-gray-700 hover:text-primary-pink transition-colors font-medium text-pink-600">
+                                Packages & Pricing
+                            </a>
                             <a href="/terms-and-conditions" className="text-gray-700 hover:text-primary-pink transition-colors">
                                 Terms & Conditions
                             </a>
@@ -781,6 +784,9 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                             </a>
                             <a href="/blog" className="block py-2 text-gray-700 hover:text-cyan-600">
                                 <i className="far fa-newspaper w-6 text-center text-cyan-500 mr-2"></i> Blog
+                            </a>
+                            <a href="/packages" className="block py-2 text-pink-600 hover:text-pink-700 font-medium">
+                                <i className="fas fa-tags w-6 text-center text-pink-500 mr-2"></i> Packages & Pricing
                             </a>
                             <a href="/terms-and-conditions" className="block py-2 text-gray-700 hover:text-gray-900">
                                 <i className="fas fa-file-contract w-6 text-center text-gray-400 mr-2"></i> Terms & Conditions
