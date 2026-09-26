@@ -68,6 +68,7 @@ class ClassifiedsController extends Controller
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
                 $isVip = strtolower($listingCategoryName) === 'vip';
                 $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
+$isPlatinum = strtolower($listingCategoryName) === 'platinum';
 
                 // Determine if has cash back guarantee based on sub category
                 $subCategoryName = optional($advertisement->subCategory)->name ?? '';
@@ -103,7 +104,9 @@ class ClassifiedsController extends Controller
                     'imgSrc' => $imageUrl,
                     'images' => $images,
                     'isVip' => $isVip,
-                    'isPremium' => $isPremium,
+                      'isPremium' => $isPremium,
+                      'isPlatinum' => $isPlatinum,
+'isPlatinum' => $isPlatinum,
                     'hasCashBackGuarantee' => $hasCashBackGuarantee,
                 ];
             })
@@ -249,6 +252,7 @@ class ClassifiedsController extends Controller
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
                 $isVip = strtolower($listingCategoryName) === 'vip';
                 $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
+$isPlatinum = strtolower($listingCategoryName) === 'platinum';
 
                 // Determine if has cash back guarantee based on sub category
                 $subCategoryName = optional($advertisement->subCategory)->name ?? '';
@@ -284,7 +288,9 @@ class ClassifiedsController extends Controller
                     'imgSrc' => $imageUrl,
                     'images' => $images,
                     'isVip' => $isVip,
-                    'isPremium' => $isPremium,
+                      'isPremium' => $isPremium,
+                      'isPlatinum' => $isPlatinum,
+'isPlatinum' => $isPlatinum,
                     'hasCashBackGuarantee' => $hasCashBackGuarantee,
                     'isSaved' => true,
                 ];
@@ -326,6 +332,7 @@ class ClassifiedsController extends Controller
         $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
         $isVip = strtolower($listingCategoryName) === 'vip';
         $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
+$isPlatinum = strtolower($listingCategoryName) === 'platinum';
 
         // Determine if has cash back guarantee
         $subCategoryName = optional($advertisement->subCategory)->name ?? '';
@@ -370,6 +377,7 @@ class ClassifiedsController extends Controller
                 $listingCategoryName = optional($ad->listingCategory)->name ?? '';
                 $isVip = strtolower($listingCategoryName) === 'vip';
                 $isPremium = strtolower($listingCategoryName) === 'premium' || strtolower($listingCategoryName) === 'super';
+$isPlatinum = strtolower($listingCategoryName) === 'platinum';
                 $subCategoryName = optional($ad->subCategory)->name ?? '';
                 $hasCashBackGuarantee = stripos($subCategoryName, 'cash back') !== false 
                     || stripos($subCategoryName, 'cashback') !== false;
@@ -401,7 +409,9 @@ class ClassifiedsController extends Controller
                     'imgSrc' => $imageUrl,
                     'images' => $images,
                     'isVip' => $isVip,
-                    'isPremium' => $isPremium,
+                      'isPremium' => $isPremium,
+                      'isPlatinum' => $isPlatinum,
+'isPlatinum' => $isPlatinum,
                     'hasCashBackGuarantee' => $hasCashBackGuarantee,
                 ];
             })
@@ -418,7 +428,9 @@ class ClassifiedsController extends Controller
                 'time' => $timeAgo,
                 'images' => $images,
                 'isVip' => $isVip,
-                'isPremium' => $isPremium,
+                      'isPremium' => $isPremium,
+                      'isPlatinum' => $isPlatinum,
+'isPlatinum' => $isPlatinum,
                 'hasCashBackGuarantee' => $hasCashBackGuarantee,
                 'isSaved' => $isSaved,
                 'phone_number' => $advertisement->phone_number ?? null,
@@ -437,7 +449,7 @@ class ClassifiedsController extends Controller
     private function timeAgo($datetime): string
     {
         $now = now();
-        $diff = $now->diffInSeconds($datetime);
+        $diff = abs($now->diffInSeconds($datetime));
 
         if ($diff < 60) {
             return 'Just now';

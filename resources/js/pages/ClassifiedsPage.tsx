@@ -609,7 +609,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 </div>
             )}
             {/* VIP and Premium Border Animation Styles */}
-            {(hasVipAds || hasPremiumAds) && (
+            {(hasVipAds || hasPremiumAds || hasPlatinumAds) && (
                 <style>{`
                     @keyframes vipGoldBorderAnimation {
                         0% {
@@ -632,6 +632,29 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         100% {
                             background-position: 0% 50%;
                         }
+                    }
+
+                    @keyframes platinumSilverBorderAnimation {
+                        0% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                        100% { background-position: 0% 50%; }
+                    }
+                    .platinum-silver-animated-border {
+                        position: relative;
+                        background: linear-gradient(90deg, #94a3b8, #cbd5e1, #f1f5f9, #cbd5e1, #94a3b8);
+                        background-size: 200% 100%;
+                        animation: platinumSilverBorderAnimation 3s ease infinite;
+                        box-shadow: 0 0 8px rgba(148, 163, 184, 0.4), 0 0 16px rgba(203, 213, 225, 0.3);
+                        overflow: hidden;
+                    }
+                    .platinum-silver-animated-border::before {
+                        content: '';
+                        position: absolute;
+                        top: -2px;
+                        animation: shine 2s ease-in-out infinite;
+                        pointer-events: none;
+                        z-index: 1;
+                        border-radius: inherit;
                     }
                     @keyframes shine {
                         0% {

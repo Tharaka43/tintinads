@@ -24,6 +24,8 @@ interface Ad {
     images: string[];
     isVip: boolean;
     isPremium: boolean;
+    isPlatinum?: boolean;
+    isPlatinum?: boolean;
     hasCashBackGuarantee: boolean;
     isSaved: boolean;
     phone_number: string | null;
@@ -43,6 +45,8 @@ interface RelatedAd {
     images?: string[];
     isVip: boolean;
     isPremium: boolean;
+    isPlatinum?: boolean;
+    isPlatinum?: boolean;
     hasCashBackGuarantee: boolean;
 }
 
@@ -102,6 +106,7 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
 const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
     const isVip = ad.isVip || false;
     const isPremium = ad.isPremium || false;
+    const isPlatinum = ad.isPlatinum || false;
     const hasCashBackGuarantee = ad.hasCashBackGuarantee || false;
 
     // Use images array if available and not empty, otherwise fallback to imgSrc wrapped in array
@@ -419,6 +424,29 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         50% { background-position: 100% 50%; }
                         100% { background-position: 0% 50%; }
                     }
+
+                    @keyframes platinumSilverBorderAnimation {
+                        0% { background-position: 0% 50%; }
+                        50% { background-position: 100% 50%; }
+                        100% { background-position: 0% 50%; }
+                    }
+                    .platinum-silver-animated-border {
+                        position: relative;
+                        background: linear-gradient(90deg, #94a3b8, #cbd5e1, #f1f5f9, #cbd5e1, #94a3b8);
+                        background-size: 200% 100%;
+                        animation: platinumSilverBorderAnimation 3s ease infinite;
+                        box-shadow: 0 0 8px rgba(148, 163, 184, 0.4), 0 0 16px rgba(203, 213, 225, 0.3);
+                        overflow: hidden;
+                    }
+                    .platinum-silver-animated-border::before {
+                        content: '';
+                        position: absolute;
+                        top: -2px;
+                        animation: shine 2s ease-in-out infinite;
+                        pointer-events: none;
+                        z-index: 1;
+                        border-radius: inherit;
+                    }
                     @keyframes shine {
                         0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
                         100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
@@ -512,21 +540,23 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                     {/* Left Column - Image Gallery & Details */}
                     <div className="lg:col-span-2">
                         {/* VIP/Premium Badge */}
-                        {(ad.isVip || ad.isPremium) && (
-                            <div className={`mb-4 inline-flex items-center px-4 py-2 rounded-full text-sm font-bold shadow-lg ${ad.isVip
+                        {(ad.isPlatinum || ad.isVip || ad.isPremium) && (
+                            <div className={`mb-4 inline-flex items-center px-4 py-2 rounded-full text-sm font-bold shadow-lg ${ad.isPlatinum
+                                ? 'bg-gradient-to-r from-slate-500 to-slate-700 text-white'
+                                : ad.isVip
                                 ? 'bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white'
                                 : 'bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 text-white'
                                 }`}>
-                                <i className={`fas ${ad.isVip ? 'fa-crown' : 'fa-star'} mr-2`}></i>
-                                <span>{ad.isVip ? 'VIP' : 'Premium'}</span>
+                                <i className={`fas ${ad.isPlatinum ? 'fa-gem' : ad.isVip ? 'fa-crown' : 'fa-star'} mr-2`}></i>
+                                <span>{ad.isPlatinum ? 'Platinum' : ad.isVip ? 'VIP' : 'Premium'}</span>
                             </div>
                         )}
 
                         {/* Image Carousel */}
-                        <div className={`relative bg-white rounded-lg shadow-sm overflow-hidden mb-6 ${ad.isVip ? 'p-[4px] vip-gold-animated-border' :
+                        <div className={`relative bg-white rounded-lg shadow-sm overflow-hidden mb-6 ${ad.isPlatinum ? 'p-[4px] platinum-silver-animated-border' : ad.isVip ? 'p-[4px] vip-gold-animated-border' :
                             ad.isPremium ? 'p-[4px] premium-pink-animated-border' : ''
                             }`}>
-                            <div className={`${ad.isVip || ad.isPremium ? 'rounded-lg overflow-hidden' : ''}`}>
+                            <div className={`${ad.isPlatinum || ad.isVip || ad.isPremium ? 'rounded-lg overflow-hidden' : ''}`}>
                                 <img
                                     src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
                                     alt={ad.title}
