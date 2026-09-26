@@ -528,8 +528,11 @@ class AgentAdController extends Controller
             // 300 Ad -> Admin gets 200, Agent commission = 100
             // 500 Ad -> Admin gets 300, Agent commission = 200
             // 700 Ad -> Admin gets 400, Agent commission = 300
+            // 1500 Ad -> Admin gets 1100, Agent commission = 400
             $calculatedCommission = 100;
-            if ($fullPrice == 700) {
+            if ($fullPrice == 1500) {
+                $calculatedCommission = 400;
+            } elseif ($fullPrice == 700) {
                 $calculatedCommission = 300;
             } elseif ($fullPrice == 500) {
                 $calculatedCommission = 200;
