@@ -234,6 +234,38 @@ const AgentsPage: React.FC<AgentsPageProps> = ({
                     currentPage={pagination.currentPage} 
                     paginate={handlePaginate}
                 />
+
+                {/* Available Agent Slots Section */}
+                <div className="mt-20 mb-12">
+                    <div className="text-center mb-10">
+                        <span className="inline-block py-1 px-3 rounded-full bg-pink-100 text-pink-600 font-bold text-sm mb-3">Limited Opportunity</span>
+                        <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                            අපගේ නියෝජිතයෙකු වන්න!
+                        </h2>
+                        <p className="text-gray-600 mt-2 text-lg">අලුතෙන් නියෝජිතයින් (Agents) 10 දෙනෙකුට පමණක් අවස්ථාව ඇත.</p>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+                        {Array.from({ length: 10 }).map((_, index) => (
+                            <div 
+                                key={`slot-${index}`}
+                                onClick={() => window.open('https://wa.me/94716161613?text=Hello! I would like to become an authorized agent for TintinAds.', '_blank')}
+                                className="group cursor-pointer bg-gray-50 rounded-xl border-2 border-dashed border-gray-300 hover:border-pink-500 hover:bg-pink-50 hover:shadow-md transition-all duration-300 p-6 flex flex-col items-center justify-center min-h-[220px]"
+                            >
+                                <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-4 group-hover:bg-pink-100 transition-colors border border-gray-100 group-hover:border-pink-200">
+                                    <i className="fas fa-user-plus text-2xl text-gray-400 group-hover:text-pink-600 transition-colors"></i>
+                                </div>
+                                <h3 className="font-bold text-gray-700 group-hover:text-pink-600 transition-colors text-center">
+                                    Available Slot
+                                </h3>
+                                <p className="text-sm text-gray-400 mt-2 group-hover:text-pink-500 transition-colors text-center font-medium">
+                                    Click to Join via WhatsApp
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
             </main>
 
             {/* Footer */}
