@@ -154,7 +154,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
     }, [previewUrls]);
 
     const listingOptions = useMemo(
-        () => [{ id: 0, name: 'No Special Listing' }, ...listingCategories],
+        () => listingCategories,
         [listingCategories],
     );
 
@@ -491,7 +491,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             </div>
 
                             <div className="space-y-2">
-                                <span className="block text-sm font-medium text-gray-700">Listing Type (optional)</span>
+                                <span className="block text-sm font-medium text-gray-700">Listing Package *</span>
                                 <div className="space-y-3">
                                     {listingOptions.map((option) => {
                                         const value = option.id === 0 ? '' : String(option.id);
