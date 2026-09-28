@@ -517,7 +517,6 @@ const PaymentReportForm: React.FC<PaymentReportFormProps> = ({ adOptions, priceO
                                     id="receiptUpload"
                                     name="receiptFile"
                                     accept="image/*,.pdf"
-                                    required
                                     disabled={isSubmitting}
                                     onChange={handleFileChange}
                                     className="hidden"
