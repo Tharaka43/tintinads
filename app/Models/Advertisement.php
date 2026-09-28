@@ -79,23 +79,23 @@ class Advertisement extends Model
                 $sub->where('listing_category_id', 4)
                     ->where('post_date', '>=', now()->subDays(30));
             })
-            // VIP (ID 1) -> 7 days
+            // VIP (ID 1) -> 3 days
             ->orWhere(function ($sub) {
                 $sub->where('listing_category_id', 1)
-                    ->where('post_date', '>=', now()->subDays(7));
+                    ->where('post_date', '>=', now()->subDays(3));
             })
-            // Super (ID 2) -> 5 days
+            // Premium/Super (ID 2) -> 2 days
             ->orWhere(function ($sub) {
                 $sub->where('listing_category_id', 2)
-                    ->where('post_date', '>=', now()->subDays(5));
+                    ->where('post_date', '>=', now()->subDays(2));
             })
-            // Normal (ID 3) or NULL -> 3 days
+            // Normal (ID 3) or NULL -> 1 day
             ->orWhere(function ($sub) {
                 $sub->where(function ($sub2) {
                         $sub2->where('listing_category_id', 3)
                              ->orWhereNull('listing_category_id');
                     })
-                    ->where('post_date', '>=', now()->subDays(3));
+                    ->where('post_date', '>=', now()->subDays(1));
             });
         });
     }
@@ -109,13 +109,13 @@ class Advertisement extends Model
             return true;
         }
 
-        $days = 3; // Default
+        $days = 1; // Default Normal
         if ($this->listing_category_id == 4) {
             $days = 30; // Platinum
         } elseif ($this->listing_category_id == 1) {
-            $days = 7;  // VIP
+            $days = 3;  // VIP
         } elseif ($this->listing_category_id == 2) {
-            $days = 5;  // Super
+            $days = 2;  // Premium
         }
 
         return $this->post_date->lt(now()->subDays($days));

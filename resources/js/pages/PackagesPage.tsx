@@ -65,7 +65,7 @@ const PackagesPage: React.FC = () => {
                         අපගේ Packages (Pricing Plans)
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        ඔබගේ අවශ්‍යතාවය අනුව ගැළපෙන Package එක තෝරාගන්න. හැම Package එකක්ම දින 30ක් පුරාවටම සක්‍රීයව පවතිනවා.
+                        ඔබගේ අවශ්‍යතාවය අනුව ගැළපෙන Package එක තෝරාගන්න. Package එක අනුව දැන්වීම පවතින කාලය වෙනස් වේ.
                     </p>
                 </div>
 
@@ -83,7 +83,7 @@ const PackagesPage: React.FC = () => {
                         <div className="p-8 flex-grow">
                             <ul className="space-y-4">
                                 <li className="flex items-center text-gray-600">
-                                    <i className="fas fa-check text-green-500 mr-3"></i> දින 30ක කාලයක්
+                                    <i className="fas fa-check text-green-500 mr-3"></i> දින 1ක කාලයක්
                                 </li>
                                 <li className="flex items-center text-gray-600">
                                     <i className="fas fa-check text-green-500 mr-3"></i> උපරිම පින්තූර 1ක් පමණයි
@@ -111,7 +111,7 @@ const PackagesPage: React.FC = () => {
                             <div className="p-8 flex-grow">
                                 <ul className="space-y-4">
                                     <li className="flex items-center text-gray-700">
-                                        <i className="fas fa-check text-pink-500 mr-3"></i> දින 30ක කාලයක්
+                                        <i className="fas fa-check text-pink-500 mr-3"></i> දින 1ක කාලයක්
                                     </li>
                                     <li className="flex items-center text-gray-700">
                                         <i className="fas fa-check text-pink-500 mr-3"></i> උපරිම පින්තූර 3ක්
@@ -140,7 +140,7 @@ const PackagesPage: React.FC = () => {
                             <div className="p-8 flex-grow">
                                 <ul className="space-y-4">
                                     <li className="flex items-center text-gray-700">
-                                        <i className="fas fa-check text-amber-500 mr-3"></i> දින 30ක කාලයක්
+                                        <i className="fas fa-check text-amber-500 mr-3"></i> දින 1ක කාලයක්
                                     </li>
                                     <li className="flex items-center text-gray-700">
                                         <i className="fas fa-check text-amber-500 mr-3"></i> උපරිම පින්තූර 5ක්
@@ -169,7 +169,7 @@ const PackagesPage: React.FC = () => {
                             <div className="p-8 flex-grow">
                                 <ul className="space-y-4">
                                     <li className="flex items-center text-gray-700">
-                                        <i className="fas fa-check text-slate-500 mr-3"></i> දින 30ක කාලයක්
+                                        <i className="fas fa-check text-slate-500 mr-3"></i> දින 1ක කාලයක්
                                     </li>
                                     <li className="flex items-center text-gray-700">
                                         <i className="fas fa-check text-slate-500 mr-3"></i> උපරිම පින්තූර 5ක්
