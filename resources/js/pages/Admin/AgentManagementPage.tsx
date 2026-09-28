@@ -252,6 +252,9 @@ const AgentManagementPage: React.FC = () => {
                                                 <button onClick={() => { setEditingAgent(agent); setIsEditModalOpen(true); }} className="text-gray-400 hover:text-pink-600 transition-colors bg-gray-100 hover:bg-pink-50 px-2 py-1 rounded-md" title="Edit Agent">
                                                     <i className="fas fa-edit"></i>
                                                 </button>
+                                                <button onClick={() => handleViewAgent(agent)} className="text-gray-400 hover:text-purple-600 transition-colors bg-gray-100 hover:bg-purple-50 px-2 py-1 rounded-md ml-1" title="View Details">
+                                                    <i className="fas fa-eye"></i>
+                                                </button>
                                             </div>
                                             <p className="text-xs text-gray-500">{agent.email}</p>
                                         </div>
