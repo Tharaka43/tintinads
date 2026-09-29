@@ -68,6 +68,7 @@ interface Ad {
     images?: string[];
     isVip: boolean;
     isPremium: boolean;
+    isPlatinum?: boolean;
     hasCashBackGuarantee: boolean;
     isSaved?: boolean;
 }
@@ -150,6 +151,7 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
 const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: (adId: number, shouldSave: boolean) => void; isSaved?: boolean }) => {
     const isVip = ad.isVip || false;
     const isPremium = ad.isPremium || false;
+    const isPlatinum = ad.isPlatinum || false;
     const displayImages = ad.images && ad.images.length > 0 ? ad.images : [ad.imgSrc || '/placeholder-image.jpg'];
 
     const handleSaveClick = (e: React.MouseEvent) => {
@@ -165,19 +167,24 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
 
     return (
         <a href={`/ad/${ad.id}`} className="block">
-            <div className={`relative bg-white rounded-xl border ${isVip ? 'border-amber-400 vip-gold-animated-border p-[2px]' : isPremium ? 'border-pink-400 premium-pink-animated-border p-[2px]' : 'border-gray-200'} overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer flex flex-row h-[150px] sm:h-[180px]`}>
+            <div className={`relative bg-white rounded-xl border ${isPlatinum ? 'border-slate-400 platinum-silver-animated-border p-[2px]' : isVip ? 'border-amber-400 vip-gold-animated-border p-[2px]' : isPremium ? 'border-pink-400 premium-pink-animated-border p-[2px]' : 'border-gray-200'} overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer flex flex-row h-[150px] sm:h-[180px]`}>
                 
-                <div className={`flex flex-row w-full h-full bg-white ${isVip ? 'bg-amber-50 rounded-lg' : isPremium ? 'bg-pink-50 rounded-lg' : ''}`}>
+                <div className={`flex flex-row w-full h-full bg-white ${isPlatinum ? 'bg-slate-50 rounded-lg' : isVip ? 'bg-amber-50 rounded-lg' : isPremium ? 'bg-pink-50 rounded-lg' : ''}`}>
                     {/* Left: Image */}
                     <div className="relative w-[130px] sm:w-[180px] h-full flex-shrink-0">
                         {/* Top Right Badges */}
                         <div className="absolute top-1 right-1 z-20 flex flex-col gap-1">
-                            {isVip && (
+                            {isPlatinum && (
+                                <div className="bg-gradient-to-r from-slate-400 to-slate-600 text-white px-1.5 py-0.5 rounded text-[10px] font-bold shadow-md flex items-center justify-center">
+                                    <i className="fas fa-gem text-[8px] mr-1"></i> Plat
+                                </div>
+                            )}
+                            {isVip && !isPlatinum && (
                                 <div className="bg-gradient-to-r from-amber-400 to-amber-600 text-white px-1.5 py-0.5 rounded text-[10px] font-bold shadow-md flex items-center justify-center">
                                     <i className="fas fa-crown text-[8px] mr-1"></i> VIP
                                 </div>
                             )}
-                            {isPremium && !isVip && (
+                            {isPremium && !isVip && !isPlatinum && (
                                 <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white px-1.5 py-0.5 rounded text-[10px] font-bold shadow-md flex items-center justify-center">
                                     <i className="fas fa-star text-[8px] mr-1"></i> Prem
                                 </div>
@@ -188,7 +195,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                             images={displayImages}
                             title={ad.title}
                             className="object-cover"
-                            isVipOrPremium={isVip || isPremium}
+                            isVipOrPremium={isVip || isPremium || isPlatinum}
                         />
                     </div>
 
