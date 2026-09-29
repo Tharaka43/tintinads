@@ -94,8 +94,8 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
         }
     };
 
-    const likes = (ad.id * 7) % 15 + 1;
-    const views = ((ad.id * 13) % 50 + 10) / 10;
+    const likes = ad.likes || 0;
+    const views = ad.views || 0;
 
     return (
         <a href={`/ad/${ad.id}`} className="block">
@@ -156,7 +156,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                             <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                                 <div className="flex items-center space-x-3 text-[10px] sm:text-xs font-semibold text-blue-600">
                                     <span className="flex items-center"><i className="far fa-thumbs-up mr-1 text-blue-500"></i>{likes} Likes</span>
-                                    <span className="flex items-center"><i className="far fa-eye mr-1 text-blue-500"></i>{views}K Views</span>
+                                    <span className="flex items-center"><i className="far fa-eye mr-1 text-blue-500"></i>{views} Views</span>
                                 </div>
                                 <span className="text-[9px] sm:text-[11px] text-gray-400 whitespace-nowrap ml-2">{ad.time || '1d ago'}</span>
                             </div>
