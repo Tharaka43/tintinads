@@ -111,7 +111,7 @@ const PackagesPage: React.FC = () => {
                             <div className="p-8 flex-grow">
                                 <ul className="space-y-4">
                                     <li className="flex items-center text-gray-700">
-                                        <i className="fas fa-check text-pink-500 mr-3"></i> දින 1ක කාලයක්
+                                        <i className="fas fa-check text-pink-500 mr-3"></i> දින 2ක කාලයක්
                                     </li>
                                     <li className="flex items-center text-gray-700">
                                         <i className="fas fa-check text-pink-500 mr-3"></i> උපරිම පින්තූර 3ක්
@@ -140,7 +140,7 @@ const PackagesPage: React.FC = () => {
                             <div className="p-8 flex-grow">
                                 <ul className="space-y-4">
                                     <li className="flex items-center text-gray-700">
-                                        <i className="fas fa-check text-amber-500 mr-3"></i> දින 1ක කාලයක්
+                                        <i className="fas fa-check text-amber-500 mr-3"></i> දින 3ක කාලයක්
                                     </li>
                                     <li className="flex items-center text-gray-700">
                                         <i className="fas fa-check text-amber-500 mr-3"></i> උපරිම පින්තූර 5ක්
@@ -169,7 +169,7 @@ const PackagesPage: React.FC = () => {
                             <div className="p-8 flex-grow">
                                 <ul className="space-y-4">
                                     <li className="flex items-center text-gray-700">
-                                        <i className="fas fa-check text-slate-500 mr-3"></i> දින 1ක කාලයක්
+                                        <i className="fas fa-check text-slate-500 mr-3"></i> දින 30ක කාලයක්
                                     </li>
                                     <li className="flex items-center text-gray-700">
                                         <i className="fas fa-check text-slate-500 mr-3"></i> උපරිම පින්තූර 5ක්
