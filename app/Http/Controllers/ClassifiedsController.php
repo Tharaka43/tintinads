@@ -32,7 +32,7 @@ class ClassifiedsController extends Controller
             ->where('status', 'activated') // Only show activated ads
             ->where('payment_status', 'paid') // Only show paid ads
             ->unexpired()
-            ->orderByRaw('listing_category_id IS NULL, listing_category_id ASC')
+            ->orderByRaw('CASE listing_category_id WHEN 4 THEN 1 WHEN 1 THEN 2 WHEN 2 THEN 3 WHEN 3 THEN 4 ELSE 5 END ASC')
             ->latest('post_date');
 
         // Filter by category if not "All Categories"
