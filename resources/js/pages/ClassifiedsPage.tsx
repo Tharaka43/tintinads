@@ -236,7 +236,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
 
 const Pagination = ({ totalItems, currentPage, paginate }: { totalItems: number; currentPage: number; paginate: (page: number) => void }) => {
     const pageNumbers = [];
-    const totalPages = Math.ceil(totalItems / 9); // perPage is 9
+    const totalPages = Math.ceil(totalItems / 10); // perPage is 10
     const maxPageButtons = 5;
 
     let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
@@ -401,7 +401,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     pagination = {
         currentPage: 1,
         totalItems: 0,
-        perPage: 9,
+        perPage: 10,
         totalPages: 1,
     },
     selectedCategory: initialCategory = 'All Categories',
@@ -929,7 +929,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Latest Ads in {initialCategory}</h2>
                             <div className="flex items-center space-x-4 self-start sm:self-auto">
-                                <span className="text-sm text-gray-600 whitespace-nowrap">{filteredAds.length} results</span>
+                                <span className="text-sm text-gray-600 whitespace-nowrap">{pagination.totalItems} results</span>
                                 <select className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none text-sm focus:border-light-blue w-full sm:w-auto" style={{ borderColor: LIGHT_BLUE }}>
                                     <option>Sort by: Latest</option>
                                     <option>Price: Low to High</option>
@@ -958,7 +958,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
 
                         {/* 3. Pagination */}
                         <Pagination
-                            totalItems={filteredAds.length}
+                            totalItems={pagination.totalItems}
                             currentPage={pagination.currentPage}
                             paginate={(page) => handlePaginate(page, initialCategory, searchInput, locationInput)}
                         />
