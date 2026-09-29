@@ -339,10 +339,7 @@ const FilterSidebarContent = ({ selectedCategory, setSelectedCategory, categorie
                     <span className="flex-1 text-center">Blog</span>
                     <i className="far fa-newspaper opacity-80"></i>
                 </a>
-                <a href="/login" className="w-full bg-gradient-to-r from-slate-800 to-slate-900 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-between hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
-                    <span className="flex-1 text-center">Login</span>
-                    <i className="fas fa-lock opacity-80"></i>
-                </a>
+                
             </div>
 
             <div className="flex items-center justify-between mb-4 border-b-2 border-gray-100 pb-2">
@@ -803,9 +800,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                 <i className="fas fa-file-contract w-6 text-center text-gray-400 mr-2"></i> Terms & Conditions
                             </a>
                             <div className="border-t border-gray-100 my-2 pt-2"></div>
-                            <a href="/login" className="block py-2 font-bold text-gray-900 hover:text-pink-600">
-                                <i className="fas fa-lock w-6 text-center text-slate-800 mr-2"></i> Agent Login
-                            </a>
+                            
                         </div>
                     </div>
                 )}
