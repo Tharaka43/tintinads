@@ -296,6 +296,40 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
         return 1;
     }, [data.listing_category_id, listingCategories]);
 
+    useEffect(() => {
+        const handlePaste = (e: ClipboardEvent) => {
+            if (currentStep !== 3) return;
+            const items = e.clipboardData?.items;
+            if (!items) return;
+
+            const newFiles: File[] = [];
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    const file = items[i].getAsFile();
+                    if (file) newFiles.push(file);
+                }
+            }
+
+            if (newFiles.length > 0) {
+                e.preventDefault();
+                const currentImages = Array.isArray(data.images) ? data.images : [];
+                const combined = [...currentImages, ...newFiles].slice(0, maxImages);
+                setData('images', combined as any);
+                clearErrors('images');
+                setExistingImages([]);
+                
+                setPreviewUrls((previous) => {
+                    // Combine previous preview with new ones
+                    const newUrls = newFiles.map((file) => URL.createObjectURL(file));
+                    return [...previous, ...newUrls].slice(0, maxImages);
+                });
+            }
+        };
+
+        document.addEventListener('paste', handlePaste);
+        return () => document.removeEventListener('paste', handlePaste);
+    }, [currentStep, maxImages, data.images, setData, clearErrors]);
+
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (!files) return;
@@ -595,7 +629,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                                 </div>
                                 <div>
                                     <p className="text-lg font-medium text-gray-900">Drag and drop your files here</p>
-                                    <p className="text-gray-600">or click to browse</p>
+                                    <p className="text-gray-600">or click to browse <br/><span className="text-pink-500 font-semibold">Press CTRL+V to Paste</span></p>
                                 </div>
                                 <div className="text-sm text-gray-500">
                                     <p>Supported formats: JPG, PNG, GIF</p>
