@@ -129,7 +129,7 @@ class AgentAdController extends Controller
                                 $width = imagesx($img);
                                 $height = imagesy($img);
                                 
-                                $text = 'tintin.com';
+                                $text = 'tintinads.com';
                                 $font = 5;
                                 $fw = imagefontwidth($font) * strlen($text);
                                 $fh = imagefontheight($font);
@@ -179,7 +179,7 @@ class AgentAdController extends Controller
                                 $width = imagesx($img);
                                 $height = imagesy($img);
                                 
-                                $text = 'tintin.com';
+                                $text = 'tintinads.com';
                                 $font = 5;
                                 $fw = imagefontwidth($font) * strlen($text);
                                 $fh = imagefontheight($font);
@@ -332,7 +332,7 @@ class AgentAdController extends Controller
                                 $width = imagesx($img);
                                 $height = imagesy($img);
                                 
-                                $text = 'tintin.com';
+                                $text = 'tintinads.com';
                                 $font = 5;
                                 $fw = imagefontwidth($font) * strlen($text);
                                 $fh = imagefontheight($font);
