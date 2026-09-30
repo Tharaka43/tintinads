@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Models\SiteStatistic;
 use App\Models\Agent;
 use App\Models\CommonCategory;
 use Illuminate\Http\JsonResponse;
@@ -13,8 +14,10 @@ use Inertia\Response;
 
 class ClassifiedsController extends Controller
 {
-    public function index(Request $request): Response
+        public function index(Request $request): Response
     {
+        // Increment site views
+        SiteStatistic::where('key', 'total_views')->increment('value');
         // Get query parameters for filtering
         $category = $request->query('category', 'All Categories');
         $page = (int) $request->query('page', 1);

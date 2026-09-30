@@ -52,6 +52,7 @@ interface DashboardData {
         };
     };
     totalAdsPosted: number;
+    totalSiteViews: number;
     percentageChange: number;
 }
 
@@ -288,6 +289,7 @@ const AdminDashboardHome: React.FC = () => {
                         </div>
                         <div className="mt-4 flex items-center justify-between text-sm">
                             <span className="text-gray-600">Total Ads Posted: <strong style={{ color: LIGHT_BLUE }}>{data.totalAdsPosted.toLocaleString()}</strong></span>
+                            <span className="text-gray-600 ml-4">Total Site Views: <strong style={{ color: PRIMARY_PINK }}>{data.totalSiteViews ? data.totalSiteViews.toLocaleString() : 0}</strong></span>
                             <span className={data.percentageChange >= 0 ? 'text-green-600' : 'text-red-600'}>
                                 {data.percentageChange >= 0 ? '↗' : '↘'} {data.percentageChange >= 0 ? '+' : ''}{data.percentageChange}% vs last week
                             </span>

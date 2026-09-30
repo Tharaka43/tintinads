@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agent;
 use App\Models\Advertisement;
+use App\Models\SiteStatistic;
 use App\Models\AdTransaction;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -253,6 +254,9 @@ class AdminReportsController extends Controller
                 ? round((($lastWeekAds - $previousWeekAds) / $previousWeekAds) * 100, 1)
                 : 0;
 
+            // Fetch Total Site Views
+            $totalSiteViews = SiteStatistic::where('key', 'total_views')->value('value') ?? 0;
+
             return response()->json([
                 'success' => true,
                 'urgentStats' => [
@@ -266,6 +270,7 @@ class AdminReportsController extends Controller
                 ],
                 'totalAdsPosted' => $totalAdsPosted,
                 'percentageChange' => $percentageChange,
+                'totalSiteViews' => $totalSiteViews,
             ]);
         } catch (\Exception $e) {
             Log::error('Failed to fetch dashboard data', [
