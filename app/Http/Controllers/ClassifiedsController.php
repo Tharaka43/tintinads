@@ -168,7 +168,11 @@ $isPlatinum = strtolower($listingCategoryName) === 'platinum';
             return $ad;
         });
 
+        $realViews = SiteStatistic::where('key', 'total_views')->value('value') ?? 0;
+        $displayViews = 5000 + ($realViews * 5);
+
         return Inertia::render('ClassifiedsPage', [
+            'displayViews' => $displayViews,
             'ads' => $ads,
             'categories' => $categories,
             'topCategories' => $topCategories,

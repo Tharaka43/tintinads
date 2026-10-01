@@ -395,6 +395,7 @@ interface ClassifiedsPageProps {
     selectedCategory: string;
     searchTerm?: string;
     selectedLocation?: string;
+    displayViews?: number;
     savedAdIds?: number[];
 }
 
@@ -411,7 +412,8 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     selectedCategory: initialCategory = 'All Categories',
     searchTerm: initialSearchTerm = '',
     selectedLocation: initialLocation = 'All Sri Lanka',
-    savedAdIds = []
+    savedAdIds = [],
+    displayViews = 5000
 }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isFilterOverlayOpen, setIsFilterOverlayOpen] = useState(false);
@@ -738,6 +740,19 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                     }
                 `}</style>
             )}
+            
+            {/* Visitors Counter Strip */}
+            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-1.5 sm:py-2 px-4 shadow-md text-xs sm:text-sm font-bold flex items-center justify-center gap-2 relative overflow-hidden">
+                <div className="absolute inset-0 bg-white opacity-10 animate-pulse"></div>
+                <span className="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-white"></span>
+                </span>
+                <span className="z-10 tracking-wide">
+                    🔥 දිනපතා දහස් ගණනක් පැමිණෙන ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - <span className="text-yellow-300 ml-1 text-[13px] sm:text-[15px]">Total Visits: {displayViews.toLocaleString()}+</span>
+                </span>
+            </div>
+            
             {/* Sticky Header */}
             <header className="sticky overflow-hidden top-0 z-50 bg-white shadow-sm border-b border-gray-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
