@@ -13,7 +13,7 @@ const DISTRICT_CITIES: Record<string, string[]> = {
     'Batticaloa': ['Batticaloa', 'Kattankudy', 'Valaichchenai'],
     'Colombo': ['Colombo 1', 'Colombo 2', 'Colombo 3', 'Colombo 4', 'Colombo 5', 'Colombo 6', 'Avissawella', 'Battaramulla', 'Boralesgamuwa', 'Dehiwala', 'Homagama', 'Kaduwela', 'Kesbewa', 'Kohuwala', 'Kolonnawa', 'Kottawa', 'Kotte', 'Maharagama', 'Malabe', 'Moratuwa', 'Mount Lavinia', 'Nawala', 'Nugegoda', 'Padukka', 'Pannipitiya', 'Piliyandala', 'Rajagiriya', 'Ratmalana', 'Wellampitiya'],
     'Galle': ['Galle', 'Ambalangoda', 'Baddegama', 'Batapola', 'Elpitiya', 'Hikkaduwa', 'Koggala', 'Karapitiya'],
-    'Gampaha': ['Gampaha', 'Biyagama', 'Delgoda', 'Divulapitiya', 'Ganemulla', 'Ja-Ela', 'Kadawatha', 'Kandana', 'Katunayake', 'Kelaniya', 'Kiribathgoda', 'Minuwangoda', 'Mirigama', 'Negombo', 'Nittambuwa', 'Ragama', 'Veyangoda', 'Wattala'],
+    'Gampaha': ['Gampaha', 'Biyagama', 'Delgoda', 'Divulapitiya', 'Ganemulla', 'Ja-Ela', 'Kadawatha', 'Kandana', 'Katunayake', 'Kelaniya', 'Kiribathgoda', 'Kirindiwela', 'Minuwangoda', 'Mirigama', 'Negombo', 'Nittambuwa', 'Peliyagoda', 'Ragama', 'Veyangoda', 'Wattala', 'Yakkala'],
     'Hambantota': ['Hambantota', 'Ambalantota', 'Beliatta', 'Tangalle', 'Tissamaharama'],
     'Jaffna': ['Jaffna', 'Chavakachcheri', 'Nallur', 'Point Pedro'],
     'Kalutara': ['Kalutara', 'Aluthgama', 'Bandaragama', 'Beruwala', 'Horana', 'Matugama', 'Panadura', 'Wadduwa'],
