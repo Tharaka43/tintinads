@@ -6,33 +6,35 @@ import ImageEditorModal from '../../components/ImageEditorModal';
 const PINK = '#EC4899';
 const LIGHT_BLUE = '#60A5FA';
 
-const LOCATION_OPTIONS = [
-    { value: 'Ampara', label: 'Ampara' },
-    { value: 'Anuradhapura', label: 'Anuradhapura' },
-    { value: 'Badulla', label: 'Badulla' },
-    { value: 'Batticaloa', label: 'Batticaloa' },
-    { value: 'Colombo', label: 'Colombo' },
-    { value: 'Galle', label: 'Galle' },
-    { value: 'Gampaha', label: 'Gampaha' },
-    { value: 'Hambantota', label: 'Hambantota' },
-    { value: 'Jaffna', label: 'Jaffna' },
-    { value: 'Kalutara', label: 'Kalutara' },
-    { value: 'Kandy', label: 'Kandy' },
-    { value: 'Kegalle', label: 'Kegalle' },
-    { value: 'Kilinochchi', label: 'Kilinochchi' },
-    { value: 'Kurunegala', label: 'Kurunegala' },
-    { value: 'Mannar', label: 'Mannar' },
-    { value: 'Matale', label: 'Matale' },
-    { value: 'Matara', label: 'Matara' },
-    { value: 'Monaragala', label: 'Monaragala' },
-    { value: 'Mullaitivu', label: 'Mullaitivu' },
-    { value: 'Nuwara Eliya', label: 'Nuwara Eliya' },
-    { value: 'Polonnaruwa', label: 'Polonnaruwa' },
-    { value: 'Puttalam', label: 'Puttalam' },
-    { value: 'Ratnapura', label: 'Ratnapura' },
-    { value: 'Trincomalee', label: 'Trincomalee' },
-    { value: 'Vavuniya', label: 'Vavuniya' },
-];
+const DISTRICT_CITIES: Record<string, string[]> = {
+    'Ampara': ['Ampara', 'Akkaraipattu', 'Kalmunai', 'Sainthamaruthu'],
+    'Anuradhapura': ['Anuradhapura', 'Eppawala', 'Kekirawa', 'Medawachchiya', 'Nochchiyagama', 'Tambuttegama'],
+    'Badulla': ['Badulla', 'Bandarawela', 'Diyatalawa', 'Hali-Ela', 'Haputale', 'Mahiyanganaya', 'Passara', 'Welimada'],
+    'Batticaloa': ['Batticaloa', 'Kattankudy', 'Valaichchenai'],
+    'Colombo': ['Colombo 1', 'Colombo 2', 'Colombo 3', 'Colombo 4', 'Colombo 5', 'Colombo 6', 'Avissawella', 'Battaramulla', 'Boralesgamuwa', 'Dehiwala', 'Homagama', 'Kaduwela', 'Kesbewa', 'Kohuwala', 'Kolonnawa', 'Kottawa', 'Kotte', 'Maharagama', 'Malabe', 'Moratuwa', 'Mount Lavinia', 'Nawala', 'Nugegoda', 'Padukka', 'Pannipitiya', 'Piliyandala', 'Rajagiriya', 'Ratmalana', 'Wellampitiya'],
+    'Galle': ['Galle', 'Ambalangoda', 'Baddegama', 'Batapola', 'Elpitiya', 'Hikkaduwa', 'Koggala', 'Karapitiya'],
+    'Gampaha': ['Gampaha', 'Biyagama', 'Delgoda', 'Divulapitiya', 'Ganemulla', 'Ja-Ela', 'Kadawatha', 'Kandana', 'Katunayake', 'Kelaniya', 'Kiribathgoda', 'Minuwangoda', 'Mirigama', 'Negombo', 'Nittambuwa', 'Ragama', 'Veyangoda', 'Wattala'],
+    'Hambantota': ['Hambantota', 'Ambalantota', 'Beliatta', 'Tangalle', 'Tissamaharama'],
+    'Jaffna': ['Jaffna', 'Chavakachcheri', 'Nallur', 'Point Pedro'],
+    'Kalutara': ['Kalutara', 'Aluthgama', 'Bandaragama', 'Beruwala', 'Horana', 'Matugama', 'Panadura', 'Wadduwa'],
+    'Kandy': ['Kandy', 'Akurana', 'Digana', 'Gampola', 'Gelioya', 'Kadugannawa', 'Katugastota', 'Nawalapitiya', 'Peradeniya', 'Pilimathalawa', 'Wattegama'],
+    'Kegalle': ['Kegalle', 'Aranayaka', 'Dehiowita', 'Deraniyagala', 'Galigamuwa', 'Hemmathagama', 'Karawanella', 'Kitulgala', 'Kotiyakumbura', 'Mawanella', 'Rambukkana', 'Ruwanwella', 'Thalgaspitiya', 'Warakapola', 'Yatiyanthota'],
+    'Kilinochchi': ['Kilinochchi'],
+    'Kurunegala': ['Kurunegala', 'Alawwa', 'Bingiriya', 'Dambadeniya', 'Galgamuwa', 'Giriulla', 'Hettipola', 'Ibbagamuwa', 'Kuliyapitiya', 'Mawathagama', 'Narammala', 'Pannala', 'Polgahawela', 'Wariyapola'],
+    'Mannar': ['Mannar'],
+    'Matale': ['Matale', 'Dambulla', 'Galewela', 'Palapathwela', 'Rattota', 'Sigiriya', 'Ukuwela', 'Yatawatta'],
+    'Matara': ['Matara', 'Akuressa', 'Deniyaya', 'Dikwella', 'Hakmana', 'Kamburugamuwa', 'Kamburupitiya', 'Weligama'],
+    'Monaragala': ['Monaragala', 'Bibile', 'Buttala', 'Kataragama', 'Medagama', 'Wellawaya'],
+    'Mullaitivu': ['Mullaitivu'],
+    'Nuwara Eliya': ['Nuwara Eliya', 'Agarapathana', 'Dayagama', 'Ginigathena', 'Hatton', 'Kotagala', 'Maskeliya', 'Nanu Oya', 'Nawalapitiya', 'Norwood', 'Ragala', 'Talawakele'],
+    'Polonnaruwa': ['Polonnaruwa', 'Hingurakgoda', 'Kaduruwela', 'Medirigiriya'],
+    'Puttalam': ['Puttalam', 'Chilaw', 'Dankotuwa', 'Kalpitiya', 'Marawila', 'Nattandiya', 'Wennappuwa'],
+    'Ratnapura': ['Ratnapura', 'Balangoda', 'Eheliyagoda', 'Embilipitiya', 'Godakawela', 'Kuruwita', 'Nivitigala', 'Opanayaka', 'Pelmadulla', 'Rakwana'],
+    'Trincomalee': ['Trincomalee', 'Gomarankadawala', 'Kantalai', 'Kinniya', 'Kuchchaveli', 'Mutur'],
+    'Vavuniya': ['Vavuniya']
+};
+
+const DISTRICTS = Object.keys(DISTRICT_CITIES).map(d => ({ value: d, label: d }));
 
 interface ProgressStep {
     id: number;
@@ -134,6 +136,17 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
     });
 
     const [previewUrls, setPreviewUrls] = useState<string[]>([]);
+    // Parse initial district from location string if editing (format: "City, District")
+    const initialLocation = ad?.location || '';
+    let initialDistrict = '';
+    if (initialLocation) {
+        const parts = initialLocation.split(',').map(s => s.trim());
+        const possibleDist = parts.length > 1 ? parts[parts.length - 1] : parts[0];
+        if (DISTRICT_CITIES[possibleDist]) {
+            initialDistrict = possibleDist;
+        }
+    }
+    const [selectedDistrict, setSelectedDistrict] = useState(initialDistrict);
     // Initialize existing images preview from ad data
     const [existingImages, setExistingImages] = useState<string[]>(ad?.formatted_images || []);
 
@@ -397,35 +410,63 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             )}
                         </div>
 
-                        <div className="space-y-2">
-                            <label className="block text-sm font-medium text-gray-700">Locations (Cities) *</label>
-                            <Select
-                                isMulti
-                                name="location"
-                                options={LOCATION_OPTIONS}
-                                className="basic-multi-select"
-                                classNamePrefix="select"
-                                placeholder="Select multiple cities..."
-                                value={data.location ? LOCATION_OPTIONS.filter(option => data.location.split(', ').includes(option.value)) : []}
-                                onChange={(selectedOptions) => {
-                                    const values = selectedOptions ? (selectedOptions as typeof LOCATION_OPTIONS).map(opt => opt.value).join(', ') : '';
-                                    setData('location', values);
-                                }}
-                                styles={{
-                                    control: (baseStyles, state) => ({
-                                      ...baseStyles,
-                                      borderColor: state.isFocused ? PINK : '#D1D5DB',
-                                      padding: '4px',
-                                      borderRadius: '0.5rem',
-                                      boxShadow: state.isFocused ? `0 0 0 2px rgba(236, 72, 153, 0.2)` : 'none',
-                                      '&:hover': {
-                                        borderColor: state.isFocused ? PINK : '#9CA3AF'
-                                      }
-                                    }),
-                                }}
-                            />
-                            <p className="text-xs text-gray-500">You can select multiple cities to help users find your ad.</p>
-                            {errors.location && <p className="text-sm text-red-500">{errors.location}</p>}
+                        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700">District *</label>
+                                <Select
+                                    name="district"
+                                    options={DISTRICTS}
+                                    placeholder="Select district..."
+                                    value={DISTRICTS.find(d => d.value === selectedDistrict) || null}
+                                    onChange={(option) => {
+                                        const newDist = option ? option.value : '';
+                                        setSelectedDistrict(newDist);
+                                        setData('location', ''); // Reset city on district change
+                                    }}
+                                    styles={{
+                                        control: (baseStyles, state) => ({
+                                          ...baseStyles,
+                                          borderColor: state.isFocused ? PINK : '#D1D5DB',
+                                          padding: '4px',
+                                          borderRadius: '0.5rem',
+                                          boxShadow: state.isFocused ? `0 0 0 2px rgba(236, 72, 153, 0.2)` : 'none',
+                                          '&:hover': {
+                                            borderColor: state.isFocused ? PINK : '#9CA3AF'
+                                          }
+                                        }),
+                                    }}
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="block text-sm font-medium text-gray-700">City / Town *</label>
+                                <Select
+                                    name="city"
+                                    options={selectedDistrict ? DISTRICT_CITIES[selectedDistrict].map(c => ({ value: c, label: c })) : []}
+                                    placeholder="Select city..."
+                                    isDisabled={!selectedDistrict}
+                                    value={selectedDistrict && data.location ? { value: data.location.split(',')[0].trim(), label: data.location.split(',')[0].trim() } : null}
+                                    onChange={(option) => {
+                                        if (option) {
+                                            setData('location', `${option.value}, ${selectedDistrict}`);
+                                        } else {
+                                            setData('location', '');
+                                        }
+                                    }}
+                                    styles={{
+                                        control: (baseStyles, state) => ({
+                                          ...baseStyles,
+                                          borderColor: state.isFocused ? PINK : '#D1D5DB',
+                                          padding: '4px',
+                                          borderRadius: '0.5rem',
+                                          boxShadow: state.isFocused ? `0 0 0 2px rgba(236, 72, 153, 0.2)` : 'none',
+                                          '&:hover': {
+                                            borderColor: state.isFocused ? PINK : '#9CA3AF'
+                                          }
+                                        }),
+                                    }}
+                                />
+                                {errors.location && <p className="text-sm text-red-500">{errors.location}</p>}
+                            </div>
                         </div>
 
                         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
