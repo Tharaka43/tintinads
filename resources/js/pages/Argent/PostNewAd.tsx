@@ -438,16 +438,26 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                                 />
                             </div>
                             <div className="space-y-2">
-                                <label className="block text-sm font-medium text-gray-700">City / Town *</label>
+                                <label className="block text-sm font-medium text-gray-700">Cities / Towns *</label>
                                 <Select
+                                    isMulti
                                     name="city"
                                     options={selectedDistrict ? DISTRICT_CITIES[selectedDistrict].map(c => ({ value: c, label: c })) : []}
-                                    placeholder="Select city..."
+                                    placeholder="Select cities..."
                                     isDisabled={!selectedDistrict}
-                                    value={selectedDistrict && data.location ? { value: data.location.split(',')[0].trim(), label: data.location.split(',')[0].trim() } : null}
-                                    onChange={(option) => {
-                                        if (option) {
-                                            setData('location', `${option.value}, ${selectedDistrict}`);
+                                    value={
+                                        selectedDistrict && data.location
+                                        ? data.location
+                                            .split(',')
+                                            .map(s => s.trim())
+                                            .filter(s => s !== selectedDistrict && s !== '')
+                                            .map(city => ({ value: city, label: city }))
+                                        : []
+                                    }
+                                    onChange={(options) => {
+                                        if (options && (options as any[]).length > 0) {
+                                            const cities = (options as any[]).map(o => o.value).join(', ');
+                                            setData('location', `${cities}, ${selectedDistrict}`);
                                         } else {
                                             setData('location', '');
                                         }
@@ -466,6 +476,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                                     }}
                                 />
                                 {errors.location && <p className="text-sm text-red-500">{errors.location}</p>}
+                                <p className="text-xs text-gray-500 mt-1">You can select multiple towns within the district.</p>
                             </div>
                         </div>
 
