@@ -72,6 +72,54 @@ type PostNewAdForm = {
     images: File[];
 };
 
+const compressImage = (file: File, maxWidth = 1200, maxHeight = 1200, quality = 0.7): Promise<File> => {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target?.result as string;
+            img.onload = () => {
+                let width = img.width;
+                let height = img.height;
+
+                if (width > maxWidth || height > maxHeight) {
+                    if (width > height) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    } else {
+                        width = Math.round((width * maxHeight) / height);
+                        height = maxHeight;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                if (!ctx) {
+                    resolve(file); // fallback
+                    return;
+                }
+                ctx.drawImage(img, 0, 0, width, height);
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        const newFile = new File([blob], file.name.replace(/\.[^/.]+$/, "") + ".jpg", {
+                            type: 'image/jpeg',
+                            lastModified: Date.now(),
+                        });
+                        resolve(newFile);
+                    } else {
+                        resolve(file);
+                    }
+                }, 'image/jpeg', quality);
+            };
+            img.onerror = () => resolve(file); // fallback
+        };
+        reader.onerror = () => resolve(file); // fallback
+    });
+};
+
 const StepIndicator: React.FC<{ step: ProgressStep; currentStep: number }> = ({ step, currentStep }) => {
     const isCurrent = step.id === currentStep;
     const isCompleted = step.id < currentStep;
@@ -310,7 +358,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
     }, [data.listing_category_id, listingCategories]);
 
     useEffect(() => {
-        const handlePaste = (e: ClipboardEvent) => {
+        const handlePaste = async (e: ClipboardEvent) => {
             if (currentStep !== 3) return;
             const items = e.clipboardData?.items;
             if (!items) return;
@@ -325,15 +373,15 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
 
             if (newFiles.length > 0) {
                 e.preventDefault();
+                const compressedFiles = await Promise.all(newFiles.map(f => compressImage(f)));
                 const currentImages = Array.isArray(data.images) ? data.images : [];
-                const combined = [...currentImages, ...newFiles].slice(0, maxImages);
+                const combined = [...currentImages, ...compressedFiles].slice(0, maxImages);
                 setData('images', combined as any);
                 clearErrors('images');
                 setExistingImages([]);
                 
                 setPreviewUrls((previous) => {
-                    // Combine previous preview with new ones
-                    const newUrls = newFiles.map((file) => URL.createObjectURL(file));
+                    const newUrls = compressedFiles.map((file) => URL.createObjectURL(file));
                     return [...previous, ...newUrls].slice(0, maxImages);
                 });
             }
@@ -343,23 +391,26 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
         return () => document.removeEventListener('paste', handlePaste);
     }, [currentStep, maxImages, data.images, setData, clearErrors]);
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleImageChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (!files) return;
 
-        const newFiles = Array.from(files).slice(0, maxImages);
-        setData('images', newFiles);
-        clearErrors('images');
+        const newFiles = Array.from(files);
+        const compressedFiles = await Promise.all(newFiles.map(f => compressImage(f)));
 
-        // If user selects new files, clears existing images preview?
-        // Let's adopt the strategy: if new files selected, we replace everything.
-        // So we should hide existing images when new ones are picked.
+        const currentImages = Array.isArray(data.images) ? data.images : [];
+        const combined = [...currentImages, ...compressedFiles].slice(0, maxImages);
+
+        setData('images', combined as any);
+        clearErrors('images');
         setExistingImages([]);
 
         setPreviewUrls((previous) => {
-            previous.forEach((url) => URL.revokeObjectURL(url));
-            return newFiles.map((file) => URL.createObjectURL(file));
+            const newUrls = compressedFiles.map((file) => URL.createObjectURL(file));
+            return [...previous, ...newUrls].slice(0, maxImages);
         });
+        
+        if (event.target) event.target.value = '';
     };
 
     const renderStepContent = () => {
