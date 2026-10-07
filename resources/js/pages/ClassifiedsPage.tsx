@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { router, Head, usePage } from '@inertiajs/react';
 import Select from 'react-select';
+import Footer from '../Components/Footer';
 
 // NOTE on Logo Path:
 // The logo is referenced using the absolute public path: "/assets/sitelogo.png"
@@ -991,15 +992,9 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         />
                     </main>
                 </div>
-
-                {/* SEO Text Block */}
-                <div className="mt-16 pt-8 border-t border-gray-200 text-gray-500 text-sm leading-relaxed text-center lg:text-left">
-                    <h1 className="text-gray-700 font-semibold mb-2">Sri Lanka's Best Classifieds, Personal Ads & Spa Ads Platform</h1>
-                    <p>
-                        Looking for the best alternative to SL Ads, Hela Ads, and Hitad? Welcome to TinTinAds! We are Sri Lanka's fastest-growing marketplace to buy, sell, and find exactly what you need. Whether you are searching for Lanka Ads, Spa Ads, jobs, vehicles, or personal ads in Sri Lanka, TinTinAds provides a safe, secure, and lightning-fast platform for all your classified needs. Join thousands of users who have switched to the ultimate SL ad experience today.
-                    </p>
-                </div>
             </div>
+
+            <Footer />
 
             {/* Mobile Filter Overlay */}
             {isFilterOverlayOpen && (
