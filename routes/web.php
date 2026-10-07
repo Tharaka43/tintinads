@@ -12,6 +12,38 @@ use App\Http\Controllers\ClassifiedsController;
 use App\Http\Controllers\OcrController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Advertisement;
+use Illuminate\Support\Facades\Response;
+
+Route::get('/sitemap.xml', function () {
+    $ads = Advertisement::where('status', 'activated')->orderBy('created_at', 'desc')->get();
+    
+    $xml = '<?xml version="1.0" encoding="UTF-8"?>';
+    $xml .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+    
+    // Home
+    $xml .= '<url><loc>' . url('/') . '</loc><changefreq>daily</changefreq><priority>1.0</priority></url>';
+    
+    // Packages
+    $xml .= '<url><loc>' . url('/packages') . '</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>';
+    
+    // Terms
+    $xml .= '<url><loc>' . url('/terms-and-conditions') . '</loc><changefreq>monthly</changefreq><priority>0.3</priority></url>';
+    
+    // Ads
+    foreach ($ads as $ad) {
+        $xml .= '<url>';
+        $xml .= '<loc>' . url('/ad/' . $ad->id) . '</loc>';
+        $xml .= '<lastmod>' . $ad->updated_at->tz('UTC')->toAtomString() . '</lastmod>';
+        $xml .= '<changefreq>weekly</changefreq>';
+        $xml .= '<priority>0.8</priority>';
+        $xml .= '</url>';
+    }
+    
+    $xml .= '</urlset>';
+    
+    return Response::make($xml, 200, ['Content-Type' => 'text/xml']);
+});
 
 Route::get('/', [ClassifiedsController::class, 'index'])->name('home');
 Route::get('/agents', [ClassifiedsController::class, 'agents'])->name('agents');
