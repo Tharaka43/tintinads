@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../wayfinder'
 /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
 export const home = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ home.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
 home.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ home.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
 home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ home.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
 home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
     const homeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
         homeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::home
- * @see app/Http/Controllers/ClassifiedsController.php:16
+ * @see app/Http/Controllers/ClassifiedsController.php:17
  * @route '/'
  */
         homeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ home.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     home.form = homeForm
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
 export const agents = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ agents.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
 agents.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ agents.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
 agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
 agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
     const agentsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
         agentsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::agents
- * @see app/Http/Controllers/ClassifiedsController.php:465
+ * @see app/Http/Controllers/ClassifiedsController.php:490
  * @route '/agents'
  */
         agentsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -157,7 +157,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     agents.form = agentsForm
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
 export const savedAds = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -172,7 +172,7 @@ savedAds.definition = {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
 savedAds.url = (options?: RouteQueryOptions) => {
@@ -181,7 +181,7 @@ savedAds.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
 savedAds.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -190,7 +190,7 @@ savedAds.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
 savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -200,7 +200,7 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
     const savedAdsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -210,7 +210,7 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
         savedAdsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -219,7 +219,7 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ClassifiedsController::savedAds
- * @see app/Http/Controllers/ClassifiedsController.php:218
+ * @see app/Http/Controllers/ClassifiedsController.php:230
  * @route '/saved-ads'
  */
         savedAdsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -235,6 +235,77 @@ savedAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     savedAds.form = savedAdsForm
 /**
  * @see routes/web.php:23
+ * @route '/packages'
+ */
+export const packages = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: packages.url(options),
+    method: 'get',
+})
+
+packages.definition = {
+    methods: ["get","head"],
+    url: '/packages',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:23
+ * @route '/packages'
+ */
+packages.url = (options?: RouteQueryOptions) => {
+    return packages.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:23
+ * @route '/packages'
+ */
+packages.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: packages.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:23
+ * @route '/packages'
+ */
+packages.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: packages.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:23
+ * @route '/packages'
+ */
+    const packagesForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: packages.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:23
+ * @route '/packages'
+ */
+        packagesForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: packages.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:23
+ * @route '/packages'
+ */
+        packagesForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: packages.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    packages.form = packagesForm
+/**
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
 export const terms = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -248,7 +319,7 @@ terms.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:23
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
 terms.url = (options?: RouteQueryOptions) => {
@@ -256,7 +327,7 @@ terms.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:23
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
 terms.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -264,7 +335,7 @@ terms.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:23
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
 terms.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -273,7 +344,7 @@ terms.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:23
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
     const termsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -282,7 +353,7 @@ terms.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:23
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
         termsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -290,7 +361,7 @@ terms.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:23
+ * @see routes/web.php:27
  * @route '/terms-and-conditions'
  */
         termsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -305,7 +376,7 @@ terms.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     terms.form = termsForm
 /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
 export const singleview = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -319,7 +390,7 @@ singleview.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
 singleview.url = (options?: RouteQueryOptions) => {
@@ -327,7 +398,7 @@ singleview.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
 singleview.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -335,7 +406,7 @@ singleview.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
 singleview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -344,7 +415,7 @@ singleview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
     const singleviewForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -353,7 +424,7 @@ singleview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
         singleviewForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -361,7 +432,7 @@ singleview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:26
+ * @see routes/web.php:30
  * @route '/singleview'
  */
         singleviewForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -376,7 +447,7 @@ singleview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     singleview.form = singleviewForm
 /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
 export const OcrUploader = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -390,7 +461,7 @@ OcrUploader.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
 OcrUploader.url = (options?: RouteQueryOptions) => {
@@ -398,7 +469,7 @@ OcrUploader.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
 OcrUploader.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -406,7 +477,7 @@ OcrUploader.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
 OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -415,7 +486,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
     const OcrUploaderForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -424,7 +495,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
         OcrUploaderForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -432,7 +503,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:30
+ * @see routes/web.php:34
  * @route '/ocruploader'
  */
         OcrUploaderForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -447,7 +518,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     OcrUploader.form = OcrUploaderForm
 /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
 export const login = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -461,7 +532,7 @@ login.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
 login.url = (options?: RouteQueryOptions) => {
@@ -469,7 +540,7 @@ login.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
 login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -477,7 +548,7 @@ login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
 login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -486,7 +557,7 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
     const loginForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -495,7 +566,7 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
         loginForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -503,7 +574,7 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:37
+ * @see routes/web.php:41
  * @route '/login'
  */
         loginForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

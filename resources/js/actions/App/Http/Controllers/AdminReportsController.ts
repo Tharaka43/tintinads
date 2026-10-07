@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\AdminReportsController::index
- * @see app/Http/Controllers/AdminReportsController.php:19
+ * @see app/Http/Controllers/AdminReportsController.php:20
  * @route '/admin/api/reports'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ dashboard.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -112,7 +112,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -122,7 +122,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -132,7 +132,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -141,7 +141,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\AdminReportsController::dashboard
- * @see app/Http/Controllers/AdminReportsController.php:206
+ * @see app/Http/Controllers/AdminReportsController.php:207
  * @route '/admin/api/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

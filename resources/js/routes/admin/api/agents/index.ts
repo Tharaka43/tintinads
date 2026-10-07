@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\AdminAgentController::store
- * @see app/Http/Controllers/AdminAgentController.php:79
+ * @see app/Http/Controllers/AdminAgentController.php:81
  * @route '/admin/api/agents'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAgentController::store
- * @see app/Http/Controllers/AdminAgentController.php:79
+ * @see app/Http/Controllers/AdminAgentController.php:81
  * @route '/admin/api/agents'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AdminAgentController::store
- * @see app/Http/Controllers/AdminAgentController.php:79
+ * @see app/Http/Controllers/AdminAgentController.php:81
  * @route '/admin/api/agents'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\AdminAgentController::store
- * @see app/Http/Controllers/AdminAgentController.php:79
+ * @see app/Http/Controllers/AdminAgentController.php:81
  * @route '/admin/api/agents'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\AdminAgentController::store
- * @see app/Http/Controllers/AdminAgentController.php:79
+ * @see app/Http/Controllers/AdminAgentController.php:81
  * @route '/admin/api/agents'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -133,8 +133,105 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     store.form = storeForm
 /**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+export const show = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: show.url(args, options),
+    method: 'get',
+})
+
+show.definition = {
+    methods: ["get","head"],
+    url: '/admin/api/agents/{id}',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+show.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
+    if (typeof args === 'string' || typeof args === 'number') {
+        args = { id: args }
+    }
+
+    
+    if (Array.isArray(args)) {
+        args = {
+                    id: args[0],
+                }
+    }
+
+    args = applyUrlDefaults(args)
+
+    const parsedArgs = {
+                        id: args.id,
+                }
+
+    return show.definition.url
+            .replace('{id}', parsedArgs.id.toString())
+            .replace(/\/+$/, '') + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+show.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: show.url(args, options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+show.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: show.url(args, options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+    const showForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: show.url(args, options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+        showForm.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\AdminAgentController::show
+ * @see app/Http/Controllers/AdminAgentController.php:170
+ * @route '/admin/api/agents/{id}'
+ */
+        showForm.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: show.url(args, {
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    show.form = showForm
+/**
 * @see \App\Http\Controllers\AdminAgentController::update
- * @see app/Http/Controllers/AdminAgentController.php:164
+ * @see app/Http/Controllers/AdminAgentController.php:215
  * @route '/admin/api/agents/{id}'
  */
 export const update = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -149,7 +246,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAgentController::update
- * @see app/Http/Controllers/AdminAgentController.php:164
+ * @see app/Http/Controllers/AdminAgentController.php:215
  * @route '/admin/api/agents/{id}'
  */
 update.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -177,7 +274,7 @@ update.url = (args: { id: string | number } | [id: string | number ] | string | 
 
 /**
 * @see \App\Http\Controllers\AdminAgentController::update
- * @see app/Http/Controllers/AdminAgentController.php:164
+ * @see app/Http/Controllers/AdminAgentController.php:215
  * @route '/admin/api/agents/{id}'
  */
 update.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -187,7 +284,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
 
     /**
 * @see \App\Http\Controllers\AdminAgentController::update
- * @see app/Http/Controllers/AdminAgentController.php:164
+ * @see app/Http/Controllers/AdminAgentController.php:215
  * @route '/admin/api/agents/{id}'
  */
     const updateForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -202,7 +299,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
 
             /**
 * @see \App\Http\Controllers\AdminAgentController::update
- * @see app/Http/Controllers/AdminAgentController.php:164
+ * @see app/Http/Controllers/AdminAgentController.php:215
  * @route '/admin/api/agents/{id}'
  */
         updateForm.put = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -218,7 +315,7 @@ update.put = (args: { id: string | number } | [id: string | number ] | string | 
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\AdminAgentController::toggleStatus
- * @see app/Http/Controllers/AdminAgentController.php:272
+ * @see app/Http/Controllers/AdminAgentController.php:323
  * @route '/admin/api/agents/{id}/toggle-status'
  */
 export const toggleStatus = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -233,7 +330,7 @@ toggleStatus.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAgentController::toggleStatus
- * @see app/Http/Controllers/AdminAgentController.php:272
+ * @see app/Http/Controllers/AdminAgentController.php:323
  * @route '/admin/api/agents/{id}/toggle-status'
  */
 toggleStatus.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -261,7 +358,7 @@ toggleStatus.url = (args: { id: string | number } | [id: string | number ] | str
 
 /**
 * @see \App\Http\Controllers\AdminAgentController::toggleStatus
- * @see app/Http/Controllers/AdminAgentController.php:272
+ * @see app/Http/Controllers/AdminAgentController.php:323
  * @route '/admin/api/agents/{id}/toggle-status'
  */
 toggleStatus.patch = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
@@ -271,7 +368,7 @@ toggleStatus.patch = (args: { id: string | number } | [id: string | number ] | s
 
     /**
 * @see \App\Http\Controllers\AdminAgentController::toggleStatus
- * @see app/Http/Controllers/AdminAgentController.php:272
+ * @see app/Http/Controllers/AdminAgentController.php:323
  * @route '/admin/api/agents/{id}/toggle-status'
  */
     const toggleStatusForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -286,7 +383,7 @@ toggleStatus.patch = (args: { id: string | number } | [id: string | number ] | s
 
             /**
 * @see \App\Http\Controllers\AdminAgentController::toggleStatus
- * @see app/Http/Controllers/AdminAgentController.php:272
+ * @see app/Http/Controllers/AdminAgentController.php:323
  * @route '/admin/api/agents/{id}/toggle-status'
  */
         toggleStatusForm.patch = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -303,6 +400,7 @@ toggleStatus.patch = (args: { id: string | number } | [id: string | number ] | s
 const agents = {
     index: Object.assign(index, index),
 store: Object.assign(store, store),
+show: Object.assign(show, show),
 update: Object.assign(update, update),
 toggleStatus: Object.assign(toggleStatus, toggleStatus),
 }

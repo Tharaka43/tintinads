@@ -10,6 +10,7 @@
         <meta name="keywords" content="TintinAds, Sri Lanka Ads, SL Ads, Hitad, spa ads, personal ads sri lanka, classifieds, massage colombo, jobs">
         <meta property="og:title" content="TintinAds - Sri Lanka's Best Classified Ads">
         <meta property="og:description" content="Discover the best personal ads, spa services, and job vacancies in Sri Lanka. The perfect alternative to SL Ads.">
+        <meta name="google-site-verification" content="N_8KLTWD7jm0-hsVKhurRZD6HaIgQyuUUnM_Mc3keJ8" />
 
         <link rel="icon" href="/assets/siteicon.png" sizes="any">
         <link rel="icon" href="/assets/siteicon.png" type="image/png">

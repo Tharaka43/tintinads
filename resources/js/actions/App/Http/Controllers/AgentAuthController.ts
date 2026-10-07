@@ -134,7 +134,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\AgentAuthController::destroy
- * @see app/Http/Controllers/AgentAuthController.php:76
+ * @see app/Http/Controllers/AgentAuthController.php:81
  * @route '/agent/logout'
  */
 export const destroy = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -149,7 +149,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\AgentAuthController::destroy
- * @see app/Http/Controllers/AgentAuthController.php:76
+ * @see app/Http/Controllers/AgentAuthController.php:81
  * @route '/agent/logout'
  */
 destroy.url = (options?: RouteQueryOptions) => {
@@ -158,7 +158,7 @@ destroy.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AgentAuthController::destroy
- * @see app/Http/Controllers/AgentAuthController.php:76
+ * @see app/Http/Controllers/AgentAuthController.php:81
  * @route '/agent/logout'
  */
 destroy.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -168,7 +168,7 @@ destroy.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\AgentAuthController::destroy
- * @see app/Http/Controllers/AgentAuthController.php:76
+ * @see app/Http/Controllers/AgentAuthController.php:81
  * @route '/agent/logout'
  */
     const destroyForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -178,7 +178,7 @@ destroy.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\AgentAuthController::destroy
- * @see app/Http/Controllers/AgentAuthController.php:76
+ * @see app/Http/Controllers/AgentAuthController.php:81
  * @route '/agent/logout'
  */
         destroyForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
