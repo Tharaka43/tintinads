@@ -23,7 +23,7 @@ class ClassifiedsController extends Controller
         $page = (int) $request->query('page', 1);
         $search = $request->query('search', '');
         $location = $request->query('location', '');
-        $perPage = 9;
+        $perPage = 30;
 
         // Fetch advertisements with relationships
         $query = Advertisement::with([

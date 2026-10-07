@@ -243,7 +243,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
 
 const Pagination = ({ totalItems, currentPage, paginate }: { totalItems: number; currentPage: number; paginate: (page: number) => void }) => {
     const pageNumbers = [];
-    const totalPages = Math.ceil(totalItems / 10); // perPage is 10
+    const totalPages = Math.ceil(totalItems / 30); // perPage is 30
     const maxPageButtons = 5;
 
     let startPage = Math.max(1, currentPage - Math.floor(maxPageButtons / 2));
@@ -406,7 +406,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     pagination = {
         currentPage: 1,
         totalItems: 0,
-        perPage: 10,
+        perPage: 30,
         totalPages: 1,
     },
     selectedCategory: initialCategory = 'All Categories',
