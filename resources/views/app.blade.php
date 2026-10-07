@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title inertia>{{ config('app.name', 'TinTinAds') }}</title>
+        <title inertia>TinTinAds - Best SL Ads, Lanka Ads & Spa Ads in Sri Lanka</title>
         <meta name="description" content="TintinAds is the best alternative to SL Ads and Hitad in Sri Lanka. Post and find personal ads, spa services, job vacancies, and classifieds quickly and securely.">
         <meta name="keywords" content="TintinAds, Sri Lanka Ads, SL Ads, Hitad, spa ads, personal ads sri lanka, classifieds, massage colombo, jobs">
         <meta property="og:title" content="TintinAds - Sri Lanka's Best Classified Ads">
