@@ -7,7 +7,7 @@ const PINK = '#EC4899';
 const LIGHT_BLUE = '#60A5FA';
 
 const DISTRICT_CITIES: Record<string, string[]> = {
-    'Ampara': ['Ampara', 'Akkaraipattu', 'Kalmunai', 'Sainthamaruthu'],
+    'Ampara': ['Ampara', 'Akkaraipattu', 'Dehiattakandiya', 'Kalmunai', 'Sainthamaruthu'],
     'Anuradhapura': ['Anuradhapura', 'Eppawala', 'Kekirawa', 'Medawachchiya', 'Nochchiyagama', 'Tambuttegama'],
     'Badulla': ['Badulla', 'Bandarawela', 'Diyatalawa', 'Hali-Ela', 'Haputale', 'Mahiyanganaya', 'Passara', 'Welimada'],
     'Batticaloa': ['Batticaloa', 'Kattankudy', 'Valaichchenai'],
@@ -27,7 +27,7 @@ const DISTRICT_CITIES: Record<string, string[]> = {
     'Monaragala': ['Monaragala', 'Bibile', 'Buttala', 'Kataragama', 'Medagama', 'Wellawaya'],
     'Mullaitivu': ['Mullaitivu'],
     'Nuwara Eliya': ['Nuwara Eliya', 'Agarapathana', 'Dayagama', 'Ginigathena', 'Hatton', 'Kotagala', 'Maskeliya', 'Nanu Oya', 'Nawalapitiya', 'Norwood', 'Ragala', 'Talawakele'],
-    'Polonnaruwa': ['Polonnaruwa', 'Hingurakgoda', 'Kaduruwela', 'Medirigiriya'],
+    'Polonnaruwa': ['Polonnaruwa', 'Aralaganwila', 'Hingurakgoda', 'Kaduruwela', 'Medirigiriya', 'Siripura'],
     'Puttalam': ['Puttalam', 'Chilaw', 'Dankotuwa', 'Kalpitiya', 'Marawila', 'Nattandiya', 'Wennappuwa'],
     'Ratnapura': ['Ratnapura', 'Balangoda', 'Eheliyagoda', 'Embilipitiya', 'Godakawela', 'Kuruwita', 'Nivitigala', 'Opanayaka', 'Pelmadulla', 'Rakwana'],
     'Trincomalee': ['Trincomalee', 'Gomarankadawala', 'Kantalai', 'Kinniya', 'Kuchchaveli', 'Mutur'],
@@ -956,3 +956,4 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
 };
 
 export default PostNewAd;
+
