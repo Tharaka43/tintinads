@@ -571,10 +571,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                     src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
                                     alt={ad.title}
                                     onClick={() => setIsFullScreen(true)}
-                                    className={`w-full h-[500px] cursor-pointer ${ad.images[currentImageIndex]?.includes('/assets/sitelogo.png') || !ad.images[currentImageIndex]
-                                        ? 'object-contain bg-gray-100'
-                                        : 'object-cover'
-                                        }`}
+                                    className="w-full h-[500px] cursor-pointer object-contain bg-gray-100 dark:bg-gray-800"
                                     onError={(e) => {
                                         e.currentTarget.src = '/placeholder-image.jpg';
                                     }}
