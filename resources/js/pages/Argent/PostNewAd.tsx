@@ -200,6 +200,25 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
 
     const [editingImageIndex, setEditingImageIndex] = useState<number | null>(null);
 
+    const removePreviewImage = (indexToRemove: number) => {
+        // Clear object URL to free memory
+        URL.revokeObjectURL(previewUrls[indexToRemove]);
+        
+        // Remove from preview UI
+        setPreviewUrls(prev => prev.filter((_, i) => i !== indexToRemove));
+        
+        // Remove from form data
+        const currentImages = Array.isArray(data.images) ? data.images : [];
+        const newImages = currentImages.filter((_, i) => i !== indexToRemove);
+        setData('images', newImages as any);
+    };
+
+    const removeExistingImage = (indexToRemove: number) => {
+        setExistingImages(prev => prev.filter((_, i) => i !== indexToRemove));
+        // Note: Wiping an existing image means the backend might need a new image, 
+        // but for now this lets the user visually clear it before uploading a new one.
+    };
+
     const handleImageEdited = (editedFile: File) => {
         if (editingImageIndex === null) return;
         
@@ -762,12 +781,20 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                                     {previewUrls.map((url, index) => (
                                         <div key={index} className="flex flex-col gap-2">
-                                            <div className="overflow-hidden rounded-lg border border-gray-200 aspect-square">
+                                            <div className="overflow-hidden rounded-lg border border-gray-200 aspect-square relative group">
                                                 <img
                                                     src={url}
                                                     alt={`Preview ${index + 1}`}
                                                     className="h-full w-full object-cover"
                                                 />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removePreviewImage(index)}
+                                                    className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity shadow-sm"
+                                                    title="Remove Image"
+                                                >
+                                                    <i className="fas fa-times"></i>
+                                                </button>
                                             </div>
                                             <button
                                                 type="button"
@@ -782,7 +809,7 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                             ) : existingImages.length > 0 ? (
                                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
                                     {existingImages.map((url, index) => (
-                                        <div key={index} className="overflow-hidden rounded-lg border border-gray-200 aspect-square relative">
+                                        <div key={index} className="overflow-hidden rounded-lg border border-gray-200 aspect-square relative group">
                                             <img
                                                 src={url}
                                                 alt={`Existing ${index + 1}`}
@@ -791,6 +818,14 @@ const PostNewAd: React.FC<PostNewAdProps> = ({ commonCategories, listingCategori
                                             <div className="absolute top-0 right-0 bg-green-500 text-white text-xs px-2 py-1 rounded-bl">
                                                 Existing
                                             </div>
+                                            <button
+                                                type="button"
+                                                onClick={() => removeExistingImage(index)}
+                                                className="absolute top-8 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full w-8 h-8 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity shadow-sm"
+                                                title="Remove Image"
+                                            >
+                                                <i className="fas fa-times"></i>
+                                            </button>
                                         </div>
                                     ))}
                                 </div>
