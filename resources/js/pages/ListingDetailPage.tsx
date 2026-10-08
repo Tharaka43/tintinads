@@ -571,7 +571,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                     src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
                                     alt={ad.title}
                                     onClick={() => setIsFullScreen(true)}
-                                    className="w-full h-[500px] cursor-pointer object-contain bg-gray-100 dark:bg-gray-800"
+                                    className="w-full h-[500px] cursor-pointer object-contain bg-gray-50"
                                     onError={(e) => {
                                         e.currentTarget.src = '/placeholder-image.jpg';
                                     }}
@@ -627,7 +627,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                             src={src || '/placeholder-image.jpg'}
                                             alt={`${ad.title} ${index + 1}`}
                                             className={`w-full h-[80px] ${src?.includes('/assets/sitelogo.png') || !src
-                                                ? 'object-contain bg-gray-100'
+                                                ? 'object-contain bg-gray-50'
                                                 : 'object-cover'
                                                 }`}
                                             onError={(e) => {
@@ -640,22 +640,22 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         )}
 
                         {/* Action Bar */}
-                        <div className="bg-gray-900 text-white flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 rounded-b-lg mb-6 shadow-md gap-3 sm:gap-0">
-                            <div className="flex items-center justify-around w-full sm:w-auto sm:justify-start sm:space-x-6 px-2 sm:px-4 border-b border-gray-700 sm:border-0 pb-3 sm:pb-0">
-                                <button onClick={handleLike} className={`flex items-center space-x-1.5 sm:space-x-2 transition-colors ${isLiked ? 'text-pink-500' : 'hover:text-pink-400'}`}>
+                        <div className="bg-white text-gray-700 flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 rounded-b-lg mb-6 shadow-sm border border-gray-100 border-t-0 gap-3 sm:gap-0">
+                            <div className="flex items-center justify-around w-full sm:w-auto sm:justify-start sm:space-x-6 px-2 sm:px-4 border-b border-gray-100 sm:border-0 pb-3 sm:pb-0">
+                                <button onClick={handleLike} className={`flex items-center space-x-1.5 sm:space-x-2 transition-colors ${isLiked ? 'text-pink-500' : 'hover:text-pink-500 text-gray-500'}`}>
                                     <i className={`${isLiked ? 'fas' : 'far'} fa-thumbs-up text-base sm:text-lg`}></i>
                                     <span className="font-semibold text-xs sm:text-sm">{isLiked ? 'Liked' : 'Like'}</span>
                                 </button>
-                                <button onClick={() => handleSaveToggle(ad.id, !isSaved)} className={`flex items-center space-x-1.5 sm:space-x-2 transition-colors ${isSaved ? 'text-pink-500' : 'hover:text-pink-400'}`}>
+                                <button onClick={() => handleSaveToggle(ad.id, !isSaved)} className={`flex items-center space-x-1.5 sm:space-x-2 transition-colors ${isSaved ? 'text-pink-500' : 'hover:text-pink-500 text-gray-500'}`}>
                                     <i className={`${isSaved ? 'fas' : 'far'} fa-heart text-base sm:text-lg`}></i>
                                     <span className="font-semibold text-xs sm:text-sm">{isSaved ? 'Saved' : 'Save'}</span>
                                 </button>
-                                <button onClick={handleShare} className="flex items-center space-x-1.5 sm:space-x-2 hover:text-pink-400 transition-colors">
+                                <button onClick={handleShare} className="flex items-center space-x-1.5 sm:space-x-2 hover:text-pink-500 text-gray-500 transition-colors">
                                     <i className="fas fa-share-alt text-base sm:text-lg"></i>
                                     <span className="font-semibold text-xs sm:text-sm">Share</span>
                                 </button>
                             </div>
-                            <div className="flex items-center justify-center space-x-4 sm:pr-4 text-[11px] sm:text-sm text-gray-300 w-full sm:w-auto">
+                            <div className="flex items-center justify-center space-x-4 sm:pr-4 text-[11px] sm:text-sm text-gray-500 w-full sm:w-auto">
                                 <span className="flex items-center"><i className="far fa-eye mr-1.5"></i> {ad.views || 0} Views</span>
                                 <span className="flex items-center"><i className="far fa-thumbs-up mr-1.5"></i> {likesCount} Likes</span>
                             </div>
