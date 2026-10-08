@@ -20,7 +20,7 @@ const DISTRICT_CITIES: Record<string, string[]> = {
     'Kandy': ['Kandy', 'Akurana', 'Digana', 'Gampola', 'Gelioya', 'Kadugannawa', 'Katugastota', 'Nawalapitiya', 'Peradeniya', 'Pilimathalawa', 'Wattegama'],
     'Kegalle': ['Kegalle', 'Aranayaka', 'Dehiowita', 'Deraniyagala', 'Galigamuwa', 'Hemmathagama', 'Karawanella', 'Kitulgala', 'Kotiyakumbura', 'Mawanella', 'Rambukkana', 'Ruwanwella', 'Thalgaspitiya', 'Warakapola', 'Yatiyanthota'],
     'Kilinochchi': ['Kilinochchi'],
-    'Kurunegala': ['Kurunegala', 'Alawwa', 'Bingiriya', 'Dambadeniya', 'Galgamuwa', 'Giriulla', 'Hettipola', 'Ibbagamuwa', 'Kuliyapitiya', 'Mawathagama', 'Narammala', 'Pannala', 'Polgahawela', 'Wariyapola'],
+    'Kurunegala': ['Kurunegala', 'Alawwa', 'Bingiriya', 'Dambadeniya', 'Galgamuwa', 'Gepallawa', 'Giriulla', 'Hettipola', 'Ibbagamuwa', 'Kuliyapitiya', 'Malkaduwawa', 'Mawathagama', 'Narammala', 'Pannala', 'Polgahawela', 'Pothuhera', 'Wariyapola'],
     'Mannar': ['Mannar'],
     'Matale': ['Matale', 'Dambulla', 'Galewela', 'Palapathwela', 'Rattota', 'Sigiriya', 'Ukuwela', 'Yatawatta'],
     'Matara': ['Matara', 'Akuressa', 'Deniyaya', 'Dikwella', 'Hakmana', 'Kamburugamuwa', 'Kamburupitiya', 'Weligama'],
