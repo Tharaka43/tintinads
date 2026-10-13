@@ -777,6 +777,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         {/* Navigation */}
                         <nav className="hidden md:flex items-center space-x-8">
                             <a href="/" className="text-gray-700 hover:text-primary-pink transition-colors" style={{ color: PRIMARY_PINK }}>Browse</a>
+                            <a href="/blog" className="text-gray-700 hover:text-primary-pink transition-colors font-medium">Blog</a>
                             <a href="/saved-ads" className="text-gray-700 hover:text-primary-pink transition-colors relative">
                                 Saved Ads
                                 {savedAds.length > 0 && (

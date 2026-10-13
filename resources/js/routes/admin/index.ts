@@ -1,5 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 import loginDf2c2a from './login'
+import blogs from './blogs'
 import api from './api'
 /**
 * @see \App\Http\Controllers\AdminAuthController::login
@@ -135,7 +136,7 @@ logout.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     logout.form = logoutForm
 /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
 export const dashboard = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -149,7 +150,7 @@ dashboard.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
 dashboard.url = (options?: RouteQueryOptions) => {
@@ -157,7 +158,7 @@ dashboard.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
 dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -165,7 +166,7 @@ dashboard.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
 dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -174,7 +175,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
     const dashboardForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -183,7 +184,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
         dashboardForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -191,7 +192,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:96
+ * @see routes/web.php:100
  * @route '/admin/dashboard'
  */
         dashboardForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -206,7 +207,7 @@ dashboard.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     dashboard.form = dashboardForm
 /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
 export const agents = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -220,7 +221,7 @@ agents.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
 agents.url = (options?: RouteQueryOptions) => {
@@ -228,7 +229,7 @@ agents.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
 agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -236,7 +237,7 @@ agents.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
 agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -245,7 +246,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
     const agentsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -254,7 +255,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
         agentsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -262,7 +263,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:102
+ * @see routes/web.php:106
  * @route '/admin/agents'
  */
         agentsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -277,7 +278,7 @@ agents.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     agents.form = agentsForm
 /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
 export const ads = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -291,7 +292,7 @@ ads.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
 ads.url = (options?: RouteQueryOptions) => {
@@ -299,7 +300,7 @@ ads.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
 ads.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -307,7 +308,7 @@ ads.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
 ads.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -316,7 +317,7 @@ ads.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
     const adsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -325,7 +326,7 @@ ads.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
         adsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -333,7 +334,7 @@ ads.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:108
+ * @see routes/web.php:112
  * @route '/admin/ads'
  */
         adsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -348,7 +349,7 @@ ads.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     ads.form = adsForm
 /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
 export const payments = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -362,7 +363,7 @@ payments.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
 payments.url = (options?: RouteQueryOptions) => {
@@ -370,7 +371,7 @@ payments.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
 payments.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -378,7 +379,7 @@ payments.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
 payments.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -387,7 +388,7 @@ payments.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
     const paymentsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -396,7 +397,7 @@ payments.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
         paymentsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -404,7 +405,7 @@ payments.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:114
+ * @see routes/web.php:118
  * @route '/admin/payments'
  */
         paymentsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -419,7 +420,7 @@ payments.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     payments.form = paymentsForm
 /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
 export const settings = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -433,7 +434,7 @@ settings.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
 settings.url = (options?: RouteQueryOptions) => {
@@ -441,7 +442,7 @@ settings.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
 settings.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -449,7 +450,7 @@ settings.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
 settings.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -458,7 +459,7 @@ settings.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
     const settingsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -467,7 +468,7 @@ settings.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
         settingsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -475,7 +476,7 @@ settings.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:120
+ * @see routes/web.php:124
  * @route '/admin/settings'
  */
         settingsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -490,7 +491,7 @@ settings.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     settings.form = settingsForm
 /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
 export const reports = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -504,7 +505,7 @@ reports.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
 reports.url = (options?: RouteQueryOptions) => {
@@ -512,7 +513,7 @@ reports.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
 reports.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -520,7 +521,7 @@ reports.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
 reports.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -529,7 +530,7 @@ reports.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
     const reportsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -538,7 +539,7 @@ reports.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
         reportsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -546,7 +547,7 @@ reports.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:126
+ * @see routes/web.php:136
  * @route '/admin/reports'
  */
         reportsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -568,6 +569,7 @@ agents: Object.assign(agents, agents),
 ads: Object.assign(ads, ads),
 payments: Object.assign(payments, payments),
 settings: Object.assign(settings, settings),
+blogs: Object.assign(blogs, blogs),
 reports: Object.assign(reports, reports),
 api: Object.assign(api, api),
 }

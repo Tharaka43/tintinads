@@ -1,17 +1,31 @@
 {
+  "_Footer-BAxPO4pb.js": {
+    "file": "assets/Footer-BAxPO4pb.js",
+    "name": "Footer",
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "_NavBar-D6xWeUwH.js": {
+    "file": "assets/NavBar-D6xWeUwH.js",
+    "name": "NavBar",
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
   "_chart-DiNGN622.js": {
     "file": "assets/chart-DiNGN622.js",
     "name": "chart"
   },
-  "_react-select.esm-rIikjtm1.js": {
-    "file": "assets/react-select.esm-rIikjtm1.js",
+  "_react-select.esm-ConLKyBF.js": {
+    "file": "assets/react-select.esm-ConLKyBF.js",
     "name": "react-select.esm",
     "imports": [
       "resources/js/app.tsx"
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-CGKw548q.css",
+    "file": "assets/app-ExcDAiem.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "names": [
@@ -19,7 +33,7 @@
     ]
   },
   "resources/js/app.tsx": {
-    "file": "assets/app-DbAEqbfD.js",
+    "file": "assets/app-Mw4y0m0z.js",
     "name": "app",
     "src": "resources/js/app.tsx",
     "isEntry": true,
@@ -28,6 +42,7 @@
       "resources/js/pages/Admin/AdminDashboardHome.tsx",
       "resources/js/pages/Admin/AdminSidebar.tsx",
       "resources/js/pages/Admin/AgentManagementPage.tsx",
+      "resources/js/pages/Admin/BlogManagementPage.tsx",
       "resources/js/pages/Admin/CommissionReview.tsx",
       "resources/js/pages/Admin/ReportsPage.tsx",
       "resources/js/pages/Admin/SettingsPage.tsx",
@@ -46,6 +61,8 @@
       "resources/js/pages/Argent/PasswordResetPage.tsx",
       "resources/js/pages/Argent/PaymentReportForm.tsx",
       "resources/js/pages/Argent/PostNewAd.tsx",
+      "resources/js/pages/Blog/Index.tsx",
+      "resources/js/pages/Blog/Show.tsx",
       "resources/js/pages/ClassifiedsPage.tsx",
       "resources/js/pages/ListingDetailPage.tsx",
       "resources/js/pages/OcrUploader.tsx",
@@ -55,11 +72,11 @@
       "resources/js/pages/welcome.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/AdminDashboard.tsx": {
-    "file": "assets/AdminDashboard-_iqp3eJH.js",
+    "file": "assets/AdminDashboard-Bnqc-log.js",
     "name": "AdminDashboard",
     "src": "resources/js/pages/Admin/AdminDashboard.tsx",
     "isDynamicEntry": true,
@@ -72,14 +89,15 @@
       "resources/js/pages/Admin/CommissionReview.tsx",
       "resources/js/pages/Admin/ReportsPage.tsx",
       "resources/js/pages/Admin/SettingsPage.tsx",
+      "resources/js/pages/Admin/BlogManagementPage.tsx",
       "_chart-DiNGN622.js"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/AdminDashboardHome.tsx": {
-    "file": "assets/AdminDashboardHome-DprU1yrw.js",
+    "file": "assets/AdminDashboardHome-CgcGQdun.js",
     "name": "AdminDashboardHome",
     "src": "resources/js/pages/Admin/AdminDashboardHome.tsx",
     "isDynamicEntry": true,
@@ -88,11 +106,11 @@
       "_chart-DiNGN622.js"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/AdminSidebar.tsx": {
-    "file": "assets/AdminSidebar-D1DNFuHR.js",
+    "file": "assets/AdminSidebar-CSovEFrk.js",
     "name": "AdminSidebar",
     "src": "resources/js/pages/Admin/AdminSidebar.tsx",
     "isDynamicEntry": true,
@@ -100,11 +118,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/AgentManagementPage.tsx": {
-    "file": "assets/AgentManagementPage-CuNpa4TR.js",
+    "file": "assets/AgentManagementPage-BDQrIgI5.js",
     "name": "AgentManagementPage",
     "src": "resources/js/pages/Admin/AgentManagementPage.tsx",
     "isDynamicEntry": true,
@@ -112,11 +130,23 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
+    ]
+  },
+  "resources/js/pages/Admin/BlogManagementPage.tsx": {
+    "file": "assets/BlogManagementPage-CtLDY0fQ.js",
+    "name": "BlogManagementPage",
+    "src": "resources/js/pages/Admin/BlogManagementPage.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx"
+    ],
+    "css": [
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/CommissionReview.tsx": {
-    "file": "assets/CommissionReview-CrV4STBC.js",
+    "file": "assets/CommissionReview-BM1zOVzC.js",
     "name": "CommissionReview",
     "src": "resources/js/pages/Admin/CommissionReview.tsx",
     "isDynamicEntry": true,
@@ -124,11 +154,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/ReportsPage.tsx": {
-    "file": "assets/ReportsPage-DtvXlxFJ.js",
+    "file": "assets/ReportsPage-DXvnfx4h.js",
     "name": "ReportsPage",
     "src": "resources/js/pages/Admin/ReportsPage.tsx",
     "isDynamicEntry": true,
@@ -137,11 +167,11 @@
       "_chart-DiNGN622.js"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/SettingsPage.tsx": {
-    "file": "assets/SettingsPage-CMqK2TwI.js",
+    "file": "assets/SettingsPage-8N48gKaJ.js",
     "name": "SettingsPage",
     "src": "resources/js/pages/Admin/SettingsPage.tsx",
     "isDynamicEntry": true,
@@ -149,11 +179,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/SuperAdminAds.tsx": {
-    "file": "assets/SuperAdminAds-DZH809Yv.js",
+    "file": "assets/SuperAdminAds-DXDed3vk.js",
     "name": "SuperAdminAds",
     "src": "resources/js/pages/Admin/SuperAdminAds.tsx",
     "isDynamicEntry": true,
@@ -161,11 +191,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Admin/SuperAdminLogin.tsx": {
-    "file": "assets/SuperAdminLogin-DSDbm57i.js",
+    "file": "assets/SuperAdminLogin-x35JKMXI.js",
     "name": "SuperAdminLogin",
     "src": "resources/js/pages/Admin/SuperAdminLogin.tsx",
     "isDynamicEntry": true,
@@ -173,11 +203,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/AgentsPage.tsx": {
-    "file": "assets/AgentsPage-sjcljMWq.js",
+    "file": "assets/AgentsPage-Bf4LCb-R.js",
     "name": "AgentsPage",
     "src": "resources/js/pages/AgentsPage.tsx",
     "isDynamicEntry": true,
@@ -185,11 +215,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/AgentDashboard.tsx": {
-    "file": "assets/AgentDashboard-B89L3LI6.js",
+    "file": "assets/AgentDashboard-C-8EsPrg.js",
     "name": "AgentDashboard",
     "src": "resources/js/pages/Argent/AgentDashboard.tsx",
     "isDynamicEntry": true,
@@ -198,11 +228,11 @@
       "resources/js/pages/Argent/MyAdsPage.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/AgentDashboardLayout.tsx": {
-    "file": "assets/AgentDashboardLayout-CYAdxgWJ.js",
+    "file": "assets/AgentDashboardLayout-cdwd1CYb.js",
     "name": "AgentDashboardLayout",
     "src": "resources/js/pages/Argent/AgentDashboardLayout.tsx",
     "isDynamicEntry": true,
@@ -215,14 +245,14 @@
       "resources/js/pages/Argent/PaymentReportForm.tsx",
       "resources/js/pages/Argent/CommissionHistory.tsx",
       "resources/js/pages/Argent/MyProfile.tsx",
-      "_react-select.esm-rIikjtm1.js"
+      "_react-select.esm-ConLKyBF.js"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/AgentLoginPage.tsx": {
-    "file": "assets/AgentLoginPage-DEenao1k.js",
+    "file": "assets/AgentLoginPage-oQAKi8-d.js",
     "name": "AgentLoginPage",
     "src": "resources/js/pages/Argent/AgentLoginPage.tsx",
     "isDynamicEntry": true,
@@ -230,11 +260,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/AgentSidebar.tsx": {
-    "file": "assets/AgentSidebar-DufM96a9.js",
+    "file": "assets/AgentSidebar-B4loYTqd.js",
     "name": "AgentSidebar",
     "src": "resources/js/pages/Argent/AgentSidebar.tsx",
     "isDynamicEntry": true,
@@ -242,11 +272,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/CommissionHistory.tsx": {
-    "file": "assets/CommissionHistory-DyVgP6Go.js",
+    "file": "assets/CommissionHistory-BjjA17zc.js",
     "name": "CommissionHistory",
     "src": "resources/js/pages/Argent/CommissionHistory.tsx",
     "isDynamicEntry": true,
@@ -254,11 +284,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/ForgotPasswordPage.tsx": {
-    "file": "assets/ForgotPasswordPage-tExnXb-P.js",
+    "file": "assets/ForgotPasswordPage-gqAfSR5S.js",
     "name": "ForgotPasswordPage",
     "src": "resources/js/pages/Argent/ForgotPasswordPage.tsx",
     "isDynamicEntry": true,
@@ -266,11 +296,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/MainDash.tsx": {
-    "file": "assets/MainDash-C0m2B1Di.js",
+    "file": "assets/MainDash-DSxUajLt.js",
     "name": "MainDash",
     "src": "resources/js/pages/Argent/MainDash.tsx",
     "isDynamicEntry": true,
@@ -278,11 +308,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/MyAdsPage.tsx": {
-    "file": "assets/MyAdsPage-BdysiUc6.js",
+    "file": "assets/MyAdsPage-CjlKvPgB.js",
     "name": "MyAdsPage",
     "src": "resources/js/pages/Argent/MyAdsPage.tsx",
     "isDynamicEntry": true,
@@ -290,11 +320,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/MyProfile.tsx": {
-    "file": "assets/MyProfile-B04sXZJ-.js",
+    "file": "assets/MyProfile-BCCylDjC.js",
     "name": "MyProfile",
     "src": "resources/js/pages/Argent/MyProfile.tsx",
     "isDynamicEntry": true,
@@ -302,11 +332,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/PasswordResetPage.tsx": {
-    "file": "assets/PasswordResetPage-CjKUECvB.js",
+    "file": "assets/PasswordResetPage-BBONiU9p.js",
     "name": "PasswordResetPage",
     "src": "resources/js/pages/Argent/PasswordResetPage.tsx",
     "isDynamicEntry": true,
@@ -314,11 +344,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/PaymentReportForm.tsx": {
-    "file": "assets/PaymentReportForm-C7qL3QcD.js",
+    "file": "assets/PaymentReportForm-B5SndWnk.js",
     "name": "PaymentReportForm",
     "src": "resources/js/pages/Argent/PaymentReportForm.tsx",
     "isDynamicEntry": true,
@@ -326,37 +356,66 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/Argent/PostNewAd.tsx": {
-    "file": "assets/PostNewAd-DEmT3NtR.js",
+    "file": "assets/PostNewAd-fLIP-vow.js",
     "name": "PostNewAd",
     "src": "resources/js/pages/Argent/PostNewAd.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_react-select.esm-rIikjtm1.js"
+      "_react-select.esm-ConLKyBF.js"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
+    ]
+  },
+  "resources/js/pages/Blog/Index.tsx": {
+    "file": "assets/Index-B3oPEUF2.js",
+    "name": "Index",
+    "src": "resources/js/pages/Blog/Index.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_Footer-BAxPO4pb.js",
+      "_NavBar-D6xWeUwH.js"
+    ],
+    "css": [
+      "assets/app-ExcDAiem.css"
+    ]
+  },
+  "resources/js/pages/Blog/Show.tsx": {
+    "file": "assets/Show-BgcMTrie.js",
+    "name": "Show",
+    "src": "resources/js/pages/Blog/Show.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_Footer-BAxPO4pb.js",
+      "_NavBar-D6xWeUwH.js"
+    ],
+    "css": [
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/ClassifiedsPage.tsx": {
-    "file": "assets/ClassifiedsPage-obMOqtma.js",
+    "file": "assets/ClassifiedsPage-DNyp12nV.js",
     "name": "ClassifiedsPage",
     "src": "resources/js/pages/ClassifiedsPage.tsx",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/app.tsx",
-      "_react-select.esm-rIikjtm1.js"
+      "_react-select.esm-ConLKyBF.js",
+      "_Footer-BAxPO4pb.js"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/ListingDetailPage.tsx": {
-    "file": "assets/ListingDetailPage-CT7m16cO.js",
+    "file": "assets/ListingDetailPage-BTPJ9bjd.js",
     "name": "ListingDetailPage",
     "src": "resources/js/pages/ListingDetailPage.tsx",
     "isDynamicEntry": true,
@@ -364,11 +423,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/OcrUploader.tsx": {
-    "file": "assets/OcrUploader-BZe2lKKw.js",
+    "file": "assets/OcrUploader-CVyY_nNb.js",
     "name": "OcrUploader",
     "src": "resources/js/pages/OcrUploader.tsx",
     "isDynamicEntry": true,
@@ -376,11 +435,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/PackagesPage.tsx": {
-    "file": "assets/PackagesPage-CWOK6HtI.js",
+    "file": "assets/PackagesPage-CplTwb_X.js",
     "name": "PackagesPage",
     "src": "resources/js/pages/PackagesPage.tsx",
     "isDynamicEntry": true,
@@ -388,11 +447,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/SavedAdsPage.tsx": {
-    "file": "assets/SavedAdsPage-DZhKqBFg.js",
+    "file": "assets/SavedAdsPage-CAMeDZm4.js",
     "name": "SavedAdsPage",
     "src": "resources/js/pages/SavedAdsPage.tsx",
     "isDynamicEntry": true,
@@ -400,11 +459,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/TermsAndConditions.tsx": {
-    "file": "assets/TermsAndConditions-Rnh4dokA.js",
+    "file": "assets/TermsAndConditions-DK-cGFtm.js",
     "name": "TermsAndConditions",
     "src": "resources/js/pages/TermsAndConditions.tsx",
     "isDynamicEntry": true,
@@ -412,11 +471,11 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   },
   "resources/js/pages/welcome.tsx": {
-    "file": "assets/welcome-DazTNo7Z.js",
+    "file": "assets/welcome-DbVSoV6v.js",
     "name": "welcome",
     "src": "resources/js/pages/welcome.tsx",
     "isDynamicEntry": true,
@@ -424,7 +483,7 @@
       "resources/js/app.tsx"
     ],
     "css": [
-      "assets/app-CGKw548q.css"
+      "assets/app-ExcDAiem.css"
     ]
   }
 }

@@ -14,6 +14,7 @@ const NAV_ITEMS: NavItem[] = [
     { key: 'payments', title: 'Commission Payouts', icon: 'fas fa-hand-holding-usd', routePath: '/admin/payments' },
     { key: 'agent', title: 'Agent Management', icon: 'fas fa-user-tie', routePath: '/admin/agents' },
     { key: 'reports', title: 'Reports & Analytics', icon: 'fas fa-chart-bar', routePath: '/admin/reports' },
+    { key: 'blogs', title: 'Blog Management', icon: 'fas fa-newspaper', routePath: '/admin/blogs-manage' },
     { key: 'settings', title: 'System Settings', icon: 'fas fa-cog', routePath: '/admin/settings' },
 ];
 

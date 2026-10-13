@@ -59,6 +59,10 @@ Route::get('/packages', function () {
 Route::get('/terms-and-conditions', function () {
     return Inertia::render('TermsAndConditions');
 })->name('terms');
+
+Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{slug}', [\App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
+
 Route::get('/singleview', function () {
     return redirect()->route('home');
 })->name('singleview');
@@ -123,6 +127,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
         ]);
     })->name('settings');
 
+    Route::get('/blogs-manage', function () {
+        return Inertia::render('Admin/AdminDashboard', [
+            'pageKey' => 'blogs',
+        ]);
+    })->name('blogs.manage');
+
     Route::get('/reports', function () {
         return Inertia::render('Admin/AdminDashboard', [
             'pageKey' => 'reports',
@@ -164,6 +174,12 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('/api/settings/categories', [AdminSettingsController::class, 'storeCategory'])->name('api.settings.categories.store');
     Route::put('/api/settings/categories/{id}', [AdminSettingsController::class, 'updateCategory'])->name('api.settings.categories.update');
     Route::delete('/api/settings/categories/{id}', [AdminSettingsController::class, 'deleteCategory'])->name('api.settings.categories.delete');
+
+    // Blog Management API Routes
+    Route::get('/blogs', [\App\Http\Controllers\BlogController::class, 'adminIndex'])->name('api.blogs.index');
+    Route::post('/blogs', [\App\Http\Controllers\BlogController::class, 'store'])->name('api.blogs.store');
+    Route::post('/blogs/{blog}', [\App\Http\Controllers\BlogController::class, 'update'])->name('api.blogs.update');
+    Route::delete('/blogs/{blog}', [\App\Http\Controllers\BlogController::class, 'destroy'])->name('api.blogs.delete');
 });
 
 // Route::get('/argentdashboard', function () {

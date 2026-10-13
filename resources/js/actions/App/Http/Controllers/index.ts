@@ -1,4 +1,5 @@
 import ClassifiedsController from './ClassifiedsController'
+import BlogController from './BlogController'
 import AgentAuthController from './AgentAuthController'
 import AdminAuthController from './AdminAuthController'
 import AdminAgentController from './AdminAgentController'
@@ -10,6 +11,7 @@ import AgentAdController from './AgentAdController'
 import OcrController from './OcrController'
 const Controllers = {
     ClassifiedsController: Object.assign(ClassifiedsController, ClassifiedsController),
+BlogController: Object.assign(BlogController, BlogController),
 AgentAuthController: Object.assign(AgentAuthController, AgentAuthController),
 AdminAuthController: Object.assign(AdminAuthController, AdminAuthController),
 AdminAgentController: Object.assign(AdminAgentController, AdminAgentController),

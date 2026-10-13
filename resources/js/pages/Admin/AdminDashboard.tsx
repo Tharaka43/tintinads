@@ -7,8 +7,10 @@ import CommissionReview from './CommissionReview';
 import ReportsPage from './ReportsPage';
 import SettingsPage from './SettingsPage';
 
+import BlogManagementPage from './BlogManagementPage';
+
 interface AdminDashboardProps {
-    pageKey: 'home' | 'agent' | 'ads' | 'payments' | 'settings' | 'reports'; 
+    pageKey: 'home' | 'agent' | 'ads' | 'payments' | 'settings' | 'reports' | 'blogs'; 
 }
 
 const PAGE_COMPONENTS: Record<AdminDashboardProps['pageKey'], React.FC> = {
@@ -18,6 +20,7 @@ const PAGE_COMPONENTS: Record<AdminDashboardProps['pageKey'], React.FC> = {
     payments: CommissionReview,
     settings: SettingsPage,
     reports: ReportsPage,
+    blogs: BlogManagementPage,
 };
 
 const AdminDashboard: React.FC<AdminDashboardProps> = ({ pageKey }) => {

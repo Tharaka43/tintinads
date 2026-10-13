@@ -4,6 +4,7 @@ import commissions from './commissions'
 import reports from './reports'
 import dashboard from './dashboard'
 import settings from './settings'
+import blogs from './blogs'
 const api = {
     agents: Object.assign(agents, agents),
 advertisements: Object.assign(advertisements, advertisements),
@@ -11,6 +12,7 @@ commissions: Object.assign(commissions, commissions),
 reports: Object.assign(reports, reports),
 dashboard: Object.assign(dashboard, dashboard),
 settings: Object.assign(settings, settings),
+blogs: Object.assign(blogs, blogs),
 }
 
 export default api
