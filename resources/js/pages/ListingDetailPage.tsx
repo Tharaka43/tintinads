@@ -340,6 +340,66 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
         }
     };
 
+    const renderContactCard = () => (
+        <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
+            <div className="flex items-center gap-2 mb-2">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">{ad.title}</h1>
+                <div className="text-purple-600 text-sm mt-1" title="Verified Ad">
+                    <i className="fas fa-check-circle"></i>
+                </div>
+            </div>
+            
+            <div className="flex items-center text-xs font-medium text-gray-500 mb-4 space-x-4">
+                <span className="flex items-center text-blue-600"><i className="far fa-thumbs-up mr-1 text-blue-500"></i> {likesCount} Likes</span>
+                <span><i className="far fa-clock mr-1"></i> {ad.time}</span>
+            </div>
+
+            <div className="text-3xl sm:text-4xl font-black mb-6 text-pink-600 tracking-tight">
+                Rs {ad.price.toLocaleString()}
+            </div>
+
+            {/* Main Action Buttons */}
+            <div className="space-y-3">
+                {ad.phone_number ? (
+                    <a href={`tel:${ad.phone_number}`} className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <i className="fas fa-phone-alt"></i>
+                        CALL NOW
+                    </a>
+                ) : (
+                    <a href="tel:0700000000" className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <i className="fas fa-phone-alt"></i>
+                        CALL NOW
+                    </a>
+                )}
+
+                {ad.whatsapp_number ? (
+                    <a href={`https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <i className="fab fa-whatsapp text-xl"></i>
+                        WHATSAPP
+                    </a>
+                ) : (
+                    <a href="https://wa.me/94700000000" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <i className="fab fa-whatsapp text-xl"></i>
+                        WHATSAPP
+                    </a>
+                )}
+            </div>
+        </div>
+    );
+
+    const renderSafetyTips = () => (
+        <div className="bg-blue-50 rounded-lg p-5 border border-blue-100 shadow-sm mb-6">
+            <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
+                <i className="fas fa-shield-alt text-blue-600"></i> Safety Tips
+            </h4>
+            <ul className="text-sm text-blue-800 space-y-2">
+                <li className="flex items-start gap-2"><i className="fas fa-check text-green-600 mt-1"></i> Meet in a safe, public location.</li>
+                <li className="flex items-start gap-2"><i className="fas fa-check text-green-600 mt-1"></i> Never pay in advance.</li>
+                <li className="flex items-start gap-2"><i className="fas fa-check text-green-600 mt-1"></i> Verify the service/item before paying.</li>
+            </ul>
+        </div>
+    );
+
     return (
         <div className="bg-gray-50 min-h-screen font-sans">
             {/* Age Verification Modal */}
@@ -661,6 +721,11 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             </div>
                         </div>
 
+                        {/* Mobile Only: Contact Card directly under image and action bar */}
+                        <div className="block lg:hidden my-6">
+                            {renderContactCard()}
+                        </div>
+
                         {/* Ad Details */}
                         <div className="bg-white rounded-lg shadow-sm p-6">
                             <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
@@ -710,82 +775,32 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             </div>
                         </div>
 
-                        {/* Related Ads */}
-                        {filteredRelatedAds.length > 0 && (
-                            <div className="mt-8">
-                                <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Ads</h3>
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                    {filteredRelatedAds.map((relatedAd) => (
-                                        <RelatedAdCard key={relatedAd.id} ad={relatedAd} />
-                                    ))}
-                                </div>
-                            </div>
-                        )}
+                        {/* Mobile Only: Safety Tips */}
+                        <div className="block lg:hidden mt-6">
+                            {renderSafetyTips()}
+                        </div>
                     </div>
 
-                    {/* Right Column - Details & Contact */}
-                    <div className="lg:col-span-1">
+                    {/* Right Column - Desktop Only Details & Contact */}
+                    <div className="hidden lg:block lg:col-span-1">
                         <div className="sticky top-24">
-                            {/* Title & Price */}
-                            <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">{ad.title}</h1>
-                                    <div className="text-purple-600 text-sm mt-1" title="Verified Ad">
-                                        <i className="fas fa-check-circle"></i>
-                                    </div>
-                                </div>
-                                
-                                <div className="flex items-center text-xs font-medium text-gray-500 mb-4 space-x-4">
-                                    <span className="flex items-center text-blue-600"><i className="far fa-thumbs-up mr-1 text-blue-500"></i> {likesCount} Likes</span>
-                                    <span><i className="far fa-clock mr-1"></i> {ad.time}</span>
-                                </div>
-
-                                <div className="text-3xl sm:text-4xl font-black mb-6 text-pink-600 tracking-tight">
-                                    Rs {ad.price.toLocaleString()}
-                                </div>
-
-                                {/* Main Action Buttons */}
-                                <div className="space-y-3">
-                                    {ad.phone_number ? (
-                                        <a href={`tel:${ad.phone_number}`} className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                                            <i className="fas fa-phone-alt"></i>
-                                            CALL NOW
-                                        </a>
-                                    ) : (
-                                        <a href="tel:0700000000" className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                                            <i className="fas fa-phone-alt"></i>
-                                            CALL NOW
-                                        </a>
-                                    )}
-
-                                    {ad.whatsapp_number ? (
-                                        <a href={`https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                                            <i className="fab fa-whatsapp text-xl"></i>
-                                            WHATSAPP
-                                        </a>
-                                    ) : (
-                                        <a href="https://wa.me/94700000000" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                                            <i className="fab fa-whatsapp text-xl"></i>
-                                            WHATSAPP
-                                        </a>
-                                    )}
-                                </div>
-                            </div>
-                            
-                            {/* Safety Tips Sidebar Card */}
-                            <div className="bg-blue-50 rounded-lg p-5 border border-blue-100 shadow-sm mb-6">
-                                <h4 className="font-bold text-blue-900 mb-3 flex items-center gap-2">
-                                    <i className="fas fa-shield-alt text-blue-600"></i> Safety Tips
-                                </h4>
-                                <ul className="text-sm text-blue-800 space-y-2">
-                                    <li className="flex items-start gap-2"><i className="fas fa-check text-green-600 mt-1"></i> Meet in a safe, public location.</li>
-                                    <li className="flex items-start gap-2"><i className="fas fa-check text-green-600 mt-1"></i> Never pay in advance.</li>
-                                    <li className="flex items-start gap-2"><i className="fas fa-check text-green-600 mt-1"></i> Verify the service/item before paying.</li>
-                                </ul>
-                            </div>
+                            {renderContactCard()}
+                            {renderSafetyTips()}
                         </div>
                     </div>
                 </div>
+
+                {/* Related Ads - Positioned full-width at the bottom */}
+                {filteredRelatedAds.length > 0 && (
+                    <div className="mt-12 pt-8 border-t border-gray-200">
+                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Related Ads</h3>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                            {filteredRelatedAds.map((relatedAd) => (
+                                <RelatedAdCard key={relatedAd.id} ad={relatedAd} />
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Disclaimer Note Section */}
