@@ -19,13 +19,24 @@
                     : url('assets/siteicon.png');
                 $ogType = 'article';
             } elseif ($adData && !empty($adData['title'])) {
-                $siteTitle = e($adData['title']) . ' - TinTinAds';
-                $siteDesc = !empty($adData['description']) 
-                    ? \Illuminate\Support\Str::limit(preg_replace('/\s+/', ' ', strip_tags($adData['description'])), 160) 
-                    : 'TintinAds is the best alternative to SL Ads and Hitad in Sri Lanka.';
-                $siteImage = ($adData && !empty($adData['images']) && !empty($adData['images'][0]['path'])) 
-                    ? url('storage/' . $adData['images'][0]['path']) 
-                    : url('assets/siteicon.png');
+                $priceStr = !empty($adData['price']) ? ' (Rs. ' . number_format($adData['price']) . ')' : '';
+                $siteTitle = e($adData['title']) . $priceStr . ' - TinTinAds';
+
+                $locationPart = !empty($adData['location']) ? '📍 ' . $adData['location'] . ' | ' : '';
+                $contactPart = !empty($adData['phone_number']) ? '📞 ' . $adData['phone_number'] . ' | ' : '';
+                $descClean = !empty($adData['description']) ? preg_replace('/\s+/', ' ', strip_tags($adData['description'])) : '';
+                $siteDesc = \Illuminate\Support\Str::limit($locationPart . $contactPart . $descClean, 180);
+
+                // Properly resolve image URL for WhatsApp / Facebook / Telegram previews
+                $siteImage = url('assets/siteicon.png');
+                if (!empty($adData['images']) && is_array($adData['images'])) {
+                    $firstImg = $adData['images'][0];
+                    if (is_string($firstImg) && !empty($firstImg)) {
+                        $siteImage = str_starts_with($firstImg, 'http') ? $firstImg : url($firstImg);
+                    } elseif (is_array($firstImg) && !empty($firstImg['path'])) {
+                        $siteImage = str_starts_with($firstImg['path'], 'http') ? $firstImg['path'] : url('storage/' . $firstImg['path']);
+                    }
+                }
                 $ogType = 'article';
             } else {
                 $siteTitle = 'TinTinAds - Best SL Ads, Lanka Ads & Spa Ads in Sri Lanka';
@@ -42,6 +53,7 @@
         <meta property="og:title" content="{{ $siteTitle }}">
         <meta property="og:description" content="{{ $siteDesc }}">
         <meta property="og:image" content="{{ $siteImage }}">
+        <meta property="og:site_name" content="TinTinAds.com">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta name="twitter:card" content="summary_large_image">
         <meta name="twitter:title" content="{{ $siteTitle }}">

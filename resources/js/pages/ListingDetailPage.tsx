@@ -328,15 +328,17 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
     }, []);
 
     const handleShare = () => {
+        const adUrl = typeof window !== 'undefined' ? window.location.href : `https://tintinads.com/ad/${ad.id}`;
+        const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}`;
         if (navigator.share) {
             navigator.share({
-                title: ad.title,
-                text: ad.description,
-                url: window.location.href,
+                title: `${ad.title} - TinTinAds`,
+                text: shareText,
+                url: adUrl,
             }).catch(() => { });
         } else {
-            navigator.clipboard.writeText(window.location.href);
-            alert('Link copied to clipboard!');
+            navigator.clipboard.writeText(shareText);
+            alert('දැන්වීමේ සවිස්තරාත්මක Link එක Copied! ඔබට දැන් WhatsApp හෝ Facebook හි Paste කළ හැක.');
         }
     };
 
@@ -345,6 +347,8 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
         const waUrl = ad.whatsapp_number
             ? `https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}?text=${whatsappText}`
             : `https://wa.me/94700000000?text=${whatsappText}`;
+
+        const shareAdWaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \nhttps://tintinads.com/ad/${ad.id}`)}`;
 
         return (
             <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
@@ -381,6 +385,17 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                     <a href={waUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
                         <i className="fab fa-whatsapp text-xl"></i>
                         WHATSAPP
+                    </a>
+
+                    {/* Quick WhatsApp Share Button */}
+                    <a 
+                        href={shareAdWaUrl}
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-2xs"
+                    >
+                        <i className="fab fa-whatsapp text-base text-emerald-600"></i>
+                        Share on WhatsApp (දැන්වීම Share කරන්න)
                     </a>
                 </div>
 
