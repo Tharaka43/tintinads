@@ -9,6 +9,7 @@ import AdminReportsController from './AdminReportsController'
 import AdminSettingsController from './AdminSettingsController'
 import AgentAdController from './AgentAdController'
 import OcrController from './OcrController'
+import BatchAdImportController from './BatchAdImportController'
 const Controllers = {
     ClassifiedsController: Object.assign(ClassifiedsController, ClassifiedsController),
 BlogController: Object.assign(BlogController, BlogController),
@@ -21,6 +22,7 @@ AdminReportsController: Object.assign(AdminReportsController, AdminReportsContro
 AdminSettingsController: Object.assign(AdminSettingsController, AdminSettingsController),
 AgentAdController: Object.assign(AgentAdController, AgentAdController),
 OcrController: Object.assign(OcrController, OcrController),
+BatchAdImportController: Object.assign(BatchAdImportController, BatchAdImportController),
 }
 
 export default Controllers

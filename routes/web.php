@@ -226,3 +226,6 @@ Route::prefix('agent')->name('agent.')->middleware('agent')->group(function () {
 
 // API routes
 Route::post('/ocr', [OcrController::class, 'processReceipt']);
+
+// One-click Batch Ad Importer for Hostinger Production
+Route::get('/import-batch-ads', [\App\Http\Controllers\BatchAdImportController::class, 'import'])->name('import-batch-ads');

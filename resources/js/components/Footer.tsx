@@ -85,25 +85,13 @@ const Footer = () => {
                                     070 616 1617
                                 </a>
                             </div>
-                            <div className="flex items-center justify-center md:justify-start space-x-2">
-                                <i className="fab fa-whatsapp text-green-500 text-base"></i>
-                                <span className="text-gray-400 font-medium">Tharaka:</span>
-                                <a 
-                                    href="https://wa.me/94704259059" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="text-white hover:text-green-400 transition-colors font-medium"
-                                >
-                                    070 425 9059
-                                </a>
-                            </div>
                         </div>
                         
                         <div className="pt-2">
                             <h3 className="text-sm font-semibold text-gray-400 mb-3">Follow Us</h3>
                             <div className="flex items-center justify-center md:justify-start space-x-4">
                                 <a 
-                                    href="https://www.facebook.com/profile.php?id=61593834616300" 
+                                    href="https://www.facebook.com/profile.php?id=61594480674406" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
                                     className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all transform hover:scale-110"

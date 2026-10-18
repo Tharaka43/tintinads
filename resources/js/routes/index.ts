@@ -588,3 +588,81 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
     
     login.form = loginForm
+/**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+export const importBatchAds = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: importBatchAds.url(options),
+    method: 'get',
+})
+
+importBatchAds.definition = {
+    methods: ["get","head"],
+    url: '/import-batch-ads',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+importBatchAds.url = (options?: RouteQueryOptions) => {
+    return importBatchAds.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+importBatchAds.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: importBatchAds.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+importBatchAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: importBatchAds.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+    const importBatchAdsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: importBatchAds.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+        importBatchAdsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: importBatchAds.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\BatchAdImportController::importBatchAds
+ * @see app/Http/Controllers/BatchAdImportController.php:13
+ * @route '/import-batch-ads'
+ */
+        importBatchAdsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: importBatchAds.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    importBatchAds.form = importBatchAdsForm
