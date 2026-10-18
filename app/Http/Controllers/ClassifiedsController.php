@@ -56,7 +56,11 @@ class ClassifiedsController extends Controller
 
         // Filter by location if provided
         if (!empty($location) && $location !== 'All Sri Lanka') {
-            $query->where('location', 'like', '%' . $location . '%');
+            $query->where(function ($q) use ($location) {
+                $q->where('location', 'like', '%' . $location . '%')
+                  ->orWhere('title', 'like', '%' . $location . '%')
+                  ->orWhere('description', 'like', '%' . $location . '%');
+            });
         }
 
         // Get total count for pagination

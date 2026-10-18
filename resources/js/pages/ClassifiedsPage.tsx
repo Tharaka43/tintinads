@@ -173,8 +173,17 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                 <div className={`flex flex-row w-full h-full bg-white ${isPlatinum ? 'bg-slate-50 rounded-lg' : isVip ? 'bg-amber-50 rounded-lg' : isPremium ? 'bg-pink-50 rounded-lg' : ''}`}>
                     {/* Left: Image */}
                     <div className="relative w-[130px] sm:w-[180px] h-full flex-shrink-0">
+                        {/* Top Left: Online Today Badge */}
+                        <div className="absolute top-1.5 left-1.5 z-20 bg-black/75 backdrop-blur-xs text-white px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold shadow-md flex items-center gap-1 border border-emerald-400/40">
+                            <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-1.5 w-1.5 sm:h-2 sm:w-2 bg-emerald-500"></span>
+                            </span>
+                            <span>Online Today</span>
+                        </div>
+
                         {/* Top Right Badges */}
-                        <div className="absolute top-1 right-1 z-20 flex flex-col gap-1">
+                        <div className="absolute top-1.5 right-1.5 z-20 flex flex-col gap-1">
                             {isPlatinum && (
                                 <div className="bg-gradient-to-r from-slate-400 to-slate-600 text-white px-1.5 py-0.5 rounded text-[10px] font-bold shadow-md flex items-center justify-center">
                                     <i className="fas fa-gem text-[8px] mr-1"></i> Plat
@@ -223,16 +232,19 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                         </div>
 
                         <div className="mt-auto">
-                            <div className="flex items-center text-[10px] sm:text-xs text-gray-500 mb-1.5">
+                            <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-1">
                                 <span className="flex items-center truncate"><i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{ad.location}</span>
+                                <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold flex-shrink-0 shadow-2xs">
+                                    <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
+                                </span>
                             </div>
 
-                            <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                                <div className="flex items-center space-x-3 text-[10px] sm:text-xs font-semibold text-blue-600">
+                            <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-gray-100">
+                                <div className="flex items-center space-x-2.5 sm:space-x-3 text-[10px] sm:text-xs font-semibold text-blue-600">
                                     <span className="flex items-center"><i className="far fa-thumbs-up mr-1 text-blue-500"></i>{likes} Likes</span>
                                     <span className="flex items-center"><i className="far fa-eye mr-1 text-blue-500"></i>{views} Views</span>
                                 </div>
-                                <span className="text-[9px] sm:text-[11px] text-gray-400 whitespace-nowrap ml-2">{ad.time || '1d ago'}</span>
+                                <span className="text-[9px] sm:text-[11px] text-emerald-600 font-semibold whitespace-nowrap ml-2">{ad.time || 'Online'}</span>
                             </div>
                         </div>
                     </div>
@@ -493,6 +505,34 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         });
     }, []);
 
+    const quickCities = useMemo(() => [
+        'All Sri Lanka',
+        'Colombo',
+        'Kandy',
+        'Gampaha',
+        'Negombo',
+        'Nugegoda',
+        'Dehiwala',
+        'Mount Lavinia',
+        'Maharagama',
+        'Kurunegala',
+        'Galle',
+        'Malabe',
+    ], []);
+
+    const handleCitySelect = useCallback((city: string) => {
+        setLocationInput(city);
+        router.get('/', {
+            category: initialCategory === 'All Categories' ? undefined : initialCategory,
+            page: 1,
+            search: searchInput.trim() || undefined,
+            location: city === 'All Sri Lanka' ? undefined : city,
+        }, {
+            preserveState: true,
+            preserveScroll: false,
+        });
+    }, [initialCategory, searchInput]);
+
     const handleCategorySelect = useCallback((category: string) => {
         if (category === 'Agents') {
             router.get('/agents', {
@@ -512,12 +552,13 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 category: searchCategory === 'All Categories' ? undefined : searchCategory,
                 page: 1,
                 search: searchInput || undefined,
+                location: locationInput === 'All Sri Lanka' ? undefined : locationInput,
             }, {
                 preserveState: true,
                 preserveScroll: false,
             });
         }
-    }, [searchInput]);
+    }, [searchInput, locationInput]);
 
     const handleSearch = useCallback((e: React.FormEvent) => {
         e.preventDefault();
@@ -930,6 +971,34 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                             );
                         })}
                     </div>
+
+                    {/* Quick City Filter Pills */}
+                    <div className="mt-6 pt-5 border-t border-gray-100">
+                        <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
+                            <i className="fas fa-map-marker-alt text-pink-500"></i>
+                            <span>Quick City Filter (නගරය අනුව ඉක්මනින් තෝරන්න)</span>
+                        </div>
+                        <div className="flex items-center justify-start sm:justify-center sm:flex-wrap gap-2 overflow-x-auto pb-2 px-1">
+                            {quickCities.map((city) => {
+                                const isSelected = (locationInput || 'All Sri Lanka').toLowerCase() === city.toLowerCase();
+                                return (
+                                    <button
+                                        key={city}
+                                        type="button"
+                                        onClick={() => handleCitySelect(city)}
+                                        className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 flex-shrink-0 border cursor-pointer ${
+                                            isSelected
+                                                ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white border-pink-600 shadow-md scale-105'
+                                                : 'bg-gray-50 hover:bg-pink-50 text-gray-700 hover:text-pink-600 border-gray-200 hover:border-pink-300 shadow-2xs'
+                                        }`}
+                                    >
+                                        <i className={`fas ${city === 'All Sri Lanka' ? 'fa-globe-asia' : 'fa-map-pin'} text-[10px] ${isSelected ? 'text-white' : 'text-pink-500'}`}></i>
+                                        <span>{city}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -956,7 +1025,23 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                     {/* Ad Grid */}
                     <main className="flex-1">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">Latest Ads in {initialCategory}</h2>
+                            <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 flex flex-wrap items-center gap-2">
+                                <span>Latest Ads in {initialCategory}</span>
+                                {locationInput && locationInput !== 'All Sri Lanka' && (
+                                    <span className="inline-flex items-center gap-1.5 bg-pink-50 text-pink-600 border border-pink-200 px-3 py-1 rounded-full text-xs sm:text-sm font-bold">
+                                        <i className="fas fa-map-marker-alt text-xs"></i>
+                                        {locationInput}
+                                        <button
+                                            type="button"
+                                            onClick={() => handleCitySelect('All Sri Lanka')}
+                                            className="ml-1 text-pink-400 hover:text-pink-700"
+                                            title="Clear city filter"
+                                        >
+                                            <i className="fas fa-times-circle"></i>
+                                        </button>
+                                    </span>
+                                )}
+                            </h2>
                             <div className="flex items-center space-x-4 self-start sm:self-auto">
                                 <span className="text-sm text-gray-600 whitespace-nowrap">{pagination.totalItems} results</span>
                                 <select className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none text-sm focus:border-light-blue w-full sm:w-auto" style={{ borderColor: LIGHT_BLUE }}>

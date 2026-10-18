@@ -117,15 +117,17 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
             {isVip ? (
                 <div className="relative rounded-xl p-[2px] vip-gold-animated-border hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="relative rounded-xl bg-gradient-to-br from-amber-50 via-yellow-50 to-amber-100 overflow-hidden h-full" style={{ zIndex: 10 }}>
-                        <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-                            <i className="fas fa-crown text-xs"></i>
+                        <div className="absolute top-2 left-2 z-10 bg-black/75 backdrop-blur-xs text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-md flex items-center gap-1 border border-emerald-400/40">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span>Online Today</span>
+                        </div>
+                        <div className="absolute top-2 right-2 z-10 bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-lg flex items-center gap-1">
+                            <i className="fas fa-crown text-[9px]"></i>
                             <span>VIP</span>
                         </div>
-                        {hasCashBackGuarantee && (
-                            <div className="absolute top-2 right-2 z-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-                                <i className="fas fa-shield-alt text-xs"></i>
-                            </div>
-                        )}
                         <div className="relative h-32 w-full">
                             <AdImageCarousel
                                 images={displayImages}
@@ -138,22 +140,29 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
                             <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2" title={ad.title}>
                                 {truncateText(ad.title, 40)}
                             </h3>
-                            <p className="text-lg font-bold text-amber-600">Rs {ad.price.toLocaleString()}</p>
+                            <div className="flex items-center justify-between mt-1">
+                                <p className="text-base sm:text-lg font-bold text-amber-600">Rs {ad.price.toLocaleString()}</p>
+                                <span className="inline-flex items-center gap-0.5 bg-amber-100 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded-full text-[9px] font-bold">
+                                    <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             ) : isPremium ? (
                 <div className="relative rounded-xl p-[2px] premium-pink-animated-border hover:shadow-lg transition-all duration-300 cursor-pointer">
                     <div className="relative rounded-xl bg-gradient-to-br from-pink-50 via-rose-50 to-fuchsia-50 overflow-hidden h-full" style={{ zIndex: 10 }}>
-                        <div className="absolute top-2 left-2 z-10 bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-                            <i className="fas fa-star text-xs"></i>
+                        <div className="absolute top-2 left-2 z-10 bg-black/75 backdrop-blur-xs text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-md flex items-center gap-1 border border-emerald-400/40">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span>Online Today</span>
+                        </div>
+                        <div className="absolute top-2 right-2 z-10 bg-gradient-to-r from-pink-500 via-rose-500 to-fuchsia-500 text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-lg flex items-center gap-1">
+                            <i className="fas fa-star text-[9px]"></i>
                             <span>Premium</span>
                         </div>
-                        {hasCashBackGuarantee && (
-                            <div className="absolute top-2 right-2 z-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-                                <i className="fas fa-shield-alt text-xs"></i>
-                            </div>
-                        )}
                         <div className="relative h-32 w-full">
                             <AdImageCarousel
                                 images={displayImages}
@@ -166,12 +175,24 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
                             <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2" title={ad.title}>
                                 {truncateText(ad.title, 40)}
                             </h3>
-                            <p className="text-lg font-bold" style={{ color: VIP_PINK }}>Rs {ad.price.toLocaleString()}</p>
+                            <div className="flex items-center justify-between mt-1">
+                                <p className="text-base sm:text-lg font-bold" style={{ color: VIP_PINK }}>Rs {ad.price.toLocaleString()}</p>
+                                <span className="inline-flex items-center gap-0.5 bg-amber-50 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded-full text-[9px] font-bold">
+                                    <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
             ) : (
                 <div className="relative bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer">
+                    <div className="absolute top-2 left-2 z-10 bg-black/75 backdrop-blur-xs text-white px-2 py-0.5 rounded-full text-[10px] font-bold shadow-md flex items-center gap-1 border border-emerald-400/40">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span>Online Today</span>
+                    </div>
                     {hasCashBackGuarantee && (
                         <div className="absolute top-2 right-2 z-10 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
                             <i className="fas fa-shield-alt text-xs"></i>
@@ -187,7 +208,12 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
                     </div>
                     <div className="p-3">
                         <h3 className="font-semibold text-sm text-gray-900 mb-1 line-clamp-2">{ad.title}</h3>
-                        <p className="text-lg font-bold" style={{ color: PRIMARY_PINK }}>Rs {ad.price.toLocaleString()}</p>
+                        <div className="flex items-center justify-between mt-1">
+                            <p className="text-base sm:text-lg font-bold" style={{ color: PRIMARY_PINK }}>Rs {ad.price.toLocaleString()}</p>
+                            <span className="inline-flex items-center gap-0.5 bg-amber-50 text-amber-800 border border-amber-300 px-1.5 py-0.5 rounded-full text-[9px] font-bold">
+                                <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
+                            </span>
+                        </div>
                     </div>
                 </div>
             )}
@@ -352,6 +378,21 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
 
         return (
             <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
+                {/* Status Badges */}
+                <div className="flex flex-wrap items-center gap-2 mb-3">
+                    <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-xs font-extrabold shadow-2xs">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        Online Today
+                    </span>
+                    <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300 px-2.5 py-1 rounded-full text-xs font-extrabold shadow-2xs">
+                        <i className="fas fa-star text-amber-500 text-[10px]"></i>
+                        Verified Ad
+                    </span>
+                </div>
+
                 <div className="flex items-center gap-2 mb-2">
                     <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">{ad.title}</h1>
                     <div className="text-purple-600 text-sm mt-1" title="Verified Ad">
@@ -949,7 +990,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
             </div>
 
             {/* Footer Section */}
-            <footer className="bg-white border-t border-gray-200 mt-12 py-6 sm:py-8">
+            <footer className="bg-white border-t border-gray-200 mt-12 py-6 sm:py-8 pb-28 lg:pb-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6">
                         {/* WhatsApp Contact */}
@@ -989,6 +1030,49 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                     </div>
                 </div>
             </footer>
+
+            {/* Mobile Floating Quick Contact Bar */}
+            <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2.5 shadow-[0_-8px_25px_rgba(0,0,0,0.12)]">
+                <div className="flex items-center justify-between gap-2.5 max-w-md mx-auto">
+                    {/* Left: Price & Online Status */}
+                    <div className="flex flex-col min-w-0 pr-1">
+                        <div className="flex items-center gap-1.5">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wide">Online Now</span>
+                        </div>
+                        <span className="text-base sm:text-lg font-black text-pink-600 truncate leading-tight">
+                            Rs {ad.price.toLocaleString()}
+                        </span>
+                    </div>
+
+                    {/* Right: Quick Call & WhatsApp Buttons */}
+                    <div className="flex items-center gap-2 flex-1 justify-end">
+                        <a
+                            href={ad.phone_number ? `tel:${ad.phone_number}` : 'tel:0700000000'}
+                            className="flex-1 max-w-[135px] bg-[#E50914] active:bg-red-800 text-white font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
+                        >
+                            <i className="fas fa-phone-alt text-xs"></i>
+                            <span>CALL NOW</span>
+                        </a>
+                        <a
+                            href={
+                                ad.whatsapp_number
+                                    ? `https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title}`)}`
+                                    : `https://wa.me/94700000000?text=${encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title}`)}`
+                            }
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 max-w-[135px] bg-[#25D366] active:bg-green-700 text-white font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
+                        >
+                            <i className="fab fa-whatsapp text-base"></i>
+                            <span>WHATSAPP</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
