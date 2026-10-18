@@ -130,14 +130,15 @@ class BatchAdImportController extends Controller
         }
 
         // Return HTML
-        $html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>TinTinAds 40 Batch Importer</title>';
+        $totalCount = count($results);
+        $html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>TinTinAds 60 Batch Importer</title>';
         $html .= '<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">';
         $html .= '</head><body class="bg-gray-900 text-white p-6">';
         $html .= '<div class="max-w-6xl mx-auto">';
         $html .= '<div class="bg-green-800 text-white p-6 rounded-lg mb-6 shadow-lg flex justify-between items-center">';
-        $html .= '<div><h1 class="text-2xl font-bold">✅ TinTinAds දැන්වීම් 40ම සාර්ථකව Live Database එකට ඇතුළත් විය!</h1>';
-        $html .= '<p class="text-green-200 mt-1">දැන්වීම් 40ම රු. 700 VIP Golden Highlight කාණ්ඩය යටතේ සක්‍රිය කර ඇත.</p></div>';
-        $html .= '<a href="/tintin_all_40_contacts.vcf" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg shadow transition">📥 Contacts 40ම එකවර Save කරගන්න (VCF)</a>';
+        $html .= '<div><h1 class="text-2xl font-bold">✅ TinTinAds දැන්වීම් ' . $totalCount . 'ම සාර්ථකව Live Database එකට ඇතුළත් විය!</h1>';
+        $html .= '<p class="text-green-200 mt-1">දැන්වීම් සියල්ලම රු. 700 VIP Golden Highlight කාණ්ඩය යටතේ සක්‍රිය කර ඇත.</p></div>';
+        $html .= '<a href="/tintin_all_60_contacts.vcf" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg shadow transition">📥 Contacts ' . $totalCount . 'ම එකවර Save කරගන්න (VCF)</a>';
         $html .= '</div>';
 
         $html .= '<div class="overflow-x-auto bg-gray-800 rounded-lg shadow">';
