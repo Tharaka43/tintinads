@@ -7,21 +7,38 @@
 
         @php
             $adData = $page['props']['ad'] ?? null;
-            $siteTitle = $adData && !empty($adData['title']) 
-                ? e($adData['title']) . ' - TinTinAds' 
-                : 'TinTinAds - Best SL Ads, Lanka Ads & Spa Ads in Sri Lanka';
-            $siteDesc = $adData && !empty($adData['description']) 
-                ? \Illuminate\Support\Str::limit(preg_replace('/\s+/', ' ', strip_tags($adData['description'])), 160) 
-                : 'TintinAds is the best alternative to SL Ads and Hitad in Sri Lanka. Post and find personal ads, spa services, job vacancies, and classifieds quickly and securely.';
-            $siteImage = ($adData && !empty($adData['images']) && !empty($adData['images'][0]['path'])) 
-                ? url('storage/' . $adData['images'][0]['path']) 
-                : url('assets/siteicon.png');
+            $blogData = $page['props']['blog'] ?? null;
+
+            if ($blogData && !empty($blogData['title'])) {
+                $siteTitle = e($blogData['title']) . ' - TinTinAds';
+                $siteDesc = !empty($blogData['meta_description']) 
+                    ? e($blogData['meta_description']) 
+                    : \Illuminate\Support\Str::limit(strip_tags($blogData['content'] ?? ''), 160);
+                $siteImage = !empty($blogData['image']) 
+                    ? (str_starts_with($blogData['image'], 'http') ? $blogData['image'] : url($blogData['image'])) 
+                    : url('assets/siteicon.png');
+                $ogType = 'article';
+            } elseif ($adData && !empty($adData['title'])) {
+                $siteTitle = e($adData['title']) . ' - TinTinAds';
+                $siteDesc = !empty($adData['description']) 
+                    ? \Illuminate\Support\Str::limit(preg_replace('/\s+/', ' ', strip_tags($adData['description'])), 160) 
+                    : 'TintinAds is the best alternative to SL Ads and Hitad in Sri Lanka.';
+                $siteImage = ($adData && !empty($adData['images']) && !empty($adData['images'][0]['path'])) 
+                    ? url('storage/' . $adData['images'][0]['path']) 
+                    : url('assets/siteicon.png');
+                $ogType = 'article';
+            } else {
+                $siteTitle = 'TinTinAds - Best SL Ads, Lanka Ads & Spa Ads in Sri Lanka';
+                $siteDesc = 'TintinAds is the best alternative to SL Ads and Hitad in Sri Lanka. Post and find personal ads, spa services, job vacancies, and classifieds quickly and securely.';
+                $siteImage = url('assets/siteicon.png');
+                $ogType = 'website';
+            }
         @endphp
 
         <title inertia>{{ $siteTitle }}</title>
         <meta name="description" content="{{ $siteDesc }}">
         <meta name="keywords" content="TintinAds, Sri Lanka Ads, SL Ads, Hitad, spa ads, personal ads sri lanka, classifieds, massage colombo, jobs">
-        <meta property="og:type" content="{{ $adData ? 'article' : 'website' }}">
+        <meta property="og:type" content="{{ $ogType }}">
         <meta property="og:title" content="{{ $siteTitle }}">
         <meta property="og:description" content="{{ $siteDesc }}">
         <meta property="og:image" content="{{ $siteImage }}">

@@ -1,6 +1,20 @@
 -- Auto-generated SQL to insert 2 SEO Blogs into Hostinger MySQL
 SET NAMES utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `blogs` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `meta_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `blogs_slug_unique` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 DELETE FROM blogs WHERE slug IN ('best-sl-ads-alternative-sri-lanka', 'top-classifieds-sites-sri-lanka-review');
 
 INSERT INTO blogs (title, slug, content, image, meta_description, is_published, created_at, updated_at) VALUES

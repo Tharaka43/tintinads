@@ -36,6 +36,19 @@ class BatchAdImportController extends Controller
         }
 
         // Auto-seed / update SEO Blogs from seo_blogs.json
+        if (!\Illuminate\Support\Facades\Schema::hasTable('blogs')) {
+            \Illuminate\Support\Facades\Schema::create('blogs', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->longText('content');
+                $table->string('image')->nullable();
+                $table->string('meta_description')->nullable();
+                $table->boolean('is_published')->default(true);
+                $table->timestamps();
+            });
+        }
+
         $seoBlogsFile = base_path('seo_blogs.json');
         if (file_exists($seoBlogsFile)) {
             $blogsData = json_decode(file_get_contents($seoBlogsFile), true);

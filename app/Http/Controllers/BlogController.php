@@ -11,10 +11,58 @@ use Illuminate\Support\Facades\Storage;
 class BlogController extends Controller
 {
     /**
+     * Ensure blogs table exists and is seeded with initial SEO articles.
+     */
+    private function ensureBlogsTableExists()
+    {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('blogs')) {
+            \Illuminate\Support\Facades\Schema::create('blogs', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->string('title');
+                $table->string('slug')->unique();
+                $table->longText('content');
+                $table->string('image')->nullable();
+                $table->string('meta_description')->nullable();
+                $table->boolean('is_published')->default(true);
+                $table->timestamps();
+            });
+        }
+
+        // Auto-seed if empty
+        if (Blog::count() === 0) {
+            $this->seedInitialBlogs();
+        }
+    }
+
+    private function seedInitialBlogs()
+    {
+        $seoBlogsFile = base_path('seo_blogs.json');
+        if (file_exists($seoBlogsFile)) {
+            $blogsData = json_decode(file_get_contents($seoBlogsFile), true);
+            if (!empty($blogsData)) {
+                foreach ($blogsData as $b) {
+                    Blog::updateOrCreate(
+                        ['slug' => $b['slug']],
+                        [
+                            'title' => $b['title'],
+                            'content' => $b['content'],
+                            'image' => $b['image'] ?? null,
+                            'meta_description' => $b['meta_description'] ?? null,
+                            'is_published' => true,
+                        ]
+                    );
+                }
+            }
+        }
+    }
+
+    /**
      * Display a listing of the resource for the public.
      */
     public function index()
     {
+        $this->ensureBlogsTableExists();
+
         $blogs = Blog::where('is_published', true)->latest()->paginate(12);
         return Inertia::render('Blog/Index', [
             'blogs' => $blogs
@@ -26,7 +74,19 @@ class BlogController extends Controller
      */
     public function show($slug)
     {
-        $blog = Blog::where('slug', $slug)->where('is_published', true)->firstOrFail();
+        $this->ensureBlogsTableExists();
+
+        $blog = Blog::where('slug', $slug)->where('is_published', true)->first();
+
+        // Fallback: If not found in database, try to seed from seo_blogs.json
+        if (!$blog) {
+            $this->seedInitialBlogs();
+            $blog = Blog::where('slug', $slug)->where('is_published', true)->first();
+        }
+
+        if (!$blog) {
+            abort(404, 'Blog post not found.');
+        }
         
         // Also fetch a few recent blogs for "Related Articles"
         $recentBlogs = Blog::where('is_published', true)

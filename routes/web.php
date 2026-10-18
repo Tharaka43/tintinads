@@ -44,14 +44,16 @@ Route::get('/sitemap.xml', function () {
     $xml .= '<url><loc>' . url('/blog') . '</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>';
 
     // Blog Articles
-    $blogs = \App\Models\Blog::where('is_published', true)->get();
-    foreach ($blogs as $b) {
-        $xml .= '<url>';
-        $xml .= '<loc>' . url('/blog/' . $b->slug) . '</loc>';
-        $xml .= '<lastmod>' . $b->updated_at->tz('UTC')->toAtomString() . '</lastmod>';
-        $xml .= '<changefreq>monthly</changefreq>';
-        $xml .= '<priority>0.9</priority>';
-        $xml .= '</url>';
+    if (\Illuminate\Support\Facades\Schema::hasTable('blogs')) {
+        $blogs = \App\Models\Blog::where('is_published', true)->get();
+        foreach ($blogs as $b) {
+            $xml .= '<url>';
+            $xml .= '<loc>' . url('/blog/' . $b->slug) . '</loc>';
+            $xml .= '<lastmod>' . $b->updated_at->tz('UTC')->toAtomString() . '</lastmod>';
+            $xml .= '<changefreq>monthly</changefreq>';
+            $xml .= '<priority>0.9</priority>';
+            $xml .= '</url>';
+        }
     }
     
     $xml .= '</urlset>';
