@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
 /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
 export const manage = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ manage.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
 manage.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ manage.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
 manage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -30,7 +30,7 @@ manage.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
 manage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -39,7 +39,7 @@ manage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
     const manageForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -48,7 +48,7 @@ manage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
         manageForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +56,7 @@ manage.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:130
+ * @see routes/web.php:144
  * @route '/admin/blogs-manage'
  */
         manageForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

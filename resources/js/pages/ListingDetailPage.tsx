@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { router } from '@inertiajs/react';
+import { router, Head } from '@inertiajs/react';
 
 // --- Global Constants ---
 const PRIMARY_PINK = '#FF69B4';
@@ -340,52 +340,70 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
         }
     };
 
-    const renderContactCard = () => (
-        <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
-            <div className="flex items-center gap-2 mb-2">
-                <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">{ad.title}</h1>
-                <div className="text-purple-600 text-sm mt-1" title="Verified Ad">
-                    <i className="fas fa-check-circle"></i>
+    const renderContactCard = () => {
+        const whatsappText = encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title}`);
+        const waUrl = ad.whatsapp_number
+            ? `https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}?text=${whatsappText}`
+            : `https://wa.me/94700000000?text=${whatsappText}`;
+
+        return (
+            <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
+                <div className="flex items-center gap-2 mb-2">
+                    <h1 className="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">{ad.title}</h1>
+                    <div className="text-purple-600 text-sm mt-1" title="Verified Ad">
+                        <i className="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                
+                <div className="flex items-center text-xs font-medium text-gray-500 mb-4 space-x-4">
+                    <span className="flex items-center text-blue-600"><i className="far fa-thumbs-up mr-1 text-blue-500"></i> {likesCount} Likes</span>
+                    <span><i className="far fa-clock mr-1"></i> {ad.time}</span>
+                </div>
+
+                <div className="text-3xl sm:text-4xl font-black mb-6 text-pink-600 tracking-tight">
+                    Rs {ad.price.toLocaleString()}
+                </div>
+
+                {/* Main Action Buttons */}
+                <div className="space-y-3">
+                    {ad.phone_number ? (
+                        <a href={`tel:${ad.phone_number}`} className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                            <i className="fas fa-phone-alt"></i>
+                            CALL NOW
+                        </a>
+                    ) : (
+                        <a href="tel:0700000000" className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                            <i className="fas fa-phone-alt"></i>
+                            CALL NOW
+                        </a>
+                    )}
+
+                    <a href={waUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <i className="fab fa-whatsapp text-xl"></i>
+                        WHATSAPP
+                    </a>
+                </div>
+
+                {/* TinTinAds Mention Callout */}
+                <div className="mt-4 bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-300/80 rounded-xl p-3.5 text-center shadow-xs">
+                    <div className="flex items-center justify-center gap-1.5 text-amber-900 font-bold text-xs sm:text-sm mb-1">
+                        <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-amber-200 text-amber-800 text-xs">
+                            <i className="fas fa-bullhorn text-[10px]"></i>
+                        </span>
+                        <span>කරුණාකර අමතන විට පවසන්න:</span>
+                    </div>
+                    <div className="bg-white border border-amber-300 py-1.5 px-3 rounded-lg inline-block shadow-xs my-1">
+                        <span className="text-gray-900 font-extrabold text-xs sm:text-sm">
+                            "මම මේ දැන්වීම දැක්කේ <span className="text-[#E50914] font-black underline decoration-red-400">TinTinAds.com</span> එකෙන්"
+                        </span>
+                    </div>
+                    <p className="text-[11px] text-gray-500 mt-1 font-medium">
+                        (Please mention you saw this ad on <strong className="text-gray-700">TinTinAds.com</strong> when calling)
+                    </p>
                 </div>
             </div>
-            
-            <div className="flex items-center text-xs font-medium text-gray-500 mb-4 space-x-4">
-                <span className="flex items-center text-blue-600"><i className="far fa-thumbs-up mr-1 text-blue-500"></i> {likesCount} Likes</span>
-                <span><i className="far fa-clock mr-1"></i> {ad.time}</span>
-            </div>
-
-            <div className="text-3xl sm:text-4xl font-black mb-6 text-pink-600 tracking-tight">
-                Rs {ad.price.toLocaleString()}
-            </div>
-
-            {/* Main Action Buttons */}
-            <div className="space-y-3">
-                {ad.phone_number ? (
-                    <a href={`tel:${ad.phone_number}`} className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                        <i className="fas fa-phone-alt"></i>
-                        CALL NOW
-                    </a>
-                ) : (
-                    <a href="tel:0700000000" className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                        <i className="fas fa-phone-alt"></i>
-                        CALL NOW
-                    </a>
-                )}
-
-                {ad.whatsapp_number ? (
-                    <a href={`https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                        <i className="fab fa-whatsapp text-xl"></i>
-                        WHATSAPP
-                    </a>
-                ) : (
-                    <a href="https://wa.me/94700000000" target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
-                        <i className="fab fa-whatsapp text-xl"></i>
-                        WHATSAPP
-                    </a>
-                )}
-            </div>
-        </div>
-    );
+        );
+    };
 
     const renderSafetyTips = () => (
         <div className="bg-blue-50 rounded-lg p-5 border border-blue-100 shadow-sm mb-6">
@@ -402,6 +420,13 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
 
     return (
         <div className="bg-gray-50 min-h-screen font-sans">
+            <Head>
+                <title>{`${ad.title} - TinTinAds`}</title>
+                <meta name="description" content={ad.description ? ad.description.slice(0, 160).replace(/\s+/g, ' ') : `${ad.title} in ${ad.location}.`} />
+                <meta property="og:title" content={`${ad.title} - TinTinAds`} />
+                <meta property="og:description" content={ad.description ? ad.description.slice(0, 160).replace(/\s+/g, ' ') : ad.title} />
+            </Head>
+
             {/* Age Verification Modal */}
             {showAgeVerification && (
                 <div className="fixed inset-0 bg-black bg-opacity-75 z-[100] flex items-center justify-center p-4">
@@ -731,6 +756,12 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             <h2 className="text-2xl font-bold text-gray-900 mb-4">Description</h2>
                             <div className="prose max-w-none text-gray-700 whitespace-pre-wrap">
                                 {ad.description || 'No description available.'}
+                            </div>
+
+                            {/* Polite Reminder */}
+                            <div className="mt-5 pt-3.5 border-t border-gray-200 flex items-center gap-2 text-xs text-gray-500">
+                                <i className="fas fa-info-circle text-amber-500 text-sm flex-shrink-0"></i>
+                                <span>කරුණාකර අමතන විට හෝ පණිවිඩ යැවීමේදී <strong className="text-gray-700">TinTinAds.com</strong> හරහා සම්බන්ධ වූ බව පවසන්න.</span>
                             </div>
 
                             {/* Specifications */}
