@@ -67,11 +67,26 @@ interface Ad {
     time: string;
     imgSrc: string | null;
     images?: string[];
+    views?: number;
+    likes?: number;
     isVip: boolean;
     isPremium: boolean;
     isPlatinum?: boolean;
     hasCashBackGuarantee: boolean;
     isSaved?: boolean;
+    phone_number?: string | null;
+    whatsapp_number?: string | null;
+}
+
+interface RecentlyViewedAd {
+    id: number;
+    title: string;
+    price: number;
+    location: string;
+    imgSrc: string;
+    isVip?: boolean;
+    isPremium?: boolean;
+    isPlatinum?: boolean;
 }
 
 interface TopCategory {
@@ -140,11 +155,6 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
                     />
                 );
             })}
-            {/* Ensure gradient overlay stays on top if needed, but in the parent component logic it's a sibling. 
-                 However, the original img had className="w-full h-48..."
-                 Here we use absolute to stack them easily for crossfade.
-                 The parent container needs strictly defined height.
-             */}
         </div>
     );
 };
@@ -163,16 +173,32 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
         }
     };
 
+    const handleQuickCall = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const phone = ad.phone_number || '0700000000';
+        window.location.href = `tel:${phone}`;
+    };
+
+    const handleQuickWhatsApp = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const rawNumber = (ad.whatsapp_number || ad.phone_number || '94700000000').replace(/[^0-9]/g, '');
+        const cleanNumber = rawNumber.startsWith('0') ? '94' + rawNumber.slice(1) : rawNumber;
+        const text = encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title}`);
+        window.open(`https://wa.me/${cleanNumber}?text=${text}`, '_blank', 'noopener,noreferrer');
+    };
+
     const likes = ad.likes || 0;
     const views = ad.views || 0;
 
     return (
-        <a href={`/ad/${ad.id}`} className="block">
-            <div className={`relative bg-white rounded-xl border ${isPlatinum ? 'border-slate-400 platinum-silver-animated-border p-[2px]' : isVip ? 'border-amber-400 vip-gold-animated-border p-[2px]' : isPremium ? 'border-pink-400 premium-pink-animated-border p-[2px]' : 'border-gray-200'} overflow-hidden hover:shadow-md transition-all duration-300 cursor-pointer flex flex-row h-[150px] sm:h-[180px]`}>
+        <a href={`/ad/${ad.id}`} className="block group">
+            <div className={`relative bg-white rounded-xl border ${isPlatinum ? 'border-slate-400 platinum-silver-animated-border p-[2px]' : isVip ? 'border-amber-400 vip-gold-animated-border p-[2px]' : isPremium ? 'border-pink-400 premium-pink-animated-border p-[2px]' : 'border-gray-200'} overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer flex flex-row h-[162px] sm:h-[188px]`}>
                 
                 <div className={`flex flex-row w-full h-full bg-white ${isPlatinum ? 'bg-slate-50 rounded-lg' : isVip ? 'bg-amber-50 rounded-lg' : isPremium ? 'bg-pink-50 rounded-lg' : ''}`}>
                     {/* Left: Image */}
-                    <div className="relative w-[130px] sm:w-[180px] h-full flex-shrink-0">
+                    <div className="relative w-[128px] sm:w-[180px] h-full flex-shrink-0 overflow-hidden">
                         {/* Top Left: Online Today Badge */}
                         <div className="absolute top-1.5 left-1.5 z-20 bg-black/75 backdrop-blur-xs text-white px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-bold shadow-md flex items-center gap-1 border border-emerald-400/40">
                             <span className="relative flex h-1.5 w-1.5 sm:h-2 sm:w-2">
@@ -201,16 +227,22 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                             )}
                         </div>
 
+                        {/* Bottom Left: Photo Counter Badge */}
+                        <div className="absolute bottom-1.5 left-1.5 z-20 bg-black/70 backdrop-blur-xs text-white px-1.5 py-0.5 rounded-md text-[8px] sm:text-[10px] font-bold flex items-center gap-1 shadow-xs border border-white/15">
+                            <i className="fas fa-camera text-[8px] sm:text-[9px] text-pink-400"></i>
+                            <span>{displayImages.length} {displayImages.length === 1 ? 'Photo' : 'Photos'}</span>
+                        </div>
+
                         <AdImageCarousel
                             images={displayImages}
                             title={ad.title}
-                            className="object-cover"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500"
                             isVipOrPremium={isVip || isPremium || isPlatinum}
                         />
                     </div>
 
                     {/* Right: Content */}
-                    <div className="p-2 sm:p-3 flex-1 flex flex-col justify-between overflow-hidden relative">
+                    <div className="p-2 sm:p-3 flex-1 flex flex-col justify-between overflow-hidden relative min-w-0">
                         {/* Save Button */}
                         <button
                             onClick={handleSaveClick}
@@ -218,11 +250,11 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                             title={isSaved ? 'Remove from saved' : 'Save ad'}
                             type="button"
                         >
-                            <i className={`${isSaved ? 'fas' : 'far'} fa-heart text-sm`}></i>
+                            <i className={`${isSaved ? 'fas' : 'far'} fa-heart text-xs sm:text-sm`}></i>
                         </button>
 
-                        <div className="pr-8">
-                            <h3 className="font-bold text-gray-900 text-sm sm:text-base leading-tight mb-1 line-clamp-2" title={ad.title}>
+                        <div className="pr-7 sm:pr-8">
+                            <h3 className="font-bold text-gray-900 text-xs sm:text-base leading-tight mb-1 line-clamp-2" title={ad.title}>
                                 {ad.title} <i className="fas fa-check-circle text-purple-600 ml-1 text-[10px] sm:text-xs" title="Verified"></i>
                             </h3>
                             
@@ -234,17 +266,39 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                         <div className="mt-auto">
                             <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-1">
                                 <span className="flex items-center truncate"><i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{ad.location}</span>
-                                <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[9px] sm:text-[10px] font-extrabold flex-shrink-0 shadow-2xs">
+                                <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold flex-shrink-0 shadow-2xs">
                                     <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
                                 </span>
                             </div>
 
-                            <div className="flex items-center justify-between pt-1.5 sm:pt-2 border-t border-gray-100">
-                                <div className="flex items-center space-x-2.5 sm:space-x-3 text-[10px] sm:text-xs font-semibold text-blue-600">
-                                    <span className="flex items-center"><i className="far fa-thumbs-up mr-1 text-blue-500"></i>{likes} Likes</span>
-                                    <span className="flex items-center"><i className="far fa-eye mr-1 text-blue-500"></i>{views} Views</span>
+                            <div className="flex items-center justify-between pt-1.5 border-t border-gray-100 gap-1">
+                                <div className="flex items-center space-x-2 text-[9px] sm:text-xs font-semibold text-blue-600 truncate">
+                                    <span className="flex items-center"><i className="far fa-thumbs-up mr-0.5 sm:mr-1 text-blue-500"></i>{likes}</span>
+                                    <span className="flex items-center"><i className="far fa-eye mr-0.5 sm:mr-1 text-blue-500"></i>{views}</span>
+                                    <span className="hidden sm:inline text-[10px] text-gray-400 font-normal">• {ad.time || 'Online'}</span>
                                 </div>
-                                <span className="text-[9px] sm:text-[11px] text-emerald-600 font-semibold whitespace-nowrap ml-2">{ad.time || 'Online'}</span>
+
+                                {/* Instant Call & WhatsApp Mini Buttons */}
+                                <div className="flex items-center gap-1.5 flex-shrink-0">
+                                    <button
+                                        type="button"
+                                        onClick={handleQuickCall}
+                                        className="bg-[#E50914] hover:bg-red-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        title="Instant Call"
+                                    >
+                                        <i className="fas fa-phone-alt text-[8px] sm:text-[10px]"></i>
+                                        <span>Call</span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleQuickWhatsApp}
+                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        title="Instant WhatsApp"
+                                    >
+                                        <i className="fab fa-whatsapp text-[10px] sm:text-xs"></i>
+                                        <span>Chat</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -435,8 +489,16 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     const [locationInput, setLocationInput] = useState<string>(initialLocation || 'All Sri Lanka');
     const [showAgeVerification, setShowAgeVerification] = useState(false);
     const [isAdult, setIsAdult] = useState<boolean | null>(null);
+    const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedAd[]>([]);
+    const [liveToast, setLiveToast] = useState<{
+        id: number;
+        title: string;
+        location: string;
+        imgSrc: string;
+        actionText: string;
+    } | null>(null);
 
-    // Check age verification on mount
+    // Check age verification and load recently viewed ads on mount
     useEffect(() => {
         const ageVerified = localStorage.getItem('ageVerified');
         if (ageVerified === null) {
@@ -444,6 +506,27 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         } else {
             setIsAdult(ageVerified === 'true');
         }
+
+        try {
+            const stored = localStorage.getItem('tintinads_recently_viewed');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                if (Array.isArray(parsed)) {
+                    setRecentlyViewed(parsed.slice(0, 8));
+                }
+            }
+        } catch {
+            // ignore storage errors
+        }
+    }, []);
+
+    const clearRecentlyViewed = useCallback(() => {
+        try {
+            localStorage.removeItem('tintinads_recently_viewed');
+        } catch {
+            // ignore
+        }
+        setRecentlyViewed([]);
     }, []);
 
     // Handle age verification
@@ -460,6 +543,48 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         }
         return ads;
     }, [ads, isAdult]);
+
+    // Periodic Live FOMO Micro-Toast (every 24 seconds, visible for 4.5 seconds)
+    useEffect(() => {
+        if (!filteredAds || filteredAds.length === 0) return;
+
+        const actions = [
+            'දැන්වීමක් මේ දැන් WhatsApp හරහා සම්බන්ධ විය 💬',
+            'VIP දැන්වීමක් දැන් පරීක්ෂා කෙරේ 👀',
+            'තහවුරු කළ දැන්වීමකට දැන් ඇමතුමක් ලැබුණි 📞',
+            'නව දැන්වීමක් මේ දැන් Online විය 🟢',
+        ];
+
+        let hideTimer: ReturnType<typeof setTimeout>;
+
+        const triggerToast = () => {
+            const randomAd = filteredAds[Math.floor(Math.random() * filteredAds.length)];
+            if (!randomAd) return;
+            const randomAction = actions[Math.floor(Math.random() * actions.length)];
+            const img = (randomAd.images && randomAd.images[0]) || randomAd.imgSrc || '/placeholder-image.jpg';
+
+            setLiveToast({
+                id: randomAd.id,
+                title: randomAd.title,
+                location: randomAd.location || 'Colombo',
+                imgSrc: img,
+                actionText: randomAction,
+            });
+
+            hideTimer = setTimeout(() => {
+                setLiveToast(null);
+            }, 4500);
+        };
+
+        const initialTimer = setTimeout(triggerToast, 7000);
+        const intervalTimer = setInterval(triggerToast, 24000);
+
+        return () => {
+            clearTimeout(initialTimer);
+            clearInterval(intervalTimer);
+            clearTimeout(hideTimer);
+        };
+    }, [filteredAds]);
 
     // Top Categories for the horizontal scroll bar
     const filteredTopCategories = useMemo(() => {
@@ -1023,7 +1148,69 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                     </div>
 
                     {/* Ad Grid */}
-                    <main className="flex-1">
+                    <main className="flex-1 min-w-0">
+                        {/* Recently Viewed Ads Strip */}
+                        {recentlyViewed.length > 0 && (
+                            <div className="mb-6 bg-gradient-to-r from-pink-50/70 via-white to-rose-50/70 border border-pink-100 rounded-2xl p-3 sm:p-4 shadow-xs">
+                                <div className="flex items-center justify-between mb-2.5">
+                                    <div className="flex items-center gap-2">
+                                        <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-pink-100 text-pink-600 text-xs">
+                                            <i className="fas fa-history"></i>
+                                        </span>
+                                        <h3 className="text-xs sm:text-sm font-extrabold text-gray-800">
+                                            👀 ඔබ මෑතකදී බැලූ දැන්වීම් <span className="text-gray-500 font-medium">(Recently Viewed)</span>
+                                        </h3>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={clearRecentlyViewed}
+                                        className="text-[11px] text-gray-400 hover:text-pink-600 font-semibold transition-colors cursor-pointer"
+                                    >
+                                        Clear
+                                    </button>
+                                </div>
+                                <div className="flex items-center gap-2.5 sm:gap-3 overflow-x-auto pb-1.5">
+                                    {recentlyViewed.map((item) => (
+                                        <a
+                                            key={item.id}
+                                            href={`/ad/${item.id}`}
+                                            className="w-[130px] sm:w-[155px] flex-shrink-0 bg-white rounded-xl border border-gray-200 hover:border-pink-400 overflow-hidden shadow-2xs hover:shadow-md transition-all group"
+                                        >
+                                            <div className="relative h-20 sm:h-24 w-full bg-gray-100 overflow-hidden">
+                                                <img
+                                                    src={item.imgSrc || '/placeholder-image.jpg'}
+                                                    alt={item.title}
+                                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                                    onError={(e) => {
+                                                        e.currentTarget.src = '/placeholder-image.jpg';
+                                                    }}
+                                                />
+                                                <span className="absolute top-1.5 left-1.5 w-2 h-2 rounded-full bg-emerald-500 ring-2 ring-white"></span>
+                                                {(item.isVip || item.isPlatinum || item.isPremium) && (
+                                                    <span className="absolute top-1 right-1 bg-amber-500 text-white text-[8px] font-bold px-1.5 py-0.5 rounded shadow-xs">
+                                                        VIP
+                                                    </span>
+                                                )}
+                                            </div>
+                                            <div className="p-2">
+                                                <p className="text-[11px] sm:text-xs font-bold text-gray-800 truncate group-hover:text-pink-600 transition-colors">
+                                                    {item.title}
+                                                </p>
+                                                <div className="flex items-center justify-between mt-0.5">
+                                                    <span className="text-[10px] sm:text-[11px] font-extrabold text-pink-600">
+                                                        Rs {Number(item.price || 0).toLocaleString()}
+                                                    </span>
+                                                    <span className="text-[9px] text-gray-400 truncate max-w-[55px]">
+                                                        {item.location}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 flex flex-wrap items-center gap-2">
                                 <span>Latest Ads in {initialCategory}</span>
@@ -1079,6 +1266,45 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                     </main>
                 </div>
             </div>
+
+            {/* Live Activity FOMO Micro-Toast */}
+            {liveToast && (
+                <div className="fixed bottom-16 sm:bottom-5 right-3 left-3 sm:left-auto sm:w-80 z-40 animate-bounce-once">
+                    <div className="bg-gray-900/95 backdrop-blur-md text-white rounded-2xl p-2.5 sm:p-3 shadow-2xl border border-pink-500/40 flex items-center gap-3">
+                        <a href={`/ad/${liveToast.id}`} className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 border border-white/20">
+                            <img
+                                src={liveToast.imgSrc}
+                                alt={liveToast.title}
+                                className="w-full h-full object-cover"
+                                onError={(e) => {
+                                    e.currentTarget.src = '/placeholder-image.jpg';
+                                }}
+                            />
+                            <span className="absolute bottom-0.5 right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-gray-900"></span>
+                        </a>
+                        <a href={`/ad/${liveToast.id}`} className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5 text-[10px] font-extrabold text-pink-400 uppercase tracking-wide">
+                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                <span>{liveToast.location} • Just Now</span>
+                            </div>
+                            <p className="text-xs font-bold text-white truncate mt-0.5">
+                                {liveToast.actionText}
+                            </p>
+                            <p className="text-[10px] text-gray-300 truncate">
+                                {liveToast.title}
+                            </p>
+                        </a>
+                        <button
+                            type="button"
+                            onClick={() => setLiveToast(null)}
+                            className="text-gray-400 hover:text-white p-1 flex-shrink-0 cursor-pointer"
+                            aria-label="Close notification"
+                        >
+                            <i className="fas fa-times text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <Footer />
 

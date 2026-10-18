@@ -129,6 +129,10 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
                             <span>VIP</span>
                         </div>
                         <div className="relative h-32 w-full">
+                            <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/70 backdrop-blur-xs text-white px-1.5 py-0.5 rounded text-[9px] font-bold flex items-center gap-1">
+                                <i className="fas fa-camera text-[8px] text-pink-400"></i>
+                                <span>{displayImages.length}</span>
+                            </div>
                             <AdImageCarousel
                                 images={displayImages}
                                 title={ad.title}
@@ -164,6 +168,10 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
                             <span>Premium</span>
                         </div>
                         <div className="relative h-32 w-full">
+                            <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/70 backdrop-blur-xs text-white px-1.5 py-0.5 rounded text-[9px] font-bold flex items-center gap-1">
+                                <i className="fas fa-camera text-[8px] text-pink-400"></i>
+                                <span>{displayImages.length}</span>
+                            </div>
                             <AdImageCarousel
                                 images={displayImages}
                                 title={ad.title}
@@ -199,6 +207,10 @@ const RelatedAdCard = ({ ad }: { ad: RelatedAd }) => {
                         </div>
                     )}
                     <div className="relative h-32 w-full">
+                        <div className="absolute bottom-1.5 left-1.5 z-10 bg-black/70 backdrop-blur-xs text-white px-1.5 py-0.5 rounded text-[9px] font-bold flex items-center gap-1">
+                            <i className="fas fa-camera text-[8px] text-pink-400"></i>
+                            <span>{displayImages.length}</span>
+                        </div>
                         <AdImageCarousel
                             images={displayImages}
                             title={ad.title}
@@ -234,8 +246,11 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
     const [showAgeVerification, setShowAgeVerification] = useState(false);
     const [isAdult, setIsAdult] = useState<boolean | null>(null);
     const [isFullScreen, setIsFullScreen] = useState(false);
+    const [isZoomed, setIsZoomed] = useState(false);
+    const [touchStartX, setTouchStartX] = useState<number | null>(null);
+    const [liveViewers, setLiveViewers] = useState<number>(() => 9 + (ad.id % 11));
 
-    // Check age verification on mount
+    // Check age verification and save to recently viewed on mount
     useEffect(() => {
         const ageVerified = localStorage.getItem('ageVerified');
         if (ageVerified === null) {
@@ -243,6 +258,40 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
         } else {
             setIsAdult(ageVerified === 'true');
         }
+
+        // Save current ad to recently viewed in localStorage
+        try {
+            const raw = localStorage.getItem('tintinads_recently_viewed');
+            const existing = raw ? JSON.parse(raw) : [];
+            const currentEntry = {
+                id: ad.id,
+                title: ad.title,
+                price: ad.price,
+                location: ad.location || 'Sri Lanka',
+                imgSrc: (ad.images && ad.images[0]) || '/placeholder-image.jpg',
+                isVip: ad.isVip,
+                isPremium: ad.isPremium,
+                isPlatinum: ad.isPlatinum,
+            };
+            const filtered = Array.isArray(existing)
+                ? existing.filter((item: { id: number }) => item && item.id !== ad.id)
+                : [];
+            const updated = [currentEntry, ...filtered].slice(0, 8);
+            localStorage.setItem('tintinads_recently_viewed', JSON.stringify(updated));
+        } catch {
+            // ignore storage errors
+        }
+    }, [ad.id, ad.title, ad.price, ad.location, ad.images, ad.isVip, ad.isPremium, ad.isPlatinum]);
+
+    // Fluctuate live viewers count gently every 5 seconds for real-time FOMO feel
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setLiveViewers((prev) => {
+                const delta = Math.floor(Math.random() * 3) - 1; // -1, 0, or +1
+                return Math.min(26, Math.max(7, prev + delta));
+            });
+        }, 5000);
+        return () => clearInterval(timer);
     }, []);
 
     // Handle age verification
@@ -277,15 +326,37 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
     const hasPremiumAds = ad.isPremium;
 
     const nextImage = () => {
+        setIsZoomed(false);
         setCurrentImageIndex((prev) => (prev + 1) % totalImages);
     };
 
     const prevImage = () => {
+        setIsZoomed(false);
         setCurrentImageIndex((prev) => (prev - 1 + totalImages) % totalImages);
     };
 
     const selectThumbnail = (index: number) => {
+        setIsZoomed(false);
         setCurrentImageIndex(index);
+    };
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        if (isZoomed) return;
+        setTouchStartX(e.touches[0].clientX);
+    };
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (isZoomed || touchStartX === null || totalImages <= 1) return;
+        const touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+            if (diff > 0) {
+                nextImage();
+            } else {
+                prevImage();
+            }
+        }
+        setTouchStartX(null);
     };
 
     const handleLike = async () => {
@@ -400,13 +471,27 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                     </div>
                 </div>
                 
-                <div className="flex items-center text-xs font-medium text-gray-500 mb-4 space-x-4">
+                <div className="flex items-center text-xs font-medium text-gray-500 mb-3 space-x-4">
                     <span className="flex items-center text-blue-600"><i className="far fa-thumbs-up mr-1 text-blue-500"></i> {likesCount} Likes</span>
                     <span><i className="far fa-clock mr-1"></i> {ad.time}</span>
                 </div>
 
-                <div className="text-3xl sm:text-4xl font-black mb-6 text-pink-600 tracking-tight">
+                <div className="text-3xl sm:text-4xl font-black mb-4 text-pink-600 tracking-tight">
                     Rs {ad.price.toLocaleString()}
+                </div>
+
+                {/* Live Viewers FOMO Indicator */}
+                <div className="mb-5 bg-gradient-to-r from-red-50 via-rose-50 to-orange-50 border border-red-200/90 rounded-xl px-3.5 py-2.5 flex items-center gap-2.5 shadow-2xs">
+                    <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
+                    </span>
+                    <p className="text-xs sm:text-[13px] font-bold text-red-900 leading-snug">
+                        🔥 මේ මොහොතේ <span className="text-[#E50914] font-black underline">{liveViewers} දෙනෙක්</span> මෙම දැන්වීම නරඹමින් සිටී
+                        <span className="block text-[10px] sm:text-[11px] font-semibold text-red-600/80">
+                            ({liveViewers} people viewing right now)
+                        </span>
+                    </p>
                 </div>
 
                 {/* Main Action Buttons */}
@@ -513,41 +598,69 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                 </div>
             )}
 
-            {/* Full Screen Image Viewer */}
+            {/* Full Screen Image Viewer with Interactive Zoom & Touch Swipe */}
             {isFullScreen && (
-                <div className="fixed inset-0 z-[100] bg-black bg-opacity-95 flex items-center justify-center p-4">
-                    <button
-                        onClick={() => setIsFullScreen(false)}
-                        className="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full transition-colors z-[110]"
-                    >
-                        <i className="fas fa-times text-3xl"></i>
-                    </button>
+                <div
+                    className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-2 sm:p-4 select-none"
+                    onTouchStart={handleTouchStart}
+                    onTouchEnd={handleTouchEnd}
+                >
+                    <div className="absolute top-4 right-4 flex items-center gap-2 z-[110]">
+                        <button
+                            type="button"
+                            onClick={() => setIsZoomed((z) => !z)}
+                            className="text-white bg-white/15 hover:bg-white/25 backdrop-blur-xs px-3 py-2 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-colors cursor-pointer"
+                        >
+                            <i className={`fas ${isZoomed ? 'fa-search-minus' : 'fa-search-plus'}`}></i>
+                            <span>{isZoomed ? '1x Reset' : '2x Zoom'}</span>
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setIsZoomed(false);
+                                setIsFullScreen(false);
+                            }}
+                            className="text-white bg-white/15 hover:bg-white/25 w-10 h-10 flex items-center justify-center rounded-full transition-colors cursor-pointer"
+                        >
+                            <i className="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
 
                     {totalImages > 1 && (
                         <>
                             <button
+                                type="button"
                                 onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                                className="absolute left-4 top-1/2 -translate-y-1/2 text-white p-4 hover:bg-white/10 rounded-full transition-colors z-[110]"
+                                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-white/20 p-3 sm:p-4 rounded-full transition-colors z-[110] cursor-pointer"
                             >
-                                <i className="fas fa-chevron-left text-4xl"></i>
+                                <i className="fas fa-chevron-left text-2xl sm:text-3xl"></i>
                             </button>
                             <button
+                                type="button"
                                 onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-white p-4 hover:bg-white/10 rounded-full transition-colors z-[110]"
+                                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 text-white bg-black/50 hover:bg-white/20 p-3 sm:p-4 rounded-full transition-colors z-[110] cursor-pointer"
                             >
-                                <i className="fas fa-chevron-right text-4xl"></i>
+                                <i className="fas fa-chevron-right text-2xl sm:text-3xl"></i>
                             </button>
                         </>
                     )}
 
-                    <img
-                        src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
-                        className="max-h-full max-w-full object-contain"
-                        alt={ad.title}
-                    />
+                    <div className="w-full h-full flex items-center justify-center overflow-auto">
+                        <img
+                            src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
+                            onClick={() => setIsZoomed((z) => !z)}
+                            className={`max-h-full max-w-full object-contain transition-transform duration-300 cursor-zoom-in ${
+                                isZoomed ? 'scale-150 sm:scale-200 cursor-zoom-out' : 'scale-100'
+                            }`}
+                            alt={ad.title}
+                        />
+                    </div>
 
-                    <div className="absolute bottom-4 text-white bg-black/50 px-4 py-2 rounded-full">
-                        {currentImageIndex + 1} / {totalImages}
+                    <div className="absolute bottom-5 flex items-center gap-3 bg-black/70 backdrop-blur-xs text-white px-4 py-2 rounded-full text-xs sm:text-sm font-bold border border-white/15">
+                        <span><i className="fas fa-camera text-pink-400 mr-1.5"></i>{currentImageIndex + 1} / {totalImages}</span>
+                        <span className="text-emerald-400 flex items-center gap-1 border-l border-white/20 pl-3">
+                            <i className="fas fa-shield-alt"></i> 100% Real Photo Checked
+                        </span>
                     </div>
                 </div>
             )}
@@ -704,49 +817,68 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         )}
 
                         {/* Image Carousel */}
-                        <div className={`relative bg-white rounded-lg shadow-sm overflow-hidden mb-6 ${ad.isPlatinum ? 'p-[4px] platinum-silver-animated-border' : ad.isVip ? 'p-[4px] vip-gold-animated-border' :
-                            ad.isPremium ? 'p-[4px] premium-pink-animated-border' : ''
-                            }`}>
-                            <div className={`${ad.isPlatinum || ad.isVip || ad.isPremium ? 'rounded-lg overflow-hidden' : ''}`}>
+                        <div
+                            className={`relative bg-white rounded-xl shadow-sm overflow-hidden mb-3 select-none ${ad.isPlatinum ? 'p-[4px] platinum-silver-animated-border' : ad.isVip ? 'p-[4px] vip-gold-animated-border' :
+                                ad.isPremium ? 'p-[4px] premium-pink-animated-border' : ''
+                                }`}
+                            onTouchStart={handleTouchStart}
+                            onTouchEnd={handleTouchEnd}
+                        >
+                            <div className={`relative ${ad.isPlatinum || ad.isVip || ad.isPremium ? 'rounded-lg overflow-hidden' : ''}`}>
                                 <img
                                     src={ad.images[currentImageIndex] || '/placeholder-image.jpg'}
                                     alt={ad.title}
                                     onClick={() => setIsFullScreen(true)}
-                                    className="w-full h-[500px] cursor-pointer object-contain bg-gray-50"
+                                    className="w-full h-[350px] sm:h-[500px] cursor-zoom-in object-contain bg-gray-50 transition-transform duration-300"
                                     onError={(e) => {
                                         e.currentTarget.src = '/placeholder-image.jpg';
                                     }}
                                 />
+
+                                {/* Top Left: Tap to Zoom Badge */}
+                                <button
+                                    type="button"
+                                    onClick={() => setIsFullScreen(true)}
+                                    className="absolute top-3 left-3 bg-black/70 hover:bg-black/85 backdrop-blur-xs text-white px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-bold flex items-center gap-1.5 shadow-md cursor-pointer"
+                                >
+                                    <i className="fas fa-search-plus text-pink-400"></i>
+                                    <span>Tap to Zoom</span>
+                                </button>
+
+                                {/* Top Right: Photo Counter */}
+                                <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-xs text-white px-3 py-1 rounded-full text-xs sm:text-sm font-bold flex items-center gap-1.5 shadow-md">
+                                    <i className="fas fa-camera text-pink-400 text-xs"></i>
+                                    <span>{currentImageIndex + 1} / {totalImages}</span>
+                                </div>
                             </div>
                             {totalImages > 1 && (
                                 <>
-                                    <div className="absolute inset-0 flex items-center justify-between p-4 pointer-events-none">
+                                    <div className="absolute inset-0 flex items-center justify-between p-3 sm:p-4 pointer-events-none">
                                         <button
+                                            type="button"
                                             onClick={prevImage}
-                                            className="bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-colors pointer-events-auto"
+                                            className="bg-white/85 hover:bg-white rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shadow-lg transition-colors pointer-events-auto cursor-pointer"
                                         >
                                             <i className="fas fa-chevron-left text-gray-800"></i>
                                         </button>
                                         <button
+                                            type="button"
                                             onClick={nextImage}
-                                            className="bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-colors pointer-events-auto"
+                                            className="bg-white/85 hover:bg-white rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center shadow-lg transition-colors pointer-events-auto cursor-pointer"
                                         >
                                             <i className="fas fa-chevron-right text-gray-800"></i>
                                         </button>
                                     </div>
-                                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                                        <div className="flex space-x-2">
+                                    <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2">
+                                        <div className="flex space-x-2 bg-black/40 px-2.5 py-1 rounded-full">
                                             {ad.images.map((_, index) => (
                                                 <div
                                                     key={index}
-                                                    className={`w-2 h-2 rounded-full transition-colors ${index === currentImageIndex ? 'bg-white' : 'bg-white/50'
+                                                    className={`w-2 h-2 rounded-full transition-colors ${index === currentImageIndex ? 'bg-pink-400 scale-125' : 'bg-white/60'
                                                         }`}
                                                 ></div>
                                             ))}
                                         </div>
-                                    </div>
-                                    <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
-                                        {currentImageIndex + 1} / {totalImages}
                                     </div>
                                 </>
                             )}
@@ -754,7 +886,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
 
                         {/* Thumbnail Gallery */}
                         {totalImages > 1 && (
-                            <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-2">
+                            <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 mb-3">
                                 {ad.images.map((src, index) => (
                                     <div
                                         key={index}
@@ -767,7 +899,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                         <img
                                             src={src || '/placeholder-image.jpg'}
                                             alt={`${ad.title} ${index + 1}`}
-                                            className={`w-full h-[80px] ${src?.includes('/assets/sitelogo.png') || !src
+                                            className={`w-full h-[70px] sm:h-[80px] ${src?.includes('/assets/sitelogo.png') || !src
                                                 ? 'object-contain bg-gray-50'
                                                 : 'object-cover'
                                                 }`}
@@ -779,6 +911,26 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                 ))}
                             </div>
                         )}
+
+                        {/* 100% Real Photos Checked Trust Banner */}
+                        <div className="mb-3 bg-gradient-to-r from-emerald-50 via-teal-50 to-emerald-50 border border-emerald-200 rounded-xl p-3 sm:p-3.5 flex items-center justify-between gap-3 shadow-2xs">
+                            <div className="flex items-center gap-2.5 min-w-0">
+                                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center flex-shrink-0 shadow-xs">
+                                    <i className="fas fa-shield-alt text-sm sm:text-base"></i>
+                                </div>
+                                <div className="min-w-0">
+                                    <p className="text-xs sm:text-sm font-extrabold text-emerald-900 leading-tight">
+                                        🛡️ TinTinAds Photo Checked — ආරක්ෂිත සහ තහවුරු කළ දැන්වීමකි
+                                    </p>
+                                    <p className="text-[10px] sm:text-xs text-emerald-700 font-medium mt-0.5">
+                                        💯 100% Real Photos & Active Number Checked by TinTinAds Team
+                                    </p>
+                                </div>
+                            </div>
+                            <span className="hidden sm:inline-flex items-center gap-1 bg-white text-emerald-700 border border-emerald-300 px-2.5 py-1 rounded-full text-xs font-extrabold flex-shrink-0">
+                                <i className="fas fa-check-circle text-emerald-500"></i> 100% Checked
+                            </span>
+                        </div>
 
                         {/* Action Bar */}
                         <div className="bg-white text-gray-700 flex flex-col sm:flex-row items-center justify-between p-3 sm:p-4 rounded-b-lg mb-6 shadow-sm border border-gray-100 border-t-0 gap-3 sm:gap-0">

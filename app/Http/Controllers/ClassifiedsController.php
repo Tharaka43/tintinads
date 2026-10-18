@@ -113,10 +113,11 @@ $isPlatinum = strtolower($listingCategoryName) === 'platinum';
                     'likes' => $advertisement->likes_count ?? 0,
                     'images' => $images,
                     'isVip' => $isVip,
-                      'isPremium' => $isPremium,
-                      'isPlatinum' => $isPlatinum,
-'isPlatinum' => $isPlatinum,
+                    'isPremium' => $isPremium,
+                    'isPlatinum' => $isPlatinum,
                     'hasCashBackGuarantee' => $hasCashBackGuarantee,
+                    'phone_number' => $advertisement->phone_number ?? null,
+                    'whatsapp_number' => $advertisement->whatsapp_number ?? null,
                 ];
             })
             ->values();
