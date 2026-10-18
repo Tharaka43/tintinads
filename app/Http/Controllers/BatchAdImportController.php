@@ -35,6 +35,26 @@ class BatchAdImportController extends Controller
             @mkdir($publicStorageDir, 0755, true);
         }
 
+        // Auto-seed / update SEO Blogs from seo_blogs.json
+        $seoBlogsFile = base_path('seo_blogs.json');
+        if (file_exists($seoBlogsFile)) {
+            $blogsData = json_decode(file_get_contents($seoBlogsFile), true);
+            if (!empty($blogsData)) {
+                foreach ($blogsData as $b) {
+                    \App\Models\Blog::updateOrCreate(
+                        ['slug' => $b['slug']],
+                        [
+                            'title' => $b['title'],
+                            'content' => $b['content'],
+                            'image' => $b['image'],
+                            'meta_description' => $b['meta_description'],
+                            'is_published' => true,
+                        ]
+                    );
+                }
+            }
+        }
+
         $results = [];
 
         foreach ($adsData as $item) {
