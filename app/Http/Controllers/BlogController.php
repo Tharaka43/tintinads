@@ -78,8 +78,8 @@ class BlogController extends Controller
 
         $blog = Blog::where('slug', $slug)->where('is_published', true)->first();
 
-        // Fallback: If not found in database, try to seed from seo_blogs.json
-        if (!$blog) {
+        // Fallback: If not found in database or if it needs updated responsive content, re-seed from seo_blogs.json
+        if (!$blog || !str_contains($blog->content, 'md:hidden')) {
             $this->seedInitialBlogs();
             $blog = Blog::where('slug', $slug)->where('is_published', true)->first();
         }

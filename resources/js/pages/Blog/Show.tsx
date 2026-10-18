@@ -19,6 +19,15 @@ interface Props {
 }
 
 export default function BlogShow({ blog, recentBlogs }: Props) {
+    const cleanContent = (content: string) => {
+        if (!content) return '';
+        // If content already contains HTML tags (like <p>, <div>, <h2>, <table>), render it as-is without injecting stray <br> tags
+        if (/<[a-z][\s\S]*>/i.test(content)) {
+            return content;
+        }
+        return content.replace(/\n/g, '<br />');
+    };
+
     return (
         <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
             <Head>
@@ -28,52 +37,57 @@ export default function BlogShow({ blog, recentBlogs }: Props) {
             
             <NavBar />
             
-            <main className="flex-grow max-w-4xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
-                <article className="bg-white rounded-3xl shadow-sm overflow-hidden">
+            <main className="flex-grow max-w-4xl mx-auto w-full px-3 sm:px-6 lg:px-8 py-6 sm:py-10">
+                <article className="bg-white rounded-2xl sm:rounded-3xl shadow-xs overflow-hidden border border-gray-100">
                     {blog.image && (
-                        <div className="w-full h-[400px] relative">
+                        <div className="w-full h-44 sm:h-72 md:h-96 relative bg-gray-50 flex items-center justify-center overflow-hidden border-b border-gray-100">
                             <img 
                                 src={blog.image} 
                                 alt={blog.title} 
-                                className="w-full h-full object-cover"
+                                className="max-h-full max-w-full object-contain p-4"
                             />
                         </div>
                     )}
                     
-                    <div className="p-8 md:p-12">
-                        <Link href="/blog" className="inline-flex items-center text-sm font-medium text-pink-600 hover:text-pink-700 mb-6">
-                            <i className="fas fa-arrow-left mr-2"></i> Back to Blog
+                    <div className="p-4 sm:p-8 md:p-10">
+                        <Link href="/blog" className="inline-flex items-center text-xs sm:text-sm font-semibold text-pink-600 hover:text-pink-700 mb-4 sm:mb-6">
+                            <i className="fas fa-arrow-left mr-2"></i> All Articles
                         </Link>
                         
-                        <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-6 leading-tight">
+                        <h1 className="text-xl sm:text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 leading-snug">
                             {blog.title}
                         </h1>
                         
-                        <div className="flex items-center text-sm text-gray-500 mb-10 pb-10 border-b border-gray-100">
-                            <i className="far fa-calendar-alt mr-2"></i>
+                        <div className="flex items-center text-xs sm:text-sm text-gray-500 mb-6 pb-6 border-b border-gray-100">
+                            <i className="far fa-calendar-alt mr-2 text-pink-500"></i>
                             {blog.created_at ? new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
+                            <span className="mx-2">•</span>
+                            <span className="text-gray-400">TinTinAds Editorial</span>
                         </div>
 
-                        {/* Note: In a real app, you might want to use a rich text editor and dangerouslySetInnerHTML. 
-                            For now, we'll render it safely or allow simple HTML if you trust the admin input. */}
                         <div 
-                            className="prose prose-lg prose-pink max-w-none text-gray-700"
-                            dangerouslySetInnerHTML={{ __html: (blog.content || '').replace(/\n/g, '<br />') }}
+                            className="prose prose-sm sm:prose sm:prose-lg prose-pink max-w-none text-gray-700 leading-relaxed overflow-hidden"
+                            dangerouslySetInnerHTML={{ __html: cleanContent(blog.content) }}
                         />
                     </div>
                 </article>
 
                 {recentBlogs && recentBlogs.length > 0 && (
-                    <div className="mt-16">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-6">Read Next</h3>
-                        <div className="grid gap-6 md:grid-cols-3">
+                    <div className="mt-8 sm:mt-12">
+                        <h3 className="text-lg sm:text-2xl font-bold text-gray-900 mb-4">Read Next</h3>
+                        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
                             {recentBlogs.map((rb) => (
-                                <Link key={rb.id} href={`/blog/${rb.slug}`} className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                                <Link key={rb.id} href={`/blog/${rb.slug}`} className="bg-white rounded-xl shadow-xs border border-gray-100 overflow-hidden hover:shadow-md transition-all group flex flex-col">
                                     {rb.image && (
-                                        <img src={rb.image} alt={rb.title} className="w-full h-32 object-cover" />
+                                        <div className="w-full h-32 bg-gray-50 flex items-center justify-center p-3 border-b border-gray-50">
+                                            <img src={rb.image} alt={rb.title} className="max-h-full object-contain group-hover:scale-105 transition-transform" />
+                                        </div>
                                     )}
-                                    <div className="p-4">
-                                        <h4 className="font-bold text-gray-900 line-clamp-2">{rb.title}</h4>
+                                    <div className="p-4 flex-1 flex flex-col justify-between">
+                                        <h4 className="font-bold text-gray-900 text-xs sm:text-sm line-clamp-2 group-hover:text-pink-600 transition-colors">{rb.title}</h4>
+                                        <span className="text-[11px] text-pink-500 font-semibold mt-3 inline-flex items-center">
+                                            කියවන්න <i className="fas fa-chevron-right text-[9px] ml-1"></i>
+                                        </span>
                                     </div>
                                 </Link>
                             ))}
