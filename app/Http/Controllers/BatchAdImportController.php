@@ -54,8 +54,9 @@ class BatchAdImportController extends Controller
             $existing = Advertisement::where('title', $item['title'])->first();
 
             if ($existing) {
-                // Ensure active, unexpired, and paid
+                // Ensure active, unexpired, and paid + update description with formatted text
                 $existing->update([
+                    'description' => $item['description'],
                     'status' => 'activated',
                     'payment_status' => 'paid',
                     'listing_category_id' => 1,
