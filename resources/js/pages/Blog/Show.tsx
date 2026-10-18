@@ -22,8 +22,8 @@ export default function BlogShow({ blog, recentBlogs }: Props) {
     return (
         <div className="min-h-screen flex flex-col bg-gray-50 font-sans">
             <Head>
-                <title>{blog.title} - TinTinAds Blog</title>
-                <meta name="description" content={blog.meta_description || blog.title} />
+                <title>{`${blog?.title || 'Article'} - TinTinAds Blog`}</title>
+                <meta name="description" content={blog?.meta_description || blog?.title || 'TinTinAds Article'} />
             </Head>
             
             <NavBar />
@@ -51,14 +51,14 @@ export default function BlogShow({ blog, recentBlogs }: Props) {
                         
                         <div className="flex items-center text-sm text-gray-500 mb-10 pb-10 border-b border-gray-100">
                             <i className="far fa-calendar-alt mr-2"></i>
-                            {new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                            {blog.created_at ? new Date(blog.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : ''}
                         </div>
 
                         {/* Note: In a real app, you might want to use a rich text editor and dangerouslySetInnerHTML. 
                             For now, we'll render it safely or allow simple HTML if you trust the admin input. */}
                         <div 
                             className="prose prose-lg prose-pink max-w-none text-gray-700"
-                            dangerouslySetInnerHTML={{ __html: blog.content.replace(/\n/g, '<br />') }}
+                            dangerouslySetInnerHTML={{ __html: (blog.content || '').replace(/\n/g, '<br />') }}
                         />
                     </div>
                 </article>
