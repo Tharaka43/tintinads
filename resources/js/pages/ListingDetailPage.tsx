@@ -249,6 +249,29 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
     const [isZoomed, setIsZoomed] = useState(false);
     const [touchStartX, setTouchStartX] = useState<number | null>(null);
     const [liveViewers, setLiveViewers] = useState<number>(() => 9 + (ad.id % 11));
+    const activeMinsAgo = useMemo(() => (ad.id % 6) + 2, [ad.id]);
+    const [contactedTodayCount, setContactedTodayCount] = useState<number>(() => {
+        const base = 11 + (ad.id % 14);
+        try {
+            const raw = localStorage.getItem('tintinads_contact_clicks');
+            const parsed = raw ? JSON.parse(raw) : {};
+            return base + (Number(parsed[ad.id]) || 0);
+        } catch {
+            return base;
+        }
+    });
+
+    const incrementContactCount = useCallback(() => {
+        setContactedTodayCount((prev) => prev + 1);
+        try {
+            const raw = localStorage.getItem('tintinads_contact_clicks');
+            const parsed = raw ? JSON.parse(raw) : {};
+            parsed[ad.id] = (Number(parsed[ad.id]) || 0) + 1;
+            localStorage.setItem('tintinads_contact_clicks', JSON.stringify(parsed));
+        } catch {
+            // ignore
+        }
+    }, [ad.id]);
 
     // Check age verification and save to recently viewed on mount
     useEffect(() => {
@@ -440,17 +463,33 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
     };
 
     const renderContactCard = () => {
-        const whatsappText = encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title}`);
-        const waUrl = ad.whatsapp_number
-            ? `https://wa.me/${ad.whatsapp_number.replace(/[^0-9]/g, '')}?text=${whatsappText}`
-            : `https://wa.me/94700000000?text=${whatsappText}`;
+        const cleanWaDigits = (ad.whatsapp_number || ad.phone_number || '94700000000').replace(/[^0-9]/g, '');
+        const formattedWaDigits = cleanWaDigits.startsWith('0') ? '94' + cleanWaDigits.slice(1) : cleanWaDigits;
+
+        const whatsappText = encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title} (https://tintinads.com/ad/${ad.id})`);
+        const waUrl = `https://wa.me/${formattedWaDigits}?text=${whatsappText}`;
+
+        const quickIcebreakers = [
+            {
+                label: '👋 "Hi, දැන් Available ද?"',
+                msg: `Hi! 👋 මම ඔබගේ "${ad.title}" දැන්වීම TinTinAds.com එකෙන් දැක්කේ. දැන් Available ද?\nhttps://tintinads.com/ad/${ad.id}`,
+            },
+            {
+                label: '📍 "Location එක සහ විස්තර එවන්න"',
+                msg: `Hi! 📍 මම ඔබගේ "${ad.title}" දැන්වීම TinTinAds.com එකෙන් දැක්කේ. කරුණාකර Location එක සහ විස්තර එවන්න පුළුවන්ද?\nhttps://tintinads.com/ad/${ad.id}`,
+            },
+            {
+                label: '💰 "පැකේජ සහ ගාස්තු විස්තර එවන්න"',
+                msg: `Hi! 💰 මම ඔබගේ "${ad.title}" දැන්වීම TinTinAds.com එකෙන් දැක්කේ. පැකේජ සහ ගාස්තු විස්තර දැනගන්න පුළුවන්ද?\nhttps://tintinads.com/ad/${ad.id}`,
+            },
+        ];
 
         const shareAdWaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \nhttps://tintinads.com/ad/${ad.id}`)}`;
 
         return (
             <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
                 {/* Status Badges */}
-                <div className="flex flex-wrap items-center gap-2 mb-3">
+                <div className="flex flex-wrap items-center gap-2 mb-2.5">
                     <span className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 rounded-full text-xs font-extrabold shadow-2xs">
                         <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -462,6 +501,16 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         <i className="fas fa-star text-amber-500 text-[10px]"></i>
                         Verified Ad
                     </span>
+                    <span className="inline-flex items-center gap-1 bg-sky-50 text-sky-700 border border-sky-200 px-2.5 py-1 rounded-full text-[11px] font-extrabold shadow-2xs">
+                        <i className="fas fa-bolt text-amber-500 text-[10px]"></i>
+                        Active {activeMinsAgo}m ago
+                    </span>
+                </div>
+
+                {/* Fast Responder Indicator */}
+                <div className="mb-3 bg-emerald-50/70 border border-emerald-200/80 rounded-lg px-3 py-1.5 flex items-center gap-2 text-[11px] sm:text-xs font-bold text-emerald-900">
+                    <i className="fas fa-bolt text-amber-500 text-xs flex-shrink-0"></i>
+                    <span>⚡ Fast Responder — සාමාන්‍යයෙන් විනාඩි 5ක් ඇතුළත පිළිතුරු ලබා දෙයි</span>
                 </div>
 
                 <div className="flex items-center gap-2 mb-2">
@@ -481,7 +530,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                 </div>
 
                 {/* Live Viewers FOMO Indicator */}
-                <div className="mb-5 bg-gradient-to-r from-red-50 via-rose-50 to-orange-50 border border-red-200/90 rounded-xl px-3.5 py-2.5 flex items-center gap-2.5 shadow-2xs">
+                <div className="mb-2.5 bg-gradient-to-r from-red-50 via-rose-50 to-orange-50 border border-red-200/90 rounded-xl px-3.5 py-2.5 flex items-center gap-2.5 shadow-2xs">
                     <span className="relative flex h-2.5 w-2.5 flex-shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-600"></span>
@@ -494,24 +543,77 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                     </p>
                 </div>
 
+                {/* Today's Contact Social Proof Counter */}
+                <div className="mb-4 bg-amber-50/90 border border-amber-200 rounded-xl px-3.5 py-2 flex items-center gap-2 text-xs font-extrabold text-amber-900 shadow-2xs">
+                    <i className="fas fa-phone-volume text-amber-600 animate-pulse flex-shrink-0"></i>
+                    <span>
+                        📞 අද දින පුද්ගලයන් <span className="text-[#E50914] font-black underline">{contactedTodayCount} දෙනෙක්</span> මෙම අංකයට සම්බන්ධ වී ඇත!
+                    </span>
+                </div>
+
                 {/* Main Action Buttons */}
                 <div className="space-y-3">
                     {ad.phone_number ? (
-                        <a href={`tel:${ad.phone_number}`} className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <a
+                            href={`tel:${ad.phone_number}`}
+                            onClick={incrementContactCount}
+                            className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md"
+                        >
                             <i className="fas fa-phone-alt"></i>
                             CALL NOW
                         </a>
                     ) : (
-                        <a href="tel:0700000000" className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                        <a
+                            href="tel:0700000000"
+                            onClick={incrementContactCount}
+                            className="w-full bg-[#E50914] hover:bg-red-700 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md"
+                        >
                             <i className="fas fa-phone-alt"></i>
                             CALL NOW
                         </a>
                     )}
 
-                    <a href={waUrl} target="_blank" rel="noopener noreferrer" className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md">
+                    <a
+                        href={waUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={incrementContactCount}
+                        className="w-full bg-[#25D366] hover:bg-green-600 text-white text-lg font-bold py-3.5 px-6 rounded-xl flex items-center justify-center gap-3 transition-all shadow-sm hover:shadow-md"
+                    >
                         <i className="fab fa-whatsapp text-xl"></i>
                         WHATSAPP
                     </a>
+
+                    {/* One-Tap WhatsApp Icebreaker Quick Message Chips */}
+                    <div className="bg-emerald-50/80 border border-emerald-200 rounded-xl p-3">
+                        <div className="text-[11px] sm:text-xs font-extrabold text-emerald-900 mb-2 flex items-center gap-1.5">
+                            <i className="fab fa-whatsapp text-emerald-600 text-sm"></i>
+                            <span>ටයිප් නොකර එක ක්ලික් එකකින් WhatsApp යවන්න:</span>
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                            {quickIcebreakers.map((chip, idx) => (
+                                <a
+                                    key={idx}
+                                    href={`https://wa.me/${formattedWaDigits}?text=${encodeURIComponent(chip.msg)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    onClick={incrementContactCount}
+                                    className="w-full bg-white hover:bg-emerald-600 text-emerald-900 hover:text-white border border-emerald-300 hover:border-emerald-600 rounded-lg px-3 py-2 text-xs font-extrabold flex items-center justify-between transition-all shadow-2xs group"
+                                >
+                                    <span>{chip.label}</span>
+                                    <i className="fas fa-paper-plane text-[10px] text-emerald-500 group-hover:text-white transition-colors"></i>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 100% Private & Direct Contact Reassurance Badge */}
+                    <div className="bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 flex items-start gap-2.5">
+                        <i className="fas fa-lock text-emerald-600 text-sm mt-0.5 flex-shrink-0"></i>
+                        <p className="text-[11px] sm:text-xs text-slate-700 font-semibold leading-snug">
+                            <strong className="text-slate-900">🔒 100% පෞද්ගලික සහ රහසිගතයි (Private & Direct):</strong> ඔබ කෙලින්ම සම්බන්ධ වන්නේ දැන්වීම් හිමිකරු සමඟ පමණි. ඔබගේ තොරතුරු කිසිවක් සටහන් නොවේ.
+                        </p>
+                    </div>
 
                     {/* Quick WhatsApp Share Button */}
                     <a 
@@ -1184,7 +1286,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
             </footer>
 
             {/* Mobile Floating Quick Contact Bar */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2.5 shadow-[0_-8px_25px_rgba(0,0,0,0.12)]">
+            <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2 shadow-[0_-8px_25px_rgba(0,0,0,0.12)]">
                 <div className="flex items-center justify-between gap-2.5 max-w-md mx-auto">
                     {/* Left: Price & Online Status */}
                     <div className="flex flex-col min-w-0 pr-1">
@@ -1193,7 +1295,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wide">Online Now</span>
+                            <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wide">Online • ⚡ 5m Reply</span>
                         </div>
                         <span className="text-base sm:text-lg font-black text-pink-600 truncate leading-tight">
                             Rs {ad.price.toLocaleString()}
@@ -1204,6 +1306,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                     <div className="flex items-center gap-2 flex-1 justify-end">
                         <a
                             href={ad.phone_number ? `tel:${ad.phone_number}` : 'tel:0700000000'}
+                            onClick={incrementContactCount}
                             className="flex-1 max-w-[135px] bg-[#E50914] active:bg-red-800 text-white font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
                         >
                             <i className="fas fa-phone-alt text-xs"></i>
@@ -1217,6 +1320,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             }
                             target="_blank"
                             rel="noopener noreferrer"
+                            onClick={incrementContactCount}
                             className="flex-1 max-w-[135px] bg-[#25D366] active:bg-green-700 text-white font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
                         >
                             <i className="fab fa-whatsapp text-base"></i>

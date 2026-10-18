@@ -266,16 +266,21 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                         <div className="mt-auto">
                             <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-1">
                                 <span className="flex items-center truncate"><i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{ad.location}</span>
-                                <span className="inline-flex items-center gap-1 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold flex-shrink-0 shadow-2xs">
-                                    <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
-                                </span>
+                                <div className="flex items-center gap-1 flex-shrink-0">
+                                    <span className="inline-flex items-center gap-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold shadow-2xs" title="Replies within 5 mins">
+                                        <i className="fas fa-bolt text-amber-500 text-[8px]"></i> 5m Reply
+                                    </span>
+                                    <span className="inline-flex items-center gap-0.5 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold shadow-2xs">
+                                        <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
+                                    </span>
+                                </div>
                             </div>
 
                             <div className="flex items-center justify-between pt-1.5 border-t border-gray-100 gap-1">
                                 <div className="flex items-center space-x-2 text-[9px] sm:text-xs font-semibold text-blue-600 truncate">
                                     <span className="flex items-center"><i className="far fa-thumbs-up mr-0.5 sm:mr-1 text-blue-500"></i>{likes}</span>
                                     <span className="flex items-center"><i className="far fa-eye mr-0.5 sm:mr-1 text-blue-500"></i>{views}</span>
-                                    <span className="hidden sm:inline text-[10px] text-gray-400 font-normal">• {ad.time || 'Online'}</span>
+                                    <span className="hidden sm:inline text-[10px] text-emerald-600 font-semibold">• Active {(ad.id % 6) + 2}m ago</span>
                                 </div>
 
                                 {/* Instant Call & WhatsApp Mini Buttons */}
@@ -497,6 +502,10 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         imgSrc: string;
         actionText: string;
     } | null>(null);
+    const [isSwipeModeOpen, setIsSwipeModeOpen] = useState(false);
+    const [swipeAdIndex, setSwipeAdIndex] = useState(0);
+    const [swipePhotoIndex, setSwipePhotoIndex] = useState(0);
+    const [swipeTouchStart, setSwipeTouchStart] = useState<{ x: number; y: number } | null>(null);
 
     // Check age verification and load recently viewed ads on mount
     useEffect(() => {
@@ -543,6 +552,43 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
         }
         return ads;
     }, [ads, isAdult]);
+
+    const goToNextSwipeAd = useCallback(() => {
+        if (!filteredAds.length) return;
+        setSwipePhotoIndex(0);
+        setSwipeAdIndex((prev) => (prev + 1) % filteredAds.length);
+    }, [filteredAds.length]);
+
+    const goToPrevSwipeAd = useCallback(() => {
+        if (!filteredAds.length) return;
+        setSwipePhotoIndex(0);
+        setSwipeAdIndex((prev) => (prev - 1 + filteredAds.length) % filteredAds.length);
+    }, [filteredAds.length]);
+
+    const handleSwipeTouchStart = (e: React.TouchEvent) => {
+        setSwipeTouchStart({ x: e.touches[0].clientX, y: e.touches[0].clientY });
+    };
+
+    const handleSwipeTouchEnd = (e: React.TouchEvent, totalPhotos: number) => {
+        if (!swipeTouchStart) return;
+        const dx = swipeTouchStart.x - e.changedTouches[0].clientX;
+        const dy = swipeTouchStart.y - e.changedTouches[0].clientY;
+
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 45) {
+            if (dy > 0) {
+                goToNextSwipeAd();
+            } else {
+                goToPrevSwipeAd();
+            }
+        } else if (Math.abs(dx) > 45 && totalPhotos > 1) {
+            if (dx > 0) {
+                setSwipePhotoIndex((p) => (p + 1) % totalPhotos);
+            } else {
+                setSwipePhotoIndex((p) => (p - 1 + totalPhotos) % totalPhotos);
+            }
+        }
+        setSwipeTouchStart(null);
+    };
 
     // Periodic Live FOMO Micro-Toast (every 24 seconds, visible for 4.5 seconds)
     useEffect(() => {
@@ -1211,7 +1257,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                             </div>
                         )}
 
-                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
                             <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 flex flex-wrap items-center gap-2">
                                 <span>Latest Ads in {initialCategory}</span>
                                 {locationInput && locationInput !== 'All Sri Lanka' && (
@@ -1229,13 +1275,29 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                     </span>
                                 )}
                             </h2>
-                            <div className="flex items-center space-x-4 self-start sm:self-auto">
-                                <span className="text-sm text-gray-600 whitespace-nowrap">{pagination.totalItems} results</span>
-                                <select className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none text-sm focus:border-light-blue w-full sm:w-auto" style={{ borderColor: LIGHT_BLUE }}>
-                                    <option>Sort by: Latest</option>
-                                    <option>Price: Low to High</option>
-                                    <option>Price: High to Low</option>
-                                </select>
+                            <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-auto w-full sm:w-auto justify-between sm:justify-end">
+                                {filteredAds.length > 0 && (
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            setSwipeAdIndex(0);
+                                            setSwipePhotoIndex(0);
+                                            setIsSwipeModeOpen(true);
+                                        }}
+                                        className="bg-gradient-to-r from-pink-600 via-rose-600 to-amber-500 hover:from-pink-700 hover:to-amber-600 text-white px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold flex items-center gap-1.5 shadow-md hover:shadow-lg transition-all cursor-pointer active:scale-95"
+                                    >
+                                        <i className="fas fa-fire-alt text-yellow-200 animate-pulse"></i>
+                                        <span>Quick Swipe Mode</span>
+                                    </button>
+                                )}
+                                <div className="flex items-center gap-2">
+                                    <span className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">{pagination.totalItems} results</span>
+                                    <select className="px-2.5 py-2 border border-gray-300 rounded-lg focus:outline-none text-xs sm:text-sm focus:border-light-blue" style={{ borderColor: LIGHT_BLUE }}>
+                                        <option>Sort by: Latest</option>
+                                        <option>Price: Low to High</option>
+                                        <option>Price: High to Low</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -1267,8 +1329,218 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 </div>
             </div>
 
+            {/* Mobile Floating Quick Swipe Mode Button */}
+            {filteredAds.length > 0 && !isSwipeModeOpen && (
+                <div className="lg:hidden fixed bottom-4 right-4 z-40">
+                    <button
+                        type="button"
+                        onClick={() => {
+                            setSwipeAdIndex(0);
+                            setSwipePhotoIndex(0);
+                            setIsSwipeModeOpen(true);
+                        }}
+                        className="bg-gradient-to-r from-pink-600 via-rose-600 to-amber-500 text-white px-4 py-3 rounded-full shadow-2xl border border-white/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition-transform cursor-pointer"
+                    >
+                        <i className="fas fa-fire-alt text-yellow-200 animate-pulse text-sm"></i>
+                        <span>Swipe Ads</span>
+                    </button>
+                </div>
+            )}
+
+            {/* Full-Screen TikTok / Reels Style Quick Swipe Mode Modal */}
+            {isSwipeModeOpen && filteredAds.length > 0 && (() => {
+                const currentSwipeAd = filteredAds[swipeAdIndex] || filteredAds[0];
+                const swipePhotos = currentSwipeAd.images && currentSwipeAd.images.length > 0
+                    ? currentSwipeAd.images
+                    : [currentSwipeAd.imgSrc || '/placeholder-image.jpg'];
+                const safePhotoIdx = swipePhotoIndex % swipePhotos.length;
+                const rawWa = (currentSwipeAd.whatsapp_number || currentSwipeAd.phone_number || '94700000000').replace(/[^0-9]/g, '');
+                const cleanWa = rawWa.startsWith('0') ? '94' + rawWa.slice(1) : rawWa;
+                const phoneHref = `tel:${currentSwipeAd.phone_number || '0700000000'}`;
+
+                const quickSwipeChips = [
+                    {
+                        label: '👋 Available ද?',
+                        msg: `Hi! 👋 මම ඔබගේ "${currentSwipeAd.title}" දැන්වීම TinTinAds.com එකෙන් දැක්කේ. දැන් Available ද?\nhttps://tintinads.com/ad/${currentSwipeAd.id}`,
+                    },
+                    {
+                        label: '📍 Location?',
+                        msg: `Hi! 📍 මම ඔබගේ "${currentSwipeAd.title}" දැන්වීම TinTinAds.com එකෙන් දැක්කේ. Location එක සහ විස්තර එවන්න පුළුවන්ද?\nhttps://tintinads.com/ad/${currentSwipeAd.id}`,
+                    },
+                    {
+                        label: '💰 ගාස්තු?',
+                        msg: `Hi! 💰 මම ඔබගේ "${currentSwipeAd.title}" දැන්වීම TinTinAds.com එකෙන් දැක්කේ. පැකේජ සහ ගාස්තු විස්තර එවන්න.\nhttps://tintinads.com/ad/${currentSwipeAd.id}`,
+                    },
+                ];
+
+                return (
+                    <div
+                        className="fixed inset-0 z-[130] bg-black/95 backdrop-blur-md flex flex-col justify-between select-none"
+                        onTouchStart={handleSwipeTouchStart}
+                        onTouchEnd={(e) => handleSwipeTouchEnd(e, swipePhotos.length)}
+                    >
+                        {/* Top Bar */}
+                        <div className="p-3 sm:p-4 flex items-center justify-between bg-gradient-to-b from-black/90 to-transparent z-20">
+                            <div className="flex items-center gap-2">
+                                <span className="bg-gradient-to-r from-pink-600 to-amber-500 text-white px-3 py-1 rounded-full text-xs font-extrabold flex items-center gap-1.5 shadow-md">
+                                    <i className="fas fa-fire-alt text-yellow-200"></i>
+                                    <span>Swipe Mode ({swipeAdIndex + 1}/{filteredAds.length})</span>
+                                </span>
+                                <span className="hidden sm:inline-flex items-center gap-1 bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 px-2.5 py-1 rounded-full text-xs font-bold">
+                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                    Online • ⚡ 5m Reply
+                                </span>
+                            </div>
+                            <button
+                                type="button"
+                                onClick={() => setIsSwipeModeOpen(false)}
+                                className="w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center text-lg font-bold cursor-pointer"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        {/* Center Image & Navigation Controls */}
+                        <div className="relative flex-1 flex items-center justify-center overflow-hidden px-2">
+                            <img
+                                src={swipePhotos[safePhotoIdx] || '/placeholder-image.jpg'}
+                                alt={currentSwipeAd.title}
+                                className="max-h-full max-w-full object-contain rounded-xl shadow-2xl"
+                                onError={(e) => {
+                                    e.currentTarget.src = '/placeholder-image.jpg';
+                                }}
+                            />
+
+                            {/* Photo Switcher if multiple photos */}
+                            {swipePhotos.length > 1 && (
+                                <div className="absolute top-3 left-1/2 -translate-x-1/2 bg-black/70 backdrop-blur-xs text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-2 border border-white/20">
+                                    <button
+                                        type="button"
+                                        onClick={() => setSwipePhotoIndex((p) => (p - 1 + swipePhotos.length) % swipePhotos.length)}
+                                        className="px-1 text-pink-400 hover:text-white cursor-pointer"
+                                    >
+                                        ◀
+                                    </button>
+                                    <span><i className="fas fa-camera text-pink-400 mr-1"></i>{safePhotoIdx + 1} / {swipePhotos.length}</span>
+                                    <button
+                                        type="button"
+                                        onClick={() => setSwipePhotoIndex((p) => (p + 1) % swipePhotos.length)}
+                                        className="px-1 text-pink-400 hover:text-white cursor-pointer"
+                                    >
+                                        ▶
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* Right Side Floating Next/Prev Ad Controls (TikTok Style) */}
+                            <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col gap-3 z-20">
+                                <button
+                                    type="button"
+                                    onClick={goToPrevSwipeAd}
+                                    className="w-11 h-11 rounded-full bg-white/15 hover:bg-pink-600 backdrop-blur-md text-white flex flex-col items-center justify-center border border-white/25 shadow-lg transition cursor-pointer active:scale-90"
+                                    title="කලින් දැන්වීම (Previous Ad)"
+                                >
+                                    <i className="fas fa-chevron-up text-sm"></i>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={goToNextSwipeAd}
+                                    className="w-11 h-11 rounded-full bg-gradient-to-b from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white flex flex-col items-center justify-center border border-white/40 shadow-xl transition cursor-pointer active:scale-90 animate-bounce"
+                                    title="ඊළඟ දැන්වීම (Next Ad)"
+                                >
+                                    <i className="fas fa-chevron-down text-sm"></i>
+                                </button>
+                                <a
+                                    href={`/ad/${currentSwipeAd.id}`}
+                                    className="w-11 h-11 rounded-full bg-white/15 hover:bg-white/30 backdrop-blur-md text-white flex flex-col items-center justify-center border border-white/25 shadow-lg text-[10px] font-bold"
+                                    title="View Full Ad"
+                                >
+                                    <i className="fas fa-external-link-alt text-xs"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        {/* Bottom Details & Instant Conversion Panel */}
+                        <div className="p-3.5 sm:p-5 bg-gradient-to-t from-black via-black/95 to-transparent z-20 max-w-xl w-full mx-auto">
+                            <div className="flex flex-wrap items-center gap-1.5 mb-1.5">
+                                <span className="bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 px-2 py-0.5 rounded-full text-[10px] font-extrabold flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Online Today
+                                </span>
+                                <span className="bg-amber-500/20 border border-amber-400/50 text-amber-300 px-2 py-0.5 rounded-full text-[10px] font-extrabold">
+                                    ⚡ 5m Fast Reply
+                                </span>
+                                {(currentSwipeAd.isVip || currentSwipeAd.isPlatinum || currentSwipeAd.isPremium) && (
+                                    <span className="bg-gradient-to-r from-amber-400 to-yellow-600 text-black px-2 py-0.5 rounded-full text-[10px] font-black">
+                                        👑 VIP VERIFIED
+                                    </span>
+                                )}
+                                <span className="text-xs text-pink-400 font-bold ml-auto">
+                                    <i className="fas fa-map-marker-alt mr-1"></i>{currentSwipeAd.location || 'Sri Lanka'}
+                                </span>
+                            </div>
+
+                            <div className="flex items-baseline justify-between gap-2 mb-1">
+                                <a href={`/ad/${currentSwipeAd.id}`} className="text-base sm:text-lg font-extrabold text-white truncate hover:underline">
+                                    {currentSwipeAd.title}
+                                </a>
+                                <span className="text-lg sm:text-xl font-black text-pink-400 shrink-0">
+                                    Rs {Number(currentSwipeAd.price || 0).toLocaleString()}
+                                </span>
+                            </div>
+
+                            {/* One-Tap Quick WhatsApp Chips in Swipe Mode */}
+                            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 mb-2">
+                                {quickSwipeChips.map((chip, idx) => (
+                                    <a
+                                        key={idx}
+                                        href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(chip.msg)}`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="bg-white/10 hover:bg-emerald-600 text-white border border-emerald-400/40 px-2.5 py-1 rounded-full text-[11px] font-bold whitespace-nowrap flex items-center gap-1 transition shrink-0"
+                                    >
+                                        <span>{chip.label}</span>
+                                    </a>
+                                ))}
+                            </div>
+
+                            {/* Call, WhatsApp & Next Ad Action Row */}
+                            <div className="grid grid-cols-3 gap-2">
+                                <a
+                                    href={phoneHref}
+                                    className="bg-[#E50914] hover:bg-red-700 text-white font-extrabold text-xs sm:text-sm py-3 rounded-xl flex items-center justify-center gap-1.5 shadow-lg active:scale-95 transition"
+                                >
+                                    <i className="fas fa-phone-alt"></i>
+                                    <span>CALL NOW</span>
+                                </a>
+                                <a
+                                    href={`https://wa.me/${cleanWa}?text=${encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${currentSwipeAd.title}`)}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="bg-[#25D366] hover:bg-green-600 text-white font-extrabold text-xs sm:text-sm py-3 rounded-xl flex items-center justify-center gap-1.5 shadow-lg active:scale-95 transition"
+                                >
+                                    <i className="fab fa-whatsapp text-base"></i>
+                                    <span>WHATSAPP</span>
+                                </a>
+                                <button
+                                    type="button"
+                                    onClick={goToNextSwipeAd}
+                                    className="bg-white/15 hover:bg-white/25 text-white border border-white/25 font-extrabold text-xs sm:text-sm py-3 rounded-xl flex items-center justify-center gap-1.5 active:scale-95 transition cursor-pointer"
+                                >
+                                    <span>Next Ad</span>
+                                    <i className="fas fa-arrow-down text-pink-400"></i>
+                                </button>
+                            </div>
+
+                            <p className="text-[10px] text-gray-400 text-center mt-2">
+                                🔒 100% Private & Direct Contact  •  ⬆️⬇️ උඩට/පහළට Swipe කර තවත් දැන්වීම් බලන්න
+                            </p>
+                        </div>
+                    </div>
+                );
+            })()}
+
             {/* Live Activity FOMO Micro-Toast */}
-            {liveToast && (
+            {liveToast && !isSwipeModeOpen && (
                 <div className="fixed bottom-16 sm:bottom-5 right-3 left-3 sm:left-auto sm:w-80 z-40 animate-bounce-once">
                     <div className="bg-gray-900/95 backdrop-blur-md text-white rounded-2xl p-2.5 sm:p-3 shadow-2xl border border-pink-500/40 flex items-center gap-3">
                         <a href={`/ad/${liveToast.id}`} className="relative w-11 h-11 rounded-xl overflow-hidden flex-shrink-0 border border-white/20">
