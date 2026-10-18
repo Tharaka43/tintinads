@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\BlogController::index
- * @see app/Http/Controllers/BlogController.php:16
+ * @see app/Http/Controllers/BlogController.php:62
  * @route '/blog'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
 export const show = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
 show.url = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -122,7 +122,7 @@ show.url = (args: { slug: string | number } | [slug: string | number ] | string 
 
 /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
 show.get = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -131,7 +131,7 @@ show.get = (args: { slug: string | number } | [slug: string | number ] | string 
 })
 /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
 show.head = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -141,7 +141,7 @@ show.head = (args: { slug: string | number } | [slug: string | number ] | string
 
     /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
     const showForm = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -151,7 +151,7 @@ show.head = (args: { slug: string | number } | [slug: string | number ] | string
 
             /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
         showForm.get = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -160,7 +160,7 @@ show.head = (args: { slug: string | number } | [slug: string | number ] | string
         })
             /**
 * @see \App\Http\Controllers\BlogController::show
- * @see app/Http/Controllers/BlogController.php:27
+ * @see app/Http/Controllers/BlogController.php:75
  * @route '/blog/{slug}'
  */
         showForm.head = (args: { slug: string | number } | [slug: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -176,7 +176,7 @@ show.head = (args: { slug: string | number } | [slug: string | number ] | string
     show.form = showForm
 /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
 export const adminIndex = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -191,7 +191,7 @@ adminIndex.definition = {
 
 /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
 adminIndex.url = (options?: RouteQueryOptions) => {
@@ -200,7 +200,7 @@ adminIndex.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
 adminIndex.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -209,7 +209,7 @@ adminIndex.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
 adminIndex.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -219,7 +219,7 @@ adminIndex.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
     const adminIndexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -229,7 +229,7 @@ adminIndex.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
         adminIndexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -238,7 +238,7 @@ adminIndex.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\BlogController::adminIndex
- * @see app/Http/Controllers/BlogController.php:47
+ * @see app/Http/Controllers/BlogController.php:107
  * @route '/admin/blogs'
  */
         adminIndexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -254,7 +254,7 @@ adminIndex.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     adminIndex.form = adminIndexForm
 /**
 * @see \App\Http\Controllers\BlogController::store
- * @see app/Http/Controllers/BlogController.php:58
+ * @see app/Http/Controllers/BlogController.php:118
  * @route '/admin/blogs'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -269,7 +269,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\BlogController::store
- * @see app/Http/Controllers/BlogController.php:58
+ * @see app/Http/Controllers/BlogController.php:118
  * @route '/admin/blogs'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -278,7 +278,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\BlogController::store
- * @see app/Http/Controllers/BlogController.php:58
+ * @see app/Http/Controllers/BlogController.php:118
  * @route '/admin/blogs'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -288,7 +288,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\BlogController::store
- * @see app/Http/Controllers/BlogController.php:58
+ * @see app/Http/Controllers/BlogController.php:118
  * @route '/admin/blogs'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -298,7 +298,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\BlogController::store
- * @see app/Http/Controllers/BlogController.php:58
+ * @see app/Http/Controllers/BlogController.php:118
  * @route '/admin/blogs'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\BlogController::update
- * @see app/Http/Controllers/BlogController.php:84
+ * @see app/Http/Controllers/BlogController.php:144
  * @route '/admin/blogs/{blog}'
  */
 export const update = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -324,7 +324,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\BlogController::update
- * @see app/Http/Controllers/BlogController.php:84
+ * @see app/Http/Controllers/BlogController.php:144
  * @route '/admin/blogs/{blog}'
  */
 update.url = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -357,7 +357,7 @@ update.url = (args: { blog: number | { id: number } } | [blog: number | { id: nu
 
 /**
 * @see \App\Http\Controllers\BlogController::update
- * @see app/Http/Controllers/BlogController.php:84
+ * @see app/Http/Controllers/BlogController.php:144
  * @route '/admin/blogs/{blog}'
  */
 update.post = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -367,7 +367,7 @@ update.post = (args: { blog: number | { id: number } } | [blog: number | { id: n
 
     /**
 * @see \App\Http\Controllers\BlogController::update
- * @see app/Http/Controllers/BlogController.php:84
+ * @see app/Http/Controllers/BlogController.php:144
  * @route '/admin/blogs/{blog}'
  */
     const updateForm = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -377,7 +377,7 @@ update.post = (args: { blog: number | { id: number } } | [blog: number | { id: n
 
             /**
 * @see \App\Http\Controllers\BlogController::update
- * @see app/Http/Controllers/BlogController.php:84
+ * @see app/Http/Controllers/BlogController.php:144
  * @route '/admin/blogs/{blog}'
  */
         updateForm.post = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -388,7 +388,7 @@ update.post = (args: { blog: number | { id: number } } | [blog: number | { id: n
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\BlogController::destroy
- * @see app/Http/Controllers/BlogController.php:117
+ * @see app/Http/Controllers/BlogController.php:177
  * @route '/admin/blogs/{blog}'
  */
 export const destroy = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -403,7 +403,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\BlogController::destroy
- * @see app/Http/Controllers/BlogController.php:117
+ * @see app/Http/Controllers/BlogController.php:177
  * @route '/admin/blogs/{blog}'
  */
 destroy.url = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions) => {
@@ -436,7 +436,7 @@ destroy.url = (args: { blog: number | { id: number } } | [blog: number | { id: n
 
 /**
 * @see \App\Http\Controllers\BlogController::destroy
- * @see app/Http/Controllers/BlogController.php:117
+ * @see app/Http/Controllers/BlogController.php:177
  * @route '/admin/blogs/{blog}'
  */
 destroy.delete = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -446,7 +446,7 @@ destroy.delete = (args: { blog: number | { id: number } } | [blog: number | { id
 
     /**
 * @see \App\Http\Controllers\BlogController::destroy
- * @see app/Http/Controllers/BlogController.php:117
+ * @see app/Http/Controllers/BlogController.php:177
  * @route '/admin/blogs/{blog}'
  */
     const destroyForm = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -461,7 +461,7 @@ destroy.delete = (args: { blog: number | { id: number } } | [blog: number | { id
 
             /**
 * @see \App\Http\Controllers\BlogController::destroy
- * @see app/Http/Controllers/BlogController.php:117
+ * @see app/Http/Controllers/BlogController.php:177
  * @route '/admin/blogs/{blog}'
  */
         destroyForm.delete = (args: { blog: number | { id: number } } | [blog: number | { id: number } ] | number | { id: number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
