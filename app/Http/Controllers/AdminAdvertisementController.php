@@ -122,6 +122,8 @@ class AdminAdvertisementController extends Controller
                     'isSelected' => false,
                     'advertisement_id' => $advertisement->id,
                     'receiptPath' => $receiptPath,
+                    'phone_number' => $advertisement->phone_number ?? null,
+                    'whatsapp_number' => $advertisement->whatsapp_number ?? null,
                 ];
             });
 

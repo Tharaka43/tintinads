@@ -37,6 +37,10 @@
                         $siteImage = str_starts_with($firstImg['path'], 'http') ? $firstImg['path'] : url('storage/' . $firstImg['path']);
                     }
                 }
+                $siteImage = str_replace(' ', '%20', $siteImage);
+                if (str_starts_with($siteImage, 'http://') && str_contains($siteImage, 'tintinads.com')) {
+                    $siteImage = 'https://' . substr($siteImage, 7);
+                }
                 $ogType = 'article';
             } else {
                 $siteTitle = 'TinTinAds - Best SL Ads, Lanka Ads & Spa Ads in Sri Lanka';
@@ -53,6 +57,9 @@
         <meta property="og:title" content="{{ $siteTitle }}">
         <meta property="og:description" content="{{ $siteDesc }}">
         <meta property="og:image" content="{{ $siteImage }}">
+        <meta property="og:image:secure_url" content="{{ $siteImage }}">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
         <meta property="og:site_name" content="TinTinAds.com">
         <meta property="og:url" content="{{ url()->current() }}">
         <meta name="twitter:card" content="summary_large_image">
