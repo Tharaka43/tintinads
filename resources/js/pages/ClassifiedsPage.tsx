@@ -233,6 +233,12 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                             <span>{displayImages.length} {displayImages.length === 1 ? 'Photo' : 'Photos'}</span>
                         </div>
 
+                        {/* Bottom Right: Voice Note Badge */}
+                        <div className="absolute bottom-1.5 right-1.5 z-20 bg-emerald-600/95 backdrop-blur-xs text-white px-1.5 py-0.5 rounded-md text-[8px] sm:text-[9px] font-black flex items-center gap-1 shadow-xs border border-emerald-400/40" title="හඬ පටයක් සහිතයි (Voice Note Available)">
+                            <i className="fas fa-microphone-alt text-[8px] sm:text-[9px] text-emerald-200"></i>
+                            <span>Voice</span>
+                        </div>
+
                         <AdImageCarousel
                             images={displayImages}
                             title={ad.title}
@@ -264,23 +270,20 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                         </div>
 
                         <div className="mt-auto">
-                            <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-1">
-                                <span className="flex items-center truncate"><i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{ad.location}</span>
-                                <div className="flex items-center gap-1 flex-shrink-0">
-                                    <span className="inline-flex items-center gap-0.5 bg-emerald-100/90 text-emerald-800 border border-emerald-300 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-black shadow-2xs" title="හඬ පටයක් ඇත (Voice Note available)">
-                                        <i className="fas fa-microphone-alt text-emerald-600 text-[8px]"></i> Voice
-                                    </span>
-                                    <span className="inline-flex items-center gap-0.5 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold shadow-2xs">
-                                        <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified
-                                    </span>
-                                </div>
+                            <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-2">
+                                <span className="flex items-center text-gray-700 font-semibold truncate">
+                                    <i className="fas fa-map-marker-alt text-pink-500 mr-1 flex-shrink-0"></i>
+                                    <span className="truncate">{ad.location}</span>
+                                </span>
+                                <span className="text-[11px] sm:text-xs font-black text-pink-600 flex-shrink-0">
+                                    Rs {Number(ad.price || 0).toLocaleString()}
+                                </span>
                             </div>
 
                             <div className="flex items-center justify-between pt-1.5 border-t border-gray-100 gap-1">
-                                <div className="flex items-center space-x-2 text-[9px] sm:text-xs font-semibold text-blue-600 truncate">
-                                    <span className="flex items-center"><i className="far fa-thumbs-up mr-0.5 sm:mr-1 text-blue-500"></i>{likes}</span>
-                                    <span className="flex items-center"><i className="far fa-eye mr-0.5 sm:mr-1 text-blue-500"></i>{views}</span>
-                                    <span className="hidden sm:inline text-[10px] text-emerald-600 font-semibold">• Active {(ad.id % 6) + 2}m ago</span>
+                                <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-bold text-blue-600 flex-shrink-0">
+                                    <span className="flex items-center" title="Likes"><i className="far fa-thumbs-up mr-0.5 sm:mr-1 text-blue-500"></i>{likes}</span>
+                                    <span className="flex items-center" title="Views"><i className="far fa-eye mr-0.5 sm:mr-1 text-blue-500"></i>{views}</span>
                                 </div>
 
                                 {/* Instant Call & WhatsApp Mini Buttons */}
@@ -288,7 +291,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                                     <button
                                         type="button"
                                         onClick={handleQuickCall}
-                                        className="bg-[#E50914] hover:bg-red-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        className="bg-[#E50914] hover:bg-red-700 active:scale-95 text-white px-2.5 sm:px-3 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
                                         title="Instant Call"
                                     >
                                         <i className="fas fa-phone-alt text-[8px] sm:text-[10px]"></i>
@@ -297,7 +300,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                                     <button
                                         type="button"
                                         onClick={handleQuickWhatsApp}
-                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2.5 sm:px-3 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
                                         title="Instant WhatsApp"
                                     >
                                         <i className="fab fa-whatsapp text-[10px] sm:text-xs"></i>
