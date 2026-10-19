@@ -102,7 +102,7 @@ class BatchAdImportController extends Controller
                     'location' => $item['location'],
                     'phone_number' => $item['phone'],
                     'whatsapp_number' => $item['whatsapp'],
-                    'post_date' => now(),
+                    'post_date' => now()->subMinutes(85 - (int)$num),
                 ]);
 
                 // Ensure image exists
