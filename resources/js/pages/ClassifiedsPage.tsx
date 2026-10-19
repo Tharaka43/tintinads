@@ -267,8 +267,8 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                             <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-1">
                                 <span className="flex items-center truncate"><i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{ad.location}</span>
                                 <div className="flex items-center gap-1 flex-shrink-0">
-                                    <span className="inline-flex items-center gap-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold shadow-2xs" title="Replies within 5 mins">
-                                        <i className="fas fa-bolt text-amber-500 text-[8px]"></i> 5m Reply
+                                    <span className="inline-flex items-center gap-0.5 bg-emerald-100/90 text-emerald-800 border border-emerald-300 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-black shadow-2xs" title="හඬ පටයක් ඇත (Voice Note available)">
+                                        <i className="fas fa-microphone-alt text-emerald-600 text-[8px]"></i> Voice
                                     </span>
                                     <span className="inline-flex items-center gap-0.5 bg-gradient-to-r from-amber-50 to-yellow-100 text-amber-800 border border-amber-300/80 px-1.5 py-0.5 rounded-full text-[8px] sm:text-[10px] font-extrabold shadow-2xs">
                                         <i className="fas fa-star text-amber-500 text-[8px]"></i> Verified

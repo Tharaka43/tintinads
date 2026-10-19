@@ -120,4 +120,58 @@ class Advertisement extends Model
 
         return $this->post_date->lt(now()->subDays($days));
     }
+
+    /**
+     * Get the voice note audio URL for this advertisement based on category.
+     */
+    public function getVoiceNoteUrlAttribute(): string
+    {
+        $catId = $this->common_category_id;
+        $categoryName = strtolower(optional($this->commonCategory)->name ?? '');
+
+        if ($catId == 5 || str_contains($categoryName, 'cam')) {
+            return '/storage/audio/voice_live_cam.mp3';
+        }
+        if ($catId == 6 || str_contains($categoryName, 'spa') || str_contains($categoryName, 'wellness')) {
+            return '/storage/audio/voice_spa_wellness.mp3';
+        }
+        if ($catId == 2 || str_contains($categoryName, 'boy')) {
+            return '/storage/audio/voice_boys_personal.mp3';
+        }
+        if ($catId == 3 || str_contains($categoryName, 'shemale')) {
+            return '/storage/audio/voice_shemale_personal.mp3';
+        }
+        if ($catId == 1 || str_contains($categoryName, 'girl') || str_contains($categoryName, 'personal')) {
+            return '/storage/audio/voice_girls_personal.mp3';
+        }
+
+        return '/storage/audio/voice_default.mp3';
+    }
+
+    /**
+     * Get the voice note spoken text for this advertisement based on category.
+     */
+    public function getVoiceNoteTextAttribute(): string
+    {
+        $catId = $this->common_category_id;
+        $categoryName = strtolower(optional($this->commonCategory)->name ?? '');
+
+        if ($catId == 5 || str_contains($categoryName, 'cam')) {
+            return 'හායි, මගේ ලයිව් කැම් සර්විස් එකට ඔයාලව සාදරයෙන් පිළිගන්නවා. ඇඩ් එකේ තියෙන විස්තර බලලා, ලයිව් වීඩියෝ පැකේජ් ගන්න කැමති නම් දැන්ම මට WhatsApp මැසේජ් එකක් දාන්න.';
+        }
+        if ($catId == 6 || str_contains($categoryName, 'spa') || str_contains($categoryName, 'wellness')) {
+            return 'ආයුබෝවන්. අපගේ ස්පා සහ සම්බාහන සේවාවන් ලබා ගැනීමට පෙර, කරුණාකර ඇඩ් එකේ විස්තර බලලා වේලාවක් වෙන් කරවා ගැනීමට දැන්ම අප අමතන්න. ස්තූතියි.';
+        }
+        if ($catId == 2 || str_contains($categoryName, 'boy')) {
+            return 'හායි, මගේ ඇඩ් එකේ විස්තර හොඳට බලන්න. Genuine අය සහ Genuine girls ලා විතරක් මට කෝල් එකක් හරි WhatsApp මැසේජ් එකක් හරි දාන්න.';
+        }
+        if ($catId == 3 || str_contains($categoryName, 'shemale')) {
+            return 'හායි, මගේ ඇඩ් එකේ විස්තර සහ සේවාවන් හොඳට කියවලා, Genuine නම් විතරක් මට දැන්ම කෝල් එකක් හෝ WhatsApp මැසේජ් එකක් දාන්නකෝ.';
+        }
+        if ($catId == 1 || str_contains($categoryName, 'girl') || str_contains($categoryName, 'personal')) {
+            return 'හායි, මගේ ඇඩ් එකේ තියෙන විස්තර සහ පැකේජ් හොඳට බලලා කියවන්න. Genuine නම් විතරක් මට දැන්ම කෝල් එකක් හරි WhatsApp මැසේජ් එකක් හරි දාන්නකෝ.';
+        }
+
+        return 'හායි, මගේ දැන්වීමේ විස්තර හොඳට කියවලා බලන්න. Genuine නම් විතරක් කරුණාකර දැන්ම මට කෝල් එකක් හරි WhatsApp මැසේජ් එකක් හරි දාන්න.';
+    }
 }

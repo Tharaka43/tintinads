@@ -119,6 +119,7 @@ $isPlatinum = strtolower($listingCategoryName) === 'platinum';
                     'hasCashBackGuarantee' => $hasCashBackGuarantee,
                     'phone_number' => $advertisement->phone_number ?? null,
                     'whatsapp_number' => $advertisement->whatsapp_number ?? null,
+                    'voice_note_url' => $advertisement->voice_note_url,
                 ];
             })
             ->values();
@@ -428,10 +429,10 @@ $isPlatinum = strtolower($listingCategoryName) === 'platinum';
                     'likes' => $advertisement->likes_count ?? 0,
                     'images' => $images,
                     'isVip' => $isVip,
-                      'isPremium' => $isPremium,
-                      'isPlatinum' => $isPlatinum,
-'isPlatinum' => $isPlatinum,
+                    'isPremium' => $isPremium,
+                    'isPlatinum' => $isPlatinum,
                     'hasCashBackGuarantee' => $hasCashBackGuarantee,
+                    'voice_note_url' => $ad->voice_note_url,
                 ];
             })
             ->values();
@@ -447,9 +448,8 @@ $isPlatinum = strtolower($listingCategoryName) === 'platinum';
                 'time' => $timeAgo,
                 'images' => $images,
                 'isVip' => $isVip,
-                      'isPremium' => $isPremium,
-                      'isPlatinum' => $isPlatinum,
-'isPlatinum' => $isPlatinum,
+                'isPremium' => $isPremium,
+                'isPlatinum' => $isPlatinum,
                 'hasCashBackGuarantee' => $hasCashBackGuarantee,
                 'isSaved' => $isSaved,
                 'phone_number' => $advertisement->phone_number ?? null,
@@ -457,6 +457,8 @@ $isPlatinum = strtolower($listingCategoryName) === 'platinum';
                 'telegram_number' => $advertisement->telegram_number ?? null,
                 'views' => $advertisement->views_count ?? 1,
                 'likes' => $advertisement->likes_count ?? 0,
+                'voice_note_url' => $advertisement->voice_note_url,
+                'voice_note_text' => $advertisement->voice_note_text,
             ],
             'relatedAds' => $relatedAds,
         ]);

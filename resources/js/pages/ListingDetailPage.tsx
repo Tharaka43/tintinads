@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { router, Head } from '@inertiajs/react';
+import VoiceNotePlayer from '../components/VoiceNotePlayer';
 
 // --- Global Constants ---
 const PRIMARY_PINK = '#FF69B4';
@@ -25,12 +26,13 @@ interface Ad {
     isVip: boolean;
     isPremium: boolean;
     isPlatinum?: boolean;
-    isPlatinum?: boolean;
     hasCashBackGuarantee: boolean;
     isSaved: boolean;
     phone_number: string | null;
     whatsapp_number: string | null;
     telegram_number: string | null;
+    voice_note_url?: string | null;
+    voice_note_text?: string | null;
 }
 
 interface RelatedAd {
@@ -46,8 +48,8 @@ interface RelatedAd {
     isVip: boolean;
     isPremium: boolean;
     isPlatinum?: boolean;
-    isPlatinum?: boolean;
     hasCashBackGuarantee: boolean;
+    voice_note_url?: string | null;
 }
 
 interface ListingDetailPageProps {
@@ -550,6 +552,14 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         📞 අද දින පුද්ගලයන් <span className="text-[#E50914] font-black underline">{contactedTodayCount} දෙනෙක්</span> මෙම අංකයට සම්බන්ධ වී ඇත!
                     </span>
                 </div>
+
+                {/* Authentic Sinhala AI Voice Note Player */}
+                <VoiceNotePlayer
+                    audioUrl={ad.voice_note_url}
+                    spokenText={ad.voice_note_text}
+                    category={ad.category}
+                    title={ad.title}
+                />
 
                 {/* Main Action Buttons */}
                 <div className="space-y-3">
