@@ -16,14 +16,17 @@ class BatchAdImportController extends Controller
             abort(403, 'Unauthorized access key.');
         }
 
-        $jsonFile = base_path('all_40_ads.json');
+        $jsonFile = base_path('all_80_ads.json');
         if (!file_exists($jsonFile)) {
-            return response("Error: all_40_ads.json not found on server.", 404);
+            $jsonFile = base_path('all_40_ads.json');
+        }
+        if (!file_exists($jsonFile)) {
+            return response("Error: all_80_ads.json not found on server.", 404);
         }
 
         $adsData = json_decode(file_get_contents($jsonFile), true);
         if (empty($adsData)) {
-            return response("Error: No ads found in all_40_ads.json.", 400);
+            return response("Error: No ads found in JSON file.", 400);
         }
 
         $storageDir = storage_path('app/public/ad-images');
@@ -84,15 +87,21 @@ class BatchAdImportController extends Controller
             }
 
             // Check if already created on this system
-            $existing = Advertisement::where('title', $item['title'])->first();
+            $targetCode = $item['code'] ?? ('AD-B' . $num);
+            $existing = Advertisement::where('code', $targetCode)->orWhere('title', $item['title'])->first();
 
             if ($existing) {
                 // Ensure active, unexpired, and paid + update description with formatted text
                 $existing->update([
+                    'title' => $item['title'],
                     'description' => $item['description'],
                     'status' => 'activated',
                     'payment_status' => 'paid',
                     'listing_category_id' => 1,
+                    'price' => $item['price'],
+                    'location' => $item['location'],
+                    'phone_number' => $item['phone'],
+                    'whatsapp_number' => $item['whatsapp'],
                     'post_date' => now(),
                 ]);
 
@@ -118,9 +127,12 @@ class BatchAdImportController extends Controller
                     'url' => url('/ad/' . $existing->id),
                 ];
             } else {
-                do {
-                    $code = 'AD-' . strtoupper(Str::random(6));
-                } while (Advertisement::where('code', $code)->exists());
+                $code = $item['code'] ?? null;
+                if (!$code || Advertisement::where('code', $code)->exists()) {
+                    do {
+                        $code = 'AD-' . strtoupper(Str::random(6));
+                    } while (Advertisement::where('code', $code)->exists());
+                }
 
                 $ad = Advertisement::create([
                     'agent_id' => 1,
@@ -165,14 +177,14 @@ class BatchAdImportController extends Controller
 
         // Return HTML
         $totalCount = count($results);
-        $html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>TinTinAds 60 Batch Importer</title>';
+        $html = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>TinTinAds 80 Batch Importer</title>';
         $html .= '<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">';
         $html .= '</head><body class="bg-gray-900 text-white p-6">';
         $html .= '<div class="max-w-6xl mx-auto">';
         $html .= '<div class="bg-green-800 text-white p-6 rounded-lg mb-6 shadow-lg flex justify-between items-center">';
         $html .= '<div><h1 class="text-2xl font-bold">✅ TinTinAds දැන්වීම් ' . $totalCount . 'ම සාර්ථකව Live Database එකට ඇතුළත් විය!</h1>';
         $html .= '<p class="text-green-200 mt-1">දැන්වීම් සියල්ලම රු. 700 VIP Golden Highlight කාණ්ඩය යටතේ සක්‍රිය කර ඇත.</p></div>';
-        $html .= '<a href="/tintin_all_60_contacts.vcf" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg shadow transition">📥 Contacts ' . $totalCount . 'ම එකවර Save කරගන්න (VCF)</a>';
+        $html .= '<a href="/tintin_all_80_contacts.vcf" class="bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 px-6 rounded-lg shadow transition">📥 Contacts ' . $totalCount . 'ම එකවර Save කරගන්න (VCF)</a>';
         $html .= '</div>';
 
         $html .= '<div class="overflow-x-auto bg-gray-800 rounded-lg shadow">';
