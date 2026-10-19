@@ -16,12 +16,15 @@ class BatchAdImportController extends Controller
             abort(403, 'Unauthorized access key.');
         }
 
-        $jsonFile = base_path('all_80_ads.json');
+        $jsonFile = base_path('all_100_ads.json');
+        if (!file_exists($jsonFile)) {
+            $jsonFile = base_path('all_80_ads.json');
+        }
         if (!file_exists($jsonFile)) {
             $jsonFile = base_path('all_40_ads.json');
         }
         if (!file_exists($jsonFile)) {
-            return response("Error: all_80_ads.json not found on server.", 404);
+            return response("Error: ad JSON file not found on server.", 404);
         }
 
         $adsData = json_decode(file_get_contents($jsonFile), true);
@@ -102,7 +105,7 @@ class BatchAdImportController extends Controller
                     'location' => $item['location'],
                     'phone_number' => $item['phone'],
                     'whatsapp_number' => $item['whatsapp'],
-                    'post_date' => now()->subMinutes(85 - (int)$num),
+                    'post_date' => now()->subMinutes(max(2, 105 - (int)$num)),
                 ]);
 
                 // Ensure image exists
@@ -149,7 +152,7 @@ class BatchAdImportController extends Controller
                     'common_category_id' => $item['category_id'],
                     'listing_category_id' => 1, // VIP (Rs. 700)
                     'sub_category_id' => null,
-                    'post_date' => now(),
+                    'post_date' => now()->subMinutes(max(2, 105 - (int)$num)),
                     'views_count' => rand(20, 65),
                     'likes_count' => rand(4, 15),
                 ]);
