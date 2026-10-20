@@ -312,9 +312,9 @@ const AdCard = ({
                             </div>
 
                             <div className="flex items-center justify-between pt-1.5 border-t border-gray-100 gap-1">
-                                <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-bold text-blue-600 flex-shrink-0">
-                                    <span className="flex items-center" title="Likes"><i className="far fa-thumbs-up mr-0.5 sm:mr-1 text-blue-500"></i>{likes}</span>
-                                    <span className="flex items-center" title="Views"><i className="far fa-eye mr-0.5 sm:mr-1 text-blue-500"></i>{views}</span>
+                                <div className="flex items-center space-x-1.5 text-[10px] sm:text-xs font-bold text-blue-600 flex-shrink-0">
+                                    <span className="flex items-center" title="Likes"><i className="far fa-thumbs-up mr-0.5 text-blue-500"></i>{likes}</span>
+                                    <span className="flex items-center" title="Views"><i className="far fa-eye mr-0.5 text-blue-500"></i>{views}</span>
                                 </div>
 
                                 {/* Instant Call, WhatsApp & Share Mini Buttons */}
@@ -340,11 +340,10 @@ const AdCard = ({
                                     <button
                                         type="button"
                                         onClick={handleQuickShare}
-                                        className="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
-                                        title="Share to Social Media"
+                                        className="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white w-7 sm:w-8 h-[22px] sm:h-[26px] rounded-lg flex items-center justify-center shadow-xs transition-all cursor-pointer shrink-0"
+                                        title="Share to Social Media (Facebook, WhatsApp, Telegram, etc.)"
                                     >
-                                        <i className="fas fa-share-nodes text-[9px] sm:text-[10px]"></i>
-                                        <span className="hidden sm:inline">Share</span>
+                                        <i className="fas fa-share-nodes text-[10px] sm:text-xs"></i>
                                     </button>
                                 </div>
                             </div>
@@ -497,11 +496,10 @@ const TelegramVipFeaturedAdCard = ({ onShare }: { onShare?: (ad: any) => void })
                                                 });
                                             }
                                         }}
-                                        className="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        className="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white w-7 sm:w-8 h-[22px] sm:h-[26px] rounded-lg flex items-center justify-center shadow-xs transition-all cursor-pointer shrink-0"
                                         title="Share VIP Telegram Channel"
                                     >
-                                        <i className="fas fa-share-nodes text-[9px] sm:text-[10px]"></i>
-                                        <span className="hidden sm:inline">Share</span>
+                                        <i className="fas fa-share-nodes text-[10px] sm:text-xs"></i>
                                     </button>
                                 </div>
                             </div>
