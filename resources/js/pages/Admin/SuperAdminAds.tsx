@@ -12,6 +12,17 @@ interface AdImageItem {
     created_at?: string;
 }
 
+interface CategoryOption {
+    id: number;
+    name: string;
+}
+
+interface ListingCategoryOption {
+    id: number;
+    name: string;
+    price?: number;
+}
+
 interface Ad {
     id: string;
     title: string;
@@ -19,9 +30,11 @@ interface Ad {
     price?: number;
     location?: string;
     category: string;
+    common_category_id?: number | null;
     agentName: string;
     agentId: string;
     status: AdStatus;
+    raw_status?: string;
     paymentStatus: PaymentStatus;
     datePosted: string;
     imgSrc: string;
@@ -35,6 +48,7 @@ interface Ad {
     receiptPath?: string | null;
     phone_number?: string | null;
     whatsapp_number?: string | null;
+    telegram_number?: string | null;
 }
 
 interface Stats {
@@ -540,6 +554,45 @@ const SuperAdminAds: React.FC = () => {
     const [isUploadingImages, setIsUploadingImages] = useState(false);
     const [deletingImageId, setDeletingImageId] = useState<number | null>(null);
 
+    // Categories for Create / Edit
+    const [commonCategories, setCommonCategories] = useState<CategoryOption[]>([]);
+    const [listingCategories, setListingCategories] = useState<ListingCategoryOption[]>([]);
+
+    // Create Ad Modal State
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const [isSubmittingCreate, setIsSubmittingCreate] = useState(false);
+    const [createForm, setCreateForm] = useState({
+        title: '',
+        category_id: '',
+        listing_category_id: '1',
+        price: '',
+        location: '',
+        phone_number: '',
+        whatsapp_number: '',
+        telegram_number: '',
+        description: '',
+    });
+    const [createPhotos, setCreatePhotos] = useState<File[]>([]);
+    const [createPhotoPreviews, setCreatePhotoPreviews] = useState<string[]>([]);
+
+    // Edit Ad Modal State
+    const [editingAd, setEditingAd] = useState<Ad | null>(null);
+    const [isSubmittingEdit, setIsSubmittingEdit] = useState(false);
+    const [editForm, setEditForm] = useState({
+        title: '',
+        description: '',
+        price: '',
+        location: '',
+        phone_number: '',
+        whatsapp_number: '',
+        telegram_number: '',
+        category_id: '',
+        listing_category_id: '',
+        status: 'Active',
+        payment_status: 'paid',
+        reset_post_date: false,
+    });
+
     const [sentSteps, setSentSteps] = useState<SentStepsMap>(() => {
         try {
             const raw = localStorage.getItem('tintinads_admin_wa_funnel_v2');
@@ -670,6 +723,12 @@ const SuperAdminAds: React.FC = () => {
             if (res.data.success) {
                 setAds(res.data.ads || []);
                 setStats(res.data.stats || { totalAds: 0, activeAds: 0, expiredAds: 0, blockedAds: 0, featuredAds: 0 });
+                if (Array.isArray(res.data.commonCategories) && res.data.commonCategories.length > 0) {
+                    setCommonCategories(res.data.commonCategories);
+                }
+                if (Array.isArray(res.data.listingCategories) && res.data.listingCategories.length > 0) {
+                    setListingCategories(res.data.listingCategories);
+                }
                 if (res.data.pagination) {
                     setPagination({
                         current_page: res.data.pagination.current_page || 1,
@@ -830,6 +889,137 @@ const SuperAdminAds: React.FC = () => {
         }
     };
 
+    // Handlers for Create Ad Modal
+    const openCreateModal = () => {
+        setCreateForm({
+            title: '',
+            category_id: commonCategories.length > 0 ? String(commonCategories[0].id) : '1',
+            listing_category_id: listingCategories.length > 0 ? String(listingCategories[0].id) : '1',
+            price: '',
+            location: '',
+            phone_number: '',
+            whatsapp_number: '',
+            telegram_number: '',
+            description: '',
+        });
+        setCreatePhotos([]);
+        setCreatePhotoPreviews([]);
+        setIsCreateModalOpen(true);
+    };
+
+    const handleCreatePhotoSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return;
+        const selected = Array.from(e.target.files);
+        const combined = [...createPhotos, ...selected].slice(0, 5);
+        setCreatePhotos(combined);
+        const previews = combined.map((f) => URL.createObjectURL(f));
+        setCreatePhotoPreviews(previews);
+    };
+
+    const removeCreatePhoto = (index: number) => {
+        const nextPhotos = createPhotos.filter((_, i) => i !== index);
+        setCreatePhotos(nextPhotos);
+        const previews = nextPhotos.map((f) => URL.createObjectURL(f));
+        setCreatePhotoPreviews(previews);
+    };
+
+    const handleCreateSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!createForm.title.trim()) {
+            alert('කරුණාකර දැන්වීමේ Title (මාතෘකාව) ඇතුළත් කරන්න.');
+            return;
+        }
+        if (!createForm.category_id) {
+            alert('කරුණාකර Category එකක් තෝරන්න.');
+            return;
+        }
+
+        setIsSubmittingCreate(true);
+        const formData = new FormData();
+        formData.append('title', createForm.title.trim());
+        formData.append('category_id', createForm.category_id);
+        if (createForm.listing_category_id) formData.append('listing_category_id', createForm.listing_category_id);
+        if (createForm.price) formData.append('price', createForm.price);
+        if (createForm.location) formData.append('location', createForm.location.trim());
+        if (createForm.phone_number) formData.append('phone_number', createForm.phone_number.trim());
+        if (createForm.whatsapp_number) formData.append('whatsapp_number', createForm.whatsapp_number.trim());
+        if (createForm.telegram_number) formData.append('telegram_number', createForm.telegram_number.trim());
+        if (createForm.description) formData.append('description', createForm.description.trim());
+
+        createPhotos.forEach((file) => {
+            formData.append('photos[]', file);
+        });
+
+        try {
+            const res = await axios.post('/admin/api/advertisements', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            });
+            if (res.data.success) {
+                setIsCreateModalOpen(false);
+                setToastNote(`🎉 නව දැන්වීම #${res.data.advertisement?.advertisement_id || ''} සාර්ථකව පළ කර සක්‍රිය විය!`);
+                setTimeout(() => setToastNote(null), 6000);
+                loadAds(1);
+            }
+        } catch (err: any) {
+            alert(err?.response?.data?.message || 'දැන්වීම පළ කිරීම අසාර්ථක විය.');
+        } finally {
+            setIsSubmittingCreate(false);
+        }
+    };
+
+    // Handlers for Edit Ad Modal
+    const openEditModal = (ad: Ad) => {
+        setEditingAd(ad);
+        setEditForm({
+            title: ad.title || '',
+            description: ad.description || '',
+            price: ad.price !== undefined && ad.price !== null ? String(ad.price) : '',
+            location: ad.location || '',
+            phone_number: ad.phone_number || '',
+            whatsapp_number: ad.whatsapp_number || '',
+            telegram_number: ad.telegram_number || '',
+            category_id: ad.common_category_id ? String(ad.common_category_id) : (commonCategories.length > 0 ? String(commonCategories[0].id) : '1'),
+            listing_category_id: ad.listing_category_id ? String(ad.listing_category_id) : (listingCategories.length > 0 ? String(listingCategories[0].id) : '1'),
+            status: ad.raw_status || ad.status || 'Active',
+            payment_status: ad.paymentStatus || 'paid',
+            reset_post_date: false,
+        });
+    };
+
+    const handleEditSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!editingAd?.advertisement_id) return;
+
+        setIsSubmittingEdit(true);
+        try {
+            const res = await axios.post(`/admin/api/advertisements/${editingAd.advertisement_id}/update`, {
+                title: editForm.title.trim(),
+                description: editForm.description.trim(),
+                price: editForm.price ? parseFloat(editForm.price) : null,
+                location: editForm.location.trim(),
+                phone_number: editForm.phone_number.trim(),
+                whatsapp_number: editForm.whatsapp_number.trim(),
+                telegram_number: editForm.telegram_number.trim(),
+                category_id: editForm.category_id ? parseInt(editForm.category_id) : null,
+                listing_category_id: editForm.listing_category_id ? parseInt(editForm.listing_category_id) : null,
+                status: editForm.status,
+                payment_status: editForm.payment_status,
+                reset_post_date: editForm.reset_post_date,
+            });
+
+            if (res.data.success) {
+                setToastNote(`✅ දැන්වීම #${editingAd.advertisement_id} සාර්ථකව Update කරන ලදී!`);
+                setTimeout(() => setToastNote(null), 6000);
+                setEditingAd(null);
+                loadAds(pagination.current_page);
+            }
+        } catch (err: any) {
+            alert(err?.response?.data?.message || 'දැන්වීම Update කිරීම අසාර්ථක විය.');
+        } finally {
+            setIsSubmittingEdit(false);
+        }
+    };
+
     return (
         <div className="flex flex-col h-full bg-white relative">
             {toastNote && (
@@ -848,7 +1038,16 @@ const SuperAdminAds: React.FC = () => {
                         Send (1) Rs. 700 Free VIP Gift + Packages, (2) Live Ad Link Check, and (3) Expired Rs. 1,500 Renewal Offer directly to advertisers on WhatsApp.
                     </p>
                 </div>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="flex flex-wrap items-center gap-2.5">
+                    <button
+                        type="button"
+                        onClick={openCreateModal}
+                        className="inline-flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition cursor-pointer"
+                        title="නව දැන්වීමක් පළ කරන්න (Auto-watermarked & Activated)"
+                    >
+                        <i className="fas fa-plus-circle text-base"></i>
+                        <span>➕ Post New Ad (නව දැන්වීමක්)</span>
+                    </button>
                     <div className="bg-gray-50 px-3.5 py-2 rounded-xl border border-gray-100 text-center min-w-[70px]">
                         <div className="text-xs text-gray-500 font-medium">Total</div>
                         <div className="text-lg font-bold text-gray-900">{stats.totalAds}</div>
@@ -1077,6 +1276,14 @@ const SuperAdminAds: React.FC = () => {
                                         </div>
                                     </div>
                                     <div className="flex flex-wrap lg:flex-col justify-end gap-2 shrink-0 lg:border-l border-gray-100 lg:pl-4 pt-3 lg:pt-0 border-t lg:border-t-0">
+                                        <button
+                                            onClick={() => openEditModal(ad)}
+                                            className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-xl hover:bg-indigo-100 transition cursor-pointer border border-indigo-200/60"
+                                            title="දැන්වීමේ සියලු විස්තර සංස්කරණය (Edit) කරන්න"
+                                        >
+                                            <i className="fas fa-edit text-indigo-600"></i>
+                                            <span>✏️ Edit Ad</span>
+                                        </button>
                                         <button
                                             onClick={() => openPhotoModal(ad)}
                                             className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-purple-50 text-purple-700 text-xs font-bold rounded-xl hover:bg-purple-100 transition cursor-pointer border border-purple-200/60"
@@ -1491,6 +1698,486 @@ const SuperAdminAds: React.FC = () => {
                                 Done (අවසන්)
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* CREATE AD MODAL */}
+            {isCreateModalOpen && (
+                <div className="fixed inset-0 z-[230] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs" onClick={() => !isSubmittingCreate && setIsCreateModalOpen(false)}>
+                    <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[92vh] overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+                        <div className="p-4 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 text-white flex justify-between items-center shrink-0">
+                            <div>
+                                <h3 className="font-bold text-base flex items-center gap-2">
+                                    <i className="fas fa-plus-circle"></i> Post New Advertisement (නව දැන්වීමක් පළ කරන්න)
+                                </h3>
+                                <p className="text-xs text-pink-100 mt-0.5">
+                                    Admin මඟින් දැන්වීමක් පළ කර ස්වයංක්‍රීයව Active කරන්න (Watermarked Photos)
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                disabled={isSubmittingCreate}
+                                onClick={() => setIsCreateModalOpen(false)}
+                                className="text-white/80 hover:text-white text-lg px-2 cursor-pointer disabled:opacity-40"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleCreateSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                    Title / දැන්වීමේ මාතෘකාව <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    value={createForm.title}
+                                    onChange={(e) => setCreateForm({ ...createForm, title: e.target.value })}
+                                    placeholder="උදා: VIP Escort & Full Body Massage Services"
+                                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Category (ප්‍රවර්ගය) <span className="text-red-500">*</span>
+                                    </label>
+                                    <select
+                                        required
+                                        value={createForm.category_id}
+                                        onChange={(e) => setCreateForm({ ...createForm, category_id: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    >
+                                        {commonCategories.length === 0 ? (
+                                            <option value="1">මිතුරු මිතුරියන්</option>
+                                        ) : (
+                                            commonCategories.map((c) => (
+                                                <option key={c.id} value={c.id}>{c.name}</option>
+                                            ))
+                                        )}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Package (දැන්වීම් පැකේජය)
+                                    </label>
+                                    <select
+                                        value={createForm.listing_category_id}
+                                        onChange={(e) => setCreateForm({ ...createForm, listing_category_id: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    >
+                                        {listingCategories.length === 0 ? (
+                                            <>
+                                                <option value="1">Normal (දින 1)</option>
+                                                <option value="2">Premium (දින 2)</option>
+                                                <option value="3">VIP (දින 3)</option>
+                                                <option value="4">Platinum (දින 30)</option>
+                                            </>
+                                        ) : (
+                                            listingCategories.map((pkg) => (
+                                                <option key={pkg.id} value={pkg.id}>
+                                                    {pkg.name} {pkg.price ? `(Rs. ${pkg.price})` : ''}
+                                                </option>
+                                            ))
+                                        )}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Price (මිල - LKR)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value={createForm.price}
+                                        onChange={(e) => setCreateForm({ ...createForm, price: e.target.value })}
+                                        placeholder="උදා: 5000"
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Location (ස්ථානය / දිස්ත්‍රික්කය)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={createForm.location}
+                                        onChange={(e) => setCreateForm({ ...createForm, location: e.target.value })}
+                                        placeholder="උදා: Colombo 03, Kollupitiya"
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Phone Number (දුරකථන)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={createForm.phone_number}
+                                        onChange={(e) => setCreateForm({ ...createForm, phone_number: e.target.value })}
+                                        placeholder="0771234567"
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        WhatsApp Number
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={createForm.whatsapp_number}
+                                        onChange={(e) => setCreateForm({ ...createForm, whatsapp_number: e.target.value })}
+                                        placeholder="0771234567"
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Telegram (අංකය/Username)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={createForm.telegram_number}
+                                        onChange={(e) => setCreateForm({ ...createForm, telegram_number: e.target.value })}
+                                        placeholder="@username / 077..."
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                    Description (විස්තරය)
+                                </label>
+                                <textarea
+                                    rows={4}
+                                    value={createForm.description}
+                                    onChange={(e) => setCreateForm({ ...createForm, description: e.target.value })}
+                                    placeholder="දැන්වීමේ සවිස්තරාත්මක තොරතුරු මෙහි ලියන්න..."
+                                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-pink-500 focus:bg-white transition"
+                                />
+                            </div>
+
+                            {/* Photo Upload Section */}
+                            <div className="bg-pink-50/50 p-4 rounded-xl border border-pink-200 space-y-3">
+                                <label className="block text-xs font-bold text-gray-800 flex items-center justify-between">
+                                    <span className="flex items-center gap-1.5">
+                                        <i className="fas fa-camera text-pink-600"></i>
+                                        Upload Photos (ඡායාරූප - උපරිම 5ක්):
+                                    </span>
+                                    <span className="text-[11px] font-normal text-gray-500">{createPhotos.length} / 5 selected</span>
+                                </label>
+                                <p className="text-[11px] text-gray-500">
+                                    පළ කරන සියලුම ඡායාරූප සඳහා ස්වයංක්‍රීයව <strong className="font-bold text-pink-600">tintinads.com</strong> watermark යෙදේ.
+                                </p>
+
+                                <input
+                                    type="file"
+                                    multiple
+                                    accept="image/*"
+                                    disabled={createPhotos.length >= 5}
+                                    onChange={handleCreatePhotoSelect}
+                                    className="block w-full text-xs text-gray-600 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-pink-600 file:text-white hover:file:bg-pink-700 cursor-pointer disabled:opacity-40"
+                                />
+
+                                {createPhotoPreviews.length > 0 && (
+                                    <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 pt-2">
+                                        {createPhotoPreviews.map((src, idx) => (
+                                            <div key={idx} className="relative aspect-square rounded-lg overflow-hidden bg-gray-100 border border-pink-200 shadow-xs">
+                                                <img src={src} alt={`preview ${idx + 1}`} className="w-full h-full object-cover" />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => removeCreatePhoto(idx)}
+                                                    className="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white rounded-md w-5 h-5 flex items-center justify-center text-[10px] shadow cursor-pointer"
+                                                    title="ඉවත් කරන්න"
+                                                >
+                                                    ✕
+                                                </button>
+                                                <span className="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1 rounded font-bold">
+                                                    #{idx + 1}
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="p-3 bg-green-50 rounded-xl border border-green-200 text-xs text-green-800 flex items-start gap-2">
+                                <i className="fas fa-check-circle text-green-600 text-sm mt-0.5 shrink-0"></i>
+                                <span>මෙම දැන්වීම පළ කළ වහාම <strong>Active</strong> තත්ත්වයෙන් සහ <strong>Paid</strong> ලෙස වෙබ් අඩවියේ සජීවීව පෙනෙනු ඇත.</span>
+                            </div>
+
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
+                                <button
+                                    type="button"
+                                    disabled={isSubmittingCreate}
+                                    onClick={() => setIsCreateModalOpen(false)}
+                                    className="px-4 py-2 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50 cursor-pointer disabled:opacity-50"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmittingCreate}
+                                    className="px-5 py-2.5 bg-gradient-to-r from-pink-600 via-rose-600 to-purple-600 hover:from-pink-700 hover:to-purple-700 text-white text-xs font-bold rounded-xl shadow-md transition disabled:opacity-50 flex items-center gap-2 cursor-pointer"
+                                >
+                                    {isSubmittingCreate ? (
+                                        <>
+                                            <i className="fas fa-spinner fa-spin"></i>
+                                            <span>Posting Ad & Watermarking...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <i className="fas fa-paper-plane"></i>
+                                            <span>Post & Activate Ad (පළ කරන්න)</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* EDIT AD MODAL */}
+            {editingAd && (
+                <div className="fixed inset-0 z-[230] flex items-center justify-center p-3 sm:p-4 bg-black/75 backdrop-blur-xs" onClick={() => !isSubmittingEdit && setEditingAd(null)}>
+                    <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[92vh] overflow-hidden flex flex-col" onClick={(e) => e.stopPropagation()}>
+                        <div className="p-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white flex justify-between items-center shrink-0">
+                            <div>
+                                <h3 className="font-bold text-base flex items-center gap-2">
+                                    <i className="fas fa-edit"></i> Edit Advertisement #{editingAd.advertisement_id} ({editingAd.id})
+                                </h3>
+                                <p className="text-xs text-indigo-100 mt-0.5">
+                                    දැන්වීමේ විස්තර, මිල, සම්බන්ධතා අංක සහ Status වෙනස් කරන්න
+                                </p>
+                            </div>
+                            <button
+                                type="button"
+                                disabled={isSubmittingEdit}
+                                onClick={() => setEditingAd(null)}
+                                className="text-white/80 hover:text-white text-lg px-2 cursor-pointer disabled:opacity-40"
+                            >
+                                ✕
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleEditSubmit} className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                    Title / දැන්වීමේ මාතෘකාව <span className="text-red-500">*</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    required
+                                    value={editForm.title}
+                                    onChange={(e) => setEditForm({ ...editForm, title: e.target.value })}
+                                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Category (ප්‍රවර්ගය)
+                                    </label>
+                                    <select
+                                        value={editForm.category_id}
+                                        onChange={(e) => setEditForm({ ...editForm, category_id: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    >
+                                        {commonCategories.length === 0 ? (
+                                            <option value="1">මිතුරු මිතුරියන්</option>
+                                        ) : (
+                                            commonCategories.map((c) => (
+                                                <option key={c.id} value={c.id}>{c.name}</option>
+                                            ))
+                                        )}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Package (දැන්වීම් පැකේජය)
+                                    </label>
+                                    <select
+                                        value={editForm.listing_category_id}
+                                        onChange={(e) => setEditForm({ ...editForm, listing_category_id: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    >
+                                        {listingCategories.length === 0 ? (
+                                            <>
+                                                <option value="1">Normal (දින 1)</option>
+                                                <option value="2">Premium (දින 2)</option>
+                                                <option value="3">VIP (දින 3)</option>
+                                                <option value="4">Platinum (දින 30)</option>
+                                            </>
+                                        ) : (
+                                            listingCategories.map((pkg) => (
+                                                <option key={pkg.id} value={pkg.id}>
+                                                    {pkg.name} {pkg.price ? `(Rs. ${pkg.price})` : ''}
+                                                </option>
+                                            ))
+                                        )}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Price (මිල - LKR)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value={editForm.price}
+                                        onChange={(e) => setEditForm({ ...editForm, price: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Location (ස්ථානය / දිස්ත්‍රික්කය)
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={editForm.location}
+                                        onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Phone Number
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={editForm.phone_number}
+                                        onChange={(e) => setEditForm({ ...editForm, phone_number: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        WhatsApp Number
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={editForm.whatsapp_number}
+                                        onChange={(e) => setEditForm({ ...editForm, whatsapp_number: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Telegram Number
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={editForm.telegram_number}
+                                        onChange={(e) => setEditForm({ ...editForm, telegram_number: e.target.value })}
+                                        className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                    />
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                    Description (විස්තරය)
+                                </label>
+                                <textarea
+                                    rows={4}
+                                    value={editForm.description}
+                                    onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 focus:bg-white transition"
+                                />
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 bg-gray-50 rounded-xl border border-gray-200">
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Status (තත්ත්වය)
+                                    </label>
+                                    <select
+                                        value={editForm.status}
+                                        onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
+                                        className="w-full px-3.5 py-2 bg-white border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 transition"
+                                    >
+                                        <option value="Active">Active (සක්‍රියයි)</option>
+                                        <option value="Pending Review">Pending Review (අනුමැතියට පෙර)</option>
+                                        <option value="Blocked">Blocked (අත්හිටුවන ලදී)</option>
+                                        <option value="Expired">Expired (කල් ඉකුත් වූ)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold text-gray-700 uppercase tracking-wider mb-1">
+                                        Payment Status (ගෙවීම් තත්ත්වය)
+                                    </label>
+                                    <select
+                                        value={editForm.payment_status}
+                                        onChange={(e) => setEditForm({ ...editForm, payment_status: e.target.value })}
+                                        className="w-full px-3.5 py-2 bg-white border border-gray-200 rounded-xl text-sm text-gray-800 focus:outline-none focus:border-indigo-500 transition"
+                                    >
+                                        <option value="paid">Paid (ගෙවා ඇත)</option>
+                                        <option value="unpaid">Unpaid (ගෙවා නැත)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="bg-amber-50 p-3.5 rounded-xl border border-amber-200 flex items-start gap-2.5">
+                                <input
+                                    type="checkbox"
+                                    id="reset_post_date"
+                                    checked={editForm.reset_post_date}
+                                    onChange={(e) => setEditForm({ ...editForm, reset_post_date: e.target.checked })}
+                                    className="w-4 h-4 text-pink-600 rounded border-gray-300 focus:ring-pink-500 mt-0.5 cursor-pointer"
+                                />
+                                <label htmlFor="reset_post_date" className="text-xs text-amber-900 cursor-pointer">
+                                    <strong className="font-bold block">Reset Post Date to Now (අද දින සිට දින ගණන අලුත් කරන්න):</strong>
+                                    <span>මෙය සලකුණු කළහොත් දැන්වීමේ Post Date එක අද දිනට Reset වී Expiry දිනය නැවත දීර්ඝ වේ. Expired වූ දැන්වීම් සඳහා ඉතා සුදුසුයි.</span>
+                                </label>
+                            </div>
+
+                            <div className="flex items-center justify-end gap-2 pt-3 border-t border-gray-100">
+                                <button
+                                    type="button"
+                                    disabled={isSubmittingEdit}
+                                    onClick={() => setEditingAd(null)}
+                                    className="px-4 py-2 border border-gray-200 rounded-xl text-xs font-bold text-gray-600 hover:bg-gray-50 cursor-pointer disabled:opacity-50"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isSubmittingEdit}
+                                    className="px-5 py-2.5 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white text-xs font-bold rounded-xl shadow-md transition disabled:opacity-50 flex items-center gap-2 cursor-pointer"
+                                >
+                                    {isSubmittingEdit ? (
+                                        <>
+                                            <i className="fas fa-spinner fa-spin"></i>
+                                            <span>Saving Changes...</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <i className="fas fa-save"></i>
+                                            <span>Save Changes (සුරකින්න)</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             )}

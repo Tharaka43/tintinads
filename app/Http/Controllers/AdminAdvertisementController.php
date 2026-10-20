@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
 use App\Models\AdvertisementImage;
+use App\Models\CommonCategory;
+use App\Models\ListingCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class AdminAdvertisementController extends Controller
 {
@@ -189,9 +192,11 @@ class AdminAdvertisementController extends Controller
                     'price' => $advertisement->price,
                     'location' => $advertisement->location,
                     'category' => optional($advertisement->commonCategory)->name ?? 'Uncategorized',
+                    'common_category_id' => $advertisement->common_category_id,
                     'agentName' => optional($advertisement->agent)->name ?? 'Unknown',
                     'agentId' => 'AG' . str_pad((string) $advertisement->agent_id, 3, '0', STR_PAD_LEFT),
                     'status' => $status,
+                    'raw_status' => $advertisement->status,
                     'paymentStatus' => $advertisement->payment_status ?? 'unpaid',
                     'datePosted' => $advertisement->post_date ? $advertisement->post_date->format('Y-m-d') : '',
                     'imgSrc' => $imageUrl,
@@ -205,6 +210,7 @@ class AdminAdvertisementController extends Controller
                     'receiptPath' => $receiptPath,
                     'phone_number' => $advertisement->phone_number ?? null,
                     'whatsapp_number' => $advertisement->whatsapp_number ?? null,
+                    'telegram_number' => $advertisement->telegram_number ?? null,
                 ];
             });
 
@@ -248,6 +254,8 @@ class AdminAdvertisementController extends Controller
                 'success' => true,
                 'ads' => $ads,
                 'stats' => $stats,
+                'commonCategories' => CommonCategory::orderBy('name')->get(['id', 'name']),
+                'listingCategories' => ListingCategory::orderBy('sort_order')->orderBy('name')->get(['id', 'name', 'price']),
                 'pagination' => [
                     'current_page' => $currentPage,
                     'total_pages' => $totalPages,
@@ -778,6 +786,155 @@ class AdminAdvertisementController extends Controller
             }
         } catch (\Throwable $e) {
             Log::warning('Watermark failed on admin image upload: ' . $e->getMessage());
+        }
+    }
+
+    /**
+     * Create a new advertisement directly from Super Admin
+     */
+    public function store(Request $request): JsonResponse
+    {
+        try {
+            $validated = $request->validate([
+                'title' => ['required', 'string', 'max:255'],
+                'description' => ['required', 'string'],
+                'price' => ['required', 'numeric', 'min:0'],
+                'location' => ['required', 'string', 'max:255'],
+                'phone_number' => ['nullable', 'string', 'max:50'],
+                'whatsapp_number' => ['nullable', 'string', 'max:50'],
+                'telegram_number' => ['nullable', 'string', 'max:50'],
+                'common_category_id' => ['required', 'integer', 'exists:common_categories,id'],
+                'listing_category_id' => ['nullable', 'integer', 'exists:listing_categories,id'],
+                'status' => ['nullable', 'string', 'in:activated,deactivated,blocked'],
+                'payment_status' => ['nullable', 'string', 'in:paid,unpaid'],
+                'images' => ['nullable', 'array', 'max:10'],
+                'images.*' => ['file', 'mimes:jpeg,png,jpg,webp', 'max:10240'],
+            ]);
+
+            // Assign agent_id: First existing agent or 1
+            $agentId = \App\Models\Agent::value('id') ?? 1;
+
+            // Generate unique code
+            do {
+                $code = 'AD-' . strtoupper(Str::random(6));
+            } while (Advertisement::where('code', $code)->exists());
+
+            $ad = DB::transaction(function () use ($validated, $agentId, $code, $request) {
+                $advertisement = Advertisement::create([
+                    'agent_id' => $agentId,
+                    'code' => $code,
+                    'status' => $validated['status'] ?? 'activated',
+                    'payment_status' => $validated['payment_status'] ?? 'paid',
+                    'title' => $validated['title'],
+                    'description' => $validated['description'],
+                    'price' => $validated['price'],
+                    'location' => $validated['location'],
+                    'phone_number' => $validated['phone_number'] ?? null,
+                    'whatsapp_number' => $validated['whatsapp_number'] ?? null,
+                    'telegram_number' => $validated['telegram_number'] ?? null,
+                    'common_category_id' => $validated['common_category_id'],
+                    'listing_category_id' => $validated['listing_category_id'] ?? 1, // Default VIP
+                    'post_date' => now(),
+                    'views_count' => rand(15, 45),
+                    'likes_count' => rand(2, 10),
+                ]);
+
+                if ($request->hasFile('images')) {
+                    foreach ($request->file('images') as $file) {
+                        if ($file instanceof \Illuminate\Http\UploadedFile) {
+                            $path = $file->store('ad-images', 'public');
+                            $this->watermarkImage($path);
+                            $advertisement->images()->create(['path' => $path]);
+                        }
+                    }
+                }
+
+                return $advertisement;
+            });
+
+            Log::info('Advertisement created by Admin', ['ad_id' => $ad->id]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Advertisement created and activated successfully!',
+                'ad_id' => $ad->id,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to create advertisement by Admin', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create advertisement: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Update advertisement details by Super Admin
+     */
+    public function update(Request $request, int $id): JsonResponse
+    {
+        try {
+            $advertisement = Advertisement::findOrFail($id);
+
+            $validated = $request->validate([
+                'title' => ['required', 'string', 'max:255'],
+                'description' => ['required', 'string'],
+                'price' => ['required', 'numeric', 'min:0'],
+                'location' => ['required', 'string', 'max:255'],
+                'phone_number' => ['nullable', 'string', 'max:50'],
+                'whatsapp_number' => ['nullable', 'string', 'max:50'],
+                'telegram_number' => ['nullable', 'string', 'max:50'],
+                'common_category_id' => ['required', 'integer', 'exists:common_categories,id'],
+                'listing_category_id' => ['nullable', 'integer', 'exists:listing_categories,id'],
+                'status' => ['nullable', 'string', 'in:activated,deactivated,blocked,expired'],
+                'payment_status' => ['nullable', 'string', 'in:paid,unpaid'],
+                'reset_post_date' => ['nullable', 'boolean'],
+            ]);
+
+            $updateData = [
+                'title' => $validated['title'],
+                'description' => $validated['description'],
+                'price' => $validated['price'],
+                'location' => $validated['location'],
+                'phone_number' => $validated['phone_number'] ?? null,
+                'whatsapp_number' => $validated['whatsapp_number'] ?? null,
+                'telegram_number' => $validated['telegram_number'] ?? null,
+                'common_category_id' => $validated['common_category_id'],
+                'listing_category_id' => $validated['listing_category_id'] ?? $advertisement->listing_category_id,
+            ];
+
+            if (!empty($validated['status'])) {
+                $updateData['status'] = $validated['status'];
+            }
+            if (!empty($validated['payment_status'])) {
+                $updateData['payment_status'] = $validated['payment_status'];
+            }
+            if (!empty($validated['reset_post_date'])) {
+                $updateData['post_date'] = now();
+            }
+
+            $advertisement->update($updateData);
+
+            Log::info('Advertisement updated by Admin', ['ad_id' => $advertisement->id]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Advertisement updated successfully!',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to update advertisement by Admin', [
+                'ad_id' => $id,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to update advertisement: ' . $e->getMessage(),
+            ], 500);
         }
     }
 }

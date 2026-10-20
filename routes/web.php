@@ -172,6 +172,8 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
 
     // Advertisement Management API Routes
     Route::get('/api/advertisements', [AdminAdvertisementController::class, 'index'])->name('api.advertisements.index');
+    Route::post('/api/advertisements', [AdminAdvertisementController::class, 'store'])->name('api.advertisements.store');
+    Route::post('/api/advertisements/{id}/update', [AdminAdvertisementController::class, 'update'])->name('api.advertisements.update');
     Route::post('/api/advertisements/block', [AdminAdvertisementController::class, 'block'])->name('api.advertisements.block');
     Route::post('/api/advertisements/feature', [AdminAdvertisementController::class, 'feature'])->name('api.advertisements.feature');
     Route::post('/api/advertisements/activate', [AdminAdvertisementController::class, 'activate'])->name('api.advertisements.activate');

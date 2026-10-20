@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
 export const get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ get.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
 get.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -44,7 +44,7 @@ get.url = (args: { id: string | number } | [id: string | number ] | string | num
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
 get.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -53,7 +53,7 @@ get.get = (args: { id: string | number } | [id: string | number ] | string | num
 })
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
 get.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -63,7 +63,7 @@ get.head = (args: { id: string | number } | [id: string | number ] | string | nu
 
     /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
     const getForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -73,7 +73,7 @@ get.head = (args: { id: string | number } | [id: string | number ] | string | nu
 
             /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
         getForm.get = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -82,7 +82,7 @@ get.head = (args: { id: string | number } | [id: string | number ] | string | nu
         })
             /**
 * @see \App\Http\Controllers\AdminAdvertisementController::get
- * @see app/Http/Controllers/AdminAdvertisementController.php:584
+ * @see app/Http/Controllers/AdminAdvertisementController.php:592
  * @route '/admin/api/advertisements/{id}/images'
  */
         getForm.head = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -98,7 +98,7 @@ get.head = (args: { id: string | number } | [id: string | number ] | string | nu
     get.form = getForm
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::upload
- * @see app/Http/Controllers/AdminAdvertisementController.php:617
+ * @see app/Http/Controllers/AdminAdvertisementController.php:625
  * @route '/admin/api/advertisements/{id}/images'
  */
 export const upload = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ upload.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::upload
- * @see app/Http/Controllers/AdminAdvertisementController.php:617
+ * @see app/Http/Controllers/AdminAdvertisementController.php:625
  * @route '/admin/api/advertisements/{id}/images'
  */
 upload.url = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -141,7 +141,7 @@ upload.url = (args: { id: string | number } | [id: string | number ] | string | 
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::upload
- * @see app/Http/Controllers/AdminAdvertisementController.php:617
+ * @see app/Http/Controllers/AdminAdvertisementController.php:625
  * @route '/admin/api/advertisements/{id}/images'
  */
 upload.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -151,7 +151,7 @@ upload.post = (args: { id: string | number } | [id: string | number ] | string |
 
     /**
 * @see \App\Http\Controllers\AdminAdvertisementController::upload
- * @see app/Http/Controllers/AdminAdvertisementController.php:617
+ * @see app/Http/Controllers/AdminAdvertisementController.php:625
  * @route '/admin/api/advertisements/{id}/images'
  */
     const uploadForm = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -161,7 +161,7 @@ upload.post = (args: { id: string | number } | [id: string | number ] | string |
 
             /**
 * @see \App\Http\Controllers\AdminAdvertisementController::upload
- * @see app/Http/Controllers/AdminAdvertisementController.php:617
+ * @see app/Http/Controllers/AdminAdvertisementController.php:625
  * @route '/admin/api/advertisements/{id}/images'
  */
         uploadForm.post = (args: { id: string | number } | [id: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -172,7 +172,7 @@ upload.post = (args: { id: string | number } | [id: string | number ] | string |
     upload.form = uploadForm
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:691
+ * @see app/Http/Controllers/AdminAdvertisementController.php:699
  * @route '/admin/api/advertisements/images/{imageId}'
  */
 export const deleteMethod = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -187,7 +187,7 @@ deleteMethod.definition = {
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:691
+ * @see app/Http/Controllers/AdminAdvertisementController.php:699
  * @route '/admin/api/advertisements/images/{imageId}'
  */
 deleteMethod.url = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions) => {
@@ -215,7 +215,7 @@ deleteMethod.url = (args: { imageId: string | number } | [imageId: string | numb
 
 /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:691
+ * @see app/Http/Controllers/AdminAdvertisementController.php:699
  * @route '/admin/api/advertisements/images/{imageId}'
  */
 deleteMethod.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -225,7 +225,7 @@ deleteMethod.delete = (args: { imageId: string | number } | [imageId: string | n
 
     /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:691
+ * @see app/Http/Controllers/AdminAdvertisementController.php:699
  * @route '/admin/api/advertisements/images/{imageId}'
  */
     const deleteMethodForm = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -240,7 +240,7 @@ deleteMethod.delete = (args: { imageId: string | number } | [imageId: string | n
 
             /**
 * @see \App\Http\Controllers\AdminAdvertisementController::deleteMethod
- * @see app/Http/Controllers/AdminAdvertisementController.php:691
+ * @see app/Http/Controllers/AdminAdvertisementController.php:699
  * @route '/admin/api/advertisements/images/{imageId}'
  */
         deleteMethodForm.delete = (args: { imageId: string | number } | [imageId: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
