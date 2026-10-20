@@ -80,17 +80,21 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
-        <!-- Top Sticky Telegram Announcement Bar -->
-        <aside id="tintin-top-telegram-bar" style="background: linear-gradient(90deg, #0284c7 0%, #0369a1 50%, #075985 100%); color: #ffffff; padding: 7px 12px; font-size: 12px; font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 9999999; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+        <!-- Top Sticky Telegram & WhatsApp Announcement Bar -->
+        <aside id="tintin-top-telegram-bar" style="background: linear-gradient(90deg, #dc2626 0%, #db2777 50%, #dc2626 100%); color: #ffffff; padding: 7px 12px; font-size: 12px; font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 9999999; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
             <div style="display: flex; align-items: center; gap: 6px;">
                 <span style="font-size: 14px;">🔥</span>
-                <span>අලුත්ම VIP දැන්වීම් සහ WhatsApp අංක එසැනින් ලබාගන්න අපේ නිල Telegram නාලිකාවට එක්වන්න!</span>
+                <span>ශ්‍රී ලංකාවේ අංක 1 VIP Classifieds වෙබ් අඩවිය</span>
             </div>
-            <a href="https://t.me/tintinadsvip" target="_blank" rel="noopener noreferrer" style="background: #ffffff; color: #0284c7; padding: 3.5px 12px; border-radius: 9999px; font-weight: 800; font-size: 11px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.15); transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                <i class="fa-brands fa-telegram" style="color: #0284c7; font-size: 14px;"></i>
-                <span>Join Telegram</span>
+            <a href="https://wa.me/94706161617?text=Hi%20Shanika,%20TinTinAds%20%E0%B6%91%E0%B6%9A%E0%B7%8A%E0%B6%B1%E0%B7%8A%20%E0%B6%9A%E0%B6%AD%E0%B7%8F%20%E0%B6%9A%E0%B6%BB%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A" target="_blank" rel="noopener noreferrer" style="background: #10b981; color: #ffffff; padding: 3px 11px; border-radius: 9999px; font-weight: 800; font-size: 11px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.15); transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="fa-brands fa-whatsapp" style="color: #ffffff; font-size: 13px;"></i>
+                <span>Shanika: 070 616 1617</span>
             </a>
-            <button onclick="document.getElementById('tintin-top-telegram-bar').style.display='none'" style="background: transparent; border: none; color: #bae6fd; font-size: 15px; cursor: pointer; padding: 0 4px; line-height: 1; margin-left: 4px;" title="Close">&times;</button>
+            <a href="https://t.me/tintinadsvip" target="_blank" rel="noopener noreferrer" style="background: #0284c7; color: #ffffff; padding: 3px 11px; border-radius: 9999px; font-weight: 800; font-size: 11px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.15); transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="fa-brands fa-telegram" style="color: #ffffff; font-size: 13px;"></i>
+                <span>Telegram VIP</span>
+            </a>
+            <button onclick="document.getElementById('tintin-top-telegram-bar').style.display='none'" style="background: transparent; border: none; color: #fecdd3; font-size: 15px; cursor: pointer; padding: 0 4px; line-height: 1; margin-left: 4px;" title="Close">&times;</button>
         </aside>
 
         @inertia

@@ -957,16 +957,40 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 `}</style>
             )}
             
-            {/* Visitors Counter Strip */}
-            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-1.5 sm:py-2 px-4 shadow-md text-xs sm:text-sm font-bold flex items-center justify-center gap-2 relative overflow-hidden">
-                <div className="absolute inset-0 bg-white opacity-10 animate-pulse"></div>
-                <span className="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-white"></span>
-                </span>
-                <span className="z-10 tracking-wide">
-                    🔥 දිනපතා දහස් ගණනක් පැමිණෙන ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - <span className="text-yellow-300 ml-1 text-[13px] sm:text-[15px]">Total Visits: {displayViews.toLocaleString()}+</span>
-                </span>
+            {/* Visitors Counter Strip & VIP Contacts */}
+            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-2 px-3 sm:px-4 shadow-md text-xs sm:text-sm font-bold flex flex-wrap items-center justify-center gap-2 sm:gap-4 relative overflow-hidden">
+                <div className="absolute inset-0 bg-white opacity-10 animate-pulse pointer-events-none"></div>
+                <div className="flex items-center gap-2 z-10">
+                    <span className="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-white"></span>
+                    </span>
+                    <span className="tracking-wide">
+                        🔥 දිනපතා දහස් ගණනක් පැමිණෙන ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - <span className="text-yellow-300 font-extrabold ml-1 text-[13px] sm:text-[15px]">Total Visits: {displayViews.toLocaleString()}+</span>
+                    </span>
+                </div>
+
+                {/* Shanika Direct WhatsApp Contact */}
+                <a
+                    href="https://wa.me/94706161617?text=Hi%20Shanika,%20TinTinAds%20%E0%B6%91%E0%B6%9A%E0%B7%8A%E0%B6%B1%E0%B7%8A%20%E0%B6%9A%E0%B6%AD%E0%B7%8F%20%E0%B6%9A%E0%B6%BB%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="z-10 inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 text-white px-3 py-1 rounded-full text-xs font-black shadow-md border border-white/30 transition-transform hover:scale-105"
+                >
+                    <i className="fa-brands fa-whatsapp text-sm text-white"></i>
+                    <span>Shanika: 070 616 1617</span>
+                </a>
+
+                {/* Official Telegram Channel */}
+                <a
+                    href="https://t.me/tintinadsvip"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="z-10 inline-flex items-center gap-1.5 bg-sky-500 hover:bg-sky-400 text-white px-3 py-1 rounded-full text-xs font-black shadow-md border border-white/30 transition-transform hover:scale-105"
+                >
+                    <i className="fa-brands fa-telegram text-sm text-white"></i>
+                    <span>Telegram VIP</span>
+                </a>
             </div>
             
             {/* Sticky Header */}
