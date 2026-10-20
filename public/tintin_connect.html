@@ -191,18 +191,40 @@
             </div>
 
             <!-- Auto-Send Live Progress Bar -->
-            <div id="auto-progress-container" class="hidden bg-gray-950/80 border border-gray-800 rounded-xl p-4 space-y-2">
-                <div class="flex justify-between items-center text-xs">
-                    <span id="auto-progress-status" class="text-yellow-400 font-bold flex items-center gap-2">
+            <div id="auto-progress-container" class="hidden bg-gray-950/95 border-2 border-yellow-500/50 rounded-2xl p-5 space-y-3 shadow-2xl">
+                <!-- Popup Warning Banner -->
+                <div id="popup-warning" class="hidden bg-red-950/90 border border-red-500 p-3.5 rounded-xl flex items-start space-x-3 text-xs text-red-200">
+                    <i class="fa-solid fa-triangle-exclamation text-red-400 text-xl mt-0.5"></i>
+                    <div>
+                        <strong class="font-bold text-red-300 text-sm">Browser Pop-up එක Block වී ඇත!</strong>
+                        <p class="mt-1 text-xs text-gray-300">
+                            ඔබගේ Browser එකේ URL / Address Bar එකේ දකුණු කෙළවරේ ඇති <strong>Pop-up Blocked අයිකනය</strong> ක්ලික් කර <strong>"Always allow pop-ups from tintinads.com"</strong> තෝරා Done ඔබන්න.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-xs gap-3">
+                    <span id="auto-progress-status" class="text-yellow-400 font-bold flex items-center gap-2 text-sm">
                         <i class="fa-solid fa-spinner fa-spin"></i>
                         <span>ක්‍රියාත්මක වෙමින් පවතී...</span>
                     </span>
-                    <span id="auto-progress-counter" class="text-gray-300 font-mono">0 / 0 Completed</span>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <span id="auto-progress-counter" class="text-gray-300 font-mono font-bold bg-gray-900 px-3 py-1.5 rounded-xl border border-gray-800 text-xs">0 / 0 Completed</span>
+                        <button id="btn-force-open-next" onclick="manualTriggerNext()" class="inline-flex items-center space-x-2 bg-gradient-to-r from-yellow-500 to-amber-400 hover:from-yellow-400 hover:to-amber-300 text-black px-4 py-2 rounded-xl font-black text-xs shadow-lg transition transform hover:scale-105 active:scale-95">
+                            <i class="fa-brands fa-whatsapp text-base"></i>
+                            <span>👉 දැන්ම WhatsApp Open කරන්න (Next)</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
-                    <div id="auto-progress-bar" class="bg-gradient-to-r from-yellow-500 via-amber-400 to-green-500 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+
+                <div class="w-full bg-gray-800 rounded-full h-3.5 overflow-hidden p-0.5 border border-gray-700">
+                    <div id="auto-progress-bar" class="bg-gradient-to-r from-yellow-500 via-amber-400 to-green-500 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <p id="auto-progress-log" class="text-[11px] text-gray-400 font-mono truncate">Ready.</p>
+                
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-[11px] text-gray-400 font-mono gap-1">
+                    <span id="auto-progress-log" class="truncate max-w-lg text-yellow-300 font-bold">Ready.</span>
+                    <span class="text-gray-400 text-[11px] bg-gray-900 px-2 py-0.5 rounded border border-gray-800">⌨️ ඉඟිය: Spacebar එබීමෙන්ද ඊළඟ අංකය Open කළ හැක</span>
+                </div>
             </div>
         </div>
 
@@ -705,6 +727,17 @@ TinTinAds.com
         let autoSenderQueue = [];
         let autoSenderIdx = 0;
         let autoSenderTimer = null;
+        let waWorkerWindow = null;
+
+        function getWhatsAppUrl(type, ad) {
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            const msg = getMessageText(type, ad);
+            if (isMobile) {
+                return `https://wa.me/${ad.wa_intl}?text=${encodeURIComponent(msg)}`;
+            } else {
+                return `https://web.whatsapp.com/send?phone=${ad.wa_intl}&text=${encodeURIComponent(msg)}`;
+            }
+        }
 
         function startAutoSender() {
             const choice = parseInt(document.getElementById('auto-msg-choice').value, 10);
@@ -712,10 +745,8 @@ TinTinAds.com
 
             // Filter targets according to message choice
             if (choice === 3) {
-                // Target expired ads where msg3 not sent yet (or all expired)
                 autoSenderQueue = allAds.filter(a => a.is_expired && !(a.msg3_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg3)));
                 if (autoSenderQueue.length === 0) {
-                    // Fallback to all expired ads
                     autoSenderQueue = allAds.filter(a => a.is_expired);
                 }
             } else if (choice === 1) {
@@ -744,10 +775,28 @@ TinTinAds.com
             document.getElementById('btn-stop-auto').classList.add('bg-red-600', 'text-white', 'hover:bg-red-500');
 
             document.getElementById('auto-progress-container').classList.remove('hidden');
-            processNextInQueue(choice, delay);
+            const popupWarning = document.getElementById('popup-warning');
+            if (popupWarning) popupWarning.classList.add('hidden');
+
+            // CRITICAL: Open the dedicated WhatsApp worker tab synchronously on user click!
+            const firstAd = autoSenderQueue[0];
+            const firstUrl = getWhatsAppUrl(choice, firstAd);
+
+            try {
+                waWorkerWindow = window.open(firstUrl, 'tintin_whatsapp_worker');
+                if (!waWorkerWindow || waWorkerWindow.closed || typeof waWorkerWindow.closed === 'undefined') {
+                    if (popupWarning) popupWarning.classList.remove('hidden');
+                    showToast("⚠️ Pop-up Block වී ඇත. කරුණාකර Address bar එකෙන් Allow කරන්න.");
+                }
+            } catch (err) {
+                console.error("Popup blocked:", err);
+                if (popupWarning) popupWarning.classList.remove('hidden');
+            }
+
+            processCurrentAd(choice, delay, true);
         }
 
-        function processNextInQueue(choice, delay) {
+        function processCurrentAd(choice, delay, isFirst = false) {
             if (!autoSenderRunning || autoSenderIdx >= autoSenderQueue.length) {
                 finishAutoSender();
                 return;
@@ -760,30 +809,70 @@ TinTinAds.com
 
             document.getElementById('auto-progress-bar').style.width = `${pct}%`;
             document.getElementById('auto-progress-counter').innerText = `${current} / ${total} (${pct}%)`;
-            document.getElementById('auto-progress-log').innerText = `[Ad #${ad.id}] +${ad.wa_intl} වෙත Message ${choice} යවමින් පවතී...`;
+            document.getElementById('auto-progress-log').innerText = `[Ad #${ad.id}] +${ad.wa_intl} (${ad.title.substring(0, 30)}...)`;
 
-            // Open WhatsApp Web
-            const waUrl = `https://wa.me/${ad.wa_intl}?text=${encodeURIComponent(getMessageText(choice, ad))}`;
-            window.open(waUrl, '_blank');
+            const waUrl = getWhatsAppUrl(choice, ad);
 
-            // Mark sent
+            // If not the very first ad (which was opened on click), navigate the worker tab
+            if (!isFirst) {
+                if (waWorkerWindow && !waWorkerWindow.closed) {
+                    try {
+                        waWorkerWindow.location.href = waUrl;
+                        waWorkerWindow.focus();
+                    } catch (e) {
+                        waWorkerWindow = window.open(waUrl, 'tintin_whatsapp_worker');
+                    }
+                } else {
+                    waWorkerWindow = window.open(waUrl, 'tintin_whatsapp_worker');
+                    if (!waWorkerWindow || waWorkerWindow.closed) {
+                        const pw = document.getElementById('popup-warning');
+                        if (pw) pw.classList.remove('hidden');
+                    }
+                }
+            }
+
+            // Mark as sent
             markMsgSent(ad.id, choice, true);
 
             autoSenderIdx++;
 
             if (autoSenderIdx < autoSenderQueue.length) {
-                document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-clock mr-1"></i> මීළඟ අංකය වෙත යාමට තත්පර ${delay/1000}ක් රැඳී සිටියි...`;
-                autoSenderTimer = setTimeout(() => {
-                    processNextInQueue(choice, delay);
-                }, delay);
+                let secondsLeft = Math.round(delay / 1000);
+                document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-clock mr-1 text-yellow-400"></i> මීළඟ අංකය වෙත යාමට තත්පර <span id="cd-seconds" class="font-bold text-white text-base">${secondsLeft}</span>ක් රැඳී සිටියි...`;
+
+                if (autoSenderTimer) clearInterval(autoSenderTimer);
+                autoSenderTimer = setInterval(() => {
+                    secondsLeft--;
+                    const cdEl = document.getElementById('cd-seconds');
+                    if (cdEl) cdEl.innerText = secondsLeft;
+                    if (secondsLeft <= 0) {
+                        clearInterval(autoSenderTimer);
+                        processCurrentAd(choice, delay, false);
+                    }
+                }, 1000);
             } else {
                 finishAutoSender();
             }
         }
 
+        function manualTriggerNext() {
+            if (autoSenderTimer) clearInterval(autoSenderTimer);
+            const choice = parseInt(document.getElementById('auto-msg-choice').value, 10);
+            const delay = parseInt(document.getElementById('auto-delay-choice').value, 10);
+            processCurrentAd(choice, delay, false);
+        }
+
+        // Spacebar shortcut to advance to next
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && autoSenderRunning && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                manualTriggerNext();
+            }
+        });
+
         function stopAutoSender() {
             autoSenderRunning = false;
-            if (autoSenderTimer) clearTimeout(autoSenderTimer);
+            if (autoSenderTimer) clearInterval(autoSenderTimer);
             document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-pause mr-1 text-amber-400"></i> Auto-Send නවතා ඇත.`;
             document.getElementById('btn-start-auto').disabled = false;
             document.getElementById('btn-start-auto').classList.remove('opacity-50', 'cursor-not-allowed');
@@ -794,13 +883,15 @@ TinTinAds.com
 
         function finishAutoSender() {
             autoSenderRunning = false;
-            document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-circle-check mr-1 text-green-400"></i> Auto-Send සම්පූර්ණයි!`;
+            if (autoSenderTimer) clearInterval(autoSenderTimer);
+            document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-circle-check mr-1 text-green-400"></i> මෙම Batch එක සාර්ථකව අවසන් විය!`;
             document.getElementById('btn-start-auto').disabled = false;
             document.getElementById('btn-start-auto').classList.remove('opacity-50', 'cursor-not-allowed');
             document.getElementById('btn-stop-auto').disabled = true;
             document.getElementById('btn-stop-auto').className = "inline-flex items-center space-x-1.5 bg-gray-800 text-gray-500 px-4 py-2.5 rounded-xl font-bold text-xs transition cursor-not-allowed";
-            showToast("සියලු පණිවිඩ සාර්ථකව යවා අවසන් විය! 🎉");
+            showToast("ආරක්ෂිත Batch එක සාර්ථකව යවා අවසන් විය! (ගිණුමේ ආරක්ෂාව සඳහා මීළඟ වටයට පෙර විවේකයක් දෙන්න) 🎉");
         }
+
 
         // Copy Helpers
         function copyText(txt) {
