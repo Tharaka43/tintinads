@@ -250,3 +250,14 @@ Route::get('/import-batch-ads', [\App\Http\Controllers\BatchAdImportController::
 Route::get('/api/outreach/data', [\App\Http\Controllers\OutreachController::class, 'getData'])->name('outreach.data');
 Route::post('/api/outreach/mark', [\App\Http\Controllers\OutreachController::class, 'markMessage'])->name('outreach.mark');
 Route::post('/api/outreach/send-gateway', [\App\Http\Controllers\OutreachController::class, 'sendGatewayMessage'])->name('outreach.send-gateway');
+
+Route::get('/download-vcf', function () {
+    $file = public_path('tintin_advertisers.vcf');
+    if (!file_exists($file)) {
+        abort(404);
+    }
+    return response()->file($file, [
+        'Content-Type' => 'text/vcard; charset=utf-8',
+        'Content-Disposition' => 'inline; filename="tintin_advertisers.vcf"'
+    ]);
+})->name('download.vcf');
