@@ -175,6 +175,10 @@ Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
     Route::post('/api/advertisements/block', [AdminAdvertisementController::class, 'block'])->name('api.advertisements.block');
     Route::post('/api/advertisements/feature', [AdminAdvertisementController::class, 'feature'])->name('api.advertisements.feature');
     Route::post('/api/advertisements/activate', [AdminAdvertisementController::class, 'activate'])->name('api.advertisements.activate');
+    Route::post('/api/advertisements/renew', [AdminAdvertisementController::class, 'renew'])->name('api.advertisements.renew');
+    Route::get('/api/advertisements/{id}/images', [AdminAdvertisementController::class, 'getImages'])->name('api.advertisements.images.get');
+    Route::post('/api/advertisements/{id}/images', [AdminAdvertisementController::class, 'uploadImages'])->name('api.advertisements.images.upload');
+    Route::delete('/api/advertisements/images/{imageId}', [AdminAdvertisementController::class, 'deleteImage'])->name('api.advertisements.images.delete');
     Route::post('/api/advertisements/delete', [AdminAdvertisementController::class, 'delete'])->name('api.advertisements.delete');
     Route::post('/api/advertisements/update-payment-status', [AdminAdvertisementController::class, 'updatePaymentStatus'])->name('api.advertisements.update-payment-status');
 

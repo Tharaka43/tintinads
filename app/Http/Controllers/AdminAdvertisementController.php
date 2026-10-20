@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advertisement;
+use App\Models\AdvertisementImage;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,9 +27,49 @@ class AdminAdvertisementController extends Controller
                 'transactions'
             ]);
 
-            // Apply filters
+            // Apply status filter
             if ($request->has('status') && $request->status !== 'All Status') {
-                $query->where('status', $request->status);
+                $statusReq = strtolower($request->status);
+                if ($statusReq === 'active') {
+                    $query->where('status', 'activated')->unexpired();
+                } elseif ($statusReq === 'expired') {
+                    // Match expired ads (status is expired OR status is activated and past expiry)
+                    $query->where(function ($q) {
+                        $q->where('status', 'expired')
+                          ->orWhere(function ($activeSub) {
+                              $activeSub->where('status', 'activated')
+                                  ->where(function ($exp) {
+                                      $exp->whereNull('post_date')
+                                          ->orWhere(function ($sub) {
+                                              $sub->where('listing_category_id', 4)->where('post_date', '<', now()->subDays(30));
+                                          })
+                                          ->orWhere(function ($sub) {
+                                              $sub->where('listing_category_id', 1)->where('post_date', '<', now()->subDays(3));
+                                          })
+                                          ->orWhere(function ($sub) {
+                                              $sub->where('listing_category_id', 2)->where('post_date', '<', now()->subDays(2));
+                                          })
+                                          ->orWhere(function ($sub) {
+                                              $sub->where(function ($sub2) {
+                                                  $sub2->where('listing_category_id', 3)->orWhereNull('listing_category_id');
+                                              })->where('post_date', '<', now()->subDays(1));
+                                          });
+                                  });
+                          });
+                    });
+                } elseif ($statusReq === 'featured') {
+                    $query->where('status', 'activated')
+                        ->unexpired()
+                        ->whereHas('listingCategory', function ($q) {
+                            $q->whereIn('name', ['VIP', 'Premium', 'Super', 'Platinum', 'Featured']);
+                        });
+                } elseif ($statusReq === 'pending review' || $statusReq === 'pending' || $statusReq === 'deactivated') {
+                    $query->whereIn('status', ['deactivated', 'pending']);
+                } elseif ($statusReq === 'blocked') {
+                    $query->where('status', 'blocked');
+                } else {
+                    $query->where('status', $request->status);
+                }
             }
 
             if ($request->has('agent_id') && $request->agent_id) {
@@ -51,12 +92,40 @@ class AdminAdvertisementController extends Controller
                 $query->whereDate('post_date', '<=', $request->date_to);
             }
 
+            // Search by Title, Code, Description, Location, ID, or Phone/WhatsApp Number
             if ($request->has('search') && $request->search) {
-                $search = $request->search;
-                $query->where(function ($q) use ($search) {
+                $search = trim($request->search);
+                $cleanDigits = preg_replace('/[^0-9]/', '', $search);
+
+                $query->where(function ($q) use ($search, $cleanDigits) {
                     $q->where('title', 'like', '%' . $search . '%')
                       ->orWhere('code', 'like', '%' . $search . '%')
-                      ->orWhere('description', 'like', '%' . $search . '%');
+                      ->orWhere('description', 'like', '%' . $search . '%')
+                      ->orWhere('location', 'like', '%' . $search . '%');
+
+                    // If numeric Ad ID (e.g. 182, #182)
+                    $numericOnly = ltrim(trim($search, '# '), '0');
+                    if ($numericOnly !== '' && is_numeric($numericOnly)) {
+                        $q->orWhere('id', (int) $numericOnly);
+                    }
+
+                    // Search by Phone or WhatsApp number if digits exist
+                    if (!empty($cleanDigits) && strlen($cleanDigits) >= 3) {
+                        $q->orWhere('phone_number', 'like', '%' . $cleanDigits . '%')
+                          ->orWhere('whatsapp_number', 'like', '%' . $cleanDigits . '%');
+
+                        if (str_starts_with($cleanDigits, '0') && strlen($cleanDigits) >= 9) {
+                            $withoutZero = substr($cleanDigits, 1);
+                            $q->orWhere('phone_number', 'like', '%' . $withoutZero . '%')
+                              ->orWhere('whatsapp_number', 'like', '%' . $withoutZero . '%');
+                        }
+
+                        if (str_starts_with($cleanDigits, '94') && strlen($cleanDigits) >= 11) {
+                            $without94 = substr($cleanDigits, 2);
+                            $q->orWhere('phone_number', 'like', '%' . $without94 . '%')
+                              ->orWhere('whatsapp_number', 'like', '%' . $without94 . '%');
+                        }
+                    }
                 });
             }
 
@@ -75,18 +144,26 @@ class AdminAdvertisementController extends Controller
 
             // Apply pagination
             $ads = $query->latest('post_date')
+                ->latest('id')
                 ->skip($offset)
                 ->take($perPage)
                 ->get()
                 ->map(function (Advertisement $advertisement) {
+                // Get all images
+                $allImages = $advertisement->images->map(function ($img) {
+                    return [
+                        'id' => $img->id,
+                        'url' => Storage::url($img->path),
+                        'path' => $img->path,
+                    ];
+                })->values();
+
                 // Get first image URL, or use default header image
-                $imageUrl = $advertisement->images->first()
-                    ? Storage::url($advertisement->images->first()->path)
-                    : '/placeholder-image.jpg';
+                $imageUrl = $allImages->first() ? $allImages->first()['url'] : '/placeholder-image.jpg';
 
                 // Determine if featured (check listing category for VIP/Premium)
                 $listingCategoryName = optional($advertisement->listingCategory)->name ?? '';
-                $isFeatured = in_array(strtolower($listingCategoryName), ['vip', 'premium', 'super', 'featured']) 
+                $isFeatured = in_array(strtolower($listingCategoryName), ['vip', 'premium', 'super', 'platinum', 'featured']) 
                     && strtolower($advertisement->status) === 'activated';
 
                 $rawStatus = $advertisement->status;
@@ -118,7 +195,11 @@ class AdminAdvertisementController extends Controller
                     'paymentStatus' => $advertisement->payment_status ?? 'unpaid',
                     'datePosted' => $advertisement->post_date ? $advertisement->post_date->format('Y-m-d') : '',
                     'imgSrc' => $imageUrl,
+                    'images' => $allImages,
                     'isFeatured' => $isFeatured,
+                    'isExpired' => $isExpired,
+                    'listing_category_id' => $advertisement->listing_category_id,
+                    'listing_category_name' => $listingCategoryName,
                     'isSelected' => false,
                     'advertisement_id' => $advertisement->id,
                     'receiptPath' => $receiptPath,
@@ -128,13 +209,38 @@ class AdminAdvertisementController extends Controller
             });
 
             // Get statistics
+            $expiredQuery = Advertisement::where(function ($q) {
+                $q->where('status', 'expired')
+                  ->orWhere(function ($activeSub) {
+                      $activeSub->where('status', 'activated')
+                          ->where(function ($exp) {
+                              $exp->whereNull('post_date')
+                                  ->orWhere(function ($sub) {
+                                      $sub->where('listing_category_id', 4)->where('post_date', '<', now()->subDays(30));
+                                  })
+                                  ->orWhere(function ($sub) {
+                                      $sub->where('listing_category_id', 1)->where('post_date', '<', now()->subDays(3));
+                                  })
+                                  ->orWhere(function ($sub) {
+                                      $sub->where('listing_category_id', 2)->where('post_date', '<', now()->subDays(2));
+                                  })
+                                  ->orWhere(function ($sub) {
+                                      $sub->where(function ($sub2) {
+                                          $sub2->where('listing_category_id', 3)->orWhereNull('listing_category_id');
+                                      })->where('post_date', '<', now()->subDays(1));
+                                  });
+                          });
+                  });
+            });
+
             $stats = [
                 'totalAds' => Advertisement::count(),
-                'activeAds' => Advertisement::where('status', 'activated')->count(),
+                'activeAds' => Advertisement::where('status', 'activated')->unexpired()->count(),
+                'expiredAds' => (clone $expiredQuery)->count(),
                 'blockedAds' => Advertisement::where('status', 'blocked')->count(),
-                'featuredAds' => Advertisement::where('status', 'activated')
+                'featuredAds' => Advertisement::where('status', 'activated')->unexpired()
                     ->whereHas('listingCategory', function ($q) {
-                        $q->whereIn('name', ['VIP', 'Premium', 'Featured']);
+                        $q->whereIn('name', ['VIP', 'Premium', 'Featured', 'Platinum', 'Super']);
                     })->count(),
             ];
 
@@ -405,6 +511,274 @@ class AdminAdvertisementController extends Controller
         ];
 
         return $statusMap[strtolower($status)] ?? 'Pending Review';
+    }
+
+    /**
+     * Renew / Reactivate expired advertisement(s)
+     */
+    public function renew(Request $request): JsonResponse
+    {
+        try {
+            $validated = $request->validate([
+                'ad_id' => ['nullable', 'integer', 'exists:advertisements,id'],
+                'ad_ids' => ['nullable', 'array'],
+                'ad_ids.*' => ['integer', 'exists:advertisements,id'],
+                'listing_category_id' => ['nullable', 'integer', 'in:1,2,3,4'],
+            ]);
+
+            $ids = [];
+            if (!empty($validated['ad_id'])) {
+                $ids[] = $validated['ad_id'];
+            }
+            if (!empty($validated['ad_ids'])) {
+                $ids = array_unique(array_merge($ids, $validated['ad_ids']));
+            }
+
+            if (empty($ids)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No advertisement IDs provided.',
+                ], 422);
+            }
+
+            $updateData = [
+                'status' => 'activated',
+                'payment_status' => 'paid',
+                'post_date' => now(),
+            ];
+
+            if (!empty($validated['listing_category_id'])) {
+                $updateData['listing_category_id'] = $validated['listing_category_id'];
+            }
+
+            $count = Advertisement::whereIn('id', $ids)->update($updateData);
+
+            Log::info('Advertisements renewed by admin', [
+                'ad_ids' => $ids,
+                'category' => $validated['listing_category_id'] ?? 'unchanged',
+                'count' => $count,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => "Successfully renewed {$count} advertisement(s).",
+                'count' => $count,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to renew advertisements', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to renew advertisement(s).',
+                'error' => $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Get all images for a specific advertisement
+     */
+    public function getImages(int $adId): JsonResponse
+    {
+        try {
+            $ad = Advertisement::with('images')->findOrFail($adId);
+
+            $images = $ad->images->map(function ($img) {
+                return [
+                    'id' => $img->id,
+                    'url' => Storage::url($img->path),
+                    'path' => $img->path,
+                    'created_at' => $img->created_at ? $img->created_at->format('Y-m-d H:i') : '',
+                ];
+            });
+
+            return response()->json([
+                'success' => true,
+                'ad_id' => $ad->id,
+                'ad_title' => $ad->title,
+                'ad_code' => $ad->code,
+                'images' => $images,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to retrieve images.',
+                'error' => $e->getMessage(),
+            ], 404);
+        }
+    }
+
+    /**
+     * Upload new images for a specific advertisement
+     */
+    public function uploadImages(Request $request, int $adId): JsonResponse
+    {
+        try {
+            $ad = Advertisement::findOrFail($adId);
+
+            $request->validate([
+                'images' => ['nullable', 'array'],
+                'images.*' => ['file', 'mimes:jpeg,png,jpg,webp', 'max:10240'],
+                'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,webp', 'max:10240'],
+            ]);
+
+            $files = [];
+            if ($request->hasFile('images')) {
+                $files = $request->file('images');
+            } elseif ($request->hasFile('image')) {
+                $files = [$request->file('image')];
+            }
+
+            if (empty($files)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No image files provided.',
+                ], 422);
+            }
+
+            $addedImages = [];
+            foreach ($files as $file) {
+                if ($file instanceof \Illuminate\Http\UploadedFile) {
+                    $path = $file->store('ad-images', 'public');
+                    $this->watermarkImage($path);
+
+                    $imgRecord = $ad->images()->create([
+                        'path' => $path,
+                    ]);
+
+                    $addedImages[] = [
+                        'id' => $imgRecord->id,
+                        'url' => Storage::url($imgRecord->path),
+                        'path' => $imgRecord->path,
+                    ];
+                }
+            }
+
+            // Return all images of this ad
+            $allImages = $ad->fresh()->images->map(function ($img) {
+                return [
+                    'id' => $img->id,
+                    'url' => Storage::url($img->path),
+                    'path' => $img->path,
+                ];
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => count($addedImages) . ' image(s) uploaded successfully.',
+                'added_count' => count($addedImages),
+                'images' => $allImages,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to upload images for ad', [
+                'ad_id' => $adId,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to upload images: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Delete an image from storage and database
+     */
+    public function deleteImage(int $imageId): JsonResponse
+    {
+        try {
+            $image = AdvertisementImage::findOrFail($imageId);
+            $adId = $image->advertisement_id;
+
+            if (Storage::disk('public')->exists($image->path)) {
+                Storage::disk('public')->delete($image->path);
+            }
+
+            $image->delete();
+
+            $remainingImages = AdvertisementImage::where('advertisement_id', $adId)->get()->map(function ($img) {
+                return [
+                    'id' => $img->id,
+                    'url' => Storage::url($img->path),
+                    'path' => $img->path,
+                ];
+            });
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Image deleted successfully.',
+                'images' => $remainingImages,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Failed to delete ad image', [
+                'image_id' => $imageId,
+                'error' => $e->getMessage(),
+            ]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to delete image: ' . $e->getMessage(),
+            ], 500);
+        }
+    }
+
+    /**
+     * Watermark an image with tintinads.com badge using GD
+     */
+    private function watermarkImage(string $path): void
+    {
+        try {
+            $fullPath = storage_path('app/public/' . $path);
+            if (!file_exists($fullPath)) {
+                return;
+            }
+
+            $ext = strtolower(pathinfo($fullPath, PATHINFO_EXTENSION));
+            $img = null;
+            if (in_array($ext, ['jpg', 'jpeg'])) {
+                $img = @imagecreatefromjpeg($fullPath);
+            } elseif ($ext === 'png') {
+                $img = @imagecreatefrompng($fullPath);
+            } elseif ($ext === 'webp' && function_exists('imagecreatefromwebp')) {
+                $img = @imagecreatefromwebp($fullPath);
+            }
+
+            if ($img) {
+                $width = imagesx($img);
+                $height = imagesy($img);
+
+                $text = 'tintinads.com';
+                $font = 5;
+                $fw = imagefontwidth($font) * strlen($text);
+                $fh = imagefontheight($font);
+
+                $x = $width - $fw - 15;
+                $y = $height - $fh - 15;
+
+                // Add semi-transparent black background box
+                $bg = imagecolorallocatealpha($img, 0, 0, 0, 80);
+                imagefilledrectangle($img, max(0, $x - 10), max(0, $y - 10), min($width, $x + $fw + 10), min($height, $y + $fh + 10), $bg);
+
+                // Add white text
+                $color = imagecolorallocate($img, 255, 255, 255);
+                imagestring($img, $font, $x, $y, $text, $color);
+
+                if (in_array($ext, ['jpg', 'jpeg'])) {
+                    imagejpeg($img, $fullPath, 90);
+                } elseif ($ext === 'png') {
+                    imagepng($img, $fullPath);
+                } elseif ($ext === 'webp' && function_exists('imagewebp')) {
+                    imagewebp($img, $fullPath, 90);
+                }
+                imagedestroy($img);
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Watermark failed on admin image upload: ' . $e->getMessage());
+        }
     }
 }
 

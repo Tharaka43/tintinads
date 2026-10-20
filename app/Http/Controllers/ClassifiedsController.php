@@ -48,10 +48,40 @@ class ClassifiedsController extends Controller
 
         // Filter by search term if provided
         if (!empty($search)) {
-            $query->where(function ($q) use ($search) {
-                $q->where('title', 'like', '%' . $search . '%')
-                  ->orWhere('description', 'like', '%' . $search . '%')
-                  ->orWhere('location', 'like', '%' . $search . '%');
+            $trimmedSearch = trim($search);
+            $cleanDigits = preg_replace('/[^0-9]/', '', $trimmedSearch);
+
+            $query->where(function ($q) use ($trimmedSearch, $cleanDigits) {
+                $q->where('title', 'like', '%' . $trimmedSearch . '%')
+                  ->orWhere('description', 'like', '%' . $trimmedSearch . '%')
+                  ->orWhere('location', 'like', '%' . $trimmedSearch . '%')
+                  ->orWhere('code', 'like', '%' . $trimmedSearch . '%');
+
+                // Search by numeric ID (e.g. 182, #182)
+                $numericOnly = ltrim(trim($trimmedSearch, '# '), '0');
+                if ($numericOnly !== '' && is_numeric($numericOnly)) {
+                    $q->orWhere('id', (int) $numericOnly);
+                }
+
+                // Search by Phone or WhatsApp number if digits exist
+                if (!empty($cleanDigits) && strlen($cleanDigits) >= 3) {
+                    $q->orWhere('phone_number', 'like', '%' . $cleanDigits . '%')
+                      ->orWhere('whatsapp_number', 'like', '%' . $cleanDigits . '%');
+
+                    // If user searched local number starting with 0 (e.g. 0716042725), also match without 0
+                    if (str_starts_with($cleanDigits, '0') && strlen($cleanDigits) >= 9) {
+                        $withoutZero = substr($cleanDigits, 1);
+                        $q->orWhere('phone_number', 'like', '%' . $withoutZero . '%')
+                          ->orWhere('whatsapp_number', 'like', '%' . $withoutZero . '%');
+                    }
+
+                    // If user searched with international prefix 94, also match without 94
+                    if (str_starts_with($cleanDigits, '94') && strlen($cleanDigits) >= 11) {
+                        $without94 = substr($cleanDigits, 2);
+                        $q->orWhere('phone_number', 'like', '%' . $without94 . '%')
+                          ->orWhere('whatsapp_number', 'like', '%' . $without94 . '%');
+                    }
+                }
             });
         }
 
