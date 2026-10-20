@@ -58,13 +58,21 @@ class TelegramChannelService
             // Attempt to find a primary image
             $imagePath = $this->resolveAdImage($ad);
 
+            $response = null;
             if ($imagePath && file_exists($imagePath)) {
-                $response = $this->sendPhotoWithLocalFile($imagePath, $caption, $replyMarkup);
-            } else {
+                try {
+                    $response = $this->sendPhotoWithLocalFile($imagePath, $caption, $replyMarkup);
+                } catch (\Throwable $photoEx) {
+                    Log::warning("Telegram sendPhoto exception for ad #{$ad->id}: " . $photoEx->getMessage() . ", falling back to text message.");
+                    $response = null;
+                }
+            }
+
+            if (!$response || !$response->successful()) {
                 $response = $this->sendMessage($caption, $replyMarkup);
             }
 
-            if ($response->successful()) {
+            if ($response && $response->successful()) {
                 Cache::put($cacheKey, true, now()->addDays(60));
                 Log::info("Ad #{$ad->id} successfully posted to Telegram Channel {$this->channelId}");
                 return [
@@ -74,24 +82,10 @@ class TelegramChannelService
                 ];
             }
 
-            // Fallback: If sendPhoto failed, try text sendMessage
-            if ($imagePath) {
-                Log::warning("Telegram sendPhoto failed for ad #{$ad->id}, trying sendMessage fallback: " . $response->body());
-                $fallback = $this->sendMessage($caption, $replyMarkup);
-                if ($fallback->successful()) {
-                    Cache::put($cacheKey, true, now()->addDays(60));
-                    return [
-                        'success' => true,
-                        'message' => "Ad #{$ad->id} posted to Telegram via fallback message.",
-                        'response' => $fallback->json(),
-                    ];
-                }
-            }
-
-            Log::error("Failed to post ad #{$ad->id} to Telegram: " . $response->body());
+            Log::error("Failed to post ad #{$ad->id} to Telegram: " . ($response ? $response->body() : 'No response'));
             return [
                 'success' => false,
-                'message' => 'Telegram API error: ' . $response->body(),
+                'message' => 'Telegram API error: ' . ($response ? $response->body() : 'No response'),
             ];
 
         } catch (\Throwable $e) {
@@ -270,7 +264,7 @@ class TelegramChannelService
     {
         $url = "https://api.telegram.org/bot{$this->botToken}/sendPhoto";
 
-        return Http::timeout(15)
+        return Http::timeout(35)
             ->attach('photo', file_get_contents($filePath), basename($filePath))
             ->post($url, [
                 'chat_id' => $this->channelId,
@@ -287,7 +281,7 @@ class TelegramChannelService
     {
         $url = "https://api.telegram.org/bot{$this->botToken}/sendMessage";
 
-        return Http::timeout(15)->post($url, [
+        return Http::timeout(25)->post($url, [
             'chat_id' => $this->channelId,
             'text' => $text,
             'parse_mode' => 'HTML',

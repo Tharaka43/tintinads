@@ -15,6 +15,7 @@ class TelegramPostAdCommand extends Command
      */
     protected $signature = 'telegram:post-ad 
                             {id? : ID of the advertisement to post, or "latest"}
+                            {--all : Post all active advertisements}
                             {--test : Send a test connection message to the Telegram VIP Channel}
                             {--latest= : Post the N most recent activated ads}
                             {--force : Force post even if already posted before}';
