@@ -80,6 +80,19 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        <!-- Top Sticky Telegram Announcement Bar -->
+        <aside id="tintin-top-telegram-bar" style="background: linear-gradient(90deg, #0284c7 0%, #0369a1 50%, #075985 100%); color: #ffffff; padding: 7px 12px; font-size: 12px; font-weight: 600; text-align: center; position: sticky; top: 0; z-index: 9999999; box-shadow: 0 2px 8px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="font-size: 14px;">🔥</span>
+                <span>අලුත්ම VIP දැන්වීම් සහ WhatsApp අංක එසැනින් ලබාගන්න අපේ නිල Telegram නාලිකාවට එක්වන්න!</span>
+            </div>
+            <a href="https://t.me/tintinadsvip" target="_blank" rel="noopener noreferrer" style="background: #ffffff; color: #0284c7; padding: 3.5px 12px; border-radius: 9999px; font-weight: 800; font-size: 11px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.15); transition: transform 0.15s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <i class="fa-brands fa-telegram" style="color: #0284c7; font-size: 14px;"></i>
+                <span>Join Telegram</span>
+            </a>
+            <button onclick="document.getElementById('tintin-top-telegram-bar').style.display='none'" style="background: transparent; border: none; color: #bae6fd; font-size: 15px; cursor: pointer; padding: 0 4px; line-height: 1; margin-left: 4px;" title="Close">&times;</button>
+        </aside>
+
         @inertia
     </body>
 </html>
