@@ -57,33 +57,45 @@ class TelegramPostAdCommand extends Command
 
         $force = (bool) $this->option('force');
 
-        // Batch latest ads
-        if ($latestCount = $this->option('latest')) {
-            $count = max(1, (int) $latestCount);
-            $this->info("Fetching latest {$count} active advertisements...");
-            $ads = Advertisement::where('status', 'activated')
-                ->latest('id')
-                ->take($count)
-                ->get();
+        // Batch ads (--all or --latest=N)
+        if ($this->option('all') || $this->option('latest')) {
+            if ($latestCount = $this->option('latest')) {
+                $count = max(1, (int) $latestCount);
+                $this->info("Fetching latest {$count} active advertisements...");
+                $ads = Advertisement::where('status', 'activated')
+                    ->latest('id')
+                    ->take($count)
+                    ->get()
+                    ->reverse();
+            } else {
+                $this->info("Fetching ALL active advertisements...");
+                $ads = Advertisement::where('status', 'activated')
+                    ->orderBy('id', 'asc')
+                    ->get();
+            }
 
             if ($ads->isEmpty()) {
                 $this->warn("No active ads found.");
                 return 0;
             }
 
+            $total = $ads->count();
+            $index = 0;
+
             foreach ($ads as $ad) {
-                $this->line("Posting Ad #{$ad->id}: {$ad->title}...");
+                $index++;
+                $this->line("[{$index}/{$total}] Posting Ad #{$ad->id}: {$ad->title}...");
                 $res = $telegramService->postAdvertisement($ad, $force);
                 if ($res['success']) {
                     $this->info("  -> " . ($res['message'] ?? 'Posted'));
                 } else {
                     $this->error("  -> Failed: " . ($res['message'] ?? 'Error'));
                 }
-                // Sleep 1s to respect Telegram rate limits
-                sleep(1);
+                // Sleep 2s to strictly respect Telegram rate limits
+                sleep(2);
             }
 
-            $this->info("✅ Batch posting finished.");
+            $this->info("✅ Batch posting finished for {$total} ads.");
             return 0;
         }
 
