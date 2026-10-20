@@ -10,6 +10,7 @@ import AdminSettingsController from './AdminSettingsController'
 import AgentAdController from './AgentAdController'
 import OcrController from './OcrController'
 import BatchAdImportController from './BatchAdImportController'
+import OutreachController from './OutreachController'
 const Controllers = {
     ClassifiedsController: Object.assign(ClassifiedsController, ClassifiedsController),
 BlogController: Object.assign(BlogController, BlogController),
@@ -23,6 +24,7 @@ AdminSettingsController: Object.assign(AdminSettingsController, AdminSettingsCon
 AgentAdController: Object.assign(AgentAdController, AgentAdController),
 OcrController: Object.assign(OcrController, OcrController),
 BatchAdImportController: Object.assign(BatchAdImportController, BatchAdImportController),
+OutreachController: Object.assign(OutreachController, OutreachController),
 }
 
 export default Controllers

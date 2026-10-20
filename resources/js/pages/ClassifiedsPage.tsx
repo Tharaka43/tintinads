@@ -159,7 +159,17 @@ const AdImageCarousel = ({ images, title, className, isVipOrPremium }: { images:
     );
 };
 
-const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: (adId: number, shouldSave: boolean) => void; isSaved?: boolean }) => {
+const AdCard = ({ 
+    ad, 
+    onSaveToggle, 
+    isSaved = false,
+    onShare,
+}: { 
+    ad: Ad; 
+    onSaveToggle?: (adId: number, shouldSave: boolean) => void; 
+    isSaved?: boolean;
+    onShare?: (ad: Ad) => void;
+}) => {
     const isVip = ad.isVip || false;
     const isPremium = ad.isPremium || false;
     const isPlatinum = ad.isPlatinum || false;
@@ -187,6 +197,27 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
         const cleanNumber = rawNumber.startsWith('0') ? '94' + rawNumber.slice(1) : rawNumber;
         const text = encodeURIComponent(`Hi, I saw your ad on TinTinAds.com: ${ad.title}`);
         window.open(`https://wa.me/${cleanNumber}?text=${text}`, '_blank', 'noopener,noreferrer');
+    };
+
+    const handleQuickShare = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (onShare) {
+            onShare(ad);
+        } else {
+            const adUrl = `https://tintinads.com/ad/${ad.id}`;
+            const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${Number(ad.price || 0).toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`;
+            if (navigator.share) {
+                navigator.share({
+                    title: `${ad.title} - TinTinAds`,
+                    text: shareText,
+                    url: adUrl,
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(shareText);
+                alert('දැන්වීමේ සවිස්තරාත්මක Link එක Copied! ඔබට දැන් WhatsApp හෝ Facebook හි Paste කළ හැක.');
+            }
+        }
     };
 
     const likes = ad.likes || 0;
@@ -286,12 +317,12 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                                     <span className="flex items-center" title="Views"><i className="far fa-eye mr-0.5 sm:mr-1 text-blue-500"></i>{views}</span>
                                 </div>
 
-                                {/* Instant Call & WhatsApp Mini Buttons */}
-                                <div className="flex items-center gap-1.5 flex-shrink-0">
+                                {/* Instant Call, WhatsApp & Share Mini Buttons */}
+                                <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
                                     <button
                                         type="button"
                                         onClick={handleQuickCall}
-                                        className="bg-[#E50914] hover:bg-red-700 active:scale-95 text-white px-2.5 sm:px-3 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        className="bg-[#E50914] hover:bg-red-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
                                         title="Instant Call"
                                     >
                                         <i className="fas fa-phone-alt text-[8px] sm:text-[10px]"></i>
@@ -300,11 +331,20 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
                                     <button
                                         type="button"
                                         onClick={handleQuickWhatsApp}
-                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2.5 sm:px-3 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
                                         title="Instant WhatsApp"
                                     >
                                         <i className="fab fa-whatsapp text-[10px] sm:text-xs"></i>
                                         <span>Chat</span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleQuickShare}
+                                        className="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        title="Share to Social Media"
+                                    >
+                                        <i className="fas fa-share-nodes text-[9px] sm:text-[10px]"></i>
+                                        <span className="hidden sm:inline">Share</span>
                                     </button>
                                 </div>
                             </div>
@@ -316,7 +356,7 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
     );
 };
 
-const TelegramVipFeaturedAdCard = () => {
+const TelegramVipFeaturedAdCard = ({ onShare }: { onShare?: (ad: any) => void }) => {
     const handleTelegramClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
@@ -422,15 +462,15 @@ const TelegramVipFeaturedAdCard = () => {
                                 </div>
 
                                 {/* Instant Action Buttons */}
-                                <div className="flex items-center gap-1.5 flex-shrink-0">
+                                <div className="flex items-center gap-1 sm:gap-1.5 flex-shrink-0">
                                     <button
                                         type="button"
                                         onClick={handleTelegramClick}
-                                        className="bg-gradient-to-r from-[#0088cc] to-[#00a2ed] hover:from-[#0077b5] hover:to-[#0088cc] active:scale-95 text-white px-2.5 sm:px-3.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-black flex items-center gap-1 shadow-sm transition-all cursor-pointer"
+                                        className="bg-gradient-to-r from-[#0088cc] to-[#00a2ed] hover:from-[#0077b5] hover:to-[#0088cc] active:scale-95 text-white px-2 sm:px-3 py-1 rounded-lg text-[9px] sm:text-[11px] font-black flex items-center gap-1 shadow-sm transition-all cursor-pointer"
                                         title="Join Telegram Channel"
                                     >
                                         <i className="fab fa-telegram-plane text-[10px] sm:text-xs"></i>
-                                        <span>Join Telegram</span>
+                                        <span>Join</span>
                                     </button>
                                     <button
                                         type="button"
@@ -441,10 +481,208 @@ const TelegramVipFeaturedAdCard = () => {
                                         <i className="fab fa-whatsapp text-[10px] sm:text-xs"></i>
                                         <span className="hidden sm:inline">Shanika</span>
                                     </button>
+                                    <button
+                                        type="button"
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            if (onShare) {
+                                                onShare({
+                                                    id: 0,
+                                                    title: 'TinTin VIP Official Telegram Channel',
+                                                    price: 'FREE',
+                                                    location: 'All Sri Lanka',
+                                                    imgSrc: '/assets/telegram_vip_ad.jpg',
+                                                    isTelegramVip: true,
+                                                });
+                                            }
+                                        }}
+                                        className="bg-indigo-600 hover:bg-indigo-700 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-extrabold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        title="Share VIP Telegram Channel"
+                                    >
+                                        <i className="fas fa-share-nodes text-[9px] sm:text-[10px]"></i>
+                                        <span className="hidden sm:inline">Share</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+interface SocialShareModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    ad: {
+        id: number;
+        title: string;
+        price?: number | string;
+        location?: string;
+        phone_number?: string;
+        imgSrc?: string;
+        images?: string[];
+        isTelegramVip?: boolean;
+    } | null;
+}
+
+const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad }) => {
+    const [copied, setCopied] = useState(false);
+
+    if (!isOpen || !ad) return null;
+
+    const isTgChannel = ad.isTelegramVip || ad.id === 0;
+    const adUrl = isTgChannel ? 'https://t.me/tintinadsvip' : `https://tintinads.com/ad/${ad.id}`;
+    const displayPrice = isTgChannel ? '100% FREE (නොමිලේ)' : `Rs ${Number(ad.price || 0).toLocaleString()}`;
+    const displayLocation = ad.location || 'All Sri Lanka';
+    
+    const shareText = isTgChannel 
+        ? `🔥 *TinTin VIP Official Telegram Channel*\n👑 අලුත්ම VIP දැන්වීම්, Spa විස්තර සහ අලුත් මිතුරු මිතුරියන්ගේ WhatsApp අංක එසැනින් ලබාගන්න අපේ නිල Telegram එකට දැන්ම එකතු වෙන්න!\n\n👉 Join Now: https://t.me/tintinadsvip\n🌐 Web: https://tintinads.com`
+        : `🌟 *${ad.title}*\n💰 *මිල:* ${displayPrice}\n📍 *ස්ථානය:* ${displayLocation}${ad.phone_number ? `\n📞 *අමතන්න:* ${ad.phone_number}` : ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`;
+
+    const handleCopy = () => {
+        navigator.clipboard.writeText(shareText);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+    };
+
+    const handleMessenger = () => {
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            window.location.href = `fb-messenger://share/?link=${encodeURIComponent(adUrl)}`;
+        } else {
+            window.open(`https://www.facebook.com/dialog/send?link=${encodeURIComponent(adUrl)}&app_id=291494419107518&redirect_uri=${encodeURIComponent(adUrl)}`, '_blank');
+        }
+    };
+
+    const handleNativeShare = () => {
+        if (navigator.share) {
+            navigator.share({
+                title: `${ad.title} - TinTinAds`,
+                text: shareText,
+                url: adUrl,
+            }).catch(() => {});
+        } else {
+            handleCopy();
+        }
+    };
+
+    const thumbImg = ad.images && ad.images.length > 0 ? ad.images[0] : (ad.imgSrc || '/placeholder-image.jpg');
+
+    return (
+        <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm">
+            <div 
+                className="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl border border-gray-200"
+                onClick={(e) => e.stopPropagation()}
+            >
+                {/* Header */}
+                <div className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-4 text-white flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                        <i className="fas fa-share-nodes text-lg"></i>
+                        <h3 className="font-extrabold text-sm sm:text-base">Social Media වල Share කරන්න</h3>
+                    </div>
+                    <button
+                        type="button"
+                        onClick={onClose}
+                        className="w-8 h-8 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center text-sm font-bold transition cursor-pointer"
+                    >
+                        ✕
+                    </button>
+                </div>
+
+                <div className="p-4 sm:p-5 space-y-4">
+                    {/* Ad Summary Card */}
+                    <div className="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl p-2.5">
+                        <img 
+                            src={thumbImg} 
+                            alt={ad.title} 
+                            className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg flex-shrink-0"
+                            onError={(e) => { e.currentTarget.src = '/placeholder-image.jpg'; }}
+                        />
+                        <div className="flex-1 min-w-0">
+                            <h4 className="font-bold text-xs sm:text-sm text-gray-900 truncate">{ad.title}</h4>
+                            <p className="text-xs font-black text-pink-600 mt-0.5">{displayPrice}</p>
+                            <p className="text-[11px] text-gray-500 truncate mt-0.5">
+                                <i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{displayLocation}
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Social Media 1-Click Buttons */}
+                    <div className="grid grid-cols-2 gap-2.5">
+                        {/* Facebook */}
+                        <a
+                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(adUrl)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-[#1877F2] hover:bg-blue-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                        >
+                            <i className="fab fa-facebook text-base"></i>
+                            <span>Facebook</span>
+                        </a>
+
+                        {/* Facebook Messenger */}
+                        <button
+                            type="button"
+                            onClick={handleMessenger}
+                            className="bg-gradient-to-r from-[#00B2FF] to-[#006AFF] hover:opacity-90 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95 cursor-pointer"
+                        >
+                            <i className="fab fa-facebook-messenger text-base"></i>
+                            <span>Messenger</span>
+                        </button>
+
+                        {/* WhatsApp */}
+                        <a
+                            href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-[#25D366] hover:bg-green-600 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                        >
+                            <i className="fab fa-whatsapp text-base"></i>
+                            <span>WhatsApp</span>
+                        </a>
+
+                        {/* Telegram */}
+                        <a
+                            href={`https://t.me/share/url?url=${encodeURIComponent(adUrl)}&text=${encodeURIComponent(isTgChannel ? '🔥 TinTin VIP Official Telegram Channel:' : `🔥 ${ad.title} (${displayPrice} | ${displayLocation})\n👉 විස්තර බලන්න:`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-[#229ED9] hover:bg-sky-600 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                        >
+                            <i className="fab fa-telegram-plane text-base"></i>
+                            <span>Telegram</span>
+                        </a>
+                    </div>
+
+                    {/* Copy Link & Full Text */}
+                    <button
+                        type="button"
+                        onClick={handleCopy}
+                        className={`w-full py-2.5 px-3 rounded-xl border flex items-center justify-center gap-2 text-xs font-bold transition shadow-2xs cursor-pointer ${
+                            copied 
+                                ? 'bg-emerald-50 text-emerald-700 border-emerald-400 font-extrabold' 
+                                : 'bg-white hover:bg-gray-100 text-gray-800 border-gray-300'
+                        }`}
+                    >
+                        <i className={`fas ${copied ? 'fa-check text-emerald-600' : 'fa-copy text-indigo-600'}`}></i>
+                        <span>{copied ? 'විස්තර සහ Link එක Copy විය! ✓ (Copied)' : 'විස්තරය & Link එක Copy කරගන්න'}</span>
+                    </button>
+
+                    {/* Native Share button */}
+                    <button
+                        type="button"
+                        onClick={handleNativeShare}
+                        className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-extrabold shadow-sm transition active:scale-95 cursor-pointer"
+                    >
+                        <i className="fas fa-share-alt"></i>
+                        <span>තවත් Apps වලට Share කරන්න (More Apps)</span>
+                    </button>
+
+                    <p className="text-[11px] text-gray-500 text-center leading-relaxed">
+                        💡 මෙම දැන්වීම Share කිරීමේදී අපගේ <strong>VIP Telegram Channel</strong> එකේ Link එකද ස්වයංක්‍රීයව අඩංගු වේ!
+                    </p>
                 </div>
             </div>
         </div>
@@ -645,6 +883,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     const [swipePhotoIndex, setSwipePhotoIndex] = useState(0);
     const [swipeTouchStart, setSwipeTouchStart] = useState<{ x: number; y: number } | null>(null);
     const [showTelegramBanner, setShowTelegramBanner] = useState(false);
+    const [shareModalAd, setShareModalAd] = useState<any | null>(null);
 
     // Auto show Telegram prompt after 2 seconds if not previously dismissed
     useEffect(() => {
@@ -1491,7 +1730,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         {/* Grid */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                             {/* Pinned Official VIP Telegram Featured Ad (Very First Ad) */}
-                            <TelegramVipFeaturedAdCard />
+                            <TelegramVipFeaturedAdCard onShare={(adToShare) => setShareModalAd(adToShare)} />
 
                             {filteredAds.length > 0 ? (
                                 filteredAds.map((ad) => (
@@ -1500,6 +1739,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                         ad={ad}
                                         isSaved={savedAds.includes(ad.id)}
                                         onSaveToggle={handleSaveToggle}
+                                        onShare={(adToShare) => setShareModalAd(adToShare)}
                                     />
                                 ))
                             ) : (
@@ -1647,6 +1887,14 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                 >
                                     <i className="fas fa-external-link-alt text-xs"></i>
                                 </a>
+                                <button
+                                    type="button"
+                                    onClick={() => setShareModalAd(currentSwipeAd)}
+                                    className="w-11 h-11 rounded-full bg-indigo-600/80 hover:bg-indigo-600 backdrop-blur-md text-white flex flex-col items-center justify-center border border-white/25 shadow-lg text-[10px] font-bold cursor-pointer transition active:scale-90"
+                                    title="Share to Social Media"
+                                >
+                                    <i className="fas fa-share-nodes text-xs"></i>
+                                </button>
                             </div>
                         </div>
 
@@ -1885,6 +2133,13 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                     </div>
                 </div>
             )}
+
+            {/* Social Media Share Modal */}
+            <SocialShareModal
+                isOpen={!!shareModalAd}
+                onClose={() => setShareModalAd(null)}
+                ad={shareModalAd}
+            />
         </div>
     );
 };

@@ -451,7 +451,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
 
     const handleShare = () => {
         const adUrl = typeof window !== 'undefined' ? window.location.href : `https://tintinads.com/ad/${ad.id}`;
-        const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}`;
+        const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`;
         if (navigator.share) {
             navigator.share({
                 title: `${ad.title} - TinTinAds`,
@@ -486,7 +486,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
             },
         ];
 
-        const shareAdWaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \nhttps://tintinads.com/ad/${ad.id}`)}`;
+        const shareAdWaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \nhttps://tintinads.com/ad/${ad.id}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`)}`;
 
         return (
             <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
@@ -625,16 +625,94 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         </p>
                     </div>
 
-                    {/* Quick WhatsApp Share Button */}
-                    <a 
-                        href={shareAdWaUrl}
-                        target="_blank" 
-                        rel="noopener noreferrer" 
-                        className="w-full bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs sm:text-sm font-bold py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 transition-all shadow-2xs"
-                    >
-                        <i className="fab fa-whatsapp text-base text-emerald-600"></i>
-                        Share on WhatsApp (දැන්වීම Share කරන්න)
-                    </a>
+                    {/* Multi-Platform Social Media Share Hub */}
+                    <div className="bg-gradient-to-r from-blue-50/70 via-indigo-50/50 to-purple-50/70 border-2 border-indigo-200 rounded-2xl p-4 shadow-sm space-y-3">
+                        <div className="flex items-center justify-between">
+                            <span className="text-xs sm:text-sm font-extrabold text-gray-900 flex items-center gap-2">
+                                <i className="fas fa-share-nodes text-indigo-600 text-base"></i>
+                                <span>මෙම දැන්වීම Social Media වල Share කරන්න:</span>
+                            </span>
+                            <span className="text-[10px] bg-indigo-100 text-indigo-800 font-extrabold px-2 py-0.5 rounded-full">1-Click Share</span>
+                        </div>
+
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {/* Facebook Share */}
+                            <a 
+                                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://tintinads.com/ad/${ad.id}`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-[#1877F2] hover:bg-blue-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                                title="Share on Facebook"
+                            >
+                                <i className="fab fa-facebook text-base"></i>
+                                <span>Facebook</span>
+                            </a>
+
+                            {/* Messenger Share */}
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    const adUrl = `https://tintinads.com/ad/${ad.id}`;
+                                    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+                                    if (isMobile) {
+                                        window.location.href = `fb-messenger://share/?link=${encodeURIComponent(adUrl)}`;
+                                    } else {
+                                        window.open(`https://www.facebook.com/dialog/send?link=${encodeURIComponent(adUrl)}&app_id=291494419107518&redirect_uri=${encodeURIComponent(adUrl)}`, '_blank');
+                                    }
+                                }}
+                                className="bg-gradient-to-r from-[#00B2FF] to-[#006AFF] hover:opacity-90 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95 cursor-pointer"
+                                title="Send on Messenger"
+                            >
+                                <i className="fab fa-facebook-messenger text-base"></i>
+                                <span>Messenger</span>
+                            </button>
+
+                            {/* WhatsApp Share */}
+                            <a 
+                                href={shareAdWaUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-[#25D366] hover:bg-green-600 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                                title="Share on WhatsApp"
+                            >
+                                <i className="fab fa-whatsapp text-base"></i>
+                                <span>WhatsApp</span>
+                            </a>
+
+                            {/* Telegram Share */}
+                            <a 
+                                href={`https://t.me/share/url?url=${encodeURIComponent(`https://tintinads.com/ad/${ad.id}`)}&text=${encodeURIComponent(`🔥 ${ad.title} (Rs ${ad.price.toLocaleString()} | ${ad.location || 'Sri Lanka'})\n👉 විස්තර බලන්න:`)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-[#229ED9] hover:bg-sky-600 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                                title="Share on Telegram"
+                            >
+                                <i className="fab fa-telegram-plane text-base"></i>
+                                <span>Telegram</span>
+                            </a>
+                        </div>
+
+                        {/* Copy Link & Any App Native Share */}
+                        <div className="flex gap-2 pt-1">
+                            <button
+                                type="button"
+                                onClick={handleShare}
+                                className="flex-1 bg-white hover:bg-gray-100 text-gray-800 border border-gray-300 rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-bold shadow-2xs transition cursor-pointer"
+                            >
+                                <i className="fas fa-copy text-indigo-600"></i>
+                                <span>විස්තරය & Link එක Copy කරගන්න</span>
+                            </button>
+                            <button
+                                type="button"
+                                onClick={handleShare}
+                                className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl py-2.5 px-4 flex items-center justify-center gap-2 text-xs font-bold shadow-xs transition cursor-pointer"
+                                title="Share to any App"
+                            >
+                                <i className="fas fa-share-alt"></i>
+                                <span>Share</span>
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 {/* TinTinAds Mention Callout */}
@@ -1312,12 +1390,20 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                         </span>
                     </div>
 
-                    {/* Right: Quick Call & WhatsApp Buttons */}
-                    <div className="flex items-center gap-2 flex-1 justify-end">
+                    {/* Right: Quick Call, WhatsApp & Share Buttons */}
+                    <div className="flex items-center gap-1.5 flex-1 justify-end">
+                        <button
+                            type="button"
+                            onClick={handleShare}
+                            className="w-11 h-11 bg-indigo-50 hover:bg-indigo-100 active:bg-indigo-600 active:text-white border border-indigo-200 text-indigo-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs transition active:scale-95 cursor-pointer"
+                            title="Share Ad"
+                        >
+                            <i className="fas fa-share-nodes text-base"></i>
+                        </button>
                         <a
                             href={ad.phone_number ? `tel:${ad.phone_number}` : 'tel:0700000000'}
                             onClick={incrementContactCount}
-                            className="flex-1 max-w-[135px] bg-[#E50914] active:bg-red-800 text-white font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
+                            className="flex-1 max-w-[125px] bg-[#E50914] active:bg-red-800 text-white font-extrabold text-xs sm:text-sm py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
                         >
                             <i className="fas fa-phone-alt text-xs"></i>
                             <span>CALL NOW</span>
@@ -1331,7 +1417,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={incrementContactCount}
-                            className="flex-1 max-w-[135px] bg-[#25D366] active:bg-green-700 text-white font-extrabold text-xs sm:text-sm py-3 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
+                            className="flex-1 max-w-[125px] bg-[#25D366] active:bg-green-700 text-white font-extrabold text-xs sm:text-sm py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
                         >
                             <i className="fab fa-whatsapp text-base"></i>
                             <span>WHATSAPP</span>
