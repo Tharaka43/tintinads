@@ -67,13 +67,4 @@ if (file_exists($envPath)) {
     }
 }
 
-// 6. Run therapist ad insertion if present
-$therapistScript = __DIR__ . '/../insert_therapist_ad.php';
-if (file_exists($therapistScript)) {
-    ob_start();
-    include $therapistScript;
-    $therapistOutput = ob_get_clean();
-    echo "Therapist Ad Insert Output:\n" . $therapistOutput . "\n";
-}
-
 echo "Cache wipe completed!\n";

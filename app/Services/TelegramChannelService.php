@@ -43,7 +43,13 @@ class TelegramChannelService
 
         // Avoid posting the same ad multiple times unless forced
         $cacheKey = "tg_ad_posted_{$ad->id}";
-        if (!$force && Cache::has($cacheKey)) {
+        $postedFile = storage_path('app/telegram_posted_ads.json');
+        $postedIds = [];
+        if (file_exists($postedFile)) {
+            $postedIds = json_decode(@file_get_contents($postedFile), true) ?: [];
+        }
+
+        if (!$force && (Cache::has($cacheKey) || in_array($ad->id, $postedIds))) {
             return [
                 'success' => true,
                 'skipped' => true,
@@ -74,6 +80,10 @@ class TelegramChannelService
 
             if ($response && $response->successful()) {
                 Cache::put($cacheKey, true, now()->addDays(60));
+                if (!in_array($ad->id, $postedIds)) {
+                    $postedIds[] = $ad->id;
+                    @file_put_contents($postedFile, json_encode(array_values(array_unique($postedIds))));
+                }
                 Log::info("Ad #{$ad->id} successfully posted to Telegram Channel {$this->channelId}");
                 return [
                     'success' => true,

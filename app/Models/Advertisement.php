@@ -44,8 +44,11 @@ class Advertisement extends Model
     protected static function booted()
     {
         static::saved(function ($ad) {
-            // Auto-post to Telegram VIP channel whenever an ad is activated
-            if (strtolower($ad->status ?? '') === 'activated') {
+            // Auto-post to Telegram VIP channel ONLY when an ad is newly created as activated, OR when status is changed to activated
+            $isNewlyActivated = ($ad->wasRecentlyCreated && strtolower($ad->status ?? '') === 'activated')
+                || ($ad->wasChanged('status') && strtolower($ad->status ?? '') === 'activated');
+
+            if ($isNewlyActivated) {
                 try {
                     $telegramService = app(\App\Services\TelegramChannelService::class);
                     if ($telegramService->isConfigured()) {
