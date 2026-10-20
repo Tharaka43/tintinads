@@ -509,6 +509,18 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     const [swipeAdIndex, setSwipeAdIndex] = useState(0);
     const [swipePhotoIndex, setSwipePhotoIndex] = useState(0);
     const [swipeTouchStart, setSwipeTouchStart] = useState<{ x: number; y: number } | null>(null);
+    const [showTelegramBanner, setShowTelegramBanner] = useState(false);
+
+    // Auto show Telegram prompt after 2 seconds if not previously dismissed
+    useEffect(() => {
+        const isClosed = sessionStorage.getItem('tintin_tg_closed');
+        if (!isClosed) {
+            const timer = setTimeout(() => {
+                setShowTelegramBanner(true);
+            }, 2000);
+            return () => clearTimeout(timer);
+        }
+    }, []);
 
     // Check age verification and load recently viewed ads on mount
     useEffect(() => {
@@ -958,39 +970,42 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
             )}
             
             {/* Visitors Counter Strip & VIP Contacts */}
-            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-2 px-3 sm:px-4 shadow-md text-xs sm:text-sm font-bold flex flex-wrap items-center justify-center gap-2 sm:gap-4 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-1 sm:py-1.5 px-2 sm:px-4 shadow-md text-xs font-bold flex items-center justify-between sm:justify-center gap-1.5 sm:gap-4 relative overflow-hidden">
                 <div className="absolute inset-0 bg-white opacity-10 animate-pulse pointer-events-none"></div>
-                <div className="flex items-center gap-2 z-10">
-                    <span className="relative flex h-2.5 w-2.5 sm:h-3 sm:w-3">
+                <div className="flex items-center gap-1.5 z-10 truncate">
+                    <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 sm:h-3 sm:w-3 bg-white"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-white"></span>
                     </span>
-                    <span className="tracking-wide">
-                        🔥 දිනපතා දහස් ගණනක් පැමිණෙන ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - <span className="text-yellow-300 font-extrabold ml-1 text-[13px] sm:text-[15px]">Total Visits: {displayViews.toLocaleString()}+</span>
+                    <span className="truncate text-[11px] sm:text-xs">
+                        <span className="hidden sm:inline">🔥 ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - </span>
+                        <span className="text-yellow-300 font-extrabold">Online: {displayViews.toLocaleString()}+</span>
                     </span>
                 </div>
 
-                {/* Shanika Direct WhatsApp Contact */}
-                <a
-                    href="https://wa.me/94706161617?text=Hi%20Shanika,%20TinTinAds%20%E0%B6%91%E0%B6%9A%E0%B7%8A%E0%B6%B1%E0%B7%8A%20%E0%B6%9A%E0%B6%AD%E0%B7%8F%20%E0%B6%9A%E0%B6%BB%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="z-10 inline-flex items-center gap-1.5 bg-emerald-500 hover:bg-emerald-400 text-white px-3 py-1 rounded-full text-xs font-black shadow-md border border-white/30 transition-transform hover:scale-105"
-                >
-                    <i className="fa-brands fa-whatsapp text-sm text-white"></i>
-                    <span>Shanika: 070 616 1617</span>
-                </a>
+                <div className="flex items-center gap-1.5 z-10 shrink-0">
+                    {/* Shanika Direct WhatsApp Contact */}
+                    <a
+                        href="https://wa.me/94706161617?text=Hi%20Shanika,%20TinTinAds%20%E0%B6%91%E0%B6%9A%E0%B7%8A%E0%B6%B1%E0%B7%8A%20%E0%B6%9A%E0%B6%AD%E0%B7%8F%20%E0%B6%9A%E0%B6%BB%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-emerald-500 hover:bg-emerald-400 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black shadow border border-white/30 transition-transform hover:scale-105"
+                    >
+                        <i className="fa-brands fa-whatsapp text-white"></i>
+                        <span>Shanika</span>
+                    </a>
 
-                {/* Official Telegram Channel */}
-                <a
-                    href="https://t.me/tintinadsvip"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="z-10 inline-flex items-center gap-1.5 bg-sky-500 hover:bg-sky-400 text-white px-3 py-1 rounded-full text-xs font-black shadow-md border border-white/30 transition-transform hover:scale-105"
-                >
-                    <i className="fa-brands fa-telegram text-sm text-white"></i>
-                    <span>Telegram VIP</span>
-                </a>
+                    {/* Official Telegram Channel */}
+                    <a
+                        href="https://t.me/tintinadsvip"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 bg-sky-500 hover:bg-sky-400 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black shadow border border-white/30 transition-transform hover:scale-105"
+                    >
+                        <i className="fa-brands fa-telegram text-white"></i>
+                        <span>Telegram</span>
+                    </a>
+                </div>
             </div>
             
             {/* Sticky Header */}
@@ -1661,6 +1676,66 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         </div>
                     </div>
                 </>
+            )}
+            {/* Telegram Channel VIP Slide-Up Invitation Card */}
+            {showTelegramBanner && (
+                <div className="fixed bottom-3 sm:bottom-6 right-3 sm:right-6 left-3 sm:left-auto sm:max-w-md z-50">
+                    <div className="bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 border-2 border-sky-400/50 rounded-2xl p-4 shadow-2xl text-white relative backdrop-blur-md">
+                        {/* Close button */}
+                        <button
+                            onClick={() => {
+                                sessionStorage.setItem('tintin_tg_closed', '1');
+                                setShowTelegramBanner(false);
+                            }}
+                            className="absolute top-2.5 right-2.5 text-gray-400 hover:text-white bg-white/10 hover:bg-white/20 rounded-full w-6 h-6 flex items-center justify-center text-xs transition cursor-pointer"
+                            title="Close"
+                        >
+                            ✕
+                        </button>
+
+                        <div className="flex items-start gap-3">
+                            <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-sky-500 to-blue-600 flex items-center justify-center text-white text-2xl shadow-lg shrink-0 border border-sky-300/40">
+                                <i className="fa-brands fa-telegram"></i>
+                            </div>
+                            <div className="pr-4">
+                                <div className="flex items-center gap-1.5">
+                                    <h4 className="font-extrabold text-sm text-sky-200">
+                                        TinTinAds නිල Telegram නාලිකාව
+                                    </h4>
+                                    <span className="bg-red-500 text-white text-[9px] font-black px-1.5 py-0.5 rounded-full uppercase">Live</span>
+                                </div>
+                                <p className="text-xs text-gray-200 mt-1 leading-snug">
+                                    🔥 අලුත්ම VIP දැන්වීම්, Spa විස්තර සහ අලුත් මිතුරු මිතුරියන්ගේ WhatsApp අංක එසැනින් බලාගන්න අපේ Telegram එකට දැන්ම එකතු වෙන්න!
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="mt-3.5 flex items-center gap-2">
+                            <a
+                                href="https://t.me/tintinadsvip"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => {
+                                    sessionStorage.setItem('tintin_tg_closed', '1');
+                                    setShowTelegramBanner(false);
+                                }}
+                                className="flex-1 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-extrabold text-xs py-2.5 px-4 rounded-xl text-center shadow-lg transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2"
+                            >
+                                <i className="fa-brands fa-telegram text-base"></i>
+                                <span>නොමිලේ දැන්ම එකතු වෙන්න (Join)</span>
+                            </a>
+                            <button
+                                onClick={() => {
+                                    sessionStorage.setItem('tintin_tg_closed', '1');
+                                    setShowTelegramBanner(false);
+                                }}
+                                className="text-xs text-gray-400 hover:text-gray-200 px-3 py-2 font-semibold cursor-pointer"
+                            >
+                                පසුව
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
         </div>
     );
