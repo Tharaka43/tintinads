@@ -316,6 +316,141 @@ const AdCard = ({ ad, onSaveToggle, isSaved = false }: { ad: Ad; onSaveToggle?: 
     );
 };
 
+const TelegramVipFeaturedAdCard = () => {
+    const handleTelegramClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        window.open('https://t.me/tintinadsvip', '_blank', 'noopener,noreferrer');
+    };
+
+    const handleWhatsAppClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const text = encodeURIComponent('Hi Shanika! මට TinTin VIP Telegram චැනලය සහ අලුත්ම දැන්වීම් විස්තර දැනගන්න අවශ්‍යයි.');
+        window.open(`https://wa.me/94706161617?text=${text}`, '_blank', 'noopener,noreferrer');
+    };
+
+    return (
+        <div
+            onClick={handleTelegramClick}
+            className="col-span-1 lg:col-span-2 block group text-left cursor-pointer transition-all duration-300"
+            role="button"
+            tabIndex={0}
+            title="TinTin VIP Official Telegram Channel"
+        >
+            <div className="relative bg-white rounded-xl border-2 border-sky-400 telegram-vip-animated-border p-[2px] overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-row h-[162px] sm:h-[188px]">
+                <div className="flex flex-row w-full h-full bg-gradient-to-r from-sky-50/80 via-white to-amber-50/60 rounded-lg">
+                    {/* Left: AI Generated Image */}
+                    <div className="relative w-[128px] sm:w-[180px] md:w-[210px] h-full flex-shrink-0 overflow-hidden rounded-l-lg bg-slate-900">
+                        {/* Top Left: Pinned Badge */}
+                        <div className="absolute top-1.5 left-1.5 z-20 bg-red-600/95 text-white px-1.5 sm:px-2 py-0.5 rounded-full text-[8px] sm:text-[10px] font-black shadow-md flex items-center gap-1 animate-pulse">
+                            <i className="fas fa-thumbtack text-[8px]"></i>
+                            <span>PINNED #1</span>
+                        </div>
+
+                        {/* Top Right: VIP Crown Badge */}
+                        <div className="absolute top-1.5 right-1.5 z-20 bg-gradient-to-r from-amber-400 to-amber-600 text-white px-1.5 py-0.5 rounded text-[8px] sm:text-[10px] font-black shadow-md flex items-center gap-1">
+                            <i className="fas fa-crown text-[8px]"></i>
+                            <span>VIP</span>
+                        </div>
+
+                        {/* Bottom Left: Official Badge */}
+                        <div className="absolute bottom-1.5 left-1.5 z-20 bg-black/80 backdrop-blur-xs text-white px-1.5 py-0.5 rounded-md text-[8px] sm:text-[9px] font-bold flex items-center gap-1 shadow-xs border border-sky-400/30">
+                            <i className="fab fa-telegram-plane text-[9px] text-sky-400"></i>
+                            <span>Official</span>
+                        </div>
+
+                        {/* Bottom Right: Live Indicator */}
+                        <div className="absolute bottom-1.5 right-1.5 z-20 bg-emerald-600/95 backdrop-blur-xs text-white px-1.5 py-0.5 rounded-md text-[8px] sm:text-[9px] font-bold flex items-center gap-1 shadow-xs border border-emerald-400/40">
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-300 animate-ping"></span>
+                            <span>Live</span>
+                        </div>
+
+                        <img
+                            src="/assets/telegram_vip_ad.jpg"
+                            alt="TinTin VIP Telegram Channel"
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            onError={(e) => {
+                                e.currentTarget.src = '/assets/sitelogo.png';
+                            }}
+                        />
+                    </div>
+
+                    {/* Right: Content */}
+                    <div className="p-2 sm:p-3 flex-1 flex flex-col justify-between overflow-hidden relative min-w-0">
+                        {/* Save / Star Decorative Badge */}
+                        <div className="absolute top-2 right-2 z-10 hidden sm:flex items-center gap-1 bg-amber-100 text-amber-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-amber-300">
+                            <i className="fas fa-star text-amber-500 text-[9px]"></i>
+                            <span>Featured #1</span>
+                        </div>
+
+                        <div className="pr-2 sm:pr-24">
+                            <div className="flex items-center gap-1.5 flex-wrap">
+                                <span className="bg-[#0088cc] text-white text-[8px] sm:text-[9px] font-black px-1.5 py-0.5 rounded uppercase tracking-wide">
+                                    Telegram VIP
+                                </span>
+                                <h3 className="font-extrabold text-gray-900 text-xs sm:text-base leading-tight group-hover:text-[#0088cc] transition-colors truncate">
+                                    TinTin VIP Official Telegram Channel
+                                    <i className="fas fa-check-circle text-blue-500 ml-1 text-[10px] sm:text-xs" title="Official Verified"></i>
+                                </h3>
+                            </div>
+
+                            <p className="text-[11px] sm:text-sm text-gray-700 line-clamp-2 mt-1 font-medium leading-snug">
+                                🔥 අලුත්ම VIP දැන්වීම්, Spa විස්තර සහ අලුත් මිතුරු මිතුරියන්ගේ WhatsApp අංක එසැනින් බලාගන්න අපේ නිල Telegram එකට දැන්ම එකතු වෙන්න!
+                            </p>
+                        </div>
+
+                        <div className="mt-auto">
+                            <div className="flex items-center justify-between text-[10px] sm:text-xs text-gray-500 mb-1.5 gap-2">
+                                <span className="flex items-center text-gray-700 font-semibold truncate">
+                                    <i className="fas fa-map-marker-alt text-pink-500 mr-1 flex-shrink-0"></i>
+                                    <span className="truncate">All Sri Lanka (VIP Islandwide)</span>
+                                </span>
+                                <span className="text-[10px] sm:text-xs font-black text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 flex-shrink-0">
+                                    100% FREE (නොමිලේ)
+                                </span>
+                            </div>
+
+                            <div className="flex items-center justify-between pt-1.5 border-t border-sky-100 gap-1">
+                                <div className="flex items-center space-x-2 text-[10px] sm:text-xs font-bold text-sky-600 flex-shrink-0">
+                                    <span className="flex items-center" title="Likes">
+                                        <i className="far fa-thumbs-up mr-0.5 sm:mr-1 text-sky-500"></i>5.2K
+                                    </span>
+                                    <span className="flex items-center" title="Views">
+                                        <i className="far fa-eye mr-0.5 sm:mr-1 text-sky-500"></i>38.5K
+                                    </span>
+                                </div>
+
+                                {/* Instant Action Buttons */}
+                                <div className="flex items-center gap-1.5 flex-shrink-0">
+                                    <button
+                                        type="button"
+                                        onClick={handleTelegramClick}
+                                        className="bg-gradient-to-r from-[#0088cc] to-[#00a2ed] hover:from-[#0077b5] hover:to-[#0088cc] active:scale-95 text-white px-2.5 sm:px-3.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-black flex items-center gap-1 shadow-sm transition-all cursor-pointer"
+                                        title="Join Telegram Channel"
+                                    >
+                                        <i className="fab fa-telegram-plane text-[10px] sm:text-xs"></i>
+                                        <span>Join Telegram</span>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={handleWhatsAppClick}
+                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        title="Chat on WhatsApp"
+                                    >
+                                        <i className="fab fa-whatsapp text-[10px] sm:text-xs"></i>
+                                        <span className="hidden sm:inline">Shanika</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
 const Pagination = ({ totalItems, currentPage, paginate }: { totalItems: number; currentPage: number; paginate: (page: number) => void }) => {
     const pageNumbers = [];
     const totalPages = Math.ceil(totalItems / 30); // perPage is 30
@@ -847,9 +982,20 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 </div>
             )}
             {/* VIP and Premium Border Animation Styles */}
-            {(hasVipAds || hasPremiumAds || hasPlatinumAds) && (
-                <style>{`
-                    @keyframes vipGoldBorderAnimation {
+            <style>{`
+                @keyframes telegramVipBorderAnimation {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                .telegram-vip-animated-border {
+                    position: relative;
+                    background: linear-gradient(90deg, #0088cc, #fbbf24, #00b4d8, #f59e0b, #0088cc);
+                    background-size: 300% 100%;
+                    animation: telegramVipBorderAnimation 3.5s ease infinite;
+                    box-shadow: 0 0 10px rgba(0, 136, 204, 0.35), 0 0 18px rgba(251, 191, 36, 0.2);
+                }
+                @keyframes vipGoldBorderAnimation {
                         0% {
                             background-position: 0% 50%;
                         }
@@ -967,7 +1113,6 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         border-radius: inherit;
                     }
                 `}</style>
-            )}
             
             {/* Visitors Counter Strip & VIP Contacts */}
             <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-1 sm:py-1.5 px-2 sm:px-4 shadow-md text-xs font-bold flex items-center justify-between sm:justify-center gap-1.5 sm:gap-4 relative overflow-hidden">
@@ -1345,6 +1490,9 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
 
                         {/* Grid */}
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+                            {/* Pinned Official VIP Telegram Featured Ad (Very First Ad) */}
+                            <TelegramVipFeaturedAdCard />
+
                             {filteredAds.length > 0 ? (
                                 filteredAds.map((ad) => (
                                     <AdCard

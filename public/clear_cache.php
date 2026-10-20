@@ -48,4 +48,10 @@ if (file_exists($headPath)) {
     }
 }
 
+// 4. Try git pull if shell_exec is enabled
+if (function_exists('shell_exec')) {
+    $output = @shell_exec('cd ' . escapeshellarg(__DIR__ . '/..') . ' && git pull origin main 2>&1');
+    echo "Git Pull Output:\n" . ($output ?: 'No output or shell_exec disabled') . "\n";
+}
+
 echo "Cache wipe completed!\n";
