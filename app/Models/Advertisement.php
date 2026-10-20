@@ -38,6 +38,32 @@ class Advertisement extends Model
         'price' => 'decimal:2',
     ];
 
+    /**
+     * The "booted" method of the model.
+     */
+    protected static function booted()
+    {
+        static::saved(function ($ad) {
+            // Auto-post to Telegram VIP channel whenever an ad is activated
+            if (strtolower($ad->status ?? '') === 'activated') {
+                try {
+                    $telegramService = app(\App\Services\TelegramChannelService::class);
+                    if ($telegramService->isConfigured()) {
+                        if (function_exists('dispatch') && app()->runningInConsole() === false) {
+                            dispatch(function () use ($ad, $telegramService) {
+                                $telegramService->postAdvertisement($ad);
+                            })->afterResponse();
+                        } else {
+                            $telegramService->postAdvertisement($ad);
+                        }
+                    }
+                } catch (\Throwable $e) {
+                    \Illuminate\Support\Facades\Log::error('Telegram auto-post error: ' . $e->getMessage());
+                }
+            }
+        });
+    }
+
     public function images()
     {
         return $this->hasMany(AdvertisementImage::class);

@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'telegram' => [
+        'bot_token' => env('TELEGRAM_BOT_TOKEN'),
+        'channel_id' => env('TELEGRAM_CHANNEL_ID', '@tintinadsvip'),
+        'auto_post' => env('TELEGRAM_AUTO_POST', true),
+    ],
+
 ];
