@@ -54,4 +54,17 @@ if (function_exists('shell_exec')) {
     echo "Git Pull Output:\n" . ($output ?: 'No output or shell_exec disabled') . "\n";
 }
 
+// 5. Ensure TELEGRAM_BOT_TOKEN is set in server .env
+$envPath = __DIR__ . '/../.env';
+if (file_exists($envPath)) {
+    $envContent = file_get_contents($envPath);
+    if (strpos($envContent, 'TELEGRAM_BOT_TOKEN=8756972370') === false) {
+        $botConfig = "\n\nTELEGRAM_BOT_TOKEN=8756972370:AAH2RjKzHg2L9rpuQOFsJekBRjYRjS9CbdY\nTELEGRAM_CHANNEL_ID=@tintinadsvip\nTELEGRAM_AUTO_POST=true\n";
+        file_put_contents($envPath, $envContent . $botConfig);
+        echo "Configured TELEGRAM_BOT_TOKEN in server .env!\n";
+    } else {
+        echo "TELEGRAM_BOT_TOKEN is active in server .env.\n";
+    }
+}
+
 echo "Cache wipe completed!\n";
