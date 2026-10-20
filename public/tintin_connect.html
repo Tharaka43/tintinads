@@ -133,9 +133,20 @@
                     <div>
                         <label class="block text-[10px] text-gray-400 uppercase font-bold mb-1">Delay (ආරක්ෂිත කාල පරතරය):</label>
                         <select id="auto-delay-choice" class="bg-gray-950 border border-gray-700 text-gray-200 text-xs rounded-xl px-3 py-2 focus:outline-none">
-                            <option value="5000">තත්පර 5 (වේගවත්)</option>
-                            <option value="8000" selected>තත්පර 8 (නිර්දේශිත)</option>
-                            <option value="12000">තත්පර 12 (උපරිම ආරක්ෂිත)</option>
+                            <option value="8000">තත්පර 8 (සාමාන්‍ය)</option>
+                            <option value="12000">තත්පර 12 (ආරක්ෂිත)</option>
+                            <option value="15000" selected>තත්පර 15 (නිර්දේශිත - 100% Safe)</option>
+                            <option value="20000">තත්පර 20 (Ultra-Safe Cooldown)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] text-amber-400 uppercase font-bold mb-1">Batch Limit (වරකට යවන ගණන):</label>
+                        <select id="auto-batch-choice" class="bg-gray-950 border border-amber-500/40 text-amber-300 text-xs rounded-xl px-3 py-2 font-bold focus:outline-none">
+                            <option value="20" selected>අංක 20 බැගින් (100% ආරක්ෂිතයි)</option>
+                            <option value="35">අංක 35 බැගින්</option>
+                            <option value="50">අංක 50 බැගින්</option>
+                            <option value="0">සියල්ලම එක දිගට (Not recommended)</option>
                         </select>
                     </div>
 
@@ -684,6 +695,11 @@ TinTinAds.com
                 autoSenderQueue = allAds.filter(a => !(a.msg1_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg1)));
             } else {
                 autoSenderQueue = allAds.filter(a => !(a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2)));
+            }
+
+            const batchLimit = parseInt(document.getElementById('auto-batch-choice').value, 10);
+            if (batchLimit > 0 && autoSenderQueue.length > batchLimit) {
+                autoSenderQueue = autoSenderQueue.slice(0, batchLimit);
             }
 
             if (autoSenderQueue.length === 0) {
