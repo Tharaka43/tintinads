@@ -200,6 +200,43 @@
             </div>
         </div>
 
+        <!-- Quick Filter Category Tabs -->
+        <div class="bg-gray-900 border border-gray-800 p-4 rounded-2xl shadow-xl space-y-3">
+            <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-gray-300 flex items-center gap-2">
+                    <i class="fa-solid fa-filter text-yellow-400"></i>
+                    <span>ක්ෂණිකව වෙන් කර බැලීම (Quick Filters):</span>
+                </span>
+                <span class="text-[11px] text-gray-400">එක් ක්ලික් එකකින් යැවූ සහ නොයැවූ පිරිස වෙන වෙනම බලන්න</span>
+            </div>
+            <div class="flex flex-wrap gap-2" id="quick-filter-buttons">
+                <button onclick="setQuickFilter('all')" id="qf-all" class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-yellow-500 text-black shadow transition">
+                    📋 සියල්ල (<span id="qf-all-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('msg1_pending')" id="qf-msg1_pending" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-amber-300 hover:bg-gray-750 border border-amber-500/40 transition">
+                    ⏳ 1. Msg 1 නොයැවූ (<span id="qf-m1p-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('msg2_pending')" id="qf-msg2_pending" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-blue-300 hover:bg-gray-750 border border-blue-500/40 transition">
+                    ⏳ 2. Msg 2 නොයැවූ (<span id="qf-m2p-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('expired')" id="qf-expired" class="px-3.5 py-2 rounded-xl text-xs font-black bg-red-950/70 text-red-300 hover:bg-red-900/80 border border-red-500/60 pulse-badge transition">
+                    ⏰ 3. Expired - Msg 3 යැවිය යුතු (<span id="qf-exp-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('active')" id="qf-active" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-green-300 hover:bg-gray-750 border border-green-500/40 transition">
+                    🟢 Active සක්‍රීය (<span id="qf-act-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('msg1_sent')" id="qf-msg1_sent" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-gray-300 hover:bg-gray-750 border border-gray-700 transition">
+                    ✅ Msg 1 යැවූ (<span id="qf-m1s-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('msg2_sent')" id="qf-msg2_sent" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-gray-300 hover:bg-gray-750 border border-gray-700 transition">
+                    ✅ Msg 2 යැවූ (<span id="qf-m2s-count">0</span>)
+                </button>
+                <button onclick="setQuickFilter('msg3_sent')" id="qf-msg3_sent" class="px-3.5 py-2 rounded-xl text-xs font-extrabold bg-purple-950/70 text-purple-300 hover:bg-purple-900/80 border border-purple-500/50 transition">
+                    💎 Renewal (Msg 3) යැවූ (<span id="qf-m3s-count">0</span>)
+                </button>
+            </div>
+        </div>
+
         <!-- Search & Filter Controls -->
         <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl flex flex-col md:flex-row gap-3 items-center justify-between">
             <div class="relative w-full md:w-96">
@@ -210,7 +247,7 @@
             <div class="flex flex-wrap gap-2 w-full md:w-auto">
                 <select id="filter-lifecycle" onchange="filterAds()" class="bg-gray-950 border border-yellow-500/40 text-yellow-300 font-bold text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-yellow-500">
                     <option value="">සියලුම දැන්වීම් (All)</option>
-                    <option value="expired" selected>⏰ Expired පමණක් (Message 3 Renewal)</option>
+                    <option value="expired">⏰ Expired පමණක් (Message 3 Renewal)</option>
                     <option value="active">🟢 Active පමණක් (සක්‍රීය)</option>
                     <option value="msg1_pending">⏳ Msg 1 නොයැවූ</option>
                     <option value="msg2_pending">⏳ Msg 2 නොයැවූ</option>
@@ -423,13 +460,71 @@ TinTinAds.com
             const m2 = allAds.filter(a => a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2)).length;
             const m3 = allAds.filter(a => a.msg3_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg3)).length;
 
+            const m1p = allAds.filter(a => !(a.msg1_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg1))).length;
+            const m2p = allAds.filter(a => !(a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2))).length;
+
             document.getElementById('stat-total').innerText = total;
             document.getElementById('stat-active').innerText = active;
             document.getElementById('stat-expired').innerText = expired;
             document.getElementById('stat-msg1').innerText = m1;
             document.getElementById('stat-msg2').innerText = m2;
             document.getElementById('stat-msg3').innerText = m3;
+
+            // Quick Filter Pills Counts
+            if (document.getElementById('qf-all-count')) document.getElementById('qf-all-count').innerText = total;
+            if (document.getElementById('qf-m1p-count')) document.getElementById('qf-m1p-count').innerText = m1p;
+            if (document.getElementById('qf-m2p-count')) document.getElementById('qf-m2p-count').innerText = m2p;
+            if (document.getElementById('qf-exp-count')) document.getElementById('qf-exp-count').innerText = expired;
+            if (document.getElementById('qf-act-count')) document.getElementById('qf-act-count').innerText = active;
+            if (document.getElementById('qf-m1s-count')) document.getElementById('qf-m1s-count').innerText = m1;
+            if (document.getElementById('qf-m2s-count')) document.getElementById('qf-m2s-count').innerText = m2;
+            if (document.getElementById('qf-m3s-count')) document.getElementById('qf-m3s-count').innerText = m3;
         }
+
+        let currentQuickFilter = 'all';
+
+        function setQuickFilter(type) {
+            currentQuickFilter = type;
+            const lifecycleSelect = document.getElementById('filter-lifecycle');
+            if (type === 'all') {
+                lifecycleSelect.value = '';
+            } else {
+                lifecycleSelect.value = type;
+            }
+
+            // Auto-switch the Auto-Sender message choice & template
+            const autoChoice = document.getElementById('auto-msg-choice');
+            if (type === 'msg1_pending' || type === 'msg1_sent') {
+                autoChoice.value = '1';
+                setTemplate(1);
+            } else if (type === 'msg2_pending' || type === 'msg2_sent') {
+                autoChoice.value = '2';
+                setTemplate(2);
+            } else if (type === 'expired' || type === 'msg3_sent' || type === 'msg3_pending') {
+                autoChoice.value = '3';
+                setTemplate(3);
+            }
+
+            // Update visual active state on buttons
+            const btnKeys = ['all', 'msg1_pending', 'msg2_pending', 'expired', 'active', 'msg1_sent', 'msg2_sent', 'msg3_sent'];
+            btnKeys.forEach(k => {
+                const el = document.getElementById('qf-' + k);
+                if (!el) return;
+                if (k === type) {
+                    el.className = "px-3.5 py-2 rounded-xl text-xs font-black bg-yellow-500 text-black shadow-lg ring-2 ring-yellow-400 transition transform scale-105";
+                } else {
+                    if (k === 'msg1_pending') el.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-amber-300 hover:bg-gray-750 border border-amber-500/40 transition";
+                    else if (k === 'msg2_pending') el.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-blue-300 hover:bg-gray-750 border border-blue-500/40 transition";
+                    else if (k === 'expired') el.className = "px-3.5 py-2 rounded-xl text-xs font-black bg-red-950/70 text-red-300 hover:bg-red-900/80 border border-red-500/60 pulse-badge transition";
+                    else if (k === 'active') el.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-green-300 hover:bg-gray-750 border border-green-500/40 transition";
+                    else if (k === 'msg3_sent') el.className = "px-3.5 py-2 rounded-xl text-xs font-extrabold bg-purple-950/70 text-purple-300 hover:bg-purple-900/80 border border-purple-500/50 transition";
+                    else el.className = "px-3.5 py-2 rounded-xl text-xs font-bold bg-gray-800 text-gray-300 hover:bg-gray-750 border border-gray-700 transition";
+                }
+            });
+
+            filterAds();
+        }
+
 
         let filteredAds = [...allAds];
 
