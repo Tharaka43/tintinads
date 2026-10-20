@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TinTinAds VIP Advertisers Connect Panel</title>
+    <title>TinTinAds VIP Advertisers Connect & Auto-Renewal Hub</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -31,9 +31,20 @@
             background: linear-gradient(135deg, #d97706 0%, #fbbf24 100%);
             color: #000;
         }
+        .badge-platinum {
+            background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 100%);
+            color: #fff;
+        }
+        .pulse-badge {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
     </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen">
+<body class="p-3 md:p-8 min-h-screen">
     <div class="max-w-7xl mx-auto space-y-6">
 
         <!-- Top Header Navigation -->
@@ -43,36 +54,20 @@
                     <span class="text-3xl">🚀</span>
                     <div>
                         <h1 class="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-yellow-200 to-amber-500">
-                            TinTinAds VIP Advertisers Connect
+                            TinTinAds VIP Outreach & Auto-Renewal Hub
                         </h1>
-                        <p class="text-sm text-gray-400 mt-1">
-                            දැනට සයිට් එකේ පළ කර ඇති රු. 700 VIP දැන්වීම් 120හි WhatsApp සහ Phone අංක කළමනාකරණය
+                        <p class="text-xs md:text-sm text-gray-400 mt-1">
+                            දැන්වීම් 1, 2, 3 යවන ක්‍රමවේදය | කල් ඉකුත් වූ (Expired) දැන්වීම් හඳුනාගැනීම සහ ස්වයංක්‍රීය WhatsApp Renewal පද්ධතිය
                         </p>
                     </div>
                 </div>
             </div>
             <div class="flex flex-wrap gap-2">
-                <a href="https://wa.me/94706161617" target="_blank" class="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition">
-                    <i class="fa-brands fa-whatsapp text-white text-sm"></i>
-                    <span>Shanika (070 616 1617)</span>
+                <a href="/hela_connect.html" class="inline-flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 text-yellow-400 px-3.5 py-2 rounded-xl border border-yellow-500/30 font-semibold text-xs transition">
+                    <i class="fa-solid fa-users"></i>
+                    <span>තරඟකාරී Contacts</span>
                 </a>
-                <a href="https://t.me/tintinadsvip" target="_blank" class="inline-flex items-center space-x-2 bg-sky-500 hover:bg-sky-400 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition">
-                    <i class="fa-brands fa-telegram text-white text-sm"></i>
-                    <span>Official Telegram</span>
-                </a>
-                <a href="/kandy_agent_outreach.html" class="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black px-4 py-2.5 rounded-xl font-black text-xs shadow-lg transition">
-                    <i class="fa-solid fa-headset text-black"></i>
-                    <span>Kandy Agent Hub (591)</span>
-                </a>
-                <a href="/hela_connect.html" class="inline-flex items-center space-x-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition">
-                    <i class="fa-solid fa-fire text-white"></i>
-                    <span>Hela Lanka Leads (311)</span>
-                </a>
-                <a href="/lkads_connect.html" class="inline-flex items-center space-x-2 bg-blue-600 hover:bg-blue-500 text-white px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition">
-                    <i class="fa-solid fa-address-book text-white"></i>
-                    <span>LK-Ads Leads (323)</span>
-                </a>
-                <a href="/" target="_blank" class="inline-flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2.5 rounded-xl font-bold text-xs shadow-lg transition">
+                <a href="/" target="_blank" class="inline-flex items-center space-x-2 bg-yellow-500 hover:bg-yellow-400 text-black px-4 py-2 rounded-xl font-bold text-xs shadow-lg transition">
                     <i class="fa-solid fa-globe"></i>
                     <span>TinTinAds.com මුල් පිටුව</span>
                 </a>
@@ -80,91 +75,96 @@
         </div>
 
         <!-- Metric Cards -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">සම්පූර්ණ VIP දැන්වීම්</p>
-                    <p class="text-2xl font-black text-yellow-400 mt-1" id="stat-total">120</p>
-                </div>
-                <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-yellow-400 text-xl font-bold">
-                    <i class="fa-solid fa-crown"></i>
-                </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl">
+                <p class="text-[11px] text-gray-400 uppercase tracking-wider font-semibold">සම්පූර්ණ දැන්වීම්</p>
+                <p class="text-xl font-black text-yellow-400 mt-1" id="stat-total">0</p>
             </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Message යැවූ පිරිස</p>
-                    <p class="text-2xl font-black text-green-400 mt-1" id="stat-contacted">0</p>
-                </div>
-                <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-green-400 text-xl font-bold">
-                    <i class="fa-solid fa-circle-check"></i>
-                </div>
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl">
+                <p class="text-[11px] text-green-400 uppercase tracking-wider font-semibold">🟢 Active දැන්වීම්</p>
+                <p class="text-xl font-black text-green-400 mt-1" id="stat-active">0</p>
             </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">යැවීමට ඉතිරි</p>
-                    <p class="text-2xl font-black text-amber-400 mt-1" id="stat-pending">120</p>
-                </div>
-                <div class="w-12 h-12 bg-amber-500/10 rounded-xl flex items-center justify-center text-amber-400 text-xl font-bold">
-                    <i class="fa-solid fa-clock"></i>
-                </div>
+            <div class="bg-gray-900 border border-red-900/40 p-3.5 rounded-xl bg-red-950/20">
+                <p class="text-[11px] text-red-400 uppercase tracking-wider font-semibold">⏰ Expired (කල් ඉකුත්)</p>
+                <p class="text-xl font-black text-red-400 mt-1" id="stat-expired">0</p>
             </div>
-            <div class="bg-gray-900 border border-gray-800 p-4 rounded-xl flex items-center justify-between">
-                <div>
-                    <p class="text-xs text-gray-400 uppercase tracking-wider font-semibold">Unique WhatsApp</p>
-                    <p class="text-2xl font-black text-blue-400 mt-1" id="stat-unique-wa">118</p>
-                </div>
-                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-xl font-bold">
-                    <i class="fa-brands fa-whatsapp"></i>
-                </div>
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl">
+                <p class="text-[11px] text-amber-400 uppercase tracking-wider font-semibold">Message 1 යැවූ</p>
+                <p class="text-xl font-black text-amber-400 mt-1" id="stat-msg1">0</p>
+            </div>
+            <div class="bg-gray-900 border border-gray-800 p-3.5 rounded-xl">
+                <p class="text-[11px] text-blue-400 uppercase tracking-wider font-semibold">Message 2 යැවූ</p>
+                <p class="text-xl font-black text-blue-400 mt-1" id="stat-msg2">0</p>
+            </div>
+            <div class="bg-gray-900 border border-purple-900/40 p-3.5 rounded-xl bg-purple-950/20">
+                <p class="text-[11px] text-purple-400 uppercase tracking-wider font-semibold">💎 Renewal (Msg 3)</p>
+                <p class="text-xl font-black text-purple-400 mt-1" id="stat-msg3">0</p>
             </div>
         </div>
 
-        <!-- Quick Copy and Export Bar -->
-        <div class="bg-gradient-to-r from-gray-900 via-gray-850 to-gray-900 border border-yellow-500/30 p-5 rounded-2xl shadow-xl space-y-4">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+        <!-- Auto-Sender Engine Controller Card -->
+        <div class="bg-gradient-to-r from-gray-900 via-gray-850 to-gray-900 border-2 border-yellow-500/40 p-5 rounded-2xl shadow-2xl space-y-4">
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                 <div>
-                    <h3 class="text-base font-bold text-white flex items-center gap-2">
-                        <i class="fa-solid fa-copy text-yellow-400"></i>
-                        <span>අංක වෙන වෙනම Copy කරගන්න & Download Options:</span>
-                    </h3>
-                    <p class="text-xs text-gray-400 mt-0.5">WhatsApp අංක සහ සාමාන්‍ය Call අංක එක ක්ලික් එකකින් ලබාගන්න</p>
+                    <div class="flex items-center space-x-2">
+                        <span class="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-yellow-500 text-black font-extrabold text-sm">
+                            <i class="fa-solid fa-robot"></i>
+                        </span>
+                        <h3 class="text-lg font-extrabold text-white">
+                            🤖 Smart WhatsApp Auto-Sender & Renewal Runner
+                        </h3>
+                    </div>
+                    <p class="text-xs text-gray-300 mt-1">
+                        කල් ඉකුත් වූ දැන්වීම් සඳහා Message 3 (Renewal) හෝ අලුත් දැන්වීම් සඳහා Message 1/2 ස්වයංක්‍රීයව వరుසින් යැවීමේ පහසුකම
+                    </p>
                 </div>
-                <div class="flex flex-wrap gap-2">
-                    <a href="/tintin_advertisers.vcf" class="inline-flex items-center space-x-1.5 bg-yellow-500 hover:bg-yellow-400 text-black px-3.5 py-2 rounded-lg font-bold text-xs transition shadow">
-                        <i class="fa-solid fa-address-book"></i>
-                        <span>VCF (Phone එකට Save කරගන්න)</span>
-                    </a>
-                    <a href="/tintin_advertisers.csv" class="inline-flex items-center space-x-1.5 bg-gray-800 hover:bg-gray-700 text-gray-200 px-3.5 py-2 rounded-lg border border-gray-700 font-semibold text-xs transition">
-                        <i class="fa-solid fa-file-csv text-green-400"></i>
-                        <span>CSV බාගත කරන්න</span>
-                    </a>
+
+                <!-- Auto-Send Controls -->
+                <div class="flex flex-wrap items-center gap-3">
+                    <div>
+                        <label class="block text-[10px] text-gray-400 uppercase font-bold mb-1">යවන Message එක:</label>
+                        <select id="auto-msg-choice" class="bg-gray-950 border border-yellow-500/50 text-yellow-300 text-xs rounded-xl px-3 py-2 font-bold focus:outline-none">
+                            <option value="3" selected>⏰ Message 3: Expired Renewal (රු. 1500 Pitch)</option>
+                            <option value="1">⭐ Message 1: Welcome & Free VIP Link</option>
+                            <option value="2">💬 Message 2: Quality Review & Details Check</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] text-gray-400 uppercase font-bold mb-1">Delay (ආරක්ෂිත කාල පරතරය):</label>
+                        <select id="auto-delay-choice" class="bg-gray-950 border border-gray-700 text-gray-200 text-xs rounded-xl px-3 py-2 focus:outline-none">
+                            <option value="5000">තත්පර 5 (වේගවත්)</option>
+                            <option value="8000" selected>තත්පර 8 (නිර්දේශිත)</option>
+                            <option value="12000">තත්පර 12 (උපරිම ආරක්ෂිත)</option>
+                        </select>
+                    </div>
+
+                    <div class="pt-4 flex gap-2">
+                        <button id="btn-start-auto" onclick="startAutoSender()" class="inline-flex items-center space-x-2 bg-gradient-to-r from-green-600 to-emerald-500 hover:from-green-500 hover:to-emerald-400 text-white px-5 py-2.5 rounded-xl font-bold text-xs shadow-lg transition transform active:scale-95">
+                            <i class="fa-solid fa-play"></i>
+                            <span>ස්වයංක්‍රීයව යැවීම අරඹන්න</span>
+                        </button>
+                        <button id="btn-stop-auto" onclick="stopAutoSender()" disabled class="inline-flex items-center space-x-1.5 bg-gray-800 text-gray-500 px-4 py-2.5 rounded-xl font-bold text-xs transition cursor-not-allowed">
+                            <i class="fa-solid fa-stop"></i>
+                            <span>නවත්වන්න</span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                <button onclick="copyAllWhatsAppComma()" class="flex items-center justify-between bg-green-950/40 hover:bg-green-900/60 border border-green-700/50 text-green-300 px-4 py-3 rounded-xl transition text-left group">
-                    <div>
-                        <div class="font-bold text-xs text-green-400 group-hover:text-green-300">WhatsApp අංක 120ම (Comma-separated)</div>
-                        <div class="text-[11px] text-gray-400">Bulk SMS / Broadcast List සඳහා</div>
-                    </div>
-                    <i class="fa-solid fa-copy text-green-400 text-base"></i>
-                </button>
-
-                <button onclick="copyAllWhatsAppLines()" class="flex items-center justify-between bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-700/50 text-emerald-300 px-4 py-3 rounded-xl transition text-left group">
-                    <div>
-                        <div class="font-bold text-xs text-emerald-400 group-hover:text-emerald-300">WhatsApp අංක 120ම (Line-by-line)</div>
-                        <div class="text-[11px] text-gray-400">Excel / Google Sheets සඳහා</div>
-                    </div>
-                    <i class="fa-solid fa-list-ol text-emerald-400 text-base"></i>
-                </button>
-
-                <button onclick="copyAllNormalPhones()" class="flex items-center justify-between bg-blue-950/40 hover:bg-blue-900/60 border border-blue-700/50 text-blue-300 px-4 py-3 rounded-xl transition text-left group">
-                    <div>
-                        <div class="font-bold text-xs text-blue-400 group-hover:text-blue-300">සාමාන්‍ය Call අංක 120ම (Normal Phone)</div>
-                        <div class="text-[11px] text-gray-400">Calling Outreach / CRM සඳහා</div>
-                    </div>
-                    <i class="fa-solid fa-phone text-blue-400 text-base"></i>
-                </button>
+            <!-- Auto-Send Live Progress Bar -->
+            <div id="auto-progress-container" class="hidden bg-gray-950/80 border border-gray-800 rounded-xl p-4 space-y-2">
+                <div class="flex justify-between items-center text-xs">
+                    <span id="auto-progress-status" class="text-yellow-400 font-bold flex items-center gap-2">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <span>ක්‍රියාත්මක වෙමින් පවතී...</span>
+                    </span>
+                    <span id="auto-progress-counter" class="text-gray-300 font-mono">0 / 0 Completed</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-3 overflow-hidden">
+                    <div id="auto-progress-bar" class="bg-gradient-to-r from-yellow-500 via-amber-400 to-green-500 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <p id="auto-progress-log" class="text-[11px] text-gray-400 font-mono truncate">Ready.</p>
             </div>
         </div>
 
@@ -174,19 +174,19 @@
                 <div>
                     <h3 class="text-base font-bold text-white flex items-center gap-2">
                         <i class="fa-brands fa-whatsapp text-green-400 text-lg"></i>
-                        <span>WhatsApp Message Templates & Settings</span>
+                        <span>WhatsApp Message Templates (3-Stage Lifecycle)</span>
                     </h3>
-                    <p class="text-xs text-gray-400 mt-0.5">පණිවිඩය තෝරන්න හෝ ඔබට අවශ්‍ය පරිදි මෙහි වෙනස් කරන්න (සෑම ad එකකටම එහි සැබෑ ලින්ක් එක ස්වයංක්‍රීයව එක්වේ)</p>
+                    <p class="text-xs text-gray-400 mt-0.5">පණිවිඩය තෝරන්න හෝ මෙහි වෙනස් කරන්න (සෑම ad එකකටම එහි සැබෑ URL සහ විස්තර ස්වයංක්‍රීයව replace වේ)</p>
                 </div>
                 <div class="flex flex-wrap gap-2" id="template-buttons">
-                    <button onclick="setTemplate(1)" id="btn-tpl-1" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-yellow-500 text-black border border-yellow-400">
-                        ⭐ 1. සම්පූර්ණ විස්තරය + රු. 1500 (Recommended)
+                    <button onclick="setTemplate(1)" id="btn-tpl-1" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700">
+                        1. Welcome & VIP Link
                     </button>
-                    <button onclick="setTemplate(2)" id="btn-tpl-2" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-750">
-                        2. නොමිලේ දැමූ බව & අඩුපාඩු (Friendly)
+                    <button onclick="setTemplate(2)" id="btn-tpl-2" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700">
+                        2. Review & Details Check
                     </button>
-                    <button onclick="setTemplate(3)" id="btn-tpl-3" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-750">
-                        3. ඇයි TinTinAds & රු. 1500 (Pitch)
+                    <button onclick="setTemplate(3)" id="btn-tpl-3" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-yellow-500 text-black border border-yellow-400">
+                        ⏰ 3. Expired Ad Renewal & රු. 1500 Pitch (Recommended)
                     </button>
                 </div>
             </div>
@@ -194,7 +194,7 @@
             <!-- Message Preview & Edit Textarea -->
             <div class="relative">
                 <label class="block text-xs font-semibold text-gray-400 mb-1">
-                    යවන පණිවිඩයේ Preview එක (වෙනස් කරගත හැක - <span class="text-yellow-400">{adUrl}</span>, <span class="text-yellow-400">{title}</span>, <span class="text-yellow-400">{location}</span> ස්වයංක්‍රීයව replace වේ):
+                    යවන පණිවිඩයේ Preview එක (වෙනස් කරගත හැක - <span class="text-yellow-400">{adUrl}</span>, <span class="text-yellow-400">{title}</span>, <span class="text-yellow-400">{location}</span>, <span class="text-yellow-400">{price}</span> auto-replace වේ):
                 </label>
                 <textarea id="message-template" rows="8" class="w-full bg-gray-950 border border-gray-700 rounded-xl p-4 text-xs font-mono text-gray-200 focus:outline-none focus:border-yellow-500 leading-relaxed custom-scrollbar" oninput="updateAllWhatsAppLinks()"></textarea>
             </div>
@@ -208,6 +208,16 @@
             </div>
 
             <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                <select id="filter-lifecycle" onchange="filterAds()" class="bg-gray-950 border border-yellow-500/40 text-yellow-300 font-bold text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-yellow-500">
+                    <option value="">සියලුම දැන්වීම් (All)</option>
+                    <option value="expired" selected>⏰ Expired පමණක් (Message 3 Renewal)</option>
+                    <option value="active">🟢 Active පමණක් (සක්‍රීය)</option>
+                    <option value="msg1_pending">⏳ Msg 1 නොයැවූ</option>
+                    <option value="msg2_pending">⏳ Msg 2 නොයැවූ</option>
+                    <option value="msg3_pending">⏳ Msg 3 (Renewal) නොයැවූ</option>
+                    <option value="msg3_sent">✅ Msg 3 (Renewal) යැවූ</option>
+                </select>
+
                 <select id="filter-category" onchange="filterAds()" class="bg-gray-950 border border-gray-800 text-gray-300 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-yellow-500">
                     <option value="">සියලුම Categories</option>
                     <option value="Girls Personal">Girls Personal</option>
@@ -217,14 +227,8 @@
                     <option value="Shemale Personal">Shemale Personal</option>
                 </select>
 
-                <select id="filter-status" onchange="filterAds()" class="bg-gray-950 border border-gray-800 text-gray-300 text-xs rounded-lg px-3 py-2.5 focus:outline-none focus:border-yellow-500">
-                    <option value="">සියලුම තත්වයන් (All)</option>
-                    <option value="pending">Message නොයැවූ (Pending)</option>
-                    <option value="contacted">Message යැවූ (Contacted)</option>
-                </select>
-
-                <button onclick="resetFilters()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-3 py-2.5 rounded-lg border border-gray-700">
-                    Reset
+                <button onclick="resetFilters()" class="bg-gray-800 hover:bg-gray-700 text-gray-300 text-xs px-3.5 py-2.5 rounded-lg border border-gray-700 font-semibold transition">
+                    Reset Filters
                 </button>
             </div>
         </div>
@@ -236,13 +240,13 @@
                     <thead>
                         <tr class="bg-gray-850 border-b border-gray-800 text-gray-400 uppercase font-semibold">
                             <th class="p-3 text-center w-12">#</th>
-                            <th class="p-3 text-center w-28">Status</th>
-                            <th class="p-3">දැන්වීමේ විස්තරය (Ad & Category)</th>
-                            <th class="p-3">නගරය / පළාත</th>
-                            <th class="p-3 font-semibold text-blue-300">සාමාන්‍ය Calling Phone</th>
-                            <th class="p-3 font-semibold text-green-300">WhatsApp Number</th>
+                            <th class="p-3 text-center w-36">දැන්වීමේ තත්වය</th>
+                            <th class="p-3">දැන්වීමේ විස්තරය</th>
+                            <th class="p-3">ප්‍රදේශය</th>
+                            <th class="p-3 font-semibold text-blue-300">සාමාන්‍ය Phone</th>
+                            <th class="p-3 font-semibold text-green-300">WhatsApp</th>
                             <th class="p-3 text-center">සජීවී Link</th>
-                            <th class="p-3 text-center w-36">WhatsApp පණිවිඩය</th>
+                            <th class="p-3 text-center w-60">WhatsApp පණිවිඩ අදියර 3 (1-Click)</th>
                         </tr>
                     </thead>
                     <tbody id="ads-tbody" class="divide-y divide-gray-800">
@@ -252,9 +256,12 @@
             </div>
 
             <!-- Table Footer -->
-            <div class="p-4 bg-gray-850 border-t border-gray-800 flex justify-between items-center text-xs text-gray-400">
-                <span id="footer-count">පෙන්වන්නේ දැන්වීම් 120න් 120යි</span>
-                <span class="text-yellow-400 font-semibold">🌟 TinTinAds.com Official VIP Outreach System</span>
+            <div class="p-4 bg-gray-850 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400 gap-2">
+                <span id="footer-count">පෙන්වන්නේ දැන්වීම් 0න් 0යි</span>
+                <span class="text-yellow-400 font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-crown text-yellow-400"></i>
+                    <span>TinTinAds.com Official VIP Outreach & Auto-Renewal System</span>
+                </span>
             </div>
         </div>
 
@@ -263,11 +270,12 @@
     <!-- Notification Toast -->
     <div id="toast" class="fixed bottom-6 right-6 bg-yellow-500 text-black font-bold px-4 py-3 rounded-xl shadow-2xl transform translate-y-20 opacity-0 transition duration-300 flex items-center gap-2 text-xs z-50">
         <i class="fa-solid fa-circle-check text-base"></i>
-        <span id="toast-text">Copied to clipboard!</span>
+        <span id="toast-text">Success!</span>
     </div>
 
     <script>
-        const allAds = [{"num": 1, "id": 62, "code": "AD-B1", "title": "Colombo 🔥 New Hot 2 Girls Available 🔥 Full Service 🔥", "category": "Girls Personal", "location": "Colombo", "price": 15000.0, "phone": "0768908392", "whatsapp": "0768908392", "wa_intl": "94768908392", "url": "https://tintinads.com/ad/62"}, {"num": 2, "id": 63, "code": "AD-B2", "title": "CHATHU 🫂 SHEMALE LADY BOY TOP & BOTTOM BOTH SERVICE , BODY THERAPIST , CAM SERVICE 🚩", "category": "Shemale Personal", "location": "Colombo, Wellawatte, Kollupitiya, Bambalapitiya, Dehiwala, Ratmalana", "price": 2500.0, "phone": "0712259852", "whatsapp": "0712259852", "wa_intl": "94712259852", "url": "https://tintinads.com/ad/63"}, {"num": 3, "id": 64, "code": "AD-B3", "title": "🌸💋MAHARAGAMA NUGEGODA 🌸 SPA SERVICE FOR LADIES AND GENTS 🌸💋 💋🌸", "category": "Spa & Wellness Services", "location": "Maharagama, Nugegoda, Embuldeniya", "price": 2500.0, "phone": "0716161613", "whatsapp": "0716161613", "wa_intl": "94716161613", "url": "https://tintinads.com/ad/64"}, {"num": 4, "id": 65, "code": "AD-B4", "title": "💋❤️ Hot & Sweet Girl In Kurunegala ❤️💋", "category": "Girls Personal", "location": "Kurunegala, Pellandeniya", "price": 4500.0, "phone": "0711784561", "whatsapp": "0711784561", "wa_intl": "94711784561", "url": "https://tintinads.com/ad/65"}, {"num": 5, "id": 66, "code": "AD-B5", "title": "Full services🌹🌹 6000/=. BORELLA", "category": "Personal", "location": "Borella", "price": 6000.0, "phone": "0704858080", "whatsapp": "0704858080", "wa_intl": "94704858080", "url": "https://tintinads.com/ad/66"}, {"num": 6, "id": 67, "code": "AD-B6", "title": "Tharushi Beautiful Young Girl Full Service 😍👑❤️", "category": "Personal", "location": "Piliyandala, Kesbewa, Boralesgamuwa, Kottawa, Kalutara", "price": 5000.0, "phone": "0773112046", "whatsapp": "0773112046", "wa_intl": "94773112046", "url": "https://tintinads.com/ad/67"}, {"num": 7, "id": 68, "code": "AD-B7", "title": "💚🍒💫අමතක නොවන හොදම Live Cam Fun එකක් ගන්න දැන්ම එන්න 💦🥵", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0742769321", "whatsapp": "0742769321", "wa_intl": "94742769321", "url": "https://tintinads.com/ad/68"}, {"num": 8, "id": 69, "code": "AD-B8", "title": "🌹Full Service 6000/=anal No💞 💞1-hour-2 Shorts 7000/=anal🆗💞 💞2-hour-3 Shorts 8000/=anal🆗💞 💞3-hour-4 Shorts 9000/=anal🆗💞", "category": "Personal", "location": "Kollupitiya, Bambalapitiya, Dehiwala", "price": 6000.0, "phone": "0741279558", "whatsapp": "0741279558", "wa_intl": "94741279558", "url": "https://tintinads.com/ad/69"}, {"num": 9, "id": 70, "code": "AD-B9", "title": "💦💥GENUINE CAMSHOW🥰SINGLE💞COUPLE💥💦එන්න මං ගාවට ඇවිත් වෙනස අත්විඳලා බලන්න 💋🧚💖කිසි දිනක නොවිඳපු ඇග හිරිවැටිලා යන ආදරණීය සේවාවක් ❤️‍🔥💦🧚", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0740549481", "whatsapp": "0740549481", "wa_intl": "94740549481", "url": "https://tintinads.com/ad/70"}, {"num": 10, "id": 71, "code": "AD-B10", "title": "Shot 6000/= Full Service Available Beautiful Girl", "category": "Personal", "location": "Seeduwa, Katunayake", "price": 6000.0, "phone": "0785980268", "whatsapp": "0785980268", "wa_intl": "94785980268", "url": "https://tintinads.com/ad/71"}, {"num": 11, "id": 72, "code": "AD-B11", "title": "Colombo👠Age 20-30 Young Girls ✅Spa Kollupitiya", "category": "Spa & Wellness Services", "location": "Kollupitiya, Wellawatta, Bambalapitiya, Colombo 03", "price": 4000.0, "phone": "0769693092", "whatsapp": "0769693092", "wa_intl": "94769693092", "url": "https://tintinads.com/ad/72"}, {"num": 12, "id": 73, "code": "AD-B12", "title": "😍 🤩 (REAL MUSLIM GIRL)🤩💦 🥰මුස්ලිම් කෙල්ලෙක්ගෙ වෙනස බලන්න 🫣💦 හිත හිත ඉන් නැතුව දැන්ම මාව අරන් බලන්න 💊💊🥳🫣", "category": "Live Cam", "location": "All Island (Online)", "price": 6000.0, "phone": "0789936193", "whatsapp": "0789936193", "wa_intl": "94789936193", "url": "https://tintinads.com/ad/73"}, {"num": 13, "id": 74, "code": "AD-B13", "title": "Site එකේ ඉන්න චූටි Hot ම කෙල්ලගෙන් වීඩියෝ කෝල් සැපක් ගන්න ආසයිද ලමයෝ .. 🫣 මං දෙන්නම් ඔයාට ඇග හිරිවැටිල යන්න සැපක් 🧚", "category": "Live Cam", "location": "All Island (Online)", "price": 6000.0, "phone": "0759554261", "whatsapp": "0759554261", "wa_intl": "94759554261", "url": "https://tintinads.com/ad/74"}, {"num": 14, "id": 75, "code": "AD-B14", "title": "🥰 New Girl Full Service Bambalapitiya , Wellawatta , Kollupitiya", "category": "Girls Personal", "location": "Bambalapitiya, Wellawatta, Kollupitiya", "price": 8000.0, "phone": "0773337615", "whatsapp": "0703738599", "wa_intl": "94703738599", "url": "https://tintinads.com/ad/75"}, {"num": 15, "id": 76, "code": "AD-B15", "title": "🌼Hi sir im Pihu🌼 🌼New commen girl (unmarried ) 🌼23 years new girl 🌼Full service 6000/= 📞0701595095 Pelawattha, Thalawathugoda, Battaramulla, Rajagiriya, Kotte, Dehiwala, Pannipitiya my private place 🤩", "category": "Personal", "location": "Pelawatta, Thalawathugoda, Battaramulla, Rajagiriya, Kotte, Dehiwala, Pannipitiya", "price": 6000.0, "phone": "0701595095", "whatsapp": "0701595095", "wa_intl": "94701595095", "url": "https://tintinads.com/ad/76"}, {"num": 16, "id": 77, "code": "AD-B16", "title": "NEW KANDY Quality Girls. CALL ME NOW!❤️Threesome ok", "category": "Personal", "location": "Kandy, Peradeniya", "price": 6000.0, "phone": "0750768999", "whatsapp": "0752771625", "wa_intl": "94752771625", "url": "https://tintinads.com/ad/77"}, {"num": 17, "id": 78, "code": "AD-B17", "title": "✨ 100% Real photo ✅ | Genuine service", "category": "Live Cam", "location": "All Island (Online)", "price": 2000.0, "phone": "0728405835", "whatsapp": "0728405835", "wa_intl": "94728405835", "url": "https://tintinads.com/ad/78"}, {"num": 18, "id": 121, "code": "AD-B18", "title": "% off Dehiwala *Beautifull 🇨🇷 Thai Girls & Local Girls*", "category": "Spa & Wellness Services", "location": "Dehiwala, Boralesgamuwa, Maharagama, Delkanda, Pepiliyana", "price": 10000.0, "phone": "0740264040", "whatsapp": "0758069190", "wa_intl": "94758069190", "url": "https://tintinads.com/ad/121"}, {"num": 19, "id": 80, "code": "AD-B19", "title": "❤️6000🥰Full service & girlfriend fun very sexy cute hot figure girls👅 private place kottawa 🙏 genuine custom welcome🫂", "category": "Personal", "location": "Kottawa", "price": 6000.0, "phone": "0703940471", "whatsapp": "0703940471", "wa_intl": "94703940471", "url": "https://tintinads.com/ad/80"}, {"num": 20, "id": 29, "code": "AD-B20", "title": "Full Service Rs.5000/= කඩවත🌺0773750062", "category": "Personal", "location": "Kadawatha", "price": 5000.0, "phone": "0773750062", "whatsapp": "0766740062", "wa_intl": "94766740062", "url": "https://tintinads.com/ad/29"}, {"num": 21, "id": 81, "code": "AD-B21", "title": "Amisha Model Girl Full Service Rs. 5000/= Talawathugoda, Pannipitiya, Maharagama", "category": "Girls Personal", "location": "Talawathugoda, Pannipitiya, Maharagama", "price": 5000.0, "phone": "0762634245", "whatsapp": "0762634245", "wa_intl": "94762634245", "url": "https://tintinads.com/ad/81"}, {"num": 22, "id": 82, "code": "AD-B22", "title": "New Hot Sexy Young Girl Full Service In Nittabuwa - Ruvi (5000/=)", "category": "Girls Personal", "location": "Nittambuwa, Passyala, Veyangoda, Thihariya, Attanagalla", "price": 5000.0, "phone": "0741968443", "whatsapp": "0741968443", "wa_intl": "94741968443", "url": "https://tintinads.com/ad/82"}, {"num": 23, "id": 83, "code": "AD-B23", "title": "Hi Gentlemen Amandi 24 Years Old Full Service Nugegoda, Kotte, Pagoda (7000/=)", "category": "Girls Personal", "location": "Nugegoda, Pita Kotte, Pagoda", "price": 7000.0, "phone": "0740518089", "whatsapp": "0740518089", "wa_intl": "94740518089", "url": "https://tintinads.com/ad/83"}, {"num": 24, "id": 84, "code": "AD-B24", "title": "තරුණ කෙල්ලෝ 4 දෙනෙක් Full Service කඩුවෙල බණ්ඩාරවත්ත 3 Some Ok (4600/=)", "category": "Girls Personal", "location": "Kaduwela, Bandarawatta", "price": 4600.0, "phone": "0760059979", "whatsapp": "0760059979", "wa_intl": "94760059979", "url": "https://tintinads.com/ad/84"}, {"num": 25, "id": 85, "code": "AD-B25", "title": "19-23 Years Young Girls Exclusive Full Service Kalubowila, Dehiwala, Nugegoda", "category": "Girls Personal", "location": "Kalubowila, Dehiwala, Boralesgamuwa, Nugegoda, Piliyandala", "price": 6000.0, "phone": "0742860221", "whatsapp": "0742860221", "wa_intl": "94742860221", "url": "https://tintinads.com/ad/85"}, {"num": 26, "id": 86, "code": "AD-B26", "title": "Nimeshi 27 Dancing Girl Genuine Live Cam Show Packages (700/= - 2500/=)", "category": "Live Cam", "location": "All Island (Online)", "price": 1500.0, "phone": "0705943966", "whatsapp": "0774981388", "wa_intl": "94774981388", "url": "https://tintinads.com/ad/86"}, {"num": 27, "id": 87, "code": "AD-B27", "title": "Tantric & Erotic Yoga Session For Mind & Body Malabe, Colombo (5000/=)", "category": "Girls Personal", "location": "Malabe, Colombo", "price": 5000.0, "phone": "0769862905", "whatsapp": "0769862905", "wa_intl": "94769862905", "url": "https://tintinads.com/ad/87"}, {"num": 28, "id": 88, "code": "AD-B28", "title": "Bhanu 24 Years Old Unmarried Girl Full Service Dehiwala, Mount Lavinia (6000/=)", "category": "Girls Personal", "location": "Dehiwala, Mount Lavinia, Wellawatta, Ratmalana, Bambalapitiya", "price": 6000.0, "phone": "0757098517", "whatsapp": "0757098517", "wa_intl": "94757098517", "url": "https://tintinads.com/ad/88"}, {"num": 29, "id": 89, "code": "AD-B29", "title": "Kaushi 25 Years Friendly White Skin Full Service Galle, Hikkaduwa, Ambalangoda (7000/=)", "category": "Girls Personal", "location": "Galle, Hikkaduwa, Ambalangoda, Baddegama, Elpitiya", "price": 7000.0, "phone": "0707421211", "whatsapp": "0707421211", "wa_intl": "94707421211", "url": "https://tintinads.com/ad/89"}, {"num": 30, "id": 122, "code": "AD-B30", "title": "Nisha 23 Years Beautiful Hot Figure Full Service Galle, Hikkaduwa (7000/=)", "category": "Girls Personal", "location": "Galle, Hikkaduwa, Ambalangoda, Baddegama, Elpitiya", "price": 7000.0, "phone": "0773843824", "whatsapp": "0773843824", "wa_intl": "94773843824", "url": "https://tintinads.com/ad/122"}, {"num": 31, "id": 91, "code": "AD-B31", "title": "Shemale සදූ 26 Years Professional Massager Dehiwala, Mount Lavinia, Wellawatta", "category": "Shemale Personal", "location": "Dehiwala, Mount Lavinia, Wellawatta, Maharagama", "price": 5000.0, "phone": "0765996609", "whatsapp": "0765996609", "wa_intl": "94765996609", "url": "https://tintinads.com/ad/91"}, {"num": 32, "id": 92, "code": "AD-B32", "title": "Cute Hot Beautiful Girls Full Service Kurunegala (5000/=)", "category": "Girls Personal", "location": "Kurunegala", "price": 5000.0, "phone": "0705690992", "whatsapp": "0705690992", "wa_intl": "94705690992", "url": "https://tintinads.com/ad/92"}, {"num": 33, "id": 93, "code": "AD-B33", "title": "Dinithi & Manori Full Service And 3 Some Godagama, Pitipana, Homagama", "category": "Girls Personal", "location": "Godagama, Pitipana, Kottawa, Homagama", "price": 4000.0, "phone": "0705947074", "whatsapp": "0705947074", "wa_intl": "94705947074", "url": "https://tintinads.com/ad/93"}, {"num": 34, "id": 94, "code": "AD-B34", "title": "Tharu 34 Years Full Service & Anal Available Katunayake, Negombo, Seeduwa (6500/=)", "category": "Girls Personal", "location": "Katunayake, Negombo, Seeduwa, Kurana", "price": 6500.0, "phone": "0768624022", "whatsapp": "0768624022", "wa_intl": "94768624022", "url": "https://tintinads.com/ad/94"}, {"num": 35, "id": 95, "code": "AD-B35", "title": "Niki 30 Years Beautiful Girl Full Service Maharagama (5000/=)", "category": "Girls Personal", "location": "Maharagama", "price": 5000.0, "phone": "0712557739", "whatsapp": "0712557739", "wa_intl": "94712557739", "url": "https://tintinads.com/ad/95"}, {"num": 36, "id": 96, "code": "AD-B36", "title": "Nishu 23 Years Old Young Girl Full Service Mount Lavinia, Dehiwala (6000/=)", "category": "Girls Personal", "location": "Mount Lavinia, Dehiwala, Ratmalana, Moratuwa", "price": 6000.0, "phone": "0706642764", "whatsapp": "0706642764", "wa_intl": "94706642764", "url": "https://tintinads.com/ad/96"}, {"num": 37, "id": 97, "code": "AD-B37", "title": "Senuri 29 Years Hot & Sexy Girl Full Service Nugegoda, Narahenpita (8700/=)", "category": "Girls Personal", "location": "Nugegoda, Narahenpita, Nawala", "price": 8700.0, "phone": "0705077949", "whatsapp": "0705077949", "wa_intl": "94705077949", "url": "https://tintinads.com/ad/97"}, {"num": 38, "id": 98, "code": "AD-B38", "title": "සරාගි කෙල්ල 24 Years Live Cam Show & Role Play Genuine Packages", "category": "Live Cam", "location": "All Island (Online)", "price": 1500.0, "phone": "0789440045", "whatsapp": "0750640872", "wa_intl": "94750640872", "url": "https://tintinads.com/ad/98"}, {"num": 39, "id": 99, "code": "AD-B39", "title": "Boobs Size 40+ Super Hot Live Cam Packages & Video Chat (1000/= - 4000/=)", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0766671877", "whatsapp": "0766671877", "wa_intl": "94766671877", "url": "https://tintinads.com/ad/99"}, {"num": 40, "id": 100, "code": "AD-B40", "title": "Priya 30 Years Beautiful Tamil Girl Full Service Kandy (5500/=)", "category": "Girls Personal", "location": "Kandy", "price": 5500.0, "phone": "0702512664", "whatsapp": "0702512664", "wa_intl": "94702512664", "url": "https://tintinads.com/ad/100"}, {"num": 41, "id": 101, "code": "AD-B41", "title": "Sewmi Senara 22 Years Cute Real Cam Girl Special Packages", "category": "Live Cam", "location": "All Island (Online)", "price": 1500.0, "phone": "0759554261", "whatsapp": "0759554261", "wa_intl": "94759554261", "url": "https://tintinads.com/ad/101"}, {"num": 42, "id": 102, "code": "AD-B42", "title": "Anushki Teshara 21 Years Cute Face Lesbian & Single Cam Show", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0726568044", "whatsapp": "0726568044", "wa_intl": "94726568044", "url": "https://tintinads.com/ad/102"}, {"num": 43, "id": 103, "code": "AD-B43", "title": "18-25 Years Young Girls Full Service Kiribathgoda, Wattala, Kadawatha", "category": "Girls Personal", "location": "Kiribathgoda, Wattala, Mahara, Peliyagoda, Kadawatha", "price": 8000.0, "phone": "0769375319", "whatsapp": "0769375319", "wa_intl": "94769375319", "url": "https://tintinads.com/ad/103"}, {"num": 44, "id": 104, "code": "AD-B44", "title": "Malithi 25 Years Genuine Full Service 7000/= With Room Kollupitiya, Dehiwala", "category": "Girls Personal", "location": "Kollupitiya, Dehiwala, Wellawatta, Maharagama, Nawala, Nugegoda", "price": 7000.0, "phone": "0754574428", "whatsapp": "0722770412", "wa_intl": "94722770412", "url": "https://tintinads.com/ad/104"}, {"num": 45, "id": 105, "code": "AD-B45", "title": "Genuine Service Couple & Single Live Cam Show With Face", "category": "Live Cam", "location": "All Island (Online)", "price": 900.0, "phone": "0712565341", "whatsapp": "0712565341", "wa_intl": "94712565341", "url": "https://tintinads.com/ad/105"}, {"num": 46, "id": 106, "code": "AD-B46", "title": "Diniti 29 Years White Skin Girl Video Verification Available Live Cam", "category": "Live Cam", "location": "All Island (Online)", "price": 750.0, "phone": "0743774752", "whatsapp": "0743774752", "wa_intl": "94743774752", "url": "https://tintinads.com/ad/106"}, {"num": 47, "id": 107, "code": "AD-B47", "title": "Vihangi 24 Years Stunning Beauty Exclusive GFE Nugegoda, Rajagiriya", "category": "Girls Personal", "location": "Nugegoda, Rajagiriya, Maharagama, Nawala, Thalawathugoda", "price": 8500.0, "phone": "0707390141", "whatsapp": "0707390141", "wa_intl": "94707390141", "url": "https://tintinads.com/ad/107"}, {"num": 48, "id": 108, "code": "AD-B48", "title": "Ashani 21 Years Office Working Girl Full Service Kandy, Peradeniya", "category": "Girls Personal", "location": "Kandy, Peradeniya, Getambe", "price": 15000.0, "phone": "0766722528", "whatsapp": "0766722528", "wa_intl": "94766722528", "url": "https://tintinads.com/ad/108"}, {"num": 49, "id": 109, "code": "AD-B49", "title": "Shahani 24 Years Hot Shemale Full Service 2 Shot Rs. 5000/= Bambalapitiya", "category": "Shemale Personal", "location": "Colombo 06, Wellawatta, Bambalapitiya, Kollupitiya", "price": 5000.0, "phone": "0742887907", "whatsapp": "0742887907", "wa_intl": "94742887907", "url": "https://tintinads.com/ad/109"}, {"num": 50, "id": 110, "code": "AD-B50", "title": "Full Service Rs. 5000/= Mount Lavinia Near Lion Pub Inside Parking", "category": "Girls Personal", "location": "Mount Lavinia, Dehiwala, Ratmalana, Bambalapitiya, Kollupitiya", "price": 5000.0, "phone": "0779382203", "whatsapp": "0779382203", "wa_intl": "94779382203", "url": "https://tintinads.com/ad/110"}, {"num": 51, "id": 111, "code": "AD-B51", "title": "Super Luxury Spa & Massage Wadduwa Panadura Selection Available", "category": "Spa & Wellness Services", "location": "Wadduwa, Panadura", "price": 5000.0, "phone": "0743551245", "whatsapp": "0743551245", "wa_intl": "94743551245", "url": "https://tintinads.com/ad/111"}, {"num": 52, "id": 112, "code": "AD-B52", "title": "Teena 47 Years Live Cam Show With Face & Full Body Show", "category": "Live Cam", "location": "All Island (Online)", "price": 1100.0, "phone": "0720709958", "whatsapp": "0720709958", "wa_intl": "94720709958", "url": "https://tintinads.com/ad/112"}, {"num": 53, "id": 113, "code": "AD-B53", "title": "Hot Live Cam Packages Boobs & Pussy Show Voice Chat", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0705050049", "whatsapp": "0765689846", "wa_intl": "94765689846", "url": "https://tintinads.com/ad/113"}, {"num": 54, "id": 114, "code": "AD-B54", "title": "Private Luxury Spa Thai & Local Girls Dehiwala, Boralesgamuwa", "category": "Spa & Wellness Services", "location": "Dehiwala, Boralesgamuwa, Maharagama, Nugegoda", "price": 4000.0, "phone": "0740407585", "whatsapp": "0740407585", "wa_intl": "94740407585", "url": "https://tintinads.com/ad/114"}, {"num": 55, "id": 115, "code": "AD-B55", "title": "Ridma 28 Years Full Body & B2B Massage Nawinna, Maharagama", "category": "Girls Personal", "location": "Nawinna, Maharagama, Nugegoda", "price": 6000.0, "phone": "0777189433", "whatsapp": "0777189433", "wa_intl": "94777189433", "url": "https://tintinads.com/ad/115"}, {"num": 56, "id": 116, "code": "AD-B56", "title": "Banu 28 Years Tamil Girl Full Service 4000/= Kalubowila, Dehiwala", "category": "Girls Personal", "location": "Kalubowila, Kohuwala, Nugegoda, Dehiwala", "price": 4000.0, "phone": "0710777107", "whatsapp": "0710777107", "wa_intl": "94710777107", "url": "https://tintinads.com/ad/116"}, {"num": 57, "id": 117, "code": "AD-B57", "title": "Premier Luxury Spa Thai & Local Therapists Boralesgamuwa", "category": "Spa & Wellness Services", "location": "Boralesgamuwa, Rattanapitiya, Pepiliyana, Delkanda, Colombo", "price": 5000.0, "phone": "0779868585", "whatsapp": "0779868585", "wa_intl": "94779868585", "url": "https://tintinads.com/ad/117"}, {"num": 58, "id": 118, "code": "AD-B58", "title": "Newly Opened Luxury Spa & Young Girls Boralesgamuwa, Dehiwala", "category": "Spa & Wellness Services", "location": "Boralesgamuwa, Dehiwala, Pepiliyana, Maharagama", "price": 5000.0, "phone": "0740265555", "whatsapp": "0740265555", "wa_intl": "94740265555", "url": "https://tintinads.com/ad/118"}, {"num": 59, "id": 119, "code": "AD-B59", "title": "Salon Zenro Dehiwala Thai & Local Luxury Spa & Massage", "category": "Spa & Wellness Services", "location": "Dehiwala, Mount Lavinia, Moratuwa, Wellawatta", "price": 5000.0, "phone": "0778080022", "whatsapp": "0778080022", "wa_intl": "94778080022", "url": "https://tintinads.com/ad/119"}, {"num": 60, "id": 120, "code": "AD-B60", "title": "Keshi 23 Years Hot Live Cam Show & Video Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0728557025", "whatsapp": "0728557025", "wa_intl": "94728557025", "url": "https://tintinads.com/ad/120"}, {"num": 61, "id": 123, "code": "AD-B61", "title": "25 Years Cute Cam Girl Live Cam Video Show & Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0750112573", "whatsapp": "0750112573", "wa_intl": "94750112573", "url": "https://tintinads.com/ad/123"}, {"num": 62, "id": 124, "code": "AD-B62", "title": "Cam Girl With Face 25 Years Live Video Show & Bathroom Fun", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0750112573", "whatsapp": "0750112573", "wa_intl": "94750112573", "url": "https://tintinads.com/ad/124"}, {"num": 63, "id": 125, "code": "AD-B63", "title": "Friendly Boy for Girls & Women Wellawatta, Dehiwala, Kollupitiya", "category": "Boys Personal", "location": "Colombo (Wellawatta, Dehiwala, Bambalapitiya)", "price": 1000.0, "phone": "0774297322", "whatsapp": "0774297322", "wa_intl": "94774297322", "url": "https://tintinads.com/ad/125"}, {"num": 64, "id": 126, "code": "AD-B64", "title": "Chubby & Sexy 26 Years Live Cam Show & Video Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 500.0, "phone": "0752474761", "whatsapp": "0783611768", "wa_intl": "94783611768", "url": "https://tintinads.com/ad/126"}, {"num": 65, "id": 127, "code": "AD-B65", "title": "Kawshi 27 Years White & Chubby Live Cam Service & Video Call", "category": "Live Cam", "location": "All Island (Online)", "price": 800.0, "phone": "0753135104", "whatsapp": "0702471953", "wa_intl": "94702471953", "url": "https://tintinads.com/ad/127"}, {"num": 66, "id": 128, "code": "AD-B66", "title": "Suhaa 22 Years Cute Young Girl Full Service Bambalapitiya", "category": "Girls Personal", "location": "Colombo (Wellawatta, Dehiwala, Bambalapitiya)", "price": 3000.0, "phone": "0772431605", "whatsapp": "0772431605", "wa_intl": "94772431605", "url": "https://tintinads.com/ad/128"}, {"num": 67, "id": 129, "code": "AD-B67", "title": "Nethmi 30 Years Cute Girl Live Cam Show & Video Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 800.0, "phone": "0770876014", "whatsapp": "0770876014", "wa_intl": "94770876014", "url": "https://tintinads.com/ad/129"}, {"num": 68, "id": 130, "code": "AD-B68", "title": "Hansi 32 Years Genuine Live Cam Show & Clear Video Packages", "category": "Live Cam", "location": "All Island (Online)", "price": 500.0, "phone": "0787325457", "whatsapp": "0787325457", "wa_intl": "94787325457", "url": "https://tintinads.com/ad/130"}, {"num": 69, "id": 131, "code": "AD-B69", "title": "Age 24 Real Girl Live Cam Show With Face & Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0742749106", "whatsapp": "0742749106", "wa_intl": "94742749106", "url": "https://tintinads.com/ad/131"}, {"num": 70, "id": 132, "code": "AD-B70", "title": "Jasmi 22 Years Real Girl Live Cam & Face Open Video Show", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "0758319378", "whatsapp": "0758319378", "wa_intl": "94758319378", "url": "https://tintinads.com/ad/132"}, {"num": 71, "id": 133, "code": "AD-B71", "title": "Hot Dance Live Fun Girl Real Cam Show & Video Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 1200.0, "phone": "0762875827", "whatsapp": "0762875827", "wa_intl": "94762875827", "url": "https://tintinads.com/ad/133"}, {"num": 72, "id": 134, "code": "AD-B72", "title": "Thanu 30 Years Luxury Full Service Kadawatha & Kiribathgoda", "category": "Girls Personal", "location": "Gampaha (Kadawatha, Kiribathgoda, Wattala)", "price": 10000.0, "phone": "0769978110", "whatsapp": "0769978110", "wa_intl": "94769978110", "url": "https://tintinads.com/ad/134"}, {"num": 73, "id": 135, "code": "AD-B73", "title": "Wasana 30 Years Real Full Service Polonnaruwa, Badiwewa", "category": "Girls Personal", "location": "Polonnaruwa (Badiwewa)", "price": 6500.0, "phone": "0703678163", "whatsapp": "0703678163", "wa_intl": "94703678163", "url": "https://tintinads.com/ad/135"}, {"num": 74, "id": 136, "code": "AD-B74", "title": "Genuine Verified Live Cam Show With Face Video Packages", "category": "Live Cam", "location": "All Island (Online)", "price": 500.0, "phone": "0787369240", "whatsapp": "0787369240", "wa_intl": "94787369240", "url": "https://tintinads.com/ad/136"}, {"num": 75, "id": 137, "code": "AD-B75", "title": "Nipuni 37 Years Best Body Massage & Relaxation Kalutara, Panadura", "category": "Girls Personal", "location": "Kalutara (Panadura, Wadduwa, Aluthgama)", "price": 4000.0, "phone": "0703518335", "whatsapp": "0703518335", "wa_intl": "94703518335", "url": "https://tintinads.com/ad/137"}, {"num": 76, "id": 138, "code": "AD-B76", "title": "Professional Full Service & Luxury Hotel Rooms Kiribathgoda", "category": "Girls Personal", "location": "Gampaha (Kadawatha, Kiribathgoda, Wattala)", "price": 7500.0, "phone": "0715828407", "whatsapp": "0715828407", "wa_intl": "94715828407", "url": "https://tintinads.com/ad/138"}, {"num": 77, "id": 139, "code": "AD-B77", "title": "Dilini 29 Years Genuine Live Cam Show & Video Verification", "category": "Live Cam", "location": "All Island (Online)", "price": 600.0, "phone": "0762602812", "whatsapp": "0762602812", "wa_intl": "94762602812", "url": "https://tintinads.com/ad/139"}, {"num": 78, "id": 140, "code": "AD-B78", "title": "Darsha Tamil Speaking White Girl Live Cam Show & Packages", "category": "Live Cam", "location": "All Island (Online)", "price": 1000.0, "phone": "070309566", "whatsapp": "070309566", "wa_intl": "94070309566", "url": "https://tintinads.com/ad/140"}, {"num": 79, "id": 141, "code": "AD-B79", "title": "ZARA Luxury Spa Kandy Dodanwala Full Body Relaxation Massage", "category": "Spa & Wellness Services", "location": "Kandy (Dodanwala, Katugastota, Asgiriya)", "price": 2000.0, "phone": "0766922414", "whatsapp": "0766922414", "wa_intl": "94766922414", "url": "https://tintinads.com/ad/141"}, {"num": 80, "id": 142, "code": "AD-B80", "title": "Genuine Live Cam Only Video Show & Voice Fun Packages", "category": "Live Cam", "location": "All Island (Online)", "price": 500.0, "phone": "0701464462", "whatsapp": "0701464462", "wa_intl": "94701464462", "url": "https://tintinads.com/ad/142"}, {"num": 81, "id": 143, "code": "AD-B81", "title": "🥰full service & ANAL OK 6500/=One HOUR 2 SHOT OK with room 🥰දෙපැත්තම දෙනවා", "category": "Girls Personal", "location": "Colombo", "price": 6500.0, "phone": "0703122547", "whatsapp": "0703122547", "wa_intl": "94703122547", "url": "https://tintinads.com/ad/143"}, {"num": 82, "id": 144, "code": "AD-B82", "title": "💃💃 TAMIL GIRL FULL SERVICE REALL PHOTO AND DETAILS BAMBALAPITIYA WELLAWATHA", "category": "Girls Personal", "location": "Colombo", "price": 5500.0, "phone": "0711782153", "whatsapp": "0711782153", "wa_intl": "94711782153", "url": "https://tintinads.com/ad/144"}, {"num": 83, "id": 145, "code": "AD-B83", "title": "NO 01 OSHO TANTRIC MEDITATION CENTER IN COLOMBO . ITS YOUR WISE CHOICE", "category": "Girls Personal", "location": "Colombo", "price": 3500.0, "phone": "0760640932", "whatsapp": "0775959366", "wa_intl": "94775959366", "url": "https://tintinads.com/ad/145"}, {"num": 84, "id": 146, "code": "AD-B84", "title": "❣️Young Girl - full Service Rs; 5000/= & Really Photos 😍Hi, am Nadisha", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0703515554", "whatsapp": "0703515554", "wa_intl": "94703515554", "url": "https://tintinads.com/ad/146"}, {"num": 85, "id": 147, "code": "AD-B85", "title": "ඇනල් Ok 🤭 Full Service & Anal දෙකම", "category": "Girls Personal", "location": "Colombo", "price": 5500.0, "phone": "0704690512", "whatsapp": "0704690512", "wa_intl": "94704690512", "url": "https://tintinads.com/ad/147"}, {"num": 86, "id": 148, "code": "AD-B86", "title": "💐 Newly Open SPA 🪷🍀 සුපිරි Relax එකකට කොළඹ (නාවල ) තියෙන හොඳම තැන 👌👌", "category": "Spa & Wellness Services", "location": "Colombo", "price": 4000.0, "phone": "0765293292", "whatsapp": "0765293292", "wa_intl": "94765293292", "url": "https://tintinads.com/ad/148"}, {"num": 87, "id": 145, "code": "AD-B87", "title": "NO 01 OSHO TANTRIC MEDITATION CENTER IN COLOMBO . ITS YOUR WISE CHOICE", "category": "Girls Personal", "location": "Colombo", "price": 3500.0, "phone": "0775959366", "whatsapp": "0760640932", "wa_intl": "94760640932", "url": "https://tintinads.com/ad/145"}, {"num": 88, "id": 149, "code": "AD-B88", "title": "🌊(𝗧𝐞𝐞𝐧 𝗚𝐢𝐫𝐥)🍃චූටි කෙල්ල🍂 𝐅𝐮𝐥𝐥 𝐒𝐞𝐫𝐯𝐢𝐜𝐞 & 𝗚𝗲𝗻𝘂𝗶𝗻 𝐕 𝐈 𝐏 🚨 𝗖𝘂𝘀𝘁𝗼𝗺𝗲𝗿🕵️‍♀️බොරැ ෆො", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0789963831", "whatsapp": "0789963831", "wa_intl": "94789963831", "url": "https://tintinads.com/ad/149"}, {"num": 89, "id": 150, "code": "AD-B89", "title": "🌸Hi.. Everyone 🌸Name _ Shani 🌸Age _ 28 years old 🌸This is my real picture 💯", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0701149856", "whatsapp": "0701149856", "wa_intl": "94701149856", "url": "https://tintinads.com/ad/150"}, {"num": 90, "id": 151, "code": "AD-B90", "title": "Transgrader full service", "category": "Shemale Personal", "location": "Colombo", "price": 5500.0, "phone": "0760885908", "whatsapp": "0760885908", "wa_intl": "94760885908", "url": "https://tintinads.com/ad/151"}, {"num": 91, "id": 152, "code": "AD-B91", "title": "Private luxury apartment 🩵dehiwala🩵 full service 🩵", "category": "Girls Personal", "location": "Colombo", "price": 7000.0, "phone": "0754366104", "whatsapp": "0754366104", "wa_intl": "94754366104", "url": "https://tintinads.com/ad/152"}, {"num": 92, "id": 153, "code": "AD-B92", "title": "🥵punishment treatment🥵 Hey 🦋🍓🦋🍂 im available for you in", "category": "Girls Personal", "location": "Colombo", "price": 8000.0, "phone": "0722540893", "whatsapp": "0722540893", "wa_intl": "94722540893", "url": "https://tintinads.com/ad/153"}, {"num": 93, "id": 154, "code": "AD-B93", "title": "❤️Full Service Bambalapitiya/ Kollupitiya ❤️", "category": "Girls Personal", "location": "Colombo", "price": 8000.0, "phone": "0763778438", "whatsapp": "0763778438", "wa_intl": "94763778438", "url": "https://tintinads.com/ad/154"}, {"num": 94, "id": 155, "code": "AD-B94", "title": "Galle Beautiful Young Genuine Girl Full Service Available 100% Best VVIP Se", "category": "Girls Personal", "location": "Colombo", "price": 8000.0, "phone": "0751553780", "whatsapp": "0751553780", "wa_intl": "94751553780", "url": "https://tintinads.com/ad/155"}, {"num": 95, "id": 156, "code": "AD-B95", "title": "දිලිනි 🌸Full Service 🌸 කිරිබත්ගොඩ", "category": "Girls Personal", "location": "Colombo", "price": 6500.0, "phone": "0776764667", "whatsapp": "0776764667", "wa_intl": "94776764667", "url": "https://tintinads.com/ad/156"}, {"num": 96, "id": 157, "code": "AD-B96", "title": "🪼🌸New Beauty", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0719452762", "whatsapp": "0719452762", "wa_intl": "94719452762", "url": "https://tintinads.com/ad/157"}, {"num": 97, "id": 158, "code": "AD-B97", "title": "✅️New sexy tamil girl colombo (visit )", "category": "Girls Personal", "location": "Colombo", "price": 12000.0, "phone": "0771690712", "whatsapp": "0771690712", "wa_intl": "94771690712", "url": "https://tintinads.com/ad/158"}, {"num": 98, "id": 159, "code": "AD-B98", "title": "Kollupitiya / Bmbalapitiya ( කොල්ලුපිටිය, බම්බලපිටිය ) PRIVATE APARTMENT", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0767185999", "whatsapp": "0767185999", "wa_intl": "94767185999", "url": "https://tintinads.com/ad/159"}, {"num": 99, "id": 160, "code": "AD-B99", "title": "Sexy Figure එකක් තියෙන හැඩකාර කෙල්ලෙක්ගෙන් Full Service Galle 😍❤️ 100% ඇත්ත", "category": "Girls Personal", "location": "Colombo", "price": 6000.0, "phone": "0762858797", "whatsapp": "0762858797", "wa_intl": "94762858797", "url": "https://tintinads.com/ad/160"}, {"num": 100, "id": 161, "code": "AD-B100", "title": "⭕Hi sir අලුත් කෙල්ලෙක් මම 🔸 Young Girl in mount livinia , Dehiwala Rathmala", "category": "Girls Personal", "location": "Colombo", "price": 6000.0, "phone": "0705809093", "whatsapp": "0705809093", "wa_intl": "94705809093", "url": "https://tintinads.com/ad/161"}, {"num": 101, "id": 162, "code": "AD-B101", "title": "Full service", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0773377462", "whatsapp": "0773377462", "wa_intl": "94773377462", "url": "https://tintinads.com/ad/162"}, {"num": 102, "id": 163, "code": "AD-B102", "title": "Shamali Dehiwala, New girl to the field", "category": "Girls Personal", "location": "Colombo", "price": 10000.0, "phone": "0782079689", "whatsapp": "0782079689", "wa_intl": "94782079689", "url": "https://tintinads.com/ad/163"}, {"num": 103, "id": 164, "code": "AD-B103", "title": "Rajagiriya Kaduwela Ful Service Chubby Girl", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0763329164", "whatsapp": "0763329164", "wa_intl": "94763329164", "url": "https://tintinads.com/ad/164"}, {"num": 104, "id": 165, "code": "AD-B104", "title": "5500/- Full Service තුරුල් වෙලා ආදරෙන් අපි දෙන්නා sex කරමු ,", "category": "Girls Personal", "location": "Colombo", "price": 5500.0, "phone": "0740898357", "whatsapp": "0740898357", "wa_intl": "94740898357", "url": "https://tintinads.com/ad/165"}, {"num": 105, "id": 166, "code": "AD-B105", "title": "🌹🌹FULL SERVICE🌹🌹WELCOME MY PROFILE🌹 KADUWELA MALABE 🌹", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0773774046", "whatsapp": "0773774046", "wa_intl": "94773774046", "url": "https://tintinads.com/ad/166"}, {"num": 106, "id": 167, "code": "AD-B106", "title": "💗REAL NURU AND FULL SERViCE Dehiwala Pvt (Apartment💗💗💗", "category": "Girls Personal", "location": "Colombo", "price": 6000.0, "phone": "0771968477", "whatsapp": "0771968477", "wa_intl": "94771968477", "url": "https://tintinads.com/ad/167"}, {"num": 107, "id": 168, "code": "AD-B107", "title": "💫🍏 𝗙𝗨𝗟𝗟 𝗦𝗘𝗥𝗩𝗜𝗖𝗘 REALL PHOTO AND DETAILS💚 ඇඟට දැනෙන සැපක් ගමු එන්න💃💃", "category": "Girls Personal", "location": "Colombo", "price": 6500.0, "phone": "0725233218", "whatsapp": "0725233218", "wa_intl": "94725233218", "url": "https://tintinads.com/ad/168"}, {"num": 108, "id": 169, "code": "AD-B108", "title": "🌙🅵🆄🅻🅻 🆂🅴🆁🆅🅸🅲🅴 _ 🌙🅼🅰🅷🅰🆁🅰🅶🅰🅼🅰 🅺🅾🆃🆃🅰🆆🅰 🅿🅰🅽🅽🅸🅿🅸🆃🅸🆈🅰 🌹🔥", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0740587114", "whatsapp": "0740587114", "wa_intl": "94740587114", "url": "https://tintinads.com/ad/169"}, {"num": 109, "id": 170, "code": "AD-B109", "title": "Full service & nuru massage & threesome lesbian service (Dehiwala /Mount la", "category": "Spa & Wellness Services", "location": "Colombo", "price": 6500.0, "phone": "0771503405", "whatsapp": "0771503405", "wa_intl": "94771503405", "url": "https://tintinads.com/ad/170"}, {"num": 110, "id": 171, "code": "AD-B110", "title": "🔥Clean and hot Lady at 👉Bambalapitiya kollupitiya", "category": "Girls Personal", "location": "Colombo", "price": 6000.0, "phone": "0766046164", "whatsapp": "0772451526", "wa_intl": "94772451526", "url": "https://tintinads.com/ad/171"}, {"num": 111, "id": 172, "code": "AD-B111", "title": "💋 🌹 PIYUMI ❤️ Premium Hot and Sexy full Service 🌹", "category": "Girls Personal", "location": "Colombo", "price": 6500.0, "phone": "0719009245", "whatsapp": "0719009245", "wa_intl": "94719009245", "url": "https://tintinads.com/ad/172"}, {"num": 112, "id": 173, "code": "AD-B112", "title": "Maharagama Full Service 1 Hour 2 Shot 6500 / (With Room)", "category": "Girls Personal", "location": "Colombo", "price": 6500.0, "phone": "0766026544", "whatsapp": "0766026544", "wa_intl": "94766026544", "url": "https://tintinads.com/ad/173"}, {"num": 113, "id": 174, "code": "AD-B113", "title": "Rs 3000 දැන් Full Service වලට ඉන්නවා ලස්සන හොද Sexy කෙල්ලෙක් Rs 3000", "category": "Girls Personal", "location": "Colombo", "price": 3000.0, "phone": "0704853001", "whatsapp": "0704853001", "wa_intl": "94704853001", "url": "https://tintinads.com/ad/174"}, {"num": 114, "id": 175, "code": "AD-B114", "title": "Colombo Visit ok, Night ok", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0743191336", "whatsapp": "0743191336", "wa_intl": "94743191336", "url": "https://tintinads.com/ad/175"}, {"num": 115, "id": 176, "code": "AD-B115", "title": "🌸🪷🪻🌸 KANDY KATUGASTHOTA AREA BEAUTIFUL GIRL FULL SERVICE IN REALL PHOTO 550", "category": "Girls Personal", "location": "Colombo", "price": 5500.0, "phone": "0720933928", "whatsapp": "0720933928", "wa_intl": "94720933928", "url": "https://tintinads.com/ad/176"}, {"num": 116, "id": 177, "code": "AD-B116", "title": "Sri Lankan No 01 Sexual Tantric Yoga Meditation Retreat Centers ( Dehiwla ,", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0773813666", "whatsapp": "0783763155", "wa_intl": "94783763155", "url": "https://tintinads.com/ad/177"}, {"num": 117, "id": 178, "code": "AD-B117", "title": "New Tamil girl kollupitiya Rs.5000/= 😍", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0752038914", "whatsapp": "0711424183", "wa_intl": "94711424183", "url": "https://tintinads.com/ad/178"}, {"num": 118, "id": 179, "code": "AD-B118", "title": "🌷❤️3 Some FULL SERVICE කෙල්ලො දෙන්නෙක් එනවා දෙන්නම 8000 ට 🌷Battaramulla 🌷 H", "category": "Girls Personal", "location": "Colombo", "price": 8000.0, "phone": "0770380902", "whatsapp": "0770380902", "wa_intl": "94770380902", "url": "https://tintinads.com/ad/179"}, {"num": 119, "id": 180, "code": "AD-B119", "title": "Im sanju 🔹Full service 5000/= 🌹32 years young girl 📞0762752662 Battaramulla", "category": "Girls Personal", "location": "Colombo", "price": 5000.0, "phone": "0762752662", "whatsapp": "0762752662", "wa_intl": "94762752662", "url": "https://tintinads.com/ad/180"}, {"num": 120, "id": 181, "code": "AD-B120", "title": "4000/= Madu Full Service Available Horana ❤️🙂 100% ඇත්තම Photo එක දාලා තියෙ", "category": "Girls Personal", "location": "Colombo", "price": 4000.0, "phone": "0769026227", "whatsapp": "0769026227", "wa_intl": "94769026227", "url": "https://tintinads.com/ad/181"}];
+        let allAds = [{"num": 1, "id": 62, "code": "AD-B1", "title": "Colombo 🔥 New Hot 2 Girls Available 🔥 Full Service 🔥", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 15000.0, "phone": "0768908392", "whatsapp": "0768908392", "wa_intl": "94768908392", "url": "https://tintinads.com/ad/62", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 2, "id": 63, "code": "AD-B2", "title": "CHATHU 🫂 SHEMALE LADY BOY TOP & BOTTOM BOTH SERVICE , BODY THERAPIST , CAM SERVICE 🚩", "category": "Shemale Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo, Wellawatte, Kollupitiya, Bambalapitiya, Dehiwala, Ratmalana", "price": 2500.0, "phone": "0712259852", "whatsapp": "0712259852", "wa_intl": "94712259852", "url": "https://tintinads.com/ad/63", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 3, "id": 64, "code": "AD-B3", "title": "🌸💋MAHARAGAMA NUGEGODA 🌸 SPA SERVICE FOR LADIES AND GENTS 🌸💋 💋🌸", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Maharagama, Nugegoda, Embuldeniya", "price": 2500.0, "phone": "0716161613", "whatsapp": "0716161613", "wa_intl": "94716161613", "url": "https://tintinads.com/ad/64", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 4, "id": 65, "code": "AD-B4", "title": "💋❤️ Hot & Sweet Girl In Kurunegala ❤️💋", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kurunegala, Pellandeniya", "price": 4500.0, "phone": "0711784561", "whatsapp": "0711784561", "wa_intl": "94711784561", "url": "https://tintinads.com/ad/65", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 5, "id": 66, "code": "AD-B5", "title": "Full services🌹🌹 6000/=. BORELLA", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Borella", "price": 6000.0, "phone": "0704858080", "whatsapp": "0704858080", "wa_intl": "94704858080", "url": "https://tintinads.com/ad/66", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 6, "id": 67, "code": "AD-B6", "title": "Tharushi Beautiful Young Girl Full Service 😍👑❤️", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Piliyandala, Kesbewa, Boralesgamuwa, Kottawa, Kalutara", "price": 5000.0, "phone": "0773112046", "whatsapp": "0773112046", "wa_intl": "94773112046", "url": "https://tintinads.com/ad/67", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 7, "id": 68, "code": "AD-B7", "title": "💚🍒💫අමතක නොවන හොදම Live Cam Fun එකක් ගන්න දැන්ම එන්න 💦🥵", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0742769321", "whatsapp": "0742769321", "wa_intl": "94742769321", "url": "https://tintinads.com/ad/68", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 8, "id": 69, "code": "AD-B8", "title": "🌹Full Service 6000/=anal No💞 💞1-hour-2 Shorts 7000/=anal🆗💞 💞2-hour-3 Shorts 8000/=anal🆗💞 💞3-hour-4 Shorts 9000/=anal🆗💞", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kollupitiya, Bambalapitiya, Dehiwala", "price": 6000.0, "phone": "0741279558", "whatsapp": "0741279558", "wa_intl": "94741279558", "url": "https://tintinads.com/ad/69", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 9, "id": 70, "code": "AD-B9", "title": "💦💥GENUINE CAMSHOW🥰SINGLE💞COUPLE💥💦එන්න මං ගාවට ඇවිත් වෙනස අත්විඳලා බලන්න 💋🧚💖කිසි දිනක නොවිඳපු ඇග හිරිවැටිලා යන ආදරණීය සේවාවක් ❤️‍🔥💦🧚", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0740549481", "whatsapp": "0740549481", "wa_intl": "94740549481", "url": "https://tintinads.com/ad/70", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 10, "id": 71, "code": "AD-B10", "title": "Shot 6000/= Full Service Available Beautiful Girl", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Seeduwa, Katunayake", "price": 6000.0, "phone": "0785980268", "whatsapp": "0785980268", "wa_intl": "94785980268", "url": "https://tintinads.com/ad/71", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 11, "id": 72, "code": "AD-B11", "title": "Colombo👠Age 20-30 Young Girls ✅Spa Kollupitiya", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kollupitiya, Wellawatta, Bambalapitiya, Colombo 03", "price": 4000.0, "phone": "0769693092", "whatsapp": "0769693092", "wa_intl": "94769693092", "url": "https://tintinads.com/ad/72", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 12, "id": 73, "code": "AD-B12", "title": "😍 🤩 (REAL MUSLIM GIRL)🤩💦 🥰මුස්ලිම් කෙල්ලෙක්ගෙ වෙනස බලන්න 🫣💦 හිත හිත ඉන් නැතුව දැන්ම මාව අරන් බලන්න 💊💊🥳🫣", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 6000.0, "phone": "0789936193", "whatsapp": "0789936193", "wa_intl": "94789936193", "url": "https://tintinads.com/ad/73", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 13, "id": 74, "code": "AD-B13", "title": "Site එකේ ඉන්න චූටි Hot ම කෙල්ලගෙන් වීඩියෝ කෝල් සැපක් ගන්න ආසයිද ලමයෝ .. 🫣 මං දෙන්නම් ඔයාට ඇග හිරිවැටිල යන්න සැපක් 🧚", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 6000.0, "phone": "0759554261", "whatsapp": "0759554261", "wa_intl": "94759554261", "url": "https://tintinads.com/ad/74", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 14, "id": 75, "code": "AD-B14", "title": "🥰 New Girl Full Service Bambalapitiya , Wellawatta , Kollupitiya", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Bambalapitiya, Wellawatta, Kollupitiya", "price": 8000.0, "phone": "0773337615", "whatsapp": "0703738599", "wa_intl": "94703738599", "url": "https://tintinads.com/ad/75", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 15, "id": 76, "code": "AD-B15", "title": "🌼Hi sir im Pihu🌼 🌼New commen girl (unmarried ) 🌼23 years new girl 🌼Full service 6000/= 📞0701595095 Pelawattha, Thalawathugoda, Battaramulla, Rajagiriya, Kotte, Dehiwala, Pannipitiya my private place 🤩", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Pelawatta, Thalawathugoda, Battaramulla, Rajagiriya, Kotte, Dehiwala, Pannipitiya", "price": 6000.0, "phone": "0701595095", "whatsapp": "0701595095", "wa_intl": "94701595095", "url": "https://tintinads.com/ad/76", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 16, "id": 77, "code": "AD-B16", "title": "NEW KANDY Quality Girls. CALL ME NOW!❤️Threesome ok", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kandy, Peradeniya", "price": 6000.0, "phone": "0750768999", "whatsapp": "0752771625", "wa_intl": "94752771625", "url": "https://tintinads.com/ad/77", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 17, "id": 78, "code": "AD-B17", "title": "✨ 100% Real photo ✅ | Genuine service", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 2000.0, "phone": "0728405835", "whatsapp": "0728405835", "wa_intl": "94728405835", "url": "https://tintinads.com/ad/78", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 18, "id": 121, "code": "AD-B18", "title": "% off Dehiwala *Beautifull 🇨🇷 Thai Girls & Local Girls*", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Dehiwala, Boralesgamuwa, Maharagama, Delkanda, Pepiliyana", "price": 10000.0, "phone": "0740264040", "whatsapp": "0758069190", "wa_intl": "94758069190", "url": "https://tintinads.com/ad/121", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 19, "id": 80, "code": "AD-B19", "title": "❤️6000🥰Full service & girlfriend fun very sexy cute hot figure girls👅 private place kottawa 🙏 genuine custom welcome🫂", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kottawa", "price": 6000.0, "phone": "0703940471", "whatsapp": "0703940471", "wa_intl": "94703940471", "url": "https://tintinads.com/ad/80", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 20, "id": 29, "code": "AD-B20", "title": "Full Service Rs.5000/= කඩවත🌺0773750062", "category": "Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kadawatha", "price": 5000.0, "phone": "0773750062", "whatsapp": "0766740062", "wa_intl": "94766740062", "url": "https://tintinads.com/ad/29", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 21, "id": 81, "code": "AD-B21", "title": "Amisha Model Girl Full Service Rs. 5000/= Talawathugoda, Pannipitiya, Maharagama", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Talawathugoda, Pannipitiya, Maharagama", "price": 5000.0, "phone": "0762634245", "whatsapp": "0762634245", "wa_intl": "94762634245", "url": "https://tintinads.com/ad/81", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 22, "id": 82, "code": "AD-B22", "title": "New Hot Sexy Young Girl Full Service In Nittabuwa - Ruvi (5000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Nittambuwa, Passyala, Veyangoda, Thihariya, Attanagalla", "price": 5000.0, "phone": "0741968443", "whatsapp": "0741968443", "wa_intl": "94741968443", "url": "https://tintinads.com/ad/82", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 23, "id": 83, "code": "AD-B23", "title": "Hi Gentlemen Amandi 24 Years Old Full Service Nugegoda, Kotte, Pagoda (7000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Nugegoda, Pita Kotte, Pagoda", "price": 7000.0, "phone": "0740518089", "whatsapp": "0740518089", "wa_intl": "94740518089", "url": "https://tintinads.com/ad/83", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 24, "id": 84, "code": "AD-B24", "title": "තරුණ කෙල්ලෝ 4 දෙනෙක් Full Service කඩුවෙල බණ්ඩාරවත්ත 3 Some Ok (4600/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kaduwela, Bandarawatta", "price": 4600.0, "phone": "0760059979", "whatsapp": "0760059979", "wa_intl": "94760059979", "url": "https://tintinads.com/ad/84", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 25, "id": 85, "code": "AD-B25", "title": "19-23 Years Young Girls Exclusive Full Service Kalubowila, Dehiwala, Nugegoda", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kalubowila, Dehiwala, Boralesgamuwa, Nugegoda, Piliyandala", "price": 6000.0, "phone": "0742860221", "whatsapp": "0742860221", "wa_intl": "94742860221", "url": "https://tintinads.com/ad/85", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 26, "id": 86, "code": "AD-B26", "title": "Nimeshi 27 Dancing Girl Genuine Live Cam Show Packages (700/= - 2500/=)", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1500.0, "phone": "0705943966", "whatsapp": "0774981388", "wa_intl": "94774981388", "url": "https://tintinads.com/ad/86", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 27, "id": 87, "code": "AD-B27", "title": "Tantric & Erotic Yoga Session For Mind & Body Malabe, Colombo (5000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Malabe, Colombo", "price": 5000.0, "phone": "0769862905", "whatsapp": "0769862905", "wa_intl": "94769862905", "url": "https://tintinads.com/ad/87", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 28, "id": 88, "code": "AD-B28", "title": "Bhanu 24 Years Old Unmarried Girl Full Service Dehiwala, Mount Lavinia (6000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Dehiwala, Mount Lavinia, Wellawatta, Ratmalana, Bambalapitiya", "price": 6000.0, "phone": "0757098517", "whatsapp": "0757098517", "wa_intl": "94757098517", "url": "https://tintinads.com/ad/88", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 29, "id": 89, "code": "AD-B29", "title": "Kaushi 25 Years Friendly White Skin Full Service Galle, Hikkaduwa, Ambalangoda (7000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Galle, Hikkaduwa, Ambalangoda, Baddegama, Elpitiya", "price": 7000.0, "phone": "0707421211", "whatsapp": "0707421211", "wa_intl": "94707421211", "url": "https://tintinads.com/ad/89", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 30, "id": 122, "code": "AD-B30", "title": "Nisha 23 Years Beautiful Hot Figure Full Service Galle, Hikkaduwa (7000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Galle, Hikkaduwa, Ambalangoda, Baddegama, Elpitiya", "price": 7000.0, "phone": "0773843824", "whatsapp": "0773843824", "wa_intl": "94773843824", "url": "https://tintinads.com/ad/122", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 31, "id": 91, "code": "AD-B31", "title": "Shemale සදූ 26 Years Professional Massager Dehiwala, Mount Lavinia, Wellawatta", "category": "Shemale Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Dehiwala, Mount Lavinia, Wellawatta, Maharagama", "price": 5000.0, "phone": "0765996609", "whatsapp": "0765996609", "wa_intl": "94765996609", "url": "https://tintinads.com/ad/91", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 32, "id": 92, "code": "AD-B32", "title": "Cute Hot Beautiful Girls Full Service Kurunegala (5000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kurunegala", "price": 5000.0, "phone": "0705690992", "whatsapp": "0705690992", "wa_intl": "94705690992", "url": "https://tintinads.com/ad/92", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 33, "id": 93, "code": "AD-B33", "title": "Dinithi & Manori Full Service And 3 Some Godagama, Pitipana, Homagama", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Godagama, Pitipana, Kottawa, Homagama", "price": 4000.0, "phone": "0705947074", "whatsapp": "0705947074", "wa_intl": "94705947074", "url": "https://tintinads.com/ad/93", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 34, "id": 94, "code": "AD-B34", "title": "Tharu 34 Years Full Service & Anal Available Katunayake, Negombo, Seeduwa (6500/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Katunayake, Negombo, Seeduwa, Kurana", "price": 6500.0, "phone": "0768624022", "whatsapp": "0768624022", "wa_intl": "94768624022", "url": "https://tintinads.com/ad/94", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 35, "id": 95, "code": "AD-B35", "title": "Niki 30 Years Beautiful Girl Full Service Maharagama (5000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Maharagama", "price": 5000.0, "phone": "0712557739", "whatsapp": "0712557739", "wa_intl": "94712557739", "url": "https://tintinads.com/ad/95", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 36, "id": 96, "code": "AD-B36", "title": "Nishu 23 Years Old Young Girl Full Service Mount Lavinia, Dehiwala (6000/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Mount Lavinia, Dehiwala, Ratmalana, Moratuwa", "price": 6000.0, "phone": "0706642764", "whatsapp": "0706642764", "wa_intl": "94706642764", "url": "https://tintinads.com/ad/96", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 37, "id": 97, "code": "AD-B37", "title": "Senuri 29 Years Hot & Sexy Girl Full Service Nugegoda, Narahenpita (8700/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Nugegoda, Narahenpita, Nawala", "price": 8700.0, "phone": "0705077949", "whatsapp": "0705077949", "wa_intl": "94705077949", "url": "https://tintinads.com/ad/97", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 38, "id": 98, "code": "AD-B38", "title": "සරාගි කෙල්ල 24 Years Live Cam Show & Role Play Genuine Packages", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1500.0, "phone": "0789440045", "whatsapp": "0750640872", "wa_intl": "94750640872", "url": "https://tintinads.com/ad/98", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 39, "id": 99, "code": "AD-B39", "title": "Boobs Size 40+ Super Hot Live Cam Packages & Video Chat (1000/= - 4000/=)", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0766671877", "whatsapp": "0766671877", "wa_intl": "94766671877", "url": "https://tintinads.com/ad/99", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 40, "id": 100, "code": "AD-B40", "title": "Priya 30 Years Beautiful Tamil Girl Full Service Kandy (5500/=)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kandy", "price": 5500.0, "phone": "0702512664", "whatsapp": "0702512664", "wa_intl": "94702512664", "url": "https://tintinads.com/ad/100", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 41, "id": 101, "code": "AD-B41", "title": "Sewmi Senara 22 Years Cute Real Cam Girl Special Packages", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1500.0, "phone": "0759554261", "whatsapp": "0759554261", "wa_intl": "94759554261", "url": "https://tintinads.com/ad/101", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 42, "id": 102, "code": "AD-B42", "title": "Anushki Teshara 21 Years Cute Face Lesbian & Single Cam Show", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0726568044", "whatsapp": "0726568044", "wa_intl": "94726568044", "url": "https://tintinads.com/ad/102", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 43, "id": 103, "code": "AD-B43", "title": "18-25 Years Young Girls Full Service Kiribathgoda, Wattala, Kadawatha", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kiribathgoda, Wattala, Mahara, Peliyagoda, Kadawatha", "price": 8000.0, "phone": "0769375319", "whatsapp": "0769375319", "wa_intl": "94769375319", "url": "https://tintinads.com/ad/103", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 44, "id": 104, "code": "AD-B44", "title": "Malithi 25 Years Genuine Full Service 7000/= With Room Kollupitiya, Dehiwala", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kollupitiya, Dehiwala, Wellawatta, Maharagama, Nawala, Nugegoda", "price": 7000.0, "phone": "0754574428", "whatsapp": "0722770412", "wa_intl": "94722770412", "url": "https://tintinads.com/ad/104", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 45, "id": 105, "code": "AD-B45", "title": "Genuine Service Couple & Single Live Cam Show With Face", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 900.0, "phone": "0712565341", "whatsapp": "0712565341", "wa_intl": "94712565341", "url": "https://tintinads.com/ad/105", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 46, "id": 106, "code": "AD-B46", "title": "Diniti 29 Years White Skin Girl Video Verification Available Live Cam", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 750.0, "phone": "0743774752", "whatsapp": "0743774752", "wa_intl": "94743774752", "url": "https://tintinads.com/ad/106", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 47, "id": 107, "code": "AD-B47", "title": "Vihangi 24 Years Stunning Beauty Exclusive GFE Nugegoda, Rajagiriya", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Nugegoda, Rajagiriya, Maharagama, Nawala, Thalawathugoda", "price": 8500.0, "phone": "0707390141", "whatsapp": "0707390141", "wa_intl": "94707390141", "url": "https://tintinads.com/ad/107", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 48, "id": 108, "code": "AD-B48", "title": "Ashani 21 Years Office Working Girl Full Service Kandy, Peradeniya", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kandy, Peradeniya, Getambe", "price": 15000.0, "phone": "0766722528", "whatsapp": "0766722528", "wa_intl": "94766722528", "url": "https://tintinads.com/ad/108", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 49, "id": 109, "code": "AD-B49", "title": "Shahani 24 Years Hot Shemale Full Service 2 Shot Rs. 5000/= Bambalapitiya", "category": "Shemale Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo 06, Wellawatta, Bambalapitiya, Kollupitiya", "price": 5000.0, "phone": "0742887907", "whatsapp": "0742887907", "wa_intl": "94742887907", "url": "https://tintinads.com/ad/109", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 50, "id": 110, "code": "AD-B50", "title": "Full Service Rs. 5000/= Mount Lavinia Near Lion Pub Inside Parking", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Mount Lavinia, Dehiwala, Ratmalana, Bambalapitiya, Kollupitiya", "price": 5000.0, "phone": "0779382203", "whatsapp": "0779382203", "wa_intl": "94779382203", "url": "https://tintinads.com/ad/110", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 51, "id": 111, "code": "AD-B51", "title": "Super Luxury Spa & Massage Wadduwa Panadura Selection Available", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Wadduwa, Panadura", "price": 5000.0, "phone": "0743551245", "whatsapp": "0743551245", "wa_intl": "94743551245", "url": "https://tintinads.com/ad/111", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 52, "id": 112, "code": "AD-B52", "title": "Teena 47 Years Live Cam Show With Face & Full Body Show", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1100.0, "phone": "0720709958", "whatsapp": "0720709958", "wa_intl": "94720709958", "url": "https://tintinads.com/ad/112", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 53, "id": 113, "code": "AD-B53", "title": "Hot Live Cam Packages Boobs & Pussy Show Voice Chat", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0705050049", "whatsapp": "0765689846", "wa_intl": "94765689846", "url": "https://tintinads.com/ad/113", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 54, "id": 114, "code": "AD-B54", "title": "Private Luxury Spa Thai & Local Girls Dehiwala, Boralesgamuwa", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Dehiwala, Boralesgamuwa, Maharagama, Nugegoda", "price": 4000.0, "phone": "0740407585", "whatsapp": "0740407585", "wa_intl": "94740407585", "url": "https://tintinads.com/ad/114", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 55, "id": 115, "code": "AD-B55", "title": "Ridma 28 Years Full Body & B2B Massage Nawinna, Maharagama", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Nawinna, Maharagama, Nugegoda", "price": 6000.0, "phone": "0777189433", "whatsapp": "0777189433", "wa_intl": "94777189433", "url": "https://tintinads.com/ad/115", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 56, "id": 116, "code": "AD-B56", "title": "Banu 28 Years Tamil Girl Full Service 4000/= Kalubowila, Dehiwala", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kalubowila, Kohuwala, Nugegoda, Dehiwala", "price": 4000.0, "phone": "0710777107", "whatsapp": "0710777107", "wa_intl": "94710777107", "url": "https://tintinads.com/ad/116", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 57, "id": 117, "code": "AD-B57", "title": "Premier Luxury Spa Thai & Local Therapists Boralesgamuwa", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Boralesgamuwa, Rattanapitiya, Pepiliyana, Delkanda, Colombo", "price": 5000.0, "phone": "0779868585", "whatsapp": "0779868585", "wa_intl": "94779868585", "url": "https://tintinads.com/ad/117", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 58, "id": 118, "code": "AD-B58", "title": "Newly Opened Luxury Spa & Young Girls Boralesgamuwa, Dehiwala", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Boralesgamuwa, Dehiwala, Pepiliyana, Maharagama", "price": 5000.0, "phone": "0740265555", "whatsapp": "0740265555", "wa_intl": "94740265555", "url": "https://tintinads.com/ad/118", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 59, "id": 119, "code": "AD-B59", "title": "Salon Zenro Dehiwala Thai & Local Luxury Spa & Massage", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Dehiwala, Mount Lavinia, Moratuwa, Wellawatta", "price": 5000.0, "phone": "0778080022", "whatsapp": "0778080022", "wa_intl": "94778080022", "url": "https://tintinads.com/ad/119", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 60, "id": 120, "code": "AD-B60", "title": "Keshi 23 Years Hot Live Cam Show & Video Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0728557025", "whatsapp": "0728557025", "wa_intl": "94728557025", "url": "https://tintinads.com/ad/120", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 61, "id": 123, "code": "AD-B61", "title": "25 Years Cute Cam Girl Live Cam Video Show & Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0750112573", "whatsapp": "0750112573", "wa_intl": "94750112573", "url": "https://tintinads.com/ad/123", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 62, "id": 124, "code": "AD-B62", "title": "Cam Girl With Face 25 Years Live Video Show & Bathroom Fun", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0750112573", "whatsapp": "0750112573", "wa_intl": "94750112573", "url": "https://tintinads.com/ad/124", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 63, "id": 125, "code": "AD-B63", "title": "Friendly Boy for Girls & Women Wellawatta, Dehiwala, Kollupitiya", "category": "Boys Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo (Wellawatta, Dehiwala, Bambalapitiya)", "price": 1000.0, "phone": "0774297322", "whatsapp": "0774297322", "wa_intl": "94774297322", "url": "https://tintinads.com/ad/125", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 64, "id": 126, "code": "AD-B64", "title": "Chubby & Sexy 26 Years Live Cam Show & Video Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 500.0, "phone": "0752474761", "whatsapp": "0783611768", "wa_intl": "94783611768", "url": "https://tintinads.com/ad/126", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 65, "id": 127, "code": "AD-B65", "title": "Kawshi 27 Years White & Chubby Live Cam Service & Video Call", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 800.0, "phone": "0753135104", "whatsapp": "0702471953", "wa_intl": "94702471953", "url": "https://tintinads.com/ad/127", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 66, "id": 128, "code": "AD-B66", "title": "Suhaa 22 Years Cute Young Girl Full Service Bambalapitiya", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo (Wellawatta, Dehiwala, Bambalapitiya)", "price": 3000.0, "phone": "0772431605", "whatsapp": "0772431605", "wa_intl": "94772431605", "url": "https://tintinads.com/ad/128", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 67, "id": 129, "code": "AD-B67", "title": "Nethmi 30 Years Cute Girl Live Cam Show & Video Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 800.0, "phone": "0770876014", "whatsapp": "0770876014", "wa_intl": "94770876014", "url": "https://tintinads.com/ad/129", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 68, "id": 130, "code": "AD-B68", "title": "Hansi 32 Years Genuine Live Cam Show & Clear Video Packages", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 500.0, "phone": "0787325457", "whatsapp": "0787325457", "wa_intl": "94787325457", "url": "https://tintinads.com/ad/130", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 69, "id": 131, "code": "AD-B69", "title": "Age 24 Real Girl Live Cam Show With Face & Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0742749106", "whatsapp": "0742749106", "wa_intl": "94742749106", "url": "https://tintinads.com/ad/131", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 70, "id": 132, "code": "AD-B70", "title": "Jasmi 22 Years Real Girl Live Cam & Face Open Video Show", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "0758319378", "whatsapp": "0758319378", "wa_intl": "94758319378", "url": "https://tintinads.com/ad/132", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 71, "id": 133, "code": "AD-B71", "title": "Hot Dance Live Fun Girl Real Cam Show & Video Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1200.0, "phone": "0762875827", "whatsapp": "0762875827", "wa_intl": "94762875827", "url": "https://tintinads.com/ad/133", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 72, "id": 134, "code": "AD-B72", "title": "Thanu 30 Years Luxury Full Service Kadawatha & Kiribathgoda", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Gampaha (Kadawatha, Kiribathgoda, Wattala)", "price": 10000.0, "phone": "0769978110", "whatsapp": "0769978110", "wa_intl": "94769978110", "url": "https://tintinads.com/ad/134", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 73, "id": 135, "code": "AD-B73", "title": "Wasana 30 Years Real Full Service Polonnaruwa, Badiwewa", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Polonnaruwa (Badiwewa)", "price": 6500.0, "phone": "0703678163", "whatsapp": "0703678163", "wa_intl": "94703678163", "url": "https://tintinads.com/ad/135", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 74, "id": 136, "code": "AD-B74", "title": "Genuine Verified Live Cam Show With Face Video Packages", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 500.0, "phone": "0787369240", "whatsapp": "0787369240", "wa_intl": "94787369240", "url": "https://tintinads.com/ad/136", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 75, "id": 137, "code": "AD-B75", "title": "Nipuni 37 Years Best Body Massage & Relaxation Kalutara, Panadura", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kalutara (Panadura, Wadduwa, Aluthgama)", "price": 4000.0, "phone": "0703518335", "whatsapp": "0703518335", "wa_intl": "94703518335", "url": "https://tintinads.com/ad/137", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 76, "id": 138, "code": "AD-B76", "title": "Professional Full Service & Luxury Hotel Rooms Kiribathgoda", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Gampaha (Kadawatha, Kiribathgoda, Wattala)", "price": 7500.0, "phone": "0715828407", "whatsapp": "0715828407", "wa_intl": "94715828407", "url": "https://tintinads.com/ad/138", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 77, "id": 139, "code": "AD-B77", "title": "Dilini 29 Years Genuine Live Cam Show & Video Verification", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 600.0, "phone": "0762602812", "whatsapp": "0762602812", "wa_intl": "94762602812", "url": "https://tintinads.com/ad/139", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 78, "id": 140, "code": "AD-B78", "title": "Darsha Tamil Speaking White Girl Live Cam Show & Packages", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 1000.0, "phone": "070309566", "whatsapp": "070309566", "wa_intl": "94070309566", "url": "https://tintinads.com/ad/140", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 79, "id": 141, "code": "AD-B79", "title": "ZARA Luxury Spa Kandy Dodanwala Full Body Relaxation Massage", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Kandy (Dodanwala, Katugastota, Asgiriya)", "price": 2000.0, "phone": "0766922414", "whatsapp": "0766922414", "wa_intl": "94766922414", "url": "https://tintinads.com/ad/141", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 80, "id": 142, "code": "AD-B80", "title": "Genuine Live Cam Only Video Show & Voice Fun Packages", "category": "Live Cam", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "All Island (Online)", "price": 500.0, "phone": "0701464462", "whatsapp": "0701464462", "wa_intl": "94701464462", "url": "https://tintinads.com/ad/142", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 81, "id": 143, "code": "AD-B81", "title": "🥰full service & ANAL OK 6500/=One HOUR 2 SHOT OK with room 🥰දෙපැත්තම දෙනවා", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6500.0, "phone": "0703122547", "whatsapp": "0703122547", "wa_intl": "94703122547", "url": "https://tintinads.com/ad/143", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 82, "id": 144, "code": "AD-B82", "title": "💃💃 TAMIL GIRL FULL SERVICE REALL PHOTO AND DETAILS BAMBALAPITIYA WELLAWATHA", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5500.0, "phone": "0711782153", "whatsapp": "0711782153", "wa_intl": "94711782153", "url": "https://tintinads.com/ad/144", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 83, "id": 145, "code": "AD-B83", "title": "NO 01 OSHO TANTRIC MEDITATION CENTER IN COLOMBO . ITS YOUR WISE CHOICE", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 3500.0, "phone": "0760640932", "whatsapp": "0775959366", "wa_intl": "94775959366", "url": "https://tintinads.com/ad/145", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 84, "id": 146, "code": "AD-B84", "title": "❣️Young Girl - full Service Rs; 5000/= & Really Photos 😍Hi, am Nadisha", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0703515554", "whatsapp": "0703515554", "wa_intl": "94703515554", "url": "https://tintinads.com/ad/146", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 85, "id": 147, "code": "AD-B85", "title": "ඇනල් Ok 🤭 Full Service & Anal දෙකම", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5500.0, "phone": "0704690512", "whatsapp": "0704690512", "wa_intl": "94704690512", "url": "https://tintinads.com/ad/147", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 86, "id": 148, "code": "AD-B86", "title": "💐 Newly Open SPA 🪷🍀 සුපිරි Relax එකකට කොළඹ (නාවල ) තියෙන හොඳම තැන 👌👌", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 4000.0, "phone": "0765293292", "whatsapp": "0765293292", "wa_intl": "94765293292", "url": "https://tintinads.com/ad/148", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 87, "id": 145, "code": "AD-B87", "title": "NO 01 OSHO TANTRIC MEDITATION CENTER IN COLOMBO . ITS YOUR WISE CHOICE", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 3500.0, "phone": "0775959366", "whatsapp": "0760640932", "wa_intl": "94760640932", "url": "https://tintinads.com/ad/145", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 88, "id": 149, "code": "AD-B88", "title": "🌊(𝗧𝐞𝐞𝐧 𝗚𝐢𝐫𝐥)🍃චූටි කෙල්ල🍂 𝐅𝐮𝐥𝐥 𝐒𝐞𝐫𝐯𝐢𝐜𝐞 & 𝗚𝗲𝗻𝘂𝗶𝗻 𝐕 𝐈 𝐏 🚨 𝗖𝘂𝘀𝘁𝗼𝗺𝗲𝗿🕵️‍♀️බොරැ ෆො", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0789963831", "whatsapp": "0789963831", "wa_intl": "94789963831", "url": "https://tintinads.com/ad/149", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 89, "id": 150, "code": "AD-B89", "title": "🌸Hi.. Everyone 🌸Name _ Shani 🌸Age _ 28 years old 🌸This is my real picture 💯", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0701149856", "whatsapp": "0701149856", "wa_intl": "94701149856", "url": "https://tintinads.com/ad/150", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 90, "id": 151, "code": "AD-B90", "title": "Transgrader full service", "category": "Shemale Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5500.0, "phone": "0760885908", "whatsapp": "0760885908", "wa_intl": "94760885908", "url": "https://tintinads.com/ad/151", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 91, "id": 152, "code": "AD-B91", "title": "Private luxury apartment 🩵dehiwala🩵 full service 🩵", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 7000.0, "phone": "0754366104", "whatsapp": "0754366104", "wa_intl": "94754366104", "url": "https://tintinads.com/ad/152", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 92, "id": 153, "code": "AD-B92", "title": "🥵punishment treatment🥵 Hey 🦋🍓🦋🍂 im available for you in", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 8000.0, "phone": "0722540893", "whatsapp": "0722540893", "wa_intl": "94722540893", "url": "https://tintinads.com/ad/153", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 93, "id": 154, "code": "AD-B93", "title": "❤️Full Service Bambalapitiya/ Kollupitiya ❤️", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 8000.0, "phone": "0763778438", "whatsapp": "0763778438", "wa_intl": "94763778438", "url": "https://tintinads.com/ad/154", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 94, "id": 155, "code": "AD-B94", "title": "Galle Beautiful Young Genuine Girl Full Service Available 100% Best VVIP Se", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 8000.0, "phone": "0751553780", "whatsapp": "0751553780", "wa_intl": "94751553780", "url": "https://tintinads.com/ad/155", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 95, "id": 156, "code": "AD-B95", "title": "දිලිනි 🌸Full Service 🌸 කිරිබත්ගොඩ", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6500.0, "phone": "0776764667", "whatsapp": "0776764667", "wa_intl": "94776764667", "url": "https://tintinads.com/ad/156", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 96, "id": 157, "code": "AD-B96", "title": "🪼🌸New Beauty", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0719452762", "whatsapp": "0719452762", "wa_intl": "94719452762", "url": "https://tintinads.com/ad/157", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 97, "id": 158, "code": "AD-B97", "title": "✅️New sexy tamil girl colombo (visit )", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 12000.0, "phone": "0771690712", "whatsapp": "0771690712", "wa_intl": "94771690712", "url": "https://tintinads.com/ad/158", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 98, "id": 159, "code": "AD-B98", "title": "Kollupitiya / Bmbalapitiya ( කොල්ලුපිටිය, බම්බලපිටිය ) PRIVATE APARTMENT", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0767185999", "whatsapp": "0767185999", "wa_intl": "94767185999", "url": "https://tintinads.com/ad/159", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 99, "id": 160, "code": "AD-B99", "title": "Sexy Figure එකක් තියෙන හැඩකාර කෙල්ලෙක්ගෙන් Full Service Galle 😍❤️ 100% ඇත්ත", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6000.0, "phone": "0762858797", "whatsapp": "0762858797", "wa_intl": "94762858797", "url": "https://tintinads.com/ad/160", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 100, "id": 161, "code": "AD-B100", "title": "⭕Hi sir අලුත් කෙල්ලෙක් මම 🔸 Young Girl in mount livinia , Dehiwala Rathmala", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6000.0, "phone": "0705809093", "whatsapp": "0705809093", "wa_intl": "94705809093", "url": "https://tintinads.com/ad/161", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 101, "id": 162, "code": "AD-B101", "title": "Full service", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0773377462", "whatsapp": "0773377462", "wa_intl": "94773377462", "url": "https://tintinads.com/ad/162", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 102, "id": 163, "code": "AD-B102", "title": "Shamali Dehiwala, New girl to the field", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 10000.0, "phone": "0782079689", "whatsapp": "0782079689", "wa_intl": "94782079689", "url": "https://tintinads.com/ad/163", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 103, "id": 164, "code": "AD-B103", "title": "Rajagiriya Kaduwela Ful Service Chubby Girl", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0763329164", "whatsapp": "0763329164", "wa_intl": "94763329164", "url": "https://tintinads.com/ad/164", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 104, "id": 165, "code": "AD-B104", "title": "5500/- Full Service තුරුල් වෙලා ආදරෙන් අපි දෙන්නා sex කරමු ,", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5500.0, "phone": "0740898357", "whatsapp": "0740898357", "wa_intl": "94740898357", "url": "https://tintinads.com/ad/165", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 105, "id": 166, "code": "AD-B105", "title": "🌹🌹FULL SERVICE🌹🌹WELCOME MY PROFILE🌹 KADUWELA MALABE 🌹", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0773774046", "whatsapp": "0773774046", "wa_intl": "94773774046", "url": "https://tintinads.com/ad/166", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 106, "id": 167, "code": "AD-B106", "title": "💗REAL NURU AND FULL SERViCE Dehiwala Pvt (Apartment💗💗💗", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6000.0, "phone": "0771968477", "whatsapp": "0771968477", "wa_intl": "94771968477", "url": "https://tintinads.com/ad/167", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 107, "id": 168, "code": "AD-B107", "title": "💫🍏 𝗙𝗨𝗟𝗟 𝗦𝗘𝗥𝗩𝗜𝗖𝗘 REALL PHOTO AND DETAILS💚 ඇඟට දැනෙන සැපක් ගමු එන්න💃💃", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6500.0, "phone": "0725233218", "whatsapp": "0725233218", "wa_intl": "94725233218", "url": "https://tintinads.com/ad/168", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 108, "id": 169, "code": "AD-B108", "title": "🌙🅵🆄🅻🅻 🆂🅴🆁🆅🅸🅲🅴 _ 🌙🅼🅰🅷🅰🆁🅰🅶🅰🅼🅰 🅺🅾🆃🆃🅰🆆🅰 🅿🅰🅽🅽🅸🅿🅸🆃🅸🆈🅰 🌹🔥", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0740587114", "whatsapp": "0740587114", "wa_intl": "94740587114", "url": "https://tintinads.com/ad/169", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 109, "id": 170, "code": "AD-B109", "title": "Full service & nuru massage & threesome lesbian service (Dehiwala /Mount la", "category": "Spa & Wellness Services", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6500.0, "phone": "0771503405", "whatsapp": "0771503405", "wa_intl": "94771503405", "url": "https://tintinads.com/ad/170", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 110, "id": 171, "code": "AD-B110", "title": "🔥Clean and hot Lady at 👉Bambalapitiya kollupitiya", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6000.0, "phone": "0766046164", "whatsapp": "0772451526", "wa_intl": "94772451526", "url": "https://tintinads.com/ad/171", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 111, "id": 172, "code": "AD-B111", "title": "💋 🌹 PIYUMI ❤️ Premium Hot and Sexy full Service 🌹", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6500.0, "phone": "0719009245", "whatsapp": "0719009245", "wa_intl": "94719009245", "url": "https://tintinads.com/ad/172", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 112, "id": 173, "code": "AD-B112", "title": "Maharagama Full Service 1 Hour 2 Shot 6500 / (With Room)", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 6500.0, "phone": "0766026544", "whatsapp": "0766026544", "wa_intl": "94766026544", "url": "https://tintinads.com/ad/173", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 113, "id": 174, "code": "AD-B113", "title": "Rs 3000 දැන් Full Service වලට ඉන්නවා ලස්සන හොද Sexy කෙල්ලෙක් Rs 3000", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 3000.0, "phone": "0704853001", "whatsapp": "0704853001", "wa_intl": "94704853001", "url": "https://tintinads.com/ad/174", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 114, "id": 175, "code": "AD-B114", "title": "Colombo Visit ok, Night ok", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0743191336", "whatsapp": "0743191336", "wa_intl": "94743191336", "url": "https://tintinads.com/ad/175", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 115, "id": 176, "code": "AD-B115", "title": "🌸🪷🪻🌸 KANDY KATUGASTHOTA AREA BEAUTIFUL GIRL FULL SERVICE IN REALL PHOTO 550", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5500.0, "phone": "0720933928", "whatsapp": "0720933928", "wa_intl": "94720933928", "url": "https://tintinads.com/ad/176", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 116, "id": 177, "code": "AD-B116", "title": "Sri Lankan No 01 Sexual Tantric Yoga Meditation Retreat Centers ( Dehiwla ,", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0773813666", "whatsapp": "0783763155", "wa_intl": "94783763155", "url": "https://tintinads.com/ad/177", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 117, "id": 178, "code": "AD-B117", "title": "New Tamil girl kollupitiya Rs.5000/= 😍", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0752038914", "whatsapp": "0711424183", "wa_intl": "94711424183", "url": "https://tintinads.com/ad/178", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 118, "id": 179, "code": "AD-B118", "title": "🌷❤️3 Some FULL SERVICE කෙල්ලො දෙන්නෙක් එනවා දෙන්නම 8000 ට 🌷Battaramulla 🌷 H", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 8000.0, "phone": "0770380902", "whatsapp": "0770380902", "wa_intl": "94770380902", "url": "https://tintinads.com/ad/179", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 119, "id": 180, "code": "AD-B119", "title": "Im sanju 🔹Full service 5000/= 🌹32 years young girl 📞0762752662 Battaramulla", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 5000.0, "phone": "0762752662", "whatsapp": "0762752662", "wa_intl": "94762752662", "url": "https://tintinads.com/ad/180", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}, {"num": 120, "id": 181, "code": "AD-B120", "title": "4000/= Madu Full Service Available Horana ❤️🙂 100% ඇත්තම Photo එක දාලා තියෙ", "category": "Girls Personal", "listing_tier": "VIP (රු. 700)", "tier_days": 3, "location": "Colombo", "price": 4000.0, "phone": "0769026227", "whatsapp": "0769026227", "wa_intl": "94769026227", "url": "https://tintinads.com/ad/181", "is_expired": false, "post_date": "2026-10-20T12:00:00+05:30"}];
+        let selectedTemplateIdx = 3;
 
         // Predefined Message Templates
         const templates = {
@@ -278,23 +286,17 @@
 🔗 ඔබගේ සජීවී දැන්වීම මෙතැනින් පරීක්ෂා කරන්න:
 👉 {adUrl}
 
-📝 එහි දුරකථන අංක, නගරය හෝ විස්තරවල කිසියම් අඩුපාඩුවක් හෝ වෙනස් විය යුතු දෙයක් ඇත්නම් කරුණාකර අපට මෙහි Reply කරන්න. අපි එය නොමිලේම නිවැරදි කර දෙන්නෙමු. 🤝
+📝 එහි දුරකථන අංක, නගරය හෝ විස්තරවල කිසියම් අඩුපාඩුවක් ඇත්නම් කරුණාකර අපට මෙහි Reply කරන්න. අපි එය නොමිලේම නිවැරදි කර දෙන්නෙමු. 🤝
 
 ━━━━━━━━━━━━━━━━━━━━━━
 💡 ඇයි ඔබ ඉදිරියටත් TinTinAds.com තෝරාගත යුත්තේ?
 1️⃣ 🎙️ ලංකාවේ ප්‍රථම වතාවට සිංහල Voice Note (හඬ පට) සහිත දැන්වීම් - පාරිභෝගික විශ්වාසය 100%කින් ඉහළ නංවයි.
 2️⃣ 🌟 VIP Golden Highlight & Top Rank - ඔබේ දැන්වීම සයිට් එකේ උඩින්ම කැපී පෙනෙන රන්වන් රාමුවක් සහිතව දිස්වේ.
 3️⃣ 📲 Direct Call & WhatsApp - පාරිභෝගිකයින්ට එක ක්ලික් එකකින් කෙළින්ම ඔබ හා සම්බන්ධ විය හැක.
-4️⃣ 🚀 Google & Social Media Visitors - දිනපතා සැබෑ Active ගැණුම්කරුවන් දහස් ගණනක් අපගේ අඩවියට පැමිණේ.
 
-━━━━━━━━━━━━━━━━━━━━━━
-🔥 අපගේ විශේෂ රු. 1,500/= Platinum පැකේජය:
-⭐ දින 30ක් පුරා ඔබේ දැන්වීම සයිට් එකේ ඉහළින්ම (Top Ranked) ප්‍රදර්ශනය කෙරේ.
-⭐ උපරිම Call & WhatsApp පණිවිඩ ප්‍රමාණයක් ලබාගත හැකි ලාභදායී සුපිරිම පැකේජයයි!
-
-ඔබගේ දැන්වීම් ඉදිරියටත් පළ කර ගැනීමට හෝ විස්තර දැනගැනීමට අපගේ නිල WhatsApp අංකයට පණිවිඩයක් එවන්න:
-💬 WhatsApp: 070 616 1617
-🌐 වෙබ් අඩවිය: https://tintinads.com`,
+ස්තූතියි!
+TinTinAds.com
+💬 WhatsApp: 070 616 1617`,
 
             2: `👋 ආයුබෝවන්!
 
@@ -307,36 +309,90 @@
 
 ස්තූතියි!
 TinTinAds.com
-WhatsApp: 070 616 1617`,
+💬 WhatsApp: 070 616 1617`,
 
-            3: `🔥 ඔබගේ දැන්වීමෙන් වැඩිම Calls & WhatsApp ලබාගන්න - TinTinAds.com!
+            3: `⏰ ආයුබෝවන්! ඔබ TinTinAds.com හි නොමිලේ පළ කළ VIP දැන්වීම අද දින කල් ඉකුත් වී ඇත (Expired).
 
-⭐ ඇයි ඔබ TinTinAds හි දැන්වීම් පළ කළ යුත්තේ?
-✔️ ලංකාවේ එකම සිංහල AI Voice Note (හඬ පට) සහිත දැන්වීම් සේවාව.
-✔️ Google Search වල ඉහළින්ම Rank වීම නිසා දිනපතා දහස් ගණනක් සැබෑ ගැණුම්කරුවන්.
-✔️ සෘජු WhatsApp සහ Direct Call බොත්තම් මඟින් පාරිභෝගිකයන් ක්ෂණිකව ඔබ වෙත ඒම.
+🔗 ඔබගේ දැන්වීම:
+👉 {adUrl}
+📌 මාතෘකාව: {title}
+📍 ප්‍රදේශය: {location}
 
-💎 අපගේ විශේෂ රු. 1,500/= Platinum පැකේජය:
-- දින 30ක් පුරා ඔබේ දැන්වීම සයිට් එකේ ඉහළින්ම (Top List).
-- Golden VIP Badge & Highlighted Animated Frame.
-- දින 30 පුරා අඛණ්ඩව Call & Leads ලබාගැනීමේ හැකියාව!
+━━━━━━━━━━━━━━━━━━━━━━
+🔥 ඔබේ දැන්වීම නැවත සක්‍රීය කර ඉහළම ප්‍රතිචාර ලබාගන්න!
 
-ඔබගේ දැන්වීම් පළ කිරීමට අප අමතන්න:
-💬 WhatsApp: 070 616 1617
+අපගේ විශේෂ රු. 1,500/= Platinum පැකේජය:
+⭐ දින 30ක් පුරා ඔබේ දැන්වීම සයිට් එකේ ඉහළින්ම (Top 1) ප්‍රදර්ශනය වේ.
+⭐ VIP Golden Highlight Frame & Verified Badge.
+⭐ දිනපතා සයිට් එකට පැමිණෙන දහස් ගණනක් සැබෑ ගැණුම්කරුවන්ගෙන් උපරිම Calls & WhatsApp පණිවිඩ!
+
+දැන්ම ඔබේ දැන්වීම Renewal කර ගැනීමට අපට WhatsApp පණිවිඩයක් එවන්න:
+💬 WhatsApp: 070 616 1617 (ශානිකා)
 🌐 https://tintinads.com`
         };
 
-        // Local Storage Contact Tracker
-        let contactedMap = JSON.parse(localStorage.getItem('tintin_contacted_ads') || '{}');
+        // Local Storage Tracking Fallback
+        let outreachTracker = JSON.parse(localStorage.getItem('tintin_outreach_tracker') || '{}');
 
-        function toggleContacted(adId) {
-            contactedMap[adId] = !contactedMap[adId];
-            localStorage.setItem('tintin_contacted_ads', JSON.stringify(contactedMap));
+        // Fetch Live Data from Backend API if available
+        async function fetchLiveOutreachData() {
+            try {
+                const res = await fetch('/api/outreach/data');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.ads && data.ads.length > 0) {
+                        allAds = data.ads.map((a, idx) => ({
+                            num: idx + 1,
+                            id: a.id,
+                            code: a.code,
+                            title: a.title,
+                            category: a.category,
+                            location: a.location,
+                            price: a.price,
+                            phone: a.phone,
+                            whatsapp: a.whatsapp,
+                            wa_intl: a.wa_intl,
+                            url: a.url,
+                            is_expired: a.is_expired,
+                            seconds_remaining: a.seconds_remaining,
+                            post_date: a.post_date,
+                            expire_date: a.expire_date,
+                            msg1_sent: a.msg1_sent,
+                            msg2_sent: a.msg2_sent,
+                            msg3_sent: a.msg3_sent,
+                        }));
+                    }
+                }
+            } catch (e) {
+                console.log('Using local embedded data fallback:', e);
+            }
+            updateMetrics();
+            filterAds();
+        }
+
+        async function markMsgSent(adId, msgType, isSent) {
+            if (!outreachTracker[adId]) outreachTracker[adId] = {};
+            outreachTracker[adId]['msg' + msgType] = isSent ? new Date().toISOString() : null;
+            localStorage.setItem('tintin_outreach_tracker', JSON.stringify(outreachTracker));
+
+            // Also notify backend API
+            try {
+                await fetch('/api/outreach/mark', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ad_id: adId, msg_type: String(msgType), sent: isSent })
+                });
+            } catch (err) {}
+
+            const ad = allAds.find(x => x.id === adId);
+            if (ad) ad['msg' + msgType + '_sent'] = isSent;
+
             updateMetrics();
             renderTable();
         }
 
         function setTemplate(idx) {
+            selectedTemplateIdx = idx;
             document.getElementById('message-template').value = templates[idx];
             for (let i = 1; i <= 3; i++) {
                 const btn = document.getElementById(`btn-tpl-${i}`);
@@ -346,45 +402,59 @@ WhatsApp: 070 616 1617`,
                     btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700";
                 }
             }
-            updateAllWhatsAppLinks();
         }
 
-        function getMessageForAd(ad) {
-            const tpl = document.getElementById('message-template').value;
-            return tpl
+        function getMessageText(type, ad) {
+            const rawTpl = templates[type] || document.getElementById('message-template').value;
+            return rawTpl
                 .replace(/{adUrl}/g, ad.url)
                 .replace(/{title}/g, ad.title)
                 .replace(/{location}/g, ad.location)
-                .replace(/{price}/g, ad.price)
+                .replace(/{price}/g, Number(ad.price).toLocaleString())
                 .replace(/{category}/g, ad.category);
-        }
-
-        function updateAllWhatsAppLinks() {
-            renderTable();
         }
 
         function updateMetrics() {
             const total = allAds.length;
-            const contactedCount = Object.values(contactedMap).filter(Boolean).length;
-            const pendingCount = total - contactedCount;
+            const expired = allAds.filter(a => a.is_expired).length;
+            const active = total - expired;
+
+            const m1 = allAds.filter(a => a.msg1_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg1)).length;
+            const m2 = allAds.filter(a => a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2)).length;
+            const m3 = allAds.filter(a => a.msg3_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg3)).length;
+
             document.getElementById('stat-total').innerText = total;
-            document.getElementById('stat-contacted').innerText = contactedCount;
-            document.getElementById('stat-pending').innerText = pendingCount;
+            document.getElementById('stat-active').innerText = active;
+            document.getElementById('stat-expired').innerText = expired;
+            document.getElementById('stat-msg1').innerText = m1;
+            document.getElementById('stat-msg2').innerText = m2;
+            document.getElementById('stat-msg3').innerText = m3;
         }
 
         let filteredAds = [...allAds];
 
         function filterAds() {
             const q = document.getElementById('search-input').value.toLowerCase().trim();
+            const lifecycle = document.getElementById('filter-lifecycle').value;
             const cat = document.getElementById('filter-category').value;
-            const stat = document.getElementById('filter-status').value;
 
             filteredAds = allAds.filter(a => {
+                const m1 = a.msg1_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg1);
+                const m2 = a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2);
+                const m3 = a.msg3_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg3);
+
                 const matchesQ = !q || a.title.toLowerCase().includes(q) || a.phone.includes(q) || a.whatsapp.includes(q) || a.location.toLowerCase().includes(q) || String(a.id).includes(q) || String(a.num).includes(q);
                 const matchesCat = !cat || a.category === cat;
-                const isContacted = !!contactedMap[a.id];
-                const matchesStat = !stat || (stat === 'contacted' ? isContacted : !isContacted);
-                return matchesQ && matchesCat && matchesStat;
+
+                let matchesLifecycle = true;
+                if (lifecycle === 'expired') matchesLifecycle = !!a.is_expired;
+                else if (lifecycle === 'active') matchesLifecycle = !a.is_expired;
+                else if (lifecycle === 'msg1_pending') matchesLifecycle = !m1;
+                else if (lifecycle === 'msg2_pending') matchesLifecycle = !m2;
+                else if (lifecycle === 'msg3_pending') matchesLifecycle = !m3 && !!a.is_expired;
+                else if (lifecycle === 'msg3_sent') matchesLifecycle = !!m3;
+
+                return matchesQ && matchesCat && matchesLifecycle;
             });
 
             renderTable();
@@ -392,8 +462,8 @@ WhatsApp: 070 616 1617`,
 
         function resetFilters() {
             document.getElementById('search-input').value = '';
+            document.getElementById('filter-lifecycle').value = '';
             document.getElementById('filter-category').value = '';
-            document.getElementById('filter-status').value = '';
             filterAds();
         }
 
@@ -402,22 +472,32 @@ WhatsApp: 070 616 1617`,
             tbody.innerHTML = '';
 
             filteredAds.forEach(a => {
-                const isContacted = !!contactedMap[a.id];
-                const msg = getMessageForAd(a);
-                const waLink = `https://wa.me/${a.wa_intl}?text=${encodeURIComponent(msg)}`;
+                const m1 = a.msg1_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg1);
+                const m2 = a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2);
+                const m3 = a.msg3_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg3);
+
+                const msg1Url = `https://wa.me/${a.wa_intl}?text=${encodeURIComponent(getMessageText(1, a))}`;
+                const msg2Url = `https://wa.me/${a.wa_intl}?text=${encodeURIComponent(getMessageText(2, a))}`;
+                const msg3Url = `https://wa.me/${a.wa_intl}?text=${encodeURIComponent(getMessageText(3, a))}`;
 
                 const tr = document.createElement('tr');
-                tr.className = `hover:bg-gray-800/60 transition ${isContacted ? 'bg-green-950/20' : ''}`;
+                tr.className = `hover:bg-gray-800/60 transition ${a.is_expired ? 'bg-red-950/10' : ''}`;
 
                 tr.innerHTML = `
                     <td class="p-3 text-center font-bold text-yellow-500">
                         #${a.num}
                     </td>
                     <td class="p-3 text-center">
-                        <button onclick="toggleContacted(${a.id})" class="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border transition ${isContacted ? 'bg-green-500/20 text-green-400 border-green-500/40' : 'bg-gray-800 text-gray-400 border-gray-700 hover:border-yellow-500'}">
-                            <i class="fa-solid ${isContacted ? 'fa-check-circle' : 'fa-circle'}"></i>
-                            <span>${isContacted ? 'යැව්වා' : 'Pending'}</span>
-                        </button>
+                        ${a.is_expired 
+                            ? `<span class="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-red-500/20 text-red-400 border border-red-500/40 pulse-badge">
+                                 <i class="fa-solid fa-clock-rotate-left"></i>
+                                 <span>කල් ඉකුත් වී ඇත</span>
+                               </span>`
+                            : `<span class="inline-flex items-center space-x-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-green-500/20 text-green-400 border border-green-500/40">
+                                 <i class="fa-solid fa-circle-check"></i>
+                                 <span>ක්‍රියාකාරීයි (VIP)</span>
+                               </span>`
+                        }
                     </td>
                     <td class="p-3">
                         <div class="font-bold text-white max-w-xs truncate" title="${a.title}">
@@ -454,16 +534,28 @@ WhatsApp: 070 616 1617`,
                         </div>
                     </td>
                     <td class="p-3 text-center whitespace-nowrap">
-                        <a href="${a.url}" target="_blank" class="inline-flex items-center space-x-1 bg-gray-800 hover:bg-gray-700 text-yellow-400 px-2.5 py-1 rounded-lg border border-yellow-500/30 text-[11px] font-semibold transition">
+                        <a href="${a.url}" target="_blank" class="inline-flex items-center space-x-1 bg-gray-800 hover:bg-gray-700 text-yellow-400 px-2 py-1 rounded-lg border border-yellow-500/30 text-[11px] font-semibold transition">
                             <span>Ad #${a.id}</span>
                             <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
                         </a>
                     </td>
                     <td class="p-3 text-center whitespace-nowrap">
-                        <a href="${waLink}" target="_blank" onclick="markAsContacted(${a.id})" class="inline-flex items-center space-x-1.5 bg-green-600 hover:bg-green-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow transition">
-                            <i class="fa-brands fa-whatsapp text-sm"></i>
-                            <span>Message යවන්න</span>
-                        </a>
+                        <div class="inline-flex items-center space-x-1.5">
+                            <!-- Msg 1 Button -->
+                            <a href="${msg1Url}" target="_blank" onclick="markMsgSent(${a.id}, 1, true)" title="Message 1: Welcome & VIP Free Link" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition ${m1 ? 'bg-green-950/60 text-green-400 border-green-600/50' : 'bg-gray-800 text-gray-300 border-gray-700 hover:border-yellow-400'}">
+                                <i class="fa-solid ${m1 ? 'fa-check' : 'fa-1'} mr-0.5"></i> Msg 1
+                            </a>
+
+                            <!-- Msg 2 Button -->
+                            <a href="${msg2Url}" target="_blank" onclick="markMsgSent(${a.id}, 2, true)" title="Message 2: Details Review" class="px-2 py-1 rounded-lg text-[10px] font-bold border transition ${m2 ? 'bg-blue-950/60 text-blue-400 border-blue-600/50' : 'bg-gray-800 text-gray-300 border-gray-700 hover:border-blue-400'}">
+                                <i class="fa-solid ${m2 ? 'fa-check' : 'fa-2'} mr-0.5"></i> Msg 2
+                            </a>
+
+                            <!-- Msg 3 (Renewal) Button -->
+                            <a href="${msg3Url}" target="_blank" onclick="markMsgSent(${a.id}, 3, true)" title="Message 3: Expired Renewal Pitch" class="px-2.5 py-1 rounded-lg text-[10px] font-extrabold shadow transition ${m3 ? 'bg-purple-950/80 text-purple-300 border border-purple-500/60' : (a.is_expired ? 'bg-gradient-to-r from-red-600 to-amber-600 hover:from-red-500 hover:to-amber-500 text-white animate-pulse' : 'bg-gray-800 text-gray-400 border border-gray-700 hover:border-purple-400')}">
+                                <i class="fa-solid ${m3 ? 'fa-check-double' : 'fa-clock'} mr-0.5"></i> ${m3 ? 'Renewal යැව්වා' : '⏰ Renewal (Msg 3)'}
+                            </a>
+                        </div>
                     </td>
                 `;
 
@@ -473,41 +565,109 @@ WhatsApp: 070 616 1617`,
             document.getElementById('footer-count').innerText = `පෙන්වන්නේ දැන්වීම් ${allAds.length}න් ${filteredAds.length}යි`;
         }
 
-        function markAsContacted(adId) {
-            contactedMap[adId] = true;
-            localStorage.setItem('tintin_contacted_ads', JSON.stringify(contactedMap));
-            updateMetrics();
-            setTimeout(renderTable, 500);
+        // ==========================================
+        // AUTO-SENDER QUEUE ENGINE
+        // ==========================================
+        let autoSenderRunning = false;
+        let autoSenderQueue = [];
+        let autoSenderIdx = 0;
+        let autoSenderTimer = null;
+
+        function startAutoSender() {
+            const choice = parseInt(document.getElementById('auto-msg-choice').value, 10);
+            const delay = parseInt(document.getElementById('auto-delay-choice').value, 10);
+
+            // Filter targets according to message choice
+            if (choice === 3) {
+                // Target expired ads where msg3 not sent yet (or all expired)
+                autoSenderQueue = allAds.filter(a => a.is_expired && !(a.msg3_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg3)));
+                if (autoSenderQueue.length === 0) {
+                    // Fallback to all expired ads
+                    autoSenderQueue = allAds.filter(a => a.is_expired);
+                }
+            } else if (choice === 1) {
+                autoSenderQueue = allAds.filter(a => !(a.msg1_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg1)));
+            } else {
+                autoSenderQueue = allAds.filter(a => !(a.msg2_sent || (outreachTracker[a.id] && outreachTracker[a.id].msg2)));
+            }
+
+            if (autoSenderQueue.length === 0) {
+                showToast("යැවීමට කිසිදු දැන්වීමක් නොමැත (සියල්ල සම්පූර්ණයි)!");
+                return;
+            }
+
+            autoSenderRunning = true;
+            autoSenderIdx = 0;
+
+            document.getElementById('btn-start-auto').disabled = true;
+            document.getElementById('btn-start-auto').classList.add('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btn-stop-auto').disabled = false;
+            document.getElementById('btn-stop-auto').classList.remove('text-gray-500', 'cursor-not-allowed');
+            document.getElementById('btn-stop-auto').classList.add('bg-red-600', 'text-white', 'hover:bg-red-500');
+
+            document.getElementById('auto-progress-container').classList.remove('hidden');
+            processNextInQueue(choice, delay);
+        }
+
+        function processNextInQueue(choice, delay) {
+            if (!autoSenderRunning || autoSenderIdx >= autoSenderQueue.length) {
+                finishAutoSender();
+                return;
+            }
+
+            const ad = autoSenderQueue[autoSenderIdx];
+            const total = autoSenderQueue.length;
+            const current = autoSenderIdx + 1;
+            const pct = Math.round((current / total) * 100);
+
+            document.getElementById('auto-progress-bar').style.width = `${pct}%`;
+            document.getElementById('auto-progress-counter').innerText = `${current} / ${total} (${pct}%)`;
+            document.getElementById('auto-progress-log').innerText = `[Ad #${ad.id}] +${ad.wa_intl} වෙත Message ${choice} යවමින් පවතී...`;
+
+            // Open WhatsApp Web
+            const waUrl = `https://wa.me/${ad.wa_intl}?text=${encodeURIComponent(getMessageText(choice, ad))}`;
+            window.open(waUrl, '_blank');
+
+            // Mark sent
+            markMsgSent(ad.id, choice, true);
+
+            autoSenderIdx++;
+
+            if (autoSenderIdx < autoSenderQueue.length) {
+                document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-clock mr-1"></i> මීළඟ අංකය වෙත යාමට තත්පර ${delay/1000}ක් රැඳී සිටියි...`;
+                autoSenderTimer = setTimeout(() => {
+                    processNextInQueue(choice, delay);
+                }, delay);
+            } else {
+                finishAutoSender();
+            }
+        }
+
+        function stopAutoSender() {
+            autoSenderRunning = false;
+            if (autoSenderTimer) clearTimeout(autoSenderTimer);
+            document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-pause mr-1 text-amber-400"></i> Auto-Send නවතා ඇත.`;
+            document.getElementById('btn-start-auto').disabled = false;
+            document.getElementById('btn-start-auto').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btn-stop-auto').disabled = true;
+            document.getElementById('btn-stop-auto').className = "inline-flex items-center space-x-1.5 bg-gray-800 text-gray-500 px-4 py-2.5 rounded-xl font-bold text-xs transition cursor-not-allowed";
+            showToast("Auto-Send සාර්ථකව නවත්වන ලදී.");
+        }
+
+        function finishAutoSender() {
+            autoSenderRunning = false;
+            document.getElementById('auto-progress-status').innerHTML = `<i class="fa-solid fa-circle-check mr-1 text-green-400"></i> Auto-Send සම්පූර්ණයි!`;
+            document.getElementById('btn-start-auto').disabled = false;
+            document.getElementById('btn-start-auto').classList.remove('opacity-50', 'cursor-not-allowed');
+            document.getElementById('btn-stop-auto').disabled = true;
+            document.getElementById('btn-stop-auto').className = "inline-flex items-center space-x-1.5 bg-gray-800 text-gray-500 px-4 py-2.5 rounded-xl font-bold text-xs transition cursor-not-allowed";
+            showToast("සියලු පණිවිඩ සාර්ථකව යවා අවසන් විය! 🎉");
         }
 
         // Copy Helpers
         function copyText(txt) {
             navigator.clipboard.writeText(txt).then(() => {
                 showToast(`Copied: ${txt}`);
-            });
-        }
-
-        function copyAllWhatsAppComma() {
-            const list = allAds.map(a => a.whatsapp).filter(Boolean);
-            const unique = [...new Set(list)];
-            navigator.clipboard.writeText(unique.join(', ')).then(() => {
-                showToast(`WhatsApp අංක ${unique.length}ම Comma-separated පිටපත් විය!`);
-            });
-        }
-
-        function copyAllWhatsAppLines() {
-            const list = allAds.map(a => a.whatsapp).filter(Boolean);
-            const unique = [...new Set(list)];
-            navigator.clipboard.writeText(unique.join('\n')).then(() => {
-                showToast(`WhatsApp අංක ${unique.length}ම පේළි වශයෙන් පිටපත් විය!`);
-            });
-        }
-
-        function copyAllNormalPhones() {
-            const list = allAds.map(a => a.phone).filter(Boolean);
-            const unique = [...new Set(list)];
-            navigator.clipboard.writeText(unique.join('\n')).then(() => {
-                showToast(`සාමාන්‍ය Phone අංක ${unique.length}ම පිටපත් විය!`);
             });
         }
 
@@ -520,10 +680,9 @@ WhatsApp: 070 616 1617`,
             }, 3000);
         }
 
-        // Initialization
-        setTemplate(1);
-        updateMetrics();
-        renderTable();
+        // Initialize on load
+        setTemplate(3);
+        fetchLiveOutreachData();
     </script>
 </body>
 </html>
