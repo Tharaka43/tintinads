@@ -83,6 +83,14 @@ Route::get('/singleview', function () {
     return redirect()->route('home');
 })->name('singleview');
 
+Route::get('/vip', function () {
+    return response()->view('vip_bridge');
+})->name('vip.bridge');
+
+Route::get('/telegram', function () {
+    return redirect()->route('vip.bridge');
+})->name('telegram.bridge');
+
 Route::get('/ocruploader', function () {
     return Inertia::render('OcrUploader');
 })->name('OcrUploader');

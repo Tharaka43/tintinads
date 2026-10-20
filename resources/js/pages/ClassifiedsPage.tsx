@@ -534,18 +534,27 @@ const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad
     if (!isOpen || !ad) return null;
 
     const isTgChannel = ad.isTelegramVip || ad.id === 0;
-    const adUrl = isTgChannel ? 'https://t.me/tintinadsvip' : `https://tintinads.com/ad/${ad.id}`;
+    const adUrl = isTgChannel ? 'https://tintinads.com/vip' : `https://tintinads.com/ad/${ad.id}`;
     const displayPrice = isTgChannel ? '100% FREE (නොමිලේ)' : `Rs ${Number(ad.price || 0).toLocaleString()}`;
     const displayLocation = ad.location || 'All Sri Lanka';
     
     const shareText = isTgChannel 
-        ? `🔥 *TinTin VIP Official Telegram Channel*\n👑 අලුත්ම VIP දැන්වීම්, Spa විස්තර සහ අලුත් මිතුරු මිතුරියන්ගේ WhatsApp අංක එසැනින් ලබාගන්න අපේ නිල Telegram එකට දැන්ම එකතු වෙන්න!\n\n👉 Join Now: https://t.me/tintinadsvip\n🌐 Web: https://tintinads.com`
-        : `🌟 *${ad.title}*\n💰 *මිල:* ${displayPrice}\n📍 *ස්ථානය:* ${displayLocation}${ad.phone_number ? `\n📞 *අමතන්න:* ${ad.phone_number}` : ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`;
+        ? `🔥 *TinTin VIP Official Telegram Channel*\n👑 අලුත්ම VIP දැන්වීම්, Spa විස්තර සහ අලුත් මිතුරු මිතුරියන්ගේ WhatsApp අංක එසැනින් ලබාගන්න අපේ නිල Telegram එකට දැන්ම එකතු වෙන්න!\n\n👉 Join Now: https://tintinads.com/vip\n🌐 Web: https://tintinads.com`
+        : `🌟 *${ad.title}*\n💰 *මිල:* ${displayPrice}\n📍 *ස්ථානය:* ${displayLocation}${ad.phone_number ? `\n📞 *අමතන්න:* ${ad.phone_number}` : ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram:*\nhttps://tintinads.com/vip`;
 
     const handleCopy = () => {
         navigator.clipboard.writeText(shareText);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2500);
+        setTimeout(() => setCopied(false), 3000);
+    };
+
+    const handleFacebook = (e: React.MouseEvent) => {
+        e.preventDefault();
+        navigator.clipboard.writeText(shareText);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 3000);
+        const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(adUrl)}`;
+        window.open(fbUrl, '_blank', 'noopener,noreferrer,width=600,height=550');
     };
 
     const handleMessenger = () => {
@@ -560,7 +569,7 @@ const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad
     const handleNativeShare = () => {
         if (navigator.share) {
             navigator.share({
-                title: `${ad.title} - TinTinAds`,
+                title: isTgChannel ? 'TinTin VIP Official Telegram Channel' : `${ad.title} - TinTinAds`,
                 text: shareText,
                 url: adUrl,
             }).catch(() => {});
@@ -569,7 +578,9 @@ const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad
         }
     };
 
-    const thumbImg = ad.images && ad.images.length > 0 ? ad.images[0] : (ad.imgSrc || '/placeholder-image.jpg');
+    const thumbImg = isTgChannel 
+        ? '/assets/telegram_vip_ad.jpg' 
+        : (ad.images && ad.images.length > 0 ? ad.images[0] : (ad.imgSrc || '/placeholder-image.jpg'));
 
     return (
         <div className="fixed inset-0 z-[200] flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm">
@@ -592,17 +603,17 @@ const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad
                     </button>
                 </div>
 
-                <div className="p-4 sm:p-5 space-y-4">
+                <div className="p-4 sm:p-5 space-y-3.5">
                     {/* Ad Summary Card */}
                     <div className="flex items-center gap-3 bg-gray-50 border border-gray-200 rounded-xl p-2.5">
                         <img 
                             src={thumbImg} 
                             alt={ad.title} 
-                            className="w-14 h-14 sm:w-16 sm:h-16 object-cover rounded-lg flex-shrink-0"
-                            onError={(e) => { e.currentTarget.src = '/placeholder-image.jpg'; }}
+                            className="w-16 h-16 sm:w-18 sm:h-18 object-cover rounded-xl flex-shrink-0 shadow-xs border border-gray-200"
+                            onError={(e) => { e.currentTarget.src = '/assets/telegram_vip_ad.jpg'; }}
                         />
                         <div className="flex-1 min-w-0">
-                            <h4 className="font-bold text-xs sm:text-sm text-gray-900 truncate">{ad.title}</h4>
+                            <h4 className="font-extrabold text-xs sm:text-sm text-gray-900 truncate">{ad.title}</h4>
                             <p className="text-xs font-black text-pink-600 mt-0.5">{displayPrice}</p>
                             <p className="text-[11px] text-gray-500 truncate mt-0.5">
                                 <i className="fas fa-map-marker-alt text-pink-500 mr-1"></i>{displayLocation}
@@ -613,15 +624,15 @@ const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad
                     {/* Social Media 1-Click Buttons */}
                     <div className="grid grid-cols-2 gap-2.5">
                         {/* Facebook */}
-                        <a
-                            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(adUrl)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="bg-[#1877F2] hover:bg-blue-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                        <button
+                            type="button"
+                            onClick={handleFacebook}
+                            className="bg-[#1877F2] hover:bg-blue-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95 cursor-pointer"
+                            title="Share on Facebook"
                         >
                             <i className="fab fa-facebook text-base"></i>
                             <span>Facebook</span>
-                        </a>
+                        </button>
 
                         {/* Facebook Messenger */}
                         <button
@@ -654,6 +665,14 @@ const SocialShareModal: React.FC<SocialShareModalProps> = ({ isOpen, onClose, ad
                             <i className="fab fa-telegram-plane text-base"></i>
                             <span>Telegram</span>
                         </a>
+                    </div>
+
+                    {/* Facebook Paste Tip Banner */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-2.5 text-left flex items-start gap-2">
+                        <i className="fab fa-facebook text-blue-600 text-sm mt-0.5 flex-shrink-0"></i>
+                        <p className="text-[11px] text-blue-900 leading-snug">
+                            <strong>Facebook Share උපදෙස:</strong> Facebook එකට Share කරන විට විස්තරය ස්වයංක්‍රීයව Copy වන අතර, Facebook හි Post එක තුළ <span className="bg-blue-100 text-blue-800 font-black px-1 rounded">Paste</span> කරන්න. 3D පින්තූරය ස්වයංක්‍රීයව දිස්වේ!
+                        </p>
                     </div>
 
                     {/* Copy Link & Full Text */}

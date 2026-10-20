@@ -451,7 +451,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
 
     const handleShare = () => {
         const adUrl = typeof window !== 'undefined' ? window.location.href : `https://tintinads.com/ad/${ad.id}`;
-        const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`;
+        const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram:*\nhttps://tintinads.com/vip`;
         if (navigator.share) {
             navigator.share({
                 title: `${ad.title} - TinTinAds`,
@@ -486,7 +486,7 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
             },
         ];
 
-        const shareAdWaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \nhttps://tintinads.com/ad/${ad.id}\n\n🔥 *TinTin VIP Telegram Channel:*\nhttps://t.me/tintinadsvip`)}`;
+        const shareAdWaUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(`🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \nhttps://tintinads.com/ad/${ad.id}\n\n🔥 *TinTin VIP Telegram:*\nhttps://tintinads.com/vip`)}`;
 
         return (
             <div className="bg-white rounded-xl shadow-sm p-5 sm:p-6 mb-6 border border-gray-100">
@@ -637,16 +637,20 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
 
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                             {/* Facebook Share */}
-                            <a 
-                                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`https://tintinads.com/ad/${ad.id}`)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="bg-[#1877F2] hover:bg-blue-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95"
+                            <button 
+                                type="button"
+                                onClick={() => {
+                                    const adUrl = typeof window !== 'undefined' ? window.location.href : `https://tintinads.com/ad/${ad.id}`;
+                                    const shareText = `🌟 *${ad.title}*\n💰 *මිල:* Rs ${ad.price.toLocaleString()}\n📍 *ස්ථානය:* ${ad.location || 'Sri Lanka'}\n📞 *අමතන්න:* ${ad.phone_number || ''}\n\n👉 *සම්පූර්ණ ඡායාරූප සහ විස්තර බලන්න:* \n${adUrl}\n\n🔥 *TinTin VIP Telegram:*\nhttps://tintinads.com/vip`;
+                                    navigator.clipboard.writeText(shareText);
+                                    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(adUrl)}`, '_blank', 'noopener,noreferrer,width=600,height=550');
+                                }}
+                                className="bg-[#1877F2] hover:bg-blue-700 text-white rounded-xl py-2.5 px-3 flex items-center justify-center gap-2 text-xs font-black shadow-xs transition transform hover:scale-102 active:scale-95 cursor-pointer"
                                 title="Share on Facebook"
                             >
                                 <i className="fab fa-facebook text-base"></i>
                                 <span>Facebook</span>
-                            </a>
+                            </button>
 
                             {/* Messenger Share */}
                             <button
@@ -690,6 +694,14 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                                 <i className="fab fa-telegram-plane text-base"></i>
                                 <span>Telegram</span>
                             </a>
+                        </div>
+
+                        {/* Facebook Paste Tip Banner */}
+                        <div className="bg-blue-50/80 border border-blue-200 rounded-xl p-2.5 flex items-start gap-2 text-left">
+                            <i className="fab fa-facebook text-blue-600 text-sm mt-0.5 flex-shrink-0"></i>
+                            <p className="text-[11px] text-blue-900 leading-snug">
+                                <strong>Facebook Share උපදෙස:</strong> Facebook එකට Share කරන විට විස්තරය ස්වයංක්‍රීයව Copy වන අතර, Facebook හි Post එක තුළ <span className="bg-blue-100 text-blue-800 font-black px-1 rounded">Paste</span> කරන්න. ඡායාරූප කාඩ්පත ස්වයංක්‍රීයව දිස්වේ!
+                            </p>
                         </div>
 
                         {/* Copy Link & Any App Native Share */}

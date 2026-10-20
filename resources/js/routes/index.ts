@@ -447,7 +447,7 @@ singleview.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     singleview.form = singleviewForm
 /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
 export const OcrUploader = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -461,7 +461,7 @@ OcrUploader.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
 OcrUploader.url = (options?: RouteQueryOptions) => {
@@ -469,7 +469,7 @@ OcrUploader.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
 OcrUploader.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -477,7 +477,7 @@ OcrUploader.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
 OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -486,7 +486,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
     const OcrUploaderForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -495,7 +495,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
         OcrUploaderForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -503,7 +503,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:86
+ * @see routes/web.php:94
  * @route '/ocruploader'
  */
         OcrUploaderForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -518,7 +518,7 @@ OcrUploader.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     
     OcrUploader.form = OcrUploaderForm
 /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
 export const login = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -532,7 +532,7 @@ login.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
 login.url = (options?: RouteQueryOptions) => {
@@ -540,7 +540,7 @@ login.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
 login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -548,7 +548,7 @@ login.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
 login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -557,7 +557,7 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
     const loginForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -566,7 +566,7 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
         loginForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -574,7 +574,7 @@ login.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:93
+ * @see routes/web.php:101
  * @route '/login'
  */
         loginForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

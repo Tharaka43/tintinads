@@ -1,6 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
 export const vcf = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -14,7 +14,7 @@ vcf.definition = {
 } satisfies RouteDefinition<["get","head"]>
 
 /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
 vcf.url = (options?: RouteQueryOptions) => {
@@ -22,7 +22,7 @@ vcf.url = (options?: RouteQueryOptions) => {
 }
 
 /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
 vcf.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -30,7 +30,7 @@ vcf.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     method: 'get',
 })
 /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
 vcf.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -39,7 +39,7 @@ vcf.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 })
 
     /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
     const vcfForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -48,7 +48,7 @@ vcf.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     })
 
             /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
         vcfForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -56,7 +56,7 @@ vcf.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
             method: 'get',
         })
             /**
- * @see routes/web.php:254
+ * @see routes/web.php:262
  * @route '/download-vcf'
  */
         vcfForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

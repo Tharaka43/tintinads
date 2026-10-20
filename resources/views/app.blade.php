@@ -45,7 +45,7 @@
             } else {
                 $siteTitle = 'TinTinAds - Best SL Ads, Lanka Ads & Spa Ads in Sri Lanka';
                 $siteDesc = 'TintinAds is the best alternative to SL Ads and Hitad in Sri Lanka. Post and find personal ads, spa services, job vacancies, and classifieds quickly and securely.';
-                $siteImage = url('assets/siteicon.png');
+                $siteImage = url('assets/telegram_vip_ad.jpg');
                 $ogType = 'website';
             }
         @endphp
