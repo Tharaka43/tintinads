@@ -886,7 +886,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
     const [searchInput, setSearchInput] = useState<string>(initialSearchTerm);
     const [locationInput, setLocationInput] = useState<string>(initialLocation || 'All Sri Lanka');
     const [showAgeVerification, setShowAgeVerification] = useState(false);
-    const [isAdult, setIsAdult] = useState<boolean | null>(null);
+    const [isAdult, setIsAdult] = useState<boolean | null>(true);
     const [recentlyViewed, setRecentlyViewed] = useState<RecentlyViewedAd[]>([]);
     const [liveToast, setLiveToast] = useState<{
         id: number;
@@ -915,12 +915,9 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
 
     // Check age verification and load recently viewed ads on mount
     useEffect(() => {
-        const ageVerified = localStorage.getItem('ageVerified');
-        if (ageVerified === null) {
-            setShowAgeVerification(true);
-        } else {
-            setIsAdult(ageVerified === 'true');
-        }
+        setIsAdult(true);
+        setShowAgeVerification(false);
+
 
         try {
             const stored = localStorage.getItem('tintinads_recently_viewed');
@@ -1208,35 +1205,6 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
 
     return (
         <div className="bg-gray-50 font-sans min-h-screen">
-            {/* Age Verification Modal */}
-            {showAgeVerification && (
-                <div className="fixed inset-0 bg-black bg-opacity-75 z-[100] flex items-center justify-center p-4">
-                    <div className="bg-white rounded-xl shadow-2xl max-w-md w-full p-8 text-center">
-                        <div className="mb-6">
-                            <i className="fas fa-shield-alt text-6xl text-yellow-500 mb-4"></i>
-                            <h2 className="text-2xl font-bold text-gray-900 mb-2">Age Verification</h2>
-                            <p className="text-gray-600">Are you 18 years or older?</p>
-                        </div>
-                        <div className="flex gap-4">
-                            <button
-                                onClick={() => handleAgeVerification(true)}
-                                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                            >
-                                Yes, I'm 18+
-                            </button>
-                            <button
-                                onClick={() => handleAgeVerification(false)}
-                                className="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-                            >
-                                No, I'm under 18
-                            </button>
-                        </div>
-                        <p className="text-xs text-gray-500 mt-4">
-                            You must be 18 or older to view certain content.
-                        </p>
-                    </div>
-                </div>
-            )}
             {/* VIP and Premium Border Animation Styles */}
             <style>{`
                 @keyframes telegramVipBorderAnimation {
