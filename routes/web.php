@@ -292,3 +292,28 @@ Route::get('/download-fresh-vcf', function () {
     ]);
 })->name('download.fresh-vcf');
 
+Route::get('/reports/competitor-analysis.pdf', function () {
+    $file = public_path('reports/competitor_analysis_report.pdf');
+    if (!file_exists($file)) {
+        $file = base_path('TinTinAds_Competitor_Analysis_Report_2026.pdf');
+    }
+    if (!file_exists($file)) {
+        abort(404);
+    }
+    return response()->file($file, [
+        'Content-Type' => 'application/pdf',
+        'Content-Disposition' => 'inline; filename="TinTinAds_Competitor_Analysis_Report_2026.pdf"'
+    ]);
+})->name('reports.pdf');
+
+Route::get('/reports/competitor-analysis', function () {
+    $file = public_path('reports/competitor_analysis_report.html');
+    if (!file_exists($file)) {
+        abort(404);
+    }
+    return response()->file($file, [
+        'Content-Type' => 'text/html; charset=utf-8'
+    ]);
+})->name('reports.html');
+
+
