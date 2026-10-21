@@ -16,15 +16,19 @@ class BatchAdImportController extends Controller
             abort(403, 'Unauthorized access key.');
         }
 
-        $jsonFile = base_path('all_120_ads.json');
-        if (!file_exists($jsonFile)) {
-            $jsonFile = base_path('all_100_ads.json');
-        }
-        if (!file_exists($jsonFile)) {
-            $jsonFile = base_path('all_80_ads.json');
-        }
-        if (!file_exists($jsonFile)) {
-            $jsonFile = base_path('all_40_ads.json');
+        if ($request->query('source') === 'fresh20' || $request->query('fresh') === '1') {
+            $jsonFile = base_path('fresh_20_ads_to_import.json');
+        } else {
+            $jsonFile = base_path('all_120_ads.json');
+            if (!file_exists($jsonFile)) {
+                $jsonFile = base_path('all_100_ads.json');
+            }
+            if (!file_exists($jsonFile)) {
+                $jsonFile = base_path('all_80_ads.json');
+            }
+            if (!file_exists($jsonFile)) {
+                $jsonFile = base_path('all_40_ads.json');
+            }
         }
         if (!file_exists($jsonFile)) {
             return response("Error: ad JSON file not found on server.", 404);
@@ -79,13 +83,15 @@ class BatchAdImportController extends Controller
 
         $results = [];
 
+        $isFresh = ($request->query('source') === 'fresh20' || $request->query('fresh') === '1');
+
         foreach ($adsData as $item) {
             $num = $item['num'];
-            $srcImage = public_path("ads_data/{$num}.png");
-            $imageFilename = "batch_ad_{$num}.png";
+            $imageFilename = $item['image'] ?? "batch_ad_{$num}.png";
+            $srcImage = public_path("ads_data/" . ($item['image'] ?? "{$num}.png"));
             $destPath = $storageDir . '/' . $imageFilename;
             $publicDestPath = $publicStorageDir . '/' . $imageFilename;
-            $dbImagePath = 'ad-images/' . $imageFilename;
+            $dbImagePath = $item['db_path'] ?? ('ad-images/' . $imageFilename);
 
             if (file_exists($srcImage)) {
                 @copy($srcImage, $destPath);
@@ -108,7 +114,7 @@ class BatchAdImportController extends Controller
                     'location' => $item['location'],
                     'phone_number' => $item['phone'],
                     'whatsapp_number' => $item['whatsapp'],
-                    'post_date' => now()->subMinutes(max(2, 125 - (int)$num)),
+                    'post_date' => $isFresh ? now()->subMinutes(max(1, 45 - (int)$num)) : now()->subMinutes(max(2, 125 - (int)$num)),
                 ]);
 
                 // Ensure image exists
@@ -155,7 +161,7 @@ class BatchAdImportController extends Controller
                     'common_category_id' => $item['category_id'],
                     'listing_category_id' => 1, // VIP (Rs. 700)
                     'sub_category_id' => null,
-                    'post_date' => now()->subMinutes(max(2, 125 - (int)$num)),
+                    'post_date' => $isFresh ? now()->subMinutes(max(1, 45 - (int)$num)) : now()->subMinutes(max(2, 125 - (int)$num)),
                     'views_count' => rand(20, 65),
                     'likes_count' => rand(4, 15),
                 ]);

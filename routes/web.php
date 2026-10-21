@@ -265,13 +265,30 @@ Route::get('/api/outreach/data', [\App\Http\Controllers\OutreachController::clas
 Route::post('/api/outreach/mark', [\App\Http\Controllers\OutreachController::class, 'markMessage'])->name('outreach.mark');
 Route::post('/api/outreach/send-gateway', [\App\Http\Controllers\OutreachController::class, 'sendGatewayMessage'])->name('outreach.send-gateway');
 
-Route::get('/download-vcf', function () {
-    $file = public_path('tintin_advertisers.vcf');
+Route::get('/download-vcf', function (\Illuminate\Http\Request $request) {
+    if ($request->query('fresh') === '1' || $request->query('today') === '1') {
+        $file = public_path('hela_fresh_20_oct21.vcf');
+    } else {
+        $file = public_path('tintin_advertisers.vcf');
+    }
+    if (!file_exists($file)) {
+        abort(404);
+    }
+    $filename = basename($file);
+    return response()->file($file, [
+        'Content-Type' => 'text/vcard; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="' . $filename . '"'
+    ]);
+})->name('download.vcf');
+
+Route::get('/download-fresh-vcf', function () {
+    $file = public_path('hela_fresh_20_oct21.vcf');
     if (!file_exists($file)) {
         abort(404);
     }
     return response()->file($file, [
         'Content-Type' => 'text/vcard; charset=utf-8',
-        'Content-Disposition' => 'inline; filename="tintin_advertisers.vcf"'
+        'Content-Disposition' => 'attachment; filename="hela_fresh_20_oct21.vcf"'
     ]);
-})->name('download.vcf');
+})->name('download.fresh-vcf');
+
