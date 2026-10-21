@@ -1353,39 +1353,40 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
             </footer>
 
             {/* Mobile Floating Quick Contact Bar */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 py-2 shadow-[0_-8px_25px_rgba(0,0,0,0.12)]">
-                <div className="flex items-center justify-between gap-2.5 max-w-md mx-auto">
-                    {/* Left: Price & Online Status */}
-                    <div className="flex flex-col min-w-0 pr-1">
+            <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 px-3 pt-2 pb-[max(0.6rem,env(safe-area-inset-bottom))] shadow-[0_-8px_25px_rgba(0,0,0,0.12)]">
+                <div className="flex items-center justify-between gap-2 max-w-md mx-auto">
+                    {/* Left: Compact Price & Verified Online Status */}
+                    <div className="flex flex-col justify-center min-w-[72px] sm:min-w-[84px] flex-shrink-0">
                         <div className="flex items-center gap-1.5">
-                            <span className="relative flex h-2 w-2">
+                            <span className="relative flex h-2 w-2 flex-shrink-0">
                                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                             </span>
-                            <span className="text-[10px] font-extrabold text-emerald-600 uppercase tracking-wide">Online • ⚡ 5m Reply</span>
+                            <span className="text-[10px] font-black text-emerald-600 uppercase tracking-tight">ONLINE</span>
                         </div>
-                        <span className="text-base sm:text-lg font-black text-pink-600 truncate leading-tight">
-                            Rs {ad.price.toLocaleString()}
+                        <span className="text-xs sm:text-sm font-black text-pink-600 truncate leading-tight mt-0.5">
+                            {ad.price && Number(ad.price) > 0 ? `Rs ${Number(ad.price).toLocaleString()}` : 'Contact'}
                         </span>
                     </div>
 
-                    {/* Right: Quick Call, WhatsApp & Share Buttons */}
-                    <div className="flex items-center gap-1.5 flex-1 justify-end">
+                    {/* Right: Quick Share, Call & WhatsApp Buttons */}
+                    <div className="flex items-center gap-1.5 flex-1 min-w-0 justify-end">
                         <button
                             type="button"
                             onClick={handleShare}
-                            className="w-11 h-11 bg-indigo-50 hover:bg-indigo-100 active:bg-indigo-600 active:text-white border border-indigo-200 text-indigo-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-xs transition active:scale-95 cursor-pointer"
+                            className="w-10 h-10 bg-indigo-50 hover:bg-indigo-100 active:bg-indigo-600 active:text-white border border-indigo-200 text-indigo-700 rounded-xl flex items-center justify-center flex-shrink-0 shadow-2xs transition active:scale-95 cursor-pointer"
                             title="Share Ad"
+                            aria-label="Share Ad"
                         >
-                            <i className="fas fa-share-nodes text-base"></i>
+                            <i className="fas fa-share-nodes text-sm"></i>
                         </button>
                         <a
                             href={ad.phone_number ? `tel:${ad.phone_number}` : 'tel:0700000000'}
                             onClick={incrementContactCount}
-                            className="flex-1 max-w-[125px] bg-[#E50914] active:bg-red-800 text-white font-extrabold text-xs sm:text-sm py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
+                            className="flex-1 py-2.5 px-2 bg-[#E50914] active:bg-red-800 text-white font-extrabold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 shadow-sm transition-transform active:scale-95 whitespace-nowrap"
                         >
                             <i className="fas fa-phone-alt text-xs"></i>
-                            <span>CALL NOW</span>
+                            <span>Call</span>
                         </a>
                         <a
                             href={
@@ -1396,10 +1397,10 @@ const ListingDetailPage: React.FC<ListingDetailPageProps> = ({ ad, relatedAds = 
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={incrementContactCount}
-                            className="flex-1 max-w-[125px] bg-[#25D366] active:bg-green-700 text-white font-extrabold text-xs sm:text-sm py-3 px-2 rounded-xl flex items-center justify-center gap-1.5 shadow-md transition-transform active:scale-95"
+                            className="flex-1 py-2.5 px-2 bg-[#25D366] active:bg-green-700 text-white font-extrabold text-xs sm:text-sm rounded-xl flex items-center justify-center gap-1.5 shadow-sm transition-transform active:scale-95 whitespace-nowrap"
                         >
-                            <i className="fab fa-whatsapp text-base"></i>
-                            <span>WHATSAPP</span>
+                            <i className="fab fa-whatsapp text-sm"></i>
+                            <span>WhatsApp</span>
                         </a>
                     </div>
                 </div>
