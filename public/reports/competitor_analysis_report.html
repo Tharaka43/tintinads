@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="utf-8">
+<title>ශ්‍රී ලංකා Classifieds වෙළඳපොල සහ Competitor Intelligence වාර්තාව - 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Sinhala:wght@400;500;600;700;800&display=swap');
+
+  @page {
+    size: A4;
+    margin: 16mm 14mm 16mm 14mm;
+    @bottom-right {
+      content: counter(page);
+      font-size: 9pt;
+      color: #64748b;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans Sinhala', 'Nirmala UI', 'Iskoola Pota', 'Segoe UI', sans-serif;
+    color: #1e293b;
+    background-color: #ffffff;
+    line-height: 1.55;
+    font-size: 10pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  .cover-page {
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 96vh;
+    padding: 40px 20px;
+    background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+    color: #ffffff;
+    border-radius: 16px;
+  }
+
+  .cover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    padding-bottom: 20px;
+  }
+
+  .cover-badge {
+    background: rgba(245, 158, 11, 0.2);
+    border: 1px solid #f59e0b;
+    color: #fbbf24;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 9pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .cover-title-group {
+    margin-top: 60px;
+  }
+
+  .cover-title-group h1 {
+    font-size: 26pt;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #ffffff;
+    margin: 0 0 15px 0;
+  }
+
+  .cover-title-group h1 span {
+    color: #f59e0b;
+  }
+
+  .cover-subtitle {
+    font-size: 13pt;
+    color: #94a3b8;
+    line-height: 1.5;
+    max-width: 650px;
+    margin: 0;
+  }
+
+  .cover-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 40px;
+  }
+
+  .cover-stat-box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .cover-stat-box .num {
+    font-size: 18pt;
+    font-weight: 800;
+    color: #f59e0b;
+    margin: 0;
+  }
+
+  .cover-stat-box .lbl {
+    font-size: 8.5pt;
+    color: #cbd5e1;
+    margin-top: 4px;
+  }
+
+  .cover-footer {
+    border-top: 1px solid rgba(255,255,255,0.15);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5pt;
+    color: #94a3b8;
+  }
+
+  /* Inside pages */
+  .page {
+    page-break-after: always;
+    padding-top: 10px;
+  }
+
+  .page-last {
+    page-break-after: avoid;
+    padding-top: 10px;
+  }
+
+  .header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    font-size: 8.5pt;
+    color: #64748b;
+  }
+
+  .header-bar strong {
+    color: #0f172a;
+  }
+
+  h2 {
+    font-size: 14pt;
+    font-weight: 800;
+    color: #0f172a;
+    border-left: 4px solid #f59e0b;
+    padding-left: 10px;
+    margin: 22px 0 12px 0;
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 16px 0 8px 0;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+    color: #334155;
+    font-size: 9.5pt;
+    text-align: justify;
+  }
+
+  .highlight-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 12px 0;
+  }
+
+  .highlight-card.gold {
+    background: #fffbeb;
+    border-color: #fde68a;
+  }
+
+  .highlight-card.blue {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 14px 0 18px 0;
+    font-size: 8.5pt;
+  }
+
+  th {
+    background: #0f172a;
+    color: #ffffff;
+    text-align: left;
+    padding: 8px 10px;
+    font-weight: 700;
+  }
+
+  td {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 700;
+  }
+
+  .tag-green { background: #dcfce7; color: #15803d; }
+  .tag-amber { background: #fef3c7; color: #b45309; }
+  .tag-blue  { background: #dbeafe; color: #1d4ed8; }
+  .tag-red   { background: #fee2e2; color: #b91c1c; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0;
+  }
+
+  .box-info {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    background: #ffffff;
+  }
+
+  .box-info h4 {
+    margin: 0 0 6px 0;
+    font-size: 9.5pt;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .box-info p {
+    font-size: 8.5pt;
+    margin: 0;
+  }
+
+  ul {
+    margin: 6px 0 12px 18px;
+    padding: 0;
+    font-size: 9pt;
+    color: #334155;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: COVER PAGE -->
+<div class="cover-page">
+  <div class="cover-header">
+    <div style="font-size: 14pt; font-weight: 800; letter-spacing: -0.5px;">TINTINADS <span style="color:#f59e0b;">INTELLIGENCE</span></div>
+    <div class="cover-badge">Confidential Market Report</div>
+  </div>
+
+  <div class="cover-title-group">
+    <h1>ශ්‍රී ලංකා Classifieds වෙළඳපොල සහ<br><span>Competitor Intelligence</span> වාර්තාව</h1>
+    <p class="cover-subtitle">
+      Lankanad.org සහ Hela-Lankaa-Ads.com යන ප්‍රධාන තරඟකරුවන්ගේ තාක්ෂණික පද්ධති, දැන්වීම් පරිමාණය, ආදායම් මාදිලි සහ TinTinAds.com හි ජයග්‍රාහී උපායමාර්ගය පිළිබඳ සවිස්තරාත්මක අධ්‍යයනයකි.
+    </p>
+
+    <div class="cover-stats-grid">
+      <div class="cover-stat-box">
+        <div class="num">1,757,850+</div>
+        <div class="lbl">Lankanad මුළු දැන්වීම් දත්ත වාර්තා</div>
+      </div>
+      <div class="cover-stat-box">
+        <div class="num">Rs. 1.5M - 2.5M</div>
+        <div class="lbl">තරඟකරුවන්ගේ ඇස්තමේන්තුගත මාසික ආදායම</div>
+      </div>
+      <div class="cover-stat-box">
+        <div class="num">16 Verified</div>
+        <div class="lbl">දෙපාර්ශවයම පාලනය කරන ප්‍රධාන Ad Agents</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cover-footer">
+    <div><strong>ප්‍රකාශනය:</strong> TinTinAds Analytics & Research Team</div>
+    <div><strong>දිනය:</strong> 2026 ඔක්තෝබර් 21 &bull; සංස්කරණය: 1.0</div>
+    <div><strong>තත්ත්වය:</strong> Direct Executive Brief</div>
+  </div>
+</div>
+
+<!-- PAGE 2: EXECUTIVE SUMMARY & 3-WAY COMPARISON -->
+<div class="page">
+  <div class="header-bar">
+    <span>TINTINADS INTELLIGENCE &bull; COMPETITOR ANALYSIS</span>
+    <strong>පරිච්ඡේදය 01 : විධායක සාරාංශය සහ සැසඳීම</strong>
+  </div>
+
+  <h2>1. විධායක සාරාංශය (Executive Summary)</h2>
+  <p>
+    ශ්‍රී ලංකාවේ පුද්ගලික, සුවතා සහ සම්බාහන සේවා (Spa, Wellness & Personal Classifieds) වෙළඳපොල යනු අන්තර්ජාලය හරහා ඉතා ඉහළ මුදල් සංසරණයක් සිදුවන ලාභදායී ක්ෂේත්‍රයකි. දේශීය වෙළඳපොල දැනට ප්‍රධාන වශයෙන් <strong>Lankanad.org</strong> සහ <strong>Hela-Lankaa-Ads.com</strong> යන ප්‍රමුඛ අඩවි දෙක විසින් මෙහෙයවනු ලැබේ. අප විසින් කරන ලද සජීවී තාක්ෂණික විමර්ශනයට අනුව, දැන්වීම්කරුවන් තමන්ගේ දැන්වීම් ඉහළින් පෙන්වීම සඳහා (Super & VIP) මසකට රුපියල් දහස් ගණනින් සතුටින් වියදම් කිරීමට සූදානම් බව තහවුරු විය.
+  </p>
+
+  <h2>2. ප්‍රධාන තරඟකරුවන් තිදෙනාගේ සංසන්දනාත්මක සටහන (3-Way Matrix)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>විශේෂාංගය (Metric)</th>
+        <th>Lankanad.org</th>
+        <th>Hela-Lankaa-Ads.com</th>
+        <th>TinTinAds.com (අපගේ අඩවිය)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>මුළු පිටු ගණන</strong></td>
+        <td>11,719 Pages (දැවැන්තයි)</td>
+        <td>1,470 Pages</td>
+        <td>වේගයෙන් වර්ධනය වන නව අඩවිය</td>
+      </tr>
+      <tr>
+        <td><strong>දත්ත ගබඩාවේ ප්‍රමාණය</strong></td>
+        <td>1,757,850+ Listings</td>
+        <td>20,000+ Listings</td>
+        <td>200+ Live Verified & Fresh Ads</td>
+      </tr>
+      <tr>
+        <td><strong>තාක්ෂණික පදනම</strong></td>
+        <td>PHP Laravel (White Theme)</td>
+        <td>PHP Laravel (Neon Accent)</td>
+        <td>PHP / Next-Gen Responsive Dark Theme</td>
+      </tr>
+      <tr>
+        <td><strong>Normal Ad මිල</strong></td>
+        <td>Rs. 500</td>
+        <td>Rs. 700</td>
+        <td><strong>Rs. 400 - 500 (Free Trial available)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Super / Boost මිල</strong></td>
+        <td>Rs. 1,200</td>
+        <td>Rs. 1,500</td>
+        <td><strong>Rs. 750 (Unbeatable)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>VIP Top Ad මිල</strong></td>
+        <td>Rs. 8,000 - 10,000</td>
+        <td>Rs. 9,000</td>
+        <td><strong>Rs. 1,500 (Massive Value Edge)</strong></td>
+      </tr>
+      <tr>
+        <td><strong>Telegram Push Alerts</strong></td>
+        <td><span class="tag tag-red">නැත (Zero)</span></td>
+        <td><span class="tag tag-red">නැත (Zero)</span></td>
+        <td><span class="tag tag-green">සක්‍රීයයි (Instant Auto Broadcast)</span></td>
+      </tr>
+      <tr>
+        <td><strong>1-Click Contact Download</strong></td>
+        <td><span class="tag tag-red">නැත</span></td>
+        <td><span class="tag tag-red">නැත</span></td>
+        <td><span class="tag tag-green">iCloud & Android VCF Sync</span></td>
+      </tr>
+      <tr>
+        <td><strong>දැන්වීම්කරුවන්ගේ Overlap</strong></td>
+        <td colspan="2" style="text-align: center;">44% ක් දෙපැත්තටම දමති &bull; 56% ක් වෙනස්ය</td>
+        <td>දෙපිරිසම ආකර්ෂණය කරගැනීමේ අවස්ථාව</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>3. වෙළඳපොලෙන් හෙළි වූ ප්‍රධාන සොයාගැනීම්</h2>
+  <div class="grid-2">
+    <div class="box-info">
+      <h4>💰 සේවාදායකයින්ගේ ගෙවීමේ හැකියාව</h4>
+      <p>දැන්වීම්කරුවන්ට Calls ලැබෙන තාක් ඔවුන් එක් දැන්වීමකට රු. 1,200 - 9,000 අතර මුදලක් ගෙවීමට කිසිසේත් පසුබට නොවේ. සාමාන්‍ය ව්‍යාපාරික ආදායම ඉතා ඉහළය.</p>
+    </div>
+    <div class="box-info">
+      <h4>🤝 Agents ලාගේ ඒකාධිකාරය</h4>
+      <p>දෙපාර්ශවයේම දැන්වීම් වලින් වැඩි ප්‍රමාණයක් දමන්නේ වෙබ් අඩවියට ලියාපදිංචි වී සිටින තැරැව්කරුවන් (Agents) 16 දෙනාය. ඔවුන්ව දිනාගැනීම ප්‍රධානම තුරුම්පුවයි.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: LANKANAD.ORG DEEP DIVE -->
+<div class="page">
+  <div class="header-bar">
+    <span>TINTINADS INTELLIGENCE &bull; COMPETITOR ANALYSIS</span>
+    <strong>පරිච්ඡේදය 02 : Lankanad.org සවිස්තරාත්මක විග්‍රහය</strong>
+  </div>
+
+  <h2>4. Lankanad.org : ක්ෂේත්‍රයේ දැවැන්තයාගේ ඇතුළාන්තය</h2>
+  <p>
+    Lankanad.org යනු වසර ගණනාවක සිට ශ්‍රී ලංකාවේ මෙහෙයුම් සිදුකරන ප්‍රමුඛතම Classifieds නාමයයි. Google Search Engine එක තුළ `lanka ads`, `spa ads` වැනි Search Terms සඳහා ඉහළම Ranking ලබාගෙන ඇත්තේ මොවුන්ය.
+  </p>
+
+  <div class="highlight-card gold">
+    <strong style="color: #92400e; font-size: 10pt;">ප්‍රධාන සංඛ්‍යාලේඛන (Key System Stats):</strong>
+    <ul style="margin-top: 6px; margin-bottom: 0;">
+      <li><strong>පිටු සංඛ්‍යාව:</strong> පිටු 11,719 ක් (Pagination Navigation).</li>
+      <li><strong>මුළු දත්ත වාර්තා:</strong> 1,757,850+ කට අධික Listings.</li>
+      <li><strong>මුල් පිටුවේ දැන්වීම්:</strong> එකවර දැන්වීම් 97 ක්.</li>
+      <li><strong>Server යටිතල පහසුකම්:</strong> Cloudflare Singapore Proxy (IP: <code>104.21.86.118</code>), PHP Laravel Framework.</li>
+    </ul>
+  </div>
+
+  <h3>මිල ගණන් සහ ආදායම් ව්‍යුහය (Pricing Architecture)</h3>
+  <ul>
+    <li><strong>Normal Ad (Rs. 500.00):</strong> සාමාන්‍ය ලැයිස්තුවේ පහළින් දිස්වන සාමාන්‍ය දැන්වීම්.</li>
+    <li><strong>Super Ad (Rs. 1,200.00):</strong> මුල් පිටුවේ ඉහළින් පෙන්වන, වැඩි අවධානයක් ලැබෙන පැකේජය.</li>
+    <li><strong>VIP Ad (Rs. 8,000.00):</strong> සුවිශේෂී Golden Badge එකක් සහිතව ඉහළම ප්‍රමුඛතාවය.</li>
+    <li><strong>NRA Ad - Non-Removable (Rs. 10,000.00):</strong> වෙබ් අඩවියේ මුදුනෙන්ම ස්ථිරව Pin කර තබන දැන්වීම්.</li>
+  </ul>
+
+  <h3>ඔවුන්ගේ සූක්ෂ්ම SEO උපක්‍රමය (Competitor Keyword Hijacking)</h3>
+  <p>
+    Lankanad අඩවියේ Blog එකක් පවත්වාගෙන යන අතර, එහි ඔවුන් තම ප්‍රධාන තරඟකරුවාගේ නම යොදාගනිමින් ලිපි පළකර ඇත (උදා: <em>"How to Improve Your Visibility on Hela Lanka Ads"</em>). මෙහි අරමුණ වන්නේ Google හි Hela Lanka Ads සොයන පාරිභෝගිකයින්වද තමන්ගේ අඩවියට හරවා ගැනීමයි.
+  </p>
+
+  <h3>විශ්වාසය දිනාගැනීමේ "Fake Ads" අංශය</h3>
+  <p>
+    මොවුන් <code>/fake-ads</code> නමින් පිටුවක් පවත්වාගෙන යමින්, Advance මුදල් ඉල්ලා වංචා කරන පුද්ගලයින් සහ ව්‍යාජ දුරකථන අංක ප්‍රසිද්ධියේ Blacklist කරයි. මෙය පාරිභෝගිකයින් තුළ විශ්වාසය ගොඩනැගීමට ගත් ඉතා සාර්ථක පියවරකි.
+  </p>
+
+  <h3>Lankanad හි ප්‍රධාන දුර්වලතා (Vulnerabilities)</h3>
+  <ul>
+    <li><strong>යල් පැන ගිය UI/UX:</strong> ඩිසයින් එක වසර ගණනාවකින් යාවත්කාලීන කර නැති අතර Mobile Devices වල භාවිතය අපහසුය.</li>
+    <li><strong>Alerts පද්ධතියක් නොමැති වීම:</strong> නව දැන්වීමක් පළ වූ සැණින් Clients ලාගේ අතටම Notification එකක් යැවීමට ඔවුන්ට තාක්ෂණයක් නැත.</li>
+    <li><strong>අධික VIP මිල:</strong> සාමාන්‍ය සේවා සපයන්නන්ට රු. 8,000 - 10,000 ක් දැරීමට නොහැකි වීම නිසා විකල්ප සොයති.</li>
+  </ul>
+</div>
+
+<!-- PAGE 4: HELA-LANKAA-ADS & AGENT ECOSYSTEM -->
+<div class="page">
+  <div class="header-bar">
+    <span>TINTINADS INTELLIGENCE &bull; COMPETITOR ANALYSIS</span>
+    <strong>පරිච්ඡේදය 03 : Hela-Lanka සහ Ad Agents ජාලය</strong>
+  </div>
+
+  <h2>5. Hela-Lankaa-Ads.com : ව්‍යාපාරික හා තාක්ෂණික විග්‍රහය</h2>
+  <p>
+    Hela-Lankaa-Ads.com යනු වෙළඳපොලේ දෙවන විශාලතම ක්‍රීඩකයා වන අතර, ඔවුන් වඩාත් දියුණු නීති සහ දැඩි මිල ප්‍රතිපත්ති අනුගමනය කරයි.
+  </p>
+
+  <div class="highlight-card blue">
+    <strong style="color: #1e40af; font-size: 10pt;">Hela-Lanka ප්‍රධාන විශේෂාංග:</strong>
+    <ul style="margin-top: 6px; margin-bottom: 0;">
+      <li><strong>පිටු 1,470 ක් සහ දැන්වීම් 20,000+:</strong> පද්ධතිය තුළ සක්‍රීයව ක්‍රියාත්මක වේ.</li>
+      <li><strong>Domain Mirrors 6ක්:</strong> <code>hela-lankaa-ads.com</code>, <code>hela-lankaads.com</code>, <code>hela-lankaads.co</code>, <code>hela-lanka.com</code>, <code>hela-lanka-adss.com</code>, <code>hela--ads.com</code>. එකම Site එක Blocks වලින් බේරීමට Domains කිහිපයකින් Run කරයි.</li>
+      <li><strong>The 48-Hour Search Rule:</strong> දැන්වීමක් දමා පැය 48 කට පසු Search Results වලින් ඉවත් කරයි. ಇದರಿಂದ දැන්වීම්කරුවන්ට නිතර නිතර මුදල් ගෙවීමට සිදුවේ.</li>
+    </ul>
+  </div>
+
+  <h3>මිල ගණන් ලැයිස්තුව:</h3>
+  <p>
+    Normal: <strong>Rs. 700</strong> &bull; Premium N: <strong>Rs. 900</strong> &bull; Super: <strong>Rs. 1,500</strong> &bull; Premium S: <strong>Rs. 1,700</strong> &bull; VIP: <strong>Rs. 9,000</strong> &bull; Weekly Membership: <strong>Rs. 500/සතියකට</strong>.
+  </p>
+
+  <h2>6. ක්ෂේත්‍රයේ රහස්‍ය ජීවනාලිය: Ad Agents Network</h2>
+  <p>
+    අපගේ පරීක්ෂණයේදී තහවුරු වූ වැදගත්ම කරුණ වන්නේ, Lankanad සහ Hela-Lanka යන අඩවි දෙකෙහිම ප්‍රධාන දැන්වීම් සපයන්නේ <strong>එකම Ad Agents ලා පිරිසක්</strong> බවයි:
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>නියෝජිත නාමය (Agent Name)</th>
+        <th>සම්බන්ධීකරණ අංකය</th>
+        <th>ක්‍රියාකාරීත්වය</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Fire Ads Agent</strong></td>
+        <td>+94 77 997 0996</td>
+        <td>දෙපාර්ශවයේම ප්‍රමුඛ දැන්වීම් සපයන්නෙකි.</td>
+      </tr>
+      <tr>
+        <td><strong>Ronnie Ads Agent</strong></td>
+        <td>+94 76 446 8084</td>
+        <td>කොළඹ සහ තදාසන්න Spa දැන්වීම් වැඩිපුර හසුරුවයි.</td>
+      </tr>
+      <tr>
+        <td><strong>VIP Agent (24h Speed)</strong></td>
+        <td>+94 72 451 5570</td>
+        <td>ඉහළ පෙළේ VIP සේවාදායකයින් සම්බන්ධ කරවයි.</td>
+      </tr>
+      <tr>
+        <td><strong>Shen Ad Agent</strong></td>
+        <td>+94 72 385 7505</td>
+        <td>පුද්ගලික සේවා දැන්වීම් බහුලව පළ කරයි.</td>
+      </tr>
+      <tr>
+        <td><strong>Regent Lanka Agent</strong></td>
+        <td>+94 77 414 2371</td>
+        <td>දීර්ඝ කාලීන නියෝජිතයෙකි.</td>
+      </tr>
+      <tr>
+        <td><strong>Quick Ads & Secret Agent</strong></td>
+        <td>+94 76 469 0489 / +94 70 703 8139</td>
+        <td>අන්තර්ජාලය හරහා ක්ෂණික සේවා සපයයි.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size: 8.5pt; color: #64748b;">
+    *සටහන: මෙම Agents ලා Spa හිමිකරුවන්ගෙන් සහ තනි පුද්ගලයන්ගෙන් මුදල් ලබාගෙන අඩවි දෙකෙහිම දැන්වීම් පලකර කොමිස් මුදලක් ලබා ගනී. මොවුන් අපේ TinTinAds වෙත නම්මා ගැනීම ක්ෂණික සාර්ථකත්වයට මඟයි.
+  </p>
+</div>
+
+<!-- PAGE 5: TINTINADS WINNING STRATEGY & ROADMAP -->
+<div class="page-last">
+  <div class="header-bar">
+    <span>TINTINADS INTELLIGENCE &bull; COMPETITOR ANALYSIS</span>
+    <strong>පරිච්ඡේදය 04 : TinTinAds.com ජයග්‍රාහී සැලැස්ම</strong>
+  </div>
+
+  <h2>7. TinTinAds.com වෙළඳපොල අත්පත් කරගැනීමේ උපායමාර්ගය</h2>
+  <p>
+    තරඟකරුවන්ගේ ඇති දුර්වලතා අපගේ ප්‍රබලතම ආයුධ බවට පත්කර ගනිමින් ඉදිරි සති 4 තුළ ක්‍රියාත්මක කළ යුතු පියවර 5ක සැලැස්ම මෙසේය:
+  </p>
+
+  <div class="box-info" style="margin-bottom: 12px; border-left: 4px solid #10b981;">
+    <h4 style="color: #047857;">පියවර 01 : PopAds Mobile Traffic මඟින් සැබෑ Inquiries උත්පාදනය කිරීම</h4>
+    <p>අප විසින් දැනටමත් දියත් කර ඇති PopAds Campaign එක හරහා කොළඹ, ගම්පහ, නුවර, කුරුණෑගල ආශ්‍රිත ස්මාර්ට්ෆෝන් භාවිතා කරන්නන් 1,000+ ක් දිනපතා අඩවියට පැමිණේ. මෙයින් අඩවියේ ඇති දැන්වීම් වලට සැබෑ Calls ගලා ඒම ඇරඹේ.</p>
+  </div>
+
+  <div class="box-info" style="margin-bottom: 12px; border-left: 4px solid #3b82f6;">
+    <h4 style="color: #1d4ed8;">පියවර 02 : Ad Agents ලාට "Free VIP Onboarding" ලබා දීම</h4>
+    <p>අප සතුව ඇති ඉහත Agents ලා 16 දෙනාට WhatsApp පණිවිඩයක් යවමින්: <em>"ඔබගේ පළමු දැන්වීම් 2 TinTinAds.com හි නොමිලේ VIP Feature කරන්න. සැබෑ Calls ලැබෙන බවට සහතිකයි!"</em> ලෙස ආරාධනා කිරීම. ඔවුන් එකඟ වූ සැණින් ඔවුන්ගේ සමස්ත Client Base එකම අප වෙත ලැබේ.</p>
+  </div>
+
+  <div class="box-info" style="margin-bottom: 12px; border-left: 4px solid #f59e0b;">
+    <h4 style="color: #b45309;">පියවර 03 : Telegram VIP Channel එකෙන් අසමසම අගයක් (Unfair Advantage) දීම</h4>
+    <p>තරඟකරුවන් කිසිවෙකුට Telegram Bot System එකක් නැත. අපේ අඩවියේ පළවන සෑම VIP දැන්වීමක්ම ඡායාරූප සහ Direct Call Buttons සමඟ Telegram Channel එකට යයි. මේ අමතර වටිනාකම නිසා දැන්වීම්කරුවන් අප සමග ස්ථිරව රැඳෙනු ඇත.</p>
+  </div>
+
+  <div class="box-info" style="margin-bottom: 12px; border-left: 4px solid #8b5cf6;">
+    <h4 style="color: #6d28d9;">පියවර 04 : 1-Click Contacts Download (iCloud / Android VCF) ප්‍රවර්ධනය</h4>
+    <p>Visitors ලාට සියලු සහතිකලත් Spa හා Therapists අංක එක ක්ලික් එකෙන් දුරකථනයට Save කරගැනීමට අවස්ථාව දීම. පාරිභෝගිකයා අඩවියට නැවත නැවත පැමිණීමට මෙය හේතු වේ.</p>
+  </div>
+
+  <div class="box-info" style="margin-bottom: 16px; border-left: 4px solid #ec4899;">
+    <h4 style="color: #be185d;">පියවර 05 : ආක්‍රමණශීලී මිලකරණය (Disruptive Pricing)</h4>
+    <p>ඔවුන් VIP එකකට රු. 8,000 - 9,000 ක් අය කරද්දී, අප විසින් Super Ad එකක් <strong>රු. 750 කටද</strong>, VIP + Telegram Push පැකේජය <strong>රු. 1,500 කටද</strong> ලබා දීම. මෙය වෙළඳපොලේ පාරිභෝගිකයින්ට ප්‍රතික්ෂේප කළ නොහැකි දීමනාවකි.</p>
+  </div>
+
+  <h2>8. අවසන් නිගමනය (Conclusion)</h2>
+  <div class="highlight-card gold" style="margin-top: 10px;">
+    <p style="margin: 0; font-weight: 600; color: #78350f;">
+      Lankanad සහ Hela-Lanka යනු විශාල පරිශීලක පිරිසක් සිටින නමුත් පැරණි තාක්ෂණය සහ අධික ගාස්තු මත යැපෙන අඩවි දෙකකි. අපගේ නූතන තාක්ෂණය (Telegram, VCF, Fast Mobile UI) සහ නිවැරදි Traffic Drive (PopAds) මඟින් ඉදිරි මාස 2-3 තුළ මෙම ක්ෂේත්‍රයේ ප්‍රමුඛතම, විශ්වාසදායකම සහ වඩාත්ම ආකර්ෂණීය platform එක බවට <strong>TinTinAds.com</strong> පත්කිරීම ඉතා පහසුවෙන් ළඟා කරගත හැකි යථාර්ථයකි!
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
