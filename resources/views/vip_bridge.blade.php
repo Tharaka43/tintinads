@@ -26,6 +26,15 @@
 
     <link rel="icon" href="/assets/siteicon.png">
     
+    <!-- Microsoft Clarity Tracking Code -->
+    <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "z18up5qr9j");
+    </script>
+    
     <!-- Immediate Auto-Redirect to Telegram -->
     <meta http-equiv="refresh" content="1; url=https://t.me/tintinadsvip">
     <script>
