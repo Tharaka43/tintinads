@@ -307,6 +307,31 @@ Route::get('/download-fresh-vcf', function () {
     ]);
 })->name('download.fresh-vcf');
 
+// 100 Fresh LankaAd Calling Kit Routes
+Route::get('/calling-sheet', function () {
+    $file = public_path('calling_sheet.html');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, ['Content-Type' => 'text/html; charset=utf-8']);
+})->name('calling-sheet');
+
+Route::get('/download-lankaad-vcf', function () {
+    $file = public_path('lankaad_100_call_leads.vcf');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/vcard; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="lankaad_100_call_leads.vcf"'
+    ]);
+})->name('download.lankaad-vcf');
+
+Route::get('/download-lankaad-csv', function () {
+    $file = public_path('lankaad_100_calling_list.csv');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="lankaad_100_calling_list.csv"'
+    ]);
+})->name('download.lankaad-csv');
+
 Route::get('/reports/competitor-analysis.pdf', function () {
     $file = public_path('reports/competitor_analysis_report.pdf');
     if (!file_exists($file)) {
