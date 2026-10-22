@@ -24,7 +24,9 @@ class BatchAdImportController extends Controller
             ]);
         }
 
-        if ($request->query('source') === 'oct22' || $request->query('today40') === '1') {
+        if ($request->query('source') === 'more10' || $request->query('more10') === '1') {
+            $jsonFile = base_path('hela_more_10_oct22.json');
+        } elseif ($request->query('source') === 'oct22' || $request->query('today40') === '1') {
             $jsonFile = base_path('hela_today_40_oct22.json');
         } elseif ($request->query('source') === 'fresh20' || $request->query('fresh') === '1') {
             $jsonFile = base_path('fresh_20_ads_to_import.json');
