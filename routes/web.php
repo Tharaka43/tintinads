@@ -275,6 +275,23 @@ Route::get('/boost-ad-views', function (\Illuminate\Http\Request $request) {
     ]);
 })->name('boost-ad-views');
 
+// Renew all expired ads to active and update post_date = now()
+Route::get('/renew-all-ads', function (\Illuminate\Http\Request $request) {
+    if ($request->query('key') !== 'tintin2026') {
+        abort(403, 'Unauthorized.');
+    }
+    $affected = \Illuminate\Support\Facades\DB::table('advertisements')->update([
+        'status' => 'activated',
+        'payment_status' => 'paid',
+        'post_date' => now(),
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => "Successfully renewed all {$affected} ads to active & post_date = now()!",
+        'total_active' => \App\Models\Advertisement::where('status', 'activated')->unexpired()->count()
+    ]);
+})->name('renew-all-ads');
+
 // WhatsApp Outreach & Expired Renewal Hub API routes
 Route::get('/api/outreach/data', [\App\Http\Controllers\OutreachController::class, 'getData'])->name('outreach.data');
 Route::post('/api/outreach/mark', [\App\Http\Controllers\OutreachController::class, 'markMessage'])->name('outreach.mark');

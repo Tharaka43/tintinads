@@ -16,7 +16,17 @@ class BatchAdImportController extends Controller
             abort(403, 'Unauthorized access key.');
         }
 
-        if ($request->query('source') === 'fresh20' || $request->query('fresh') === '1') {
+        if ($request->query('renew_expired') === '1' || $request->query('renew') === '1') {
+            \Illuminate\Support\Facades\DB::table('advertisements')->update([
+                'status' => 'activated',
+                'payment_status' => 'paid',
+                'post_date' => now(),
+            ]);
+        }
+
+        if ($request->query('source') === 'oct22' || $request->query('today40') === '1') {
+            $jsonFile = base_path('hela_today_40_oct22.json');
+        } elseif ($request->query('source') === 'fresh20' || $request->query('fresh') === '1') {
             $jsonFile = base_path('fresh_20_ads_to_import.json');
         } else {
             $jsonFile = base_path('all_120_ads.json');
