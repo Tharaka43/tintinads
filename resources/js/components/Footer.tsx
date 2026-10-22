@@ -85,7 +85,7 @@ const Footer = () => {
                                     </a>
                                 </div>
                                 <span className="text-[11px] text-amber-400/90 mt-0.5">
-                                    (දැන්වීම් දාගැනීමට අමතන්න - Normal Call)
+                                    (දැන්වීම් පළකර ගැනීමට අමතන්න - Normal Call)
                                 </span>
                             </div>
                         </div>

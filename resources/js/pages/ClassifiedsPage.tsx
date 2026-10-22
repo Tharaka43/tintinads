@@ -1355,12 +1355,12 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                     {/* Shanika Direct Normal Phone Call Contact (No WhatsApp - Normal Call Only) */}
                     <a
                         href="tel:0706161617"
-                        title="මෙවැනි දැන්වීම් දාගැනීමට සාමාන්‍ය ඇමතුමක් (Normal Call) ලබාදෙන්න - Shanika: 070 616 1617"
+                        title="මෙවැනි දැන්වීම් පළකර ගැනීමට සාමාන්‍ය ඇමතුමක් (Normal Call) ලබාදෙන්න - Shanika: 070 616 1617"
                         className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-gray-950 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black shadow-md border border-white/60 transition-transform hover:scale-105"
                     >
                         <i className="fas fa-phone-alt text-red-600 text-[10px] sm:text-xs animate-bounce"></i>
-                        <span className="hidden sm:inline">මෙවැනි දැන්වීම් දාගැනීමට අමතන්න - Shanika (Normal Call)</span>
-                        <span className="sm:hidden">දැන්වීම් දාගැනීමට අමතන්න: Shanika</span>
+                        <span className="hidden sm:inline">මෙවැනි දැන්වීම් පළකර ගැනීමට අමතන්න - Shanika (Normal Call)</span>
+                        <span className="sm:hidden">දැන්වීම් පළකර ගැනීමට: Shanika</span>
                     </a>
 
                     {/* Official Telegram Channel */}

@@ -666,3 +666,216 @@ importBatchAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => 
         })
     
     importBatchAds.form = importBatchAdsForm
+/**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+export const boostAdViews = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: boostAdViews.url(options),
+    method: 'get',
+})
+
+boostAdViews.definition = {
+    methods: ["get","head"],
+    url: '/boost-ad-views',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+boostAdViews.url = (options?: RouteQueryOptions) => {
+    return boostAdViews.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+boostAdViews.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: boostAdViews.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+boostAdViews.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: boostAdViews.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+    const boostAdViewsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: boostAdViews.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+        boostAdViewsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: boostAdViews.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:264
+ * @route '/boost-ad-views'
+ */
+        boostAdViewsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: boostAdViews.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    boostAdViews.form = boostAdViewsForm
+/**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+export const renewAllAds = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: renewAllAds.url(options),
+    method: 'get',
+})
+
+renewAllAds.definition = {
+    methods: ["get","head"],
+    url: '/renew-all-ads',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+renewAllAds.url = (options?: RouteQueryOptions) => {
+    return renewAllAds.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+renewAllAds.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: renewAllAds.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+renewAllAds.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: renewAllAds.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+    const renewAllAdsForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: renewAllAds.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+        renewAllAdsForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: renewAllAds.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:279
+ * @route '/renew-all-ads'
+ */
+        renewAllAdsForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: renewAllAds.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    renewAllAds.form = renewAllAdsForm
+/**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+export const callingSheet = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: callingSheet.url(options),
+    method: 'get',
+})
+
+callingSheet.definition = {
+    methods: ["get","head"],
+    url: '/calling-sheet',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+callingSheet.url = (options?: RouteQueryOptions) => {
+    return callingSheet.definition.url + queryParams(options)
+}
+
+/**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+callingSheet.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: callingSheet.url(options),
+    method: 'get',
+})
+/**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+callingSheet.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: callingSheet.url(options),
+    method: 'head',
+})
+
+    /**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+    const callingSheetForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: callingSheet.url(options),
+        method: 'get',
+    })
+
+            /**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+        callingSheetForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: callingSheet.url(options),
+            method: 'get',
+        })
+            /**
+ * @see routes/web.php:328
+ * @route '/calling-sheet'
+ */
+        callingSheetForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: callingSheet.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    callingSheet.form = callingSheetForm
