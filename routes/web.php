@@ -260,6 +260,21 @@ Route::post('/ocr', [OcrController::class, 'processReceipt']);
 // One-click Batch Ad Importer for Hostinger Production
 Route::get('/import-batch-ads', [\App\Http\Controllers\BatchAdImportController::class, 'import'])->name('import-batch-ads');
 
+// Boost all ad views count by 200 on Hostinger production
+Route::get('/boost-ad-views', function (\Illuminate\Http\Request $request) {
+    if ($request->query('key') !== 'tintin2026') {
+        abort(403, 'Unauthorized.');
+    }
+    $amount = (int) $request->query('amount', 200);
+    $affected = \Illuminate\Support\Facades\DB::table('advertisements')->increment('views_count', $amount);
+    $samples = \Illuminate\Support\Facades\DB::table('advertisements')->select('id', 'title', 'views_count')->limit(5)->get();
+    return response()->json([
+        'status' => 'success',
+        'message' => "Successfully boosted views count by +{$amount} for all {$affected} ads on production!",
+        'samples' => $samples
+    ]);
+})->name('boost-ad-views');
+
 // WhatsApp Outreach & Expired Renewal Hub API routes
 Route::get('/api/outreach/data', [\App\Http\Controllers\OutreachController::class, 'getData'])->name('outreach.data');
 Route::post('/api/outreach/mark', [\App\Http\Controllers\OutreachController::class, 'markMessage'])->name('outreach.mark');
