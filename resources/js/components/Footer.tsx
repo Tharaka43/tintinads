@@ -73,15 +73,20 @@ const Footer = () => {
                                     071 616 1613
                                 </a>
                             </div>
-                            <div className="flex items-center justify-center md:justify-start space-x-2">
-                                <i className="fas fa-phone-alt text-amber-400 text-sm"></i>
-                                <span className="text-gray-400 font-medium">Shanika (දැන්වීම් දාගැනීමට - Normal Call):</span>
-                                <a 
-                                    href="tel:0706161617" 
-                                    className="text-white hover:text-amber-400 transition-colors font-bold"
-                                >
-                                    070 616 1617
-                                </a>
+                            <div className="flex flex-col items-center md:items-start">
+                                <div className="flex items-center justify-center md:justify-start space-x-2">
+                                    <i className="fas fa-phone-alt text-amber-400 text-sm"></i>
+                                    <span className="text-gray-400 font-medium">Shanika:</span>
+                                    <a 
+                                        href="tel:0706161617" 
+                                        className="text-white hover:text-amber-400 transition-colors font-medium whitespace-nowrap"
+                                    >
+                                        070 616 1617
+                                    </a>
+                                </div>
+                                <span className="text-[11px] text-amber-400/90 mt-0.5">
+                                    (දැන්වීම් දාගැනීමට අමතන්න - Normal Call)
+                                </span>
                             </div>
                         </div>
                         
