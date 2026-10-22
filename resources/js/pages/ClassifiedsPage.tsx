@@ -1456,40 +1456,49 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 )}
             </header>
 
-            {/* Search Section with Luxury Spa Hero Background */}
+            {/* Search Section with Clear Luxury Spa Hero Background & Sleek Glass UI */}
             <section
-                className="relative bg-cover bg-center py-8 sm:py-12 shadow-md overflow-hidden"
+                className="relative bg-cover bg-[position:35%_top] sm:bg-[position:center_20%] pt-28 pb-4 sm:pt-20 sm:pb-10 shadow-md overflow-hidden"
                 style={{ backgroundImage: "url('/assets/hero_spa_bg.jpg')" }}
             >
-                {/* Warm Dark Gradient Overlay for High Readability + Clear Image Visibility */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/40 to-black/75 pointer-events-none"></div>
+                {/* Light Top-to-Bottom Gradient so the Face & Spa Photo Stay Bright & Clear */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/15 to-black/70 pointer-events-none"></div>
 
-                <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                    {/* Search Bar & Location Dropdown */}
-                    <form onSubmit={handleSearch} className="mb-6 flex flex-col md:flex-row gap-3">
+                <div className="relative z-10 max-w-4xl mx-auto px-3.5 sm:px-6 lg:px-8">
+                    {/* Compact Translucent Glass Search Bar & Location Dropdown */}
+                    <form onSubmit={handleSearch} className="mb-3.5 sm:mb-5 flex flex-col md:flex-row gap-2 sm:gap-3">
                         <div className="relative flex-grow">
-                            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i className="fas fa-search text-pink-500"></i>
+                            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                                <i className="fas fa-search text-pink-400 text-sm"></i>
                             </div>
                             <input
                                 type="text"
-                                placeholder="What are you looking for? (e.g. Massage, Girls)"
+                                placeholder="Search (e.g. Massage, Girls, Spa)..."
                                 value={searchInput}
                                 onChange={handleSearchChange}
-                                className="w-full pl-12 pr-10 py-3.5 sm:py-4 text-base text-gray-900 placeholder-gray-500 border-2 border-white/70 rounded-xl focus:outline-none transition-all focus:border-pink-500 bg-white/95 backdrop-blur-md focus:bg-white shadow-lg"
+                                className="w-full pl-9 pr-24 md:pr-9 py-2.5 sm:py-3 text-sm sm:text-base text-white placeholder-white/85 border border-white/45 rounded-xl focus:outline-none transition-all focus:border-pink-400 bg-black/35 backdrop-blur-[3px] focus:bg-black/55 shadow-md"
                             />
                             {searchInput && (
                                 <button
                                     type="button"
                                     onClick={() => setSearchInput('')}
-                                    className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                                    className="absolute right-20 md:right-3.5 top-1/2 transform -translate-y-1/2 text-white/70 hover:text-white transition-colors"
                                     title="Clear search"
                                 >
-                                    <i className="fas fa-times"></i>
+                                    <i className="fas fa-times text-xs"></i>
                                 </button>
                             )}
+                            {/* Integrated Mobile Search Button Inside Input */}
+                            <button
+                                type="submit"
+                                className="md:hidden absolute right-1.5 top-1/2 transform -translate-y-1/2 text-white px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-1 shadow-sm active:scale-95"
+                                style={{ backgroundColor: '#ec4899' }}
+                            >
+                                <i className="fas fa-search text-[10px]"></i>
+                                <span>Search</span>
+                            </button>
                         </div>
-                        <div className="relative md:w-64 flex-shrink-0" style={{ zIndex: 50 }}>
+                        <div className="relative md:w-60 flex-shrink-0" style={{ zIndex: 50 }}>
                             <Select
                                 options={locationOptions}
                                 value={locationOptions.find(o => o.value === locationInput) || locationOptions[0]}
@@ -1498,16 +1507,44 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                 styles={{
                                     control: (base, state) => ({
                                         ...base,
-                                        padding: '0.4rem 0.5rem',
-                                        paddingLeft: '2rem',
+                                        minHeight: '40px',
+                                        padding: '0.1rem 0.4rem',
+                                        paddingLeft: '1.85rem',
                                         borderRadius: '0.75rem',
-                                        borderWidth: '2px',
-                                        borderColor: state.isFocused ? '#ec4899' : 'rgba(255, 255, 255, 0.7)',
-                                        backgroundColor: state.isFocused ? '#ffffff' : 'rgba(255, 255, 255, 0.95)',
-                                        boxShadow: state.isFocused ? '0 0 0 2px #ec4899' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+                                        borderWidth: '1px',
+                                        borderColor: state.isFocused ? '#ec4899' : 'rgba(255, 255, 255, 0.45)',
+                                        backgroundColor: state.isFocused ? 'rgba(0, 0, 0, 0.55)' : 'rgba(0, 0, 0, 0.35)',
+                                        backdropFilter: 'blur(3px)',
+                                        boxShadow: state.isFocused ? '0 0 0 1px #ec4899' : '0 4px 6px -1px rgba(0, 0, 0, 0.15)',
                                         '&:hover': {
                                             borderColor: '#ec4899'
                                         }
+                                    }),
+                                    singleValue: (base) => ({
+                                        ...base,
+                                        color: '#ffffff',
+                                        fontSize: '0.875rem',
+                                        fontWeight: 600,
+                                    }),
+                                    input: (base) => ({
+                                        ...base,
+                                        color: '#ffffff',
+                                        fontSize: '0.875rem',
+                                    }),
+                                    placeholder: (base) => ({
+                                        ...base,
+                                        color: 'rgba(255, 255, 255, 0.85)',
+                                        fontSize: '0.875rem',
+                                    }),
+                                    dropdownIndicator: (base) => ({
+                                        ...base,
+                                        color: 'rgba(255, 255, 255, 0.8)',
+                                        padding: '4px 6px',
+                                        '&:hover': { color: '#ffffff' }
+                                    }),
+                                    indicatorSeparator: (base) => ({
+                                        ...base,
+                                        backgroundColor: 'rgba(255, 255, 255, 0.3)',
                                     }),
                                     menu: (base) => ({
                                         ...base,
@@ -1527,47 +1564,49 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                 }}
                             />
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i className="fas fa-map-marker-alt text-pink-500 z-10"></i>
+                                <i className="fas fa-map-marker-alt text-pink-400 text-sm z-10"></i>
                             </div>
                         </div>
+                        {/* Desktop Search Button */}
                         <button
                             type="submit"
-                            className="text-white px-8 py-3.5 sm:py-4 rounded-xl transition-all hover:bg-pink-600 active:scale-95 font-bold flex items-center justify-center gap-2 flex-shrink-0 shadow-lg border border-pink-400/50"
+                            className="hidden md:flex text-white px-7 py-3 rounded-xl transition-all hover:bg-pink-600 active:scale-95 font-bold items-center justify-center gap-2 flex-shrink-0 shadow-lg border border-pink-400/50"
                             style={{ backgroundColor: '#ec4899' }}
                         >
                             <i className="fas fa-search"></i>
-                            <span className="md:hidden">Search</span>
+                            <span>Search</span>
                         </button>
                     </form>
-                    {/* Top Categories - Static */}
-                    <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+
+                    {/* Top Categories - Single Compact Row on Mobile & Desktop */}
+                    <div className="grid grid-cols-5 gap-1.5 sm:flex sm:flex-wrap sm:justify-center sm:gap-6">
                         {filteredTopCategories.map((cat, index) => {
                             const colorIndex = index % CATEGORY_COLORS.length;
                             const colors = CATEGORY_COLORS[colorIndex];
                             return (
                                 <div key={cat.name} onClick={() => handleCategorySelect(cat.name)} className="flex flex-col items-center cursor-pointer group">
                                     <div
-                                        className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg backdrop-blur-sm"
+                                        className="w-11 h-11 sm:w-14 sm:h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-md backdrop-blur-[2px]"
                                         style={{
-                                            backgroundColor: 'rgba(255, 255, 255, 0.94)',
-                                            border: `2.5px solid ${colors.bg}`,
+                                            backgroundColor: 'rgba(255, 255, 255, 0.78)',
+                                            border: `2px solid ${colors.bg}`,
                                         }}
                                     >
-                                        <i className={`${cat.icon} text-2xl transition-transform duration-300 group-hover:scale-110`} style={{ color: colors.icon }}></i>
+                                        <i className={`${cat.icon} text-lg sm:text-xl transition-transform duration-300 group-hover:scale-110`} style={{ color: colors.icon }}></i>
                                     </div>
-                                    <span className="text-xs sm:text-sm mt-2 text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:text-pink-200 transition-colors">{cat.name}</span>
+                                    <span className="text-[11px] sm:text-xs mt-1 text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.95)] group-hover:text-pink-200 transition-colors whitespace-nowrap">{cat.name}</span>
                                 </div>
                             );
                         })}
                     </div>
 
-                    {/* Quick City Filter Pills */}
-                    <div className="mt-6 pt-5 border-t border-white/25">
-                        <div className="flex items-center justify-center gap-1.5 text-xs font-extrabold text-white uppercase tracking-wider mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+                    {/* Quick City Filter Pills - Sleek & Compact */}
+                    <div className="mt-3 pt-2.5 border-t border-white/20">
+                        <div className="flex items-center justify-center gap-1.5 text-[11px] font-extrabold text-white uppercase tracking-wide mb-2 drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                             <i className="fas fa-map-marker-alt text-pink-400"></i>
-                            <span>Quick City Filter (නගරය අනුව ඉක්මනින් තෝරන්න)</span>
+                            <span>Quick City Filter (නගරය තෝරන්න)</span>
                         </div>
-                        <div className="flex items-center justify-start sm:justify-center sm:flex-wrap gap-2 overflow-x-auto pb-2 px-1">
+                        <div className="flex items-center justify-start sm:justify-center sm:flex-wrap gap-1.5 sm:gap-2 overflow-x-auto pb-1 px-0.5">
                             {quickCities.map((city) => {
                                 const isSelected = (locationInput || 'All Sri Lanka').toLowerCase() === city.toLowerCase();
                                 return (
@@ -1575,13 +1614,13 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                         key={city}
                                         type="button"
                                         onClick={() => handleCitySelect(city)}
-                                        className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 flex-shrink-0 border cursor-pointer ${
+                                        className={`px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap transition-all duration-200 flex items-center gap-1 flex-shrink-0 border cursor-pointer ${
                                             isSelected
-                                                ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white border-pink-400 shadow-lg scale-105'
-                                                : 'bg-white/95 hover:bg-white text-gray-800 hover:text-pink-600 border-white/70 hover:border-pink-300 shadow-md'
+                                                ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white border-pink-400 shadow-md scale-105'
+                                                : 'bg-black/40 backdrop-blur-[2px] hover:bg-black/60 text-white border-white/40 hover:border-pink-300 shadow-sm'
                                         }`}
                                     >
-                                        <i className={`fas ${city === 'All Sri Lanka' ? 'fa-globe-asia' : 'fa-map-pin'} text-[10px] ${isSelected ? 'text-white' : 'text-pink-500'}`}></i>
+                                        <i className={`fas ${city === 'All Sri Lanka' ? 'fa-globe-asia' : 'fa-map-pin'} text-[10px] ${isSelected ? 'text-white' : 'text-pink-400'}`}></i>
                                         <span>{city}</span>
                                     </button>
                                 );
