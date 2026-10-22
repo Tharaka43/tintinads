@@ -292,6 +292,86 @@ Route::get('/renew-all-ads', function (\Illuminate\Http\Request $request) {
     ]);
 })->name('renew-all-ads');
 
+// Insert Shanika Proposal Ad on Hostinger Production
+Route::get('/insert-proposal-ad', function (\Illuminate\Http\Request $request) {
+    if ($request->query('key') !== 'tintin2026') {
+        abort(403, 'Unauthorized.');
+    }
+
+    $imageFilename = 'shanika_proposal_ad.jpg';
+    $srcImage = public_path("ads_data/{$imageFilename}");
+    $storageDir = storage_path('app/public/ad-images');
+    $publicStorageDir = public_path('storage/ad-images');
+    
+    if (!is_dir($storageDir)) @mkdir($storageDir, 0755, true);
+    if (!is_dir($publicStorageDir)) @mkdir($publicStorageDir, 0755, true);
+
+    if (file_exists($srcImage)) {
+        @copy($srcImage, $storageDir . '/' . $imageFilename);
+        @copy($srcImage, $publicStorageDir . '/' . $imageFilename);
+    }
+
+    $title = "විවාහයට පෙර කෙටි සමීප ඇසුරට හඳුනාගන්න (අවු. 36 රෝහල් සේවිකාවකි)";
+    $desc = "විවාහයට පෙර කෙටි සමීප ඇසුරට හඳුනාගන්න.\nඅතහිත --- ලක්රුව මගින් නොමිලේ !\nමෙය පිළිතුරු ලිපියකින් උපුටාගත් යෝජනාවකි.\n\nමම අවු. 36 ක විවාහක තරුණියක්මි. මාගේ සැමියා හදිසි අනතුරකින් මිය ගියා. මාහට අවු. 9 ක පුතෙකු සිටී. මා රෝහල් සේවිකාවකි. මට කැමතිනම් අමතන්න.\n\nමැයගේ තොරතුරු අප සතුව ඇත.\nමෙවැනි දැන්වීමක් පලකරවා ගන්න ශානිකා අමතන්න.\nදුරකථන අංකය: 070 616 1617";
+
+    $insertedAds = [];
+    $categoriesToInsert = [1, 4]; // 1 = Girls Personal, 4 = Marriage Proposals
+
+    foreach ($categoriesToInsert as $catId) {
+        $existing = \App\Models\Advertisement::where('phone_number', '0706161617')
+            ->where('common_category_id', $catId)
+            ->where('title', 'LIKE', '%විවාහයට පෙර%')
+            ->first();
+
+        if ($existing) {
+            $existing->update([
+                'status' => 'activated',
+                'payment_status' => 'paid',
+                'price' => 1500,
+                'post_date' => now(),
+                'views_count' => rand(380, 460),
+            ]);
+            $insertedAds[] = "Updated Ad #{$existing->id} in Category #{$catId}";
+        } else {
+            do {
+                $code = 'AD-SHAN-' . strtoupper(\Illuminate\Support\Str::random(5));
+            } while (\App\Models\Advertisement::where('code', $code)->exists());
+
+            $ad = \App\Models\Advertisement::create([
+                'agent_id' => 1,
+                'code' => $code,
+                'status' => 'activated',
+                'payment_status' => 'paid',
+                'title' => $title,
+                'description' => $desc,
+                'price' => 1500,
+                'location' => 'Colombo',
+                'phone_number' => '0706161617',
+                'whatsapp_number' => null,
+                'telegram_number' => null,
+                'common_category_id' => $catId,
+                'listing_category_id' => 1,
+                'sub_category_id' => null,
+                'post_date' => now(),
+                'views_count' => rand(380, 460),
+                'likes_count' => rand(25, 45),
+            ]);
+
+            \App\Models\AdvertisementImage::create([
+                'advertisement_id' => $ad->id,
+                'path' => 'ad-images/' . $imageFilename,
+            ]);
+
+            $insertedAds[] = "Created Ad #{$ad->id} ({$ad->code}) in Category #{$catId}";
+        }
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'result' => $insertedAds
+    ]);
+})->name('insert-proposal-ad');
+
 // WhatsApp Outreach & Expired Renewal Hub API routes
 Route::get('/api/outreach/data', [\App\Http\Controllers\OutreachController::class, 'getData'])->name('outreach.data');
 Route::post('/api/outreach/mark', [\App\Http\Controllers\OutreachController::class, 'markMessage'])->name('outreach.mark');
