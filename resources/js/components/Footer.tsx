@@ -74,13 +74,11 @@ const Footer = () => {
                                 </a>
                             </div>
                             <div className="flex items-center justify-center md:justify-start space-x-2">
-                                <i className="fab fa-whatsapp text-green-500 text-base"></i>
-                                <span className="text-gray-400 font-medium">Shanika:</span>
+                                <i className="fas fa-phone-alt text-amber-400 text-sm"></i>
+                                <span className="text-gray-400 font-medium">Shanika (දැන්වීම් දාගැනීමට - Normal Call):</span>
                                 <a 
-                                    href="https://wa.me/94706161617" 
-                                    target="_blank" 
-                                    rel="noopener noreferrer"
-                                    className="text-white hover:text-green-400 transition-colors font-medium"
+                                    href="tel:0706161617" 
+                                    className="text-white hover:text-amber-400 transition-colors font-bold"
                                 >
                                     070 616 1617
                                 </a>

@@ -362,11 +362,10 @@ const TelegramVipFeaturedAdCard = ({ onShare }: { onShare?: (ad: any) => void })
         window.open('https://t.me/tintinadsvip', '_blank', 'noopener,noreferrer');
     };
 
-    const handleWhatsAppClick = (e: React.MouseEvent) => {
+    const handleShanikaCallClick = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        const text = encodeURIComponent('Hi Shanika! මට TinTin VIP Telegram චැනලය සහ අලුත්ම දැන්වීම් විස්තර දැනගන්න අවශ්‍යයි.');
-        window.open(`https://wa.me/94706161617?text=${text}`, '_blank', 'noopener,noreferrer');
+        window.location.href = 'tel:0706161617';
     };
 
     return (
@@ -473,12 +472,12 @@ const TelegramVipFeaturedAdCard = ({ onShare }: { onShare?: (ad: any) => void })
                                     </button>
                                     <button
                                         type="button"
-                                        onClick={handleWhatsAppClick}
-                                        className="bg-[#25D366] hover:bg-green-600 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
-                                        title="Chat on WhatsApp"
+                                        onClick={handleShanikaCallClick}
+                                        className="bg-amber-500 hover:bg-amber-600 active:scale-95 text-white px-2 sm:px-2.5 py-1 rounded-lg text-[9px] sm:text-[11px] font-bold flex items-center gap-1 shadow-xs transition-all cursor-pointer"
+                                        title="මෙවැනි දැන්වීම් පළකර ගැනීමට අමතන්න: Shanika (Normal Call Only - 070 616 1617)"
                                     >
-                                        <i className="fab fa-whatsapp text-[10px] sm:text-xs"></i>
-                                        <span className="hidden sm:inline">Shanika</span>
+                                        <i className="fas fa-phone-alt text-[9px] sm:text-[11px]"></i>
+                                        <span className="hidden sm:inline">Call Shanika</span>
                                     </button>
                                     <button
                                         type="button"
@@ -1339,29 +1338,29 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 `}</style>
             
             {/* Visitors Counter Strip & VIP Contacts */}
-            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-1 sm:py-1.5 px-2 sm:px-4 shadow-md text-xs font-bold flex items-center justify-between sm:justify-center gap-1.5 sm:gap-4 relative overflow-hidden">
+            <div className="bg-gradient-to-r from-red-600 via-pink-600 to-red-600 text-white text-center py-1 sm:py-1.5 px-2 sm:px-4 shadow-md text-xs font-bold flex flex-wrap items-center justify-between sm:justify-center gap-1.5 sm:gap-3 relative overflow-hidden">
                 <div className="absolute inset-0 bg-white opacity-10 animate-pulse pointer-events-none"></div>
                 <div className="flex items-center gap-1.5 z-10 truncate">
                     <span className="relative flex h-2 w-2 sm:h-2.5 sm:w-2.5 shrink-0">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 sm:h-2.5 sm:w-2.5 bg-white"></span>
                     </span>
-                    <span className="truncate text-[11px] sm:text-xs">
-                        <span className="hidden sm:inline">🔥 ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - </span>
+                    <span className="truncate text-[10px] sm:text-xs">
+                        <span className="hidden md:inline">🔥 ශ්‍රී ලංකාවේ අංක 1 වෙබ් අඩවිය - </span>
                         <span className="text-yellow-300 font-extrabold">Online: {displayViews.toLocaleString()}+</span>
                     </span>
                 </div>
 
                 <div className="flex items-center gap-1.5 z-10 shrink-0">
-                    {/* Shanika Direct WhatsApp Contact */}
+                    {/* Shanika Direct Normal Phone Call Contact (No WhatsApp - Normal Call Only) */}
                     <a
-                        href="https://wa.me/94706161617?text=Hi%20Shanika,%20TinTinAds%20%E0%B6%91%E0%B6%9A%E0%B7%8A%E0%B6%B1%E0%B7%8A%20%E0%B6%9A%E0%B6%AD%E0%B7%8F%20%E0%B6%9A%E0%B6%BB%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%8A"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 bg-emerald-500 hover:bg-emerald-400 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black shadow border border-white/30 transition-transform hover:scale-105"
+                        href="tel:0706161617"
+                        title="මෙවැනි දැන්වීම් දාගැනීමට සාමාන්‍ය ඇමතුමක් (Normal Call) ලබාදෙන්න - Shanika: 070 616 1617"
+                        className="inline-flex items-center gap-1.5 bg-amber-400 hover:bg-amber-300 text-gray-950 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black shadow-md border border-white/60 transition-transform hover:scale-105"
                     >
-                        <i className="fa-brands fa-whatsapp text-white"></i>
-                        <span>Shanika</span>
+                        <i className="fas fa-phone-alt text-red-600 text-[10px] sm:text-xs animate-bounce"></i>
+                        <span className="hidden sm:inline">මෙවැනි දැන්වීම් දාගැනීමට අමතන්න - Shanika (Normal Call)</span>
+                        <span className="sm:hidden">දැන්වීම් දාගැනීමට අමතන්න: Shanika</span>
                     </a>
 
                     {/* Official Telegram Channel */}
@@ -1372,7 +1371,7 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                         className="inline-flex items-center gap-1 bg-sky-500 hover:bg-sky-400 text-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-black shadow border border-white/30 transition-transform hover:scale-105"
                     >
                         <i className="fa-brands fa-telegram text-white"></i>
-                        <span>Telegram</span>
+                        <span className="hidden xs:inline sm:inline">Telegram</span>
                     </a>
                 </div>
             </div>
