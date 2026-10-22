@@ -1456,21 +1456,27 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                 )}
             </header>
 
-            {/* Search Section (Kept the same) */}
-            <section className="bg-white py-8 shadow-sm">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Search Section with Luxury Spa Hero Background */}
+            <section
+                className="relative bg-cover bg-center py-8 sm:py-12 shadow-md overflow-hidden"
+                style={{ backgroundImage: "url('/assets/hero_spa_bg.jpg')" }}
+            >
+                {/* Warm Dark Gradient Overlay for High Readability + Clear Image Visibility */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/40 to-black/75 pointer-events-none"></div>
+
+                <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Search Bar & Location Dropdown */}
                     <form onSubmit={handleSearch} className="mb-6 flex flex-col md:flex-row gap-3">
                         <div className="relative flex-grow">
                             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                <i className="fas fa-search text-gray-400"></i>
+                                <i className="fas fa-search text-pink-500"></i>
                             </div>
                             <input
                                 type="text"
                                 placeholder="What are you looking for? (e.g. Massage, Girls)"
                                 value={searchInput}
                                 onChange={handleSearchChange}
-                                className="w-full pl-12 pr-10 py-4 text-base border-2 border-gray-200 rounded-xl focus:outline-none transition-colors focus:border-pink-500 bg-gray-50 focus:bg-white"
+                                className="w-full pl-12 pr-10 py-3.5 sm:py-4 text-base text-gray-900 placeholder-gray-500 border-2 border-white/70 rounded-xl focus:outline-none transition-all focus:border-pink-500 bg-white/95 backdrop-blur-md focus:bg-white shadow-lg"
                             />
                             {searchInput && (
                                 <button
@@ -1495,9 +1501,10 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                         padding: '0.4rem 0.5rem',
                                         paddingLeft: '2rem',
                                         borderRadius: '0.75rem',
-                                        borderColor: state.isFocused ? '#ec4899' : '#e5e7eb',
-                                        backgroundColor: state.isFocused ? '#ffffff' : '#f9fafb',
-                                        boxShadow: state.isFocused ? '0 0 0 1px #ec4899' : 'none',
+                                        borderWidth: '2px',
+                                        borderColor: state.isFocused ? '#ec4899' : 'rgba(255, 255, 255, 0.7)',
+                                        backgroundColor: state.isFocused ? '#ffffff' : 'rgba(255, 255, 255, 0.95)',
+                                        boxShadow: state.isFocused ? '0 0 0 2px #ec4899' : '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
                                         '&:hover': {
                                             borderColor: '#ec4899'
                                         }
@@ -1520,12 +1527,12 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                 }}
                             />
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <i className="fas fa-map-marker-alt text-gray-400 z-10"></i>
+                                <i className="fas fa-map-marker-alt text-pink-500 z-10"></i>
                             </div>
                         </div>
                         <button
                             type="submit"
-                            className="text-white px-8 py-4 rounded-xl transition-colors hover:bg-pink-600 font-bold flex items-center justify-center gap-2 flex-shrink-0 shadow-md"
+                            className="text-white px-8 py-3.5 sm:py-4 rounded-xl transition-all hover:bg-pink-600 active:scale-95 font-bold flex items-center justify-center gap-2 flex-shrink-0 shadow-lg border border-pink-400/50"
                             style={{ backgroundColor: '#ec4899' }}
                         >
                             <i className="fas fa-search"></i>
@@ -1540,24 +1547,24 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                             return (
                                 <div key={cat.name} onClick={() => handleCategorySelect(cat.name)} className="flex flex-col items-center cursor-pointer group">
                                     <div
-                                        className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+                                        className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 shadow-lg backdrop-blur-sm"
                                         style={{
-                                            backgroundColor: colors.bg + '20',
-                                            border: `2px solid ${colors.bg}`,
+                                            backgroundColor: 'rgba(255, 255, 255, 0.94)',
+                                            border: `2.5px solid ${colors.bg}`,
                                         }}
                                     >
                                         <i className={`${cat.icon} text-2xl transition-transform duration-300 group-hover:scale-110`} style={{ color: colors.icon }}></i>
                                     </div>
-                                    <span className="text-sm mt-2 text-gray-700 font-medium group-hover:text-gray-900 transition-colors">{cat.name}</span>
+                                    <span className="text-xs sm:text-sm mt-2 text-white font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] group-hover:text-pink-200 transition-colors">{cat.name}</span>
                                 </div>
                             );
                         })}
                     </div>
 
                     {/* Quick City Filter Pills */}
-                    <div className="mt-6 pt-5 border-t border-gray-100">
-                        <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">
-                            <i className="fas fa-map-marker-alt text-pink-500"></i>
+                    <div className="mt-6 pt-5 border-t border-white/25">
+                        <div className="flex items-center justify-center gap-1.5 text-xs font-extrabold text-white uppercase tracking-wider mb-3 drop-shadow-[0_2px_4px_rgba(0,0,0,0.85)]">
+                            <i className="fas fa-map-marker-alt text-pink-400"></i>
                             <span>Quick City Filter (නගරය අනුව ඉක්මනින් තෝරන්න)</span>
                         </div>
                         <div className="flex items-center justify-start sm:justify-center sm:flex-wrap gap-2 overflow-x-auto pb-2 px-1">
@@ -1570,8 +1577,8 @@ const ClassifiedsBrowsePage: React.FC<ClassifiedsPageProps> = ({
                                         onClick={() => handleCitySelect(city)}
                                         className={`px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 flex-shrink-0 border cursor-pointer ${
                                             isSelected
-                                                ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white border-pink-600 shadow-md scale-105'
-                                                : 'bg-gray-50 hover:bg-pink-50 text-gray-700 hover:text-pink-600 border-gray-200 hover:border-pink-300 shadow-2xs'
+                                                ? 'bg-gradient-to-r from-pink-500 to-rose-600 text-white border-pink-400 shadow-lg scale-105'
+                                                : 'bg-white/95 hover:bg-white text-gray-800 hover:text-pink-600 border-white/70 hover:border-pink-300 shadow-md'
                                         }`}
                                     >
                                         <i className={`fas ${city === 'All Sri Lanka' ? 'fa-globe-asia' : 'fa-map-pin'} text-[10px] ${isSelected ? 'text-white' : 'text-pink-500'}`}></i>
