@@ -489,6 +489,31 @@ Route::get('/download-pereda-csv', function () {
     ]);
 })->name('download.pereda-csv');
 
+// LankaAd & HelaLanka Oct 21 Top 100 Hot Leads Calling Kit Routes
+Route::get('/oct21-sheet', function () {
+    $file = public_path('oct21_calling_sheet.html');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, ['Content-Type' => 'text/html; charset=utf-8']);
+})->name('oct21-sheet');
+
+Route::get('/download-oct21-vcf', function () {
+    $file = public_path('oct21_100_leads.vcf');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/vcard; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="oct21_100_leads.vcf"'
+    ]);
+})->name('download.oct21-vcf');
+
+Route::get('/download-oct21-csv', function () {
+    $file = public_path('oct21_100_leads.csv');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="oct21_100_leads.csv"'
+    ]);
+})->name('download.oct21-csv');
+
 Route::get('/reports/competitor-analysis.pdf', function () {
     $file = public_path('reports/competitor_analysis_report.pdf');
     if (!file_exists($file)) {
