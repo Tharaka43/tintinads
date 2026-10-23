@@ -464,6 +464,31 @@ Route::get('/download-lankaad-csv', function () {
     ]);
 })->name('download.lankaad-csv');
 
+// LankaAd Pereda (Oct 21) 20 Leads Kit Routes
+Route::get('/pereda-sheet', function () {
+    $file = public_path('pereda_calling_sheet.html');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, ['Content-Type' => 'text/html; charset=utf-8']);
+})->name('pereda-sheet');
+
+Route::get('/download-pereda-vcf', function () {
+    $file = public_path('lankaad_pereda_20.vcf');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/vcard; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="lankaad_pereda_20.vcf"'
+    ]);
+})->name('download.pereda-vcf');
+
+Route::get('/download-pereda-csv', function () {
+    $file = public_path('lankaad_pereda_20.csv');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="lankaad_pereda_20.csv"'
+    ]);
+})->name('download.pereda-csv');
+
 Route::get('/reports/competitor-analysis.pdf', function () {
     $file = public_path('reports/competitor_analysis_report.pdf');
     if (!file_exists($file)) {
