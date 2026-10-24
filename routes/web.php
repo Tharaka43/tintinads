@@ -514,6 +514,31 @@ Route::get('/download-oct21-csv', function () {
     ]);
 })->name('download.oct21-csv');
 
+// Kandy & Camshow Top 100 Leads Kit Routes
+Route::get('/kandy-cam-sheet', function () {
+    $file = public_path('kandy_cam_sheet.html');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, ['Content-Type' => 'text/html; charset=utf-8']);
+})->name('kandy-cam-sheet');
+
+Route::get('/download-kandy-cam-vcf', function () {
+    $file = public_path('kandy_cam_100_leads.vcf');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/vcard; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="kandy_cam_100_leads.vcf"'
+    ]);
+})->name('download.kandy-cam-vcf');
+
+Route::get('/download-kandy-cam-csv', function () {
+    $file = public_path('kandy_cam_100_leads.csv');
+    if (!file_exists($file)) abort(404);
+    return response()->file($file, [
+        'Content-Type' => 'text/csv; charset=utf-8',
+        'Content-Disposition' => 'attachment; filename="kandy_cam_100_leads.csv"'
+    ]);
+})->name('download.kandy-cam-csv');
+
 Route::get('/reports/competitor-analysis.pdf', function () {
     $file = public_path('reports/competitor_analysis_report.pdf');
     if (!file_exists($file)) {
