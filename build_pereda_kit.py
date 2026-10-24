@@ -149,6 +149,18 @@ html_content = f'''<!DOCTYPE html>
         }}
         .act-call {{ background: #f59e0b; }}
         .act-wa {{ background: #22c55e; }}
+        .act-ad {{ background: #4f46e5; }}
+        .ad-link-badge {{
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            color: #818cf8;
+            text-decoration: none;
+            margin-top: 4px;
+            font-weight: 700;
+        }}
+        .ad-link-badge:hover {{ text-decoration: underline; color: #a5b4fc; }}
     </style>
 </head>
 <body>
@@ -168,12 +180,14 @@ for c in contacts:
         <div class="card-info">
             <span class="card-num">#{c['id']:02d}</span>
             <div class="card-phone">{c['local_phone']}</div>
-            <div class="card-title">{c['title']}</div>
+            <div class="card-title"><a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none;">{c['title']}</a></div>
             <div class="card-meta"><i class="fas fa-calendar-alt"></i> {c['date_published']} • <i class="fas fa-map-marker-alt"></i> {c['location']}</div>
+            <div><a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" class="ad-link-badge"><i class="fas fa-link"></i> LankaAd Ad එක බලන්න &rarr;</a></div>
         </div>
         <div class="btn-group">
             <a href="tel:{c['local_phone']}" class="act-btn act-call" title="Normal Call"><i class="fas fa-phone-alt"></i></a>
             <a href="https://wa.me/{c['whatsapp_phone']}?text=Hi,%20TinTinAds.com%20%E0%B6%91%E0%B6%9A%E0%B7%99%E0%B6%B1%E0%B7%8A%20%E0%B6%9A%E0%B6%AD%E0%B7%8F%20%E0%B6%9A%E0%B6%BB%E0%B6%B1%E0%B7%8A%E0%B6%B1%E0%B7%9A" target="_blank" class="act-btn act-wa" title="WhatsApp Chat"><i class="fab fa-whatsapp"></i></a>
+            <a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" class="act-btn act-ad" title="View original ad on LankaAd"><i class="fas fa-arrow-up-right-from-square"></i></a>
         </div>
     </div>
 '''

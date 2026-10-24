@@ -200,17 +200,17 @@ def build_kit():
         }}
         .btn-group {{
             display: flex;
-            gap: 8px;
+            gap: 6px;
             flex-shrink: 0;
         }}
         .act-btn {{
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 46px;
-            height: 46px;
+            width: 42px;
+            height: 42px;
             border-radius: 12px;
-            font-size: 19px;
+            font-size: 17px;
             color: white;
             text-decoration: none;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
@@ -219,6 +219,19 @@ def build_kit():
         .act-btn:active {{ transform: scale(0.92); }}
         .act-call {{ background: #d97706; }}
         .act-wa {{ background: #22c55e; }}
+        .act-ad {{ background: #4f46e5; }}
+
+        .ad-link-badge {{
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: #818cf8;
+            text-decoration: none;
+            margin-top: 4px;
+            font-weight: 700;
+        }}
+        .ad-link-badge:hover {{ text-decoration: underline; color: #a5b4fc; }}
 
         .pitch-banner {{
             background: #1e1b4b;
@@ -267,15 +280,17 @@ def build_kit():
             <div class="card-info">
                 <div class="badges">
                     <span class="card-num">#{c['id']:03d}</span>
-                    <span class="source-tag {source_class}">{c['source']}</span>
+                    <a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" class="source-tag {source_class}" style="text-decoration:none;" title="Click to open {c['source']} ad"><i class="fas fa-external-link-alt"></i> {c['source']}</a>
                 </div>
                 <div class="card-phone">{c['local_phone']}</div>
-                <div class="card-title">{c['title']}</div>
+                <div class="card-title"><a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" style="color:inherit; text-decoration:none;" title="Click to view ad details on {c['source']}">{c['title']}</a></div>
                 <div class="card-meta"><i class="fas fa-map-marker-alt"></i> {c['location']} • <i class="fas fa-calendar-alt"></i> 2026-10-21</div>
+                <div><a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" class="ad-link-badge"><i class="fas fa-link"></i> {c['source']} Ad එක බලන්න &rarr;</a></div>
             </div>
             <div class="btn-group">
                 <a href="tel:{c['raw_local']}" class="act-btn act-call" title="Call directly"><i class="fas fa-phone-alt"></i></a>
                 <a href="https://wa.me/{c['whatsapp_phone']}?text={encoded_wa_msg}" target="_blank" class="act-btn act-wa" title="WhatsApp Chat"><i class="fab fa-whatsapp"></i></a>
+                <a href="{c['ad_url']}" target="_blank" rel="noopener noreferrer" class="act-btn act-ad" title="View original ad on {c['source']}"><i class="fas fa-arrow-up-right-from-square"></i></a>
             </div>
         </div>
 '''
