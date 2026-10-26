@@ -24,22 +24,19 @@ class BatchAdImportController extends Controller
             ]);
         }
 
-        if ($request->query('source') === 'more10' || $request->query('more10') === '1') {
+        $source = $request->query('source', 'oct26');
+        if ($source === 'oct26' || $request->query('batch50') === '1' || !file_exists(base_path('all_120_ads.json'))) {
+            $jsonFile = base_path('ads_batch_50_oct26.json');
+        } elseif ($source === 'more10' || $request->query('more10') === '1') {
             $jsonFile = base_path('hela_more_10_oct22.json');
-        } elseif ($request->query('source') === 'oct22' || $request->query('today40') === '1') {
+        } elseif ($source === 'oct22' || $request->query('today40') === '1') {
             $jsonFile = base_path('hela_today_40_oct22.json');
-        } elseif ($request->query('source') === 'fresh20' || $request->query('fresh') === '1') {
+        } elseif ($source === 'fresh20' || $request->query('fresh') === '1') {
             $jsonFile = base_path('fresh_20_ads_to_import.json');
         } else {
-            $jsonFile = base_path('all_120_ads.json');
+            $jsonFile = base_path('ads_batch_50_oct26.json');
             if (!file_exists($jsonFile)) {
-                $jsonFile = base_path('all_100_ads.json');
-            }
-            if (!file_exists($jsonFile)) {
-                $jsonFile = base_path('all_80_ads.json');
-            }
-            if (!file_exists($jsonFile)) {
-                $jsonFile = base_path('all_40_ads.json');
+                $jsonFile = base_path('all_120_ads.json');
             }
         }
         if (!file_exists($jsonFile)) {
@@ -94,110 +91,109 @@ class BatchAdImportController extends Controller
         }
 
         $results = [];
+        $listingCategoryId = (int) $request->query('category_id', 4); // 4 = Platinum (appears top of home page)
 
-        $isFresh = ($request->query('source') === 'fresh20' || $request->query('fresh') === '1');
+        Advertisement::withoutEvents(function () use ($adsData, $storageDir, $publicStorageDir, $listingCategoryId, &$results) {
+            foreach ($adsData as $item) {
+                $num = $item['num'];
+                $imageFilename = $item['image'] ?? "batch_ad_{$num}.png";
+                $srcImage = public_path("ads_data/" . ($item['image'] ?? "{$num}.png"));
+                $destPath = $storageDir . '/' . $imageFilename;
+                $publicDestPath = $publicStorageDir . '/' . $imageFilename;
+                $dbImagePath = $item['db_path'] ?? ('ad-images/' . $imageFilename);
 
-        foreach ($adsData as $item) {
-            $num = $item['num'];
-            $imageFilename = $item['image'] ?? "batch_ad_{$num}.png";
-            $srcImage = public_path("ads_data/" . ($item['image'] ?? "{$num}.png"));
-            $destPath = $storageDir . '/' . $imageFilename;
-            $publicDestPath = $publicStorageDir . '/' . $imageFilename;
-            $dbImagePath = $item['db_path'] ?? ('ad-images/' . $imageFilename);
+                if (file_exists($srcImage)) {
+                    @copy($srcImage, $destPath);
+                    @copy($srcImage, $publicDestPath);
+                }
 
-            if (file_exists($srcImage)) {
-                @copy($srcImage, $destPath);
-                @copy($srcImage, $publicDestPath);
-            }
+                // Check if already created on this system
+                $existing = Advertisement::where('phone_number', $item['phone'])
+                    ->orWhere('title', $item['title'])
+                    ->first();
 
-            // Check if already created on this system
-            $targetCode = $item['code'] ?? ('AD-B' . $num);
-            $existing = Advertisement::where('code', $targetCode)->orWhere('title', $item['title'])->first();
+                $categoryName = $item['category_name'] ?? (\App\Models\CommonCategory::find($item['category_id'] ?? 1)->name ?? 'Girls Personal');
 
-            if ($existing) {
-                // Ensure active, unexpired, and paid + update description with formatted text
-                $existing->update([
-                    'title' => $item['title'],
-                    'description' => $item['description'],
-                    'status' => 'activated',
-                    'payment_status' => 'paid',
-                    'listing_category_id' => 1,
-                    'price' => $item['price'],
-                    'location' => $item['location'],
-                    'phone_number' => $item['phone'],
-                    'whatsapp_number' => $item['whatsapp'],
-                    'post_date' => $isFresh ? now()->subMinutes(max(1, 45 - (int)$num)) : now()->subMinutes(max(2, 125 - (int)$num)),
-                ]);
+                if ($existing) {
+                    $existing->update([
+                        'title' => $item['title'],
+                        'description' => $item['description'],
+                        'status' => 'activated',
+                        'payment_status' => 'paid',
+                        'listing_category_id' => $listingCategoryId,
+                        'price' => $item['price'],
+                        'location' => $item['location'],
+                        'phone_number' => $item['phone'],
+                        'whatsapp_number' => $item['whatsapp'],
+                        'post_date' => now()->subMinutes(max(1, 55 - (int)$num)),
+                    ]);
 
-                // Ensure image exists
-                if (!$existing->images()->exists()) {
+                    if (!$existing->images()->exists()) {
+                        AdvertisementImage::create([
+                            'advertisement_id' => $existing->id,
+                            'path' => $dbImagePath,
+                        ]);
+                    }
+
+                    $results[] = [
+                        'num' => $num,
+                        'status' => 'Existing (Updated to Platinum)',
+                        'id' => $existing->id,
+                        'code' => $existing->code,
+                        'title' => $existing->title,
+                        'phone' => $existing->phone_number,
+                        'whatsapp' => $existing->whatsapp_number,
+                        'location' => $existing->location,
+                        'category' => $categoryName,
+                        'price' => $existing->price,
+                        'url' => url('/ad/' . $existing->id),
+                    ];
+                } else {
+                    do {
+                        $code = 'AD-26O-' . strtoupper(Str::random(5));
+                    } while (Advertisement::where('code', $code)->exists());
+
+                    $ad = Advertisement::create([
+                        'agent_id' => 1,
+                        'code' => $code,
+                        'status' => 'activated',
+                        'payment_status' => 'paid',
+                        'title' => $item['title'],
+                        'description' => $item['description'],
+                        'price' => $item['price'],
+                        'location' => $item['location'],
+                        'phone_number' => $item['phone'],
+                        'whatsapp_number' => $item['whatsapp'],
+                        'telegram_number' => null,
+                        'common_category_id' => $item['category_id'] ?? 1,
+                        'listing_category_id' => $listingCategoryId,
+                        'sub_category_id' => null,
+                        'post_date' => now()->subMinutes(max(1, 55 - (int)$num)),
+                        'views_count' => rand(65, 140),
+                        'likes_count' => rand(4, 18),
+                    ]);
+
                     AdvertisementImage::create([
-                        'advertisement_id' => $existing->id,
+                        'advertisement_id' => $ad->id,
                         'path' => $dbImagePath,
                     ]);
+
+                    $results[] = [
+                        'num' => $num,
+                        'status' => 'Newly Created (Platinum)',
+                        'id' => $ad->id,
+                        'code' => $ad->code,
+                        'title' => $ad->title,
+                        'phone' => $ad->phone_number,
+                        'whatsapp' => $ad->whatsapp_number,
+                        'location' => $ad->location,
+                        'category' => $categoryName,
+                        'price' => $ad->price,
+                        'url' => url('/ad/' . $ad->id),
+                    ];
                 }
-
-                $results[] = [
-                    'num' => $num,
-                    'status' => 'Existing (Updated)',
-                    'id' => $existing->id,
-                    'code' => $existing->code,
-                    'title' => $existing->title,
-                    'phone' => $existing->phone_number,
-                    'whatsapp' => $existing->whatsapp_number,
-                    'location' => $existing->location,
-                    'category' => $item['category_name'],
-                    'price' => $existing->price,
-                    'url' => url('/ad/' . $existing->id),
-                ];
-            } else {
-                $code = $item['code'] ?? null;
-                if (!$code || Advertisement::where('code', $code)->exists()) {
-                    do {
-                        $code = 'AD-' . strtoupper(Str::random(6));
-                    } while (Advertisement::where('code', $code)->exists());
-                }
-
-                $ad = Advertisement::create([
-                    'agent_id' => 1,
-                    'code' => $code,
-                    'status' => 'activated',
-                    'payment_status' => 'paid',
-                    'title' => $item['title'],
-                    'description' => $item['description'],
-                    'price' => $item['price'],
-                    'location' => $item['location'],
-                    'phone_number' => $item['phone'],
-                    'whatsapp_number' => $item['whatsapp'],
-                    'telegram_number' => null,
-                    'common_category_id' => $item['category_id'],
-                    'listing_category_id' => 1, // VIP (Rs. 700)
-                    'sub_category_id' => null,
-                    'post_date' => $isFresh ? now()->subMinutes(max(1, 45 - (int)$num)) : now()->subMinutes(max(2, 125 - (int)$num)),
-                    'views_count' => rand(20, 65),
-                    'likes_count' => rand(4, 15),
-                ]);
-
-                AdvertisementImage::create([
-                    'advertisement_id' => $ad->id,
-                    'path' => $dbImagePath,
-                ]);
-
-                $results[] = [
-                    'num' => $num,
-                    'status' => 'Newly Created',
-                    'id' => $ad->id,
-                    'code' => $ad->code,
-                    'title' => $ad->title,
-                    'phone' => $ad->phone_number,
-                    'whatsapp' => $ad->whatsapp_number,
-                    'location' => $ad->location,
-                    'category' => $item['category_name'],
-                    'price' => $ad->price,
-                    'url' => url('/ad/' . $ad->id),
-                ];
             }
-        }
+        });
 
         // Return HTML
         $totalCount = count($results);
