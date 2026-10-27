@@ -275,6 +275,40 @@ Route::get('/boost-ad-views', function (\Illuminate\Http\Request $request) {
     ]);
 })->name('boost-ad-views');
 
+// Post latest fresh ads to Telegram VIP Channel (@tintinadsvip)
+Route::get('/post-telegram-ads', function (\Illuminate\Http\Request $request, \App\Services\TelegramChannelService $tg) {
+    if ($request->query('key') !== 'tintin2026') {
+        abort(403, 'Unauthorized.');
+    }
+    @set_time_limit(300);
+    $count = min(50, max(1, (int) $request->query('count', 10)));
+    $force = $request->query('force') === '1';
+
+    $ads = \App\Models\Advertisement::where('status', 'activated')
+        ->latest('id')
+        ->take($count)
+        ->get()
+        ->reverse();
+
+    $results = [];
+    foreach ($ads as $ad) {
+        $res = $tg->postAdvertisement($ad, $force);
+        $results[] = [
+            'id' => $ad->id,
+            'title' => $ad->title,
+            'success' => $res['success'] ?? false,
+            'message' => $res['message'] ?? '',
+        ];
+        usleep(1500000); // 1.5s delay to strictly respect Telegram rate limits
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'count' => count($results),
+        'results' => $results
+    ]);
+})->name('post-telegram-ads');
+
 // Renew all expired ads to active and update post_date = now()
 Route::get('/renew-all-ads', function (\Illuminate\Http\Request $request) {
     if ($request->query('key') !== 'tintin2026') {
