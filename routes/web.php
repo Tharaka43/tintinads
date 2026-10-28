@@ -326,6 +326,102 @@ Route::get('/renew-all-ads', function (\Illuminate\Http\Request $request) {
     ]);
 })->name('renew-all-ads');
 
+// Publish Qualified Male Spa Therapist Ad (0716042725) as Platinum Rs. 1,500 Ad
+Route::get('/publish-male-spa-ad', function (\Illuminate\Http\Request $request, \App\Services\TelegramChannelService $tg) {
+    if ($request->query('key') !== 'tintin2026') {
+        abort(403, 'Unauthorized.');
+    }
+
+    $imgName = 'male_spa_therapist_0716042725.jpg';
+    $src = public_path('ads_data/' . $imgName);
+    $dest1 = storage_path('app/public/ad-images/' . $imgName);
+    $dest2 = public_path('storage/ad-images/' . $imgName);
+
+    if (!is_dir(storage_path('app/public/ad-images'))) {
+        @mkdir(storage_path('app/public/ad-images'), 0755, true);
+    }
+    if (!is_dir(public_path('storage/ad-images'))) {
+        @mkdir(public_path('storage/ad-images'), 0755, true);
+    }
+
+    if (file_exists($src)) {
+        @copy($src, $dest1);
+        @copy($src, $dest2);
+    }
+
+    $title = "🌿 Qualified Male Spa Therapist - Full Body, Foot & Head Massage (Visits Available)";
+
+    $description = "🌿 Qualified Male Spa Therapist - Professional & Friendly Service 🌿\n\nකාර්යබහුල ජීවිතයේ විඩාව නිවාගෙන, මනසට සහ ගතට උපරිම සහනයක් ලබාගැනීමට ඇති හොඳම සහ 100% ආරක්ෂිතම තේරීම! 💆‍♂️✨\n\nඉතාමත් පිරිසිදු, නිදහස් පරිසරයක් තුළින් උසස් ප්‍රමිතියෙන් යුතු විශ්වාසනීය සම්බාහන සේවාවක් (Professional Massage Service) ලබාදීමට අප බැඳී සිටින්නෙමු.\n\n✨ අපගේ සේවාවන් (Our Services):\n✅ Full Body Massage (සම්පූර්ණ ශරීර සම්බාහනය)\n✅ Leg & Foot Reflexology Massage (දෙපා සහ විලුඹ සම්බාහනය)\n✅ Face & Head Relaxing Massage (හිස සහ මුහුණ සම්බාහනය)\n✅ Deep Tissue & Muscle Pain Relief (මාංශපේශී සහ ශරීර වේදනා සමනය)\n✅ Stress Relief & Mind Relaxation (මානසික ආතතිය දුරු කිරීම)\n\n🌟 අපගේ විශේෂත්වයන් (Why Choose Us):\n🔹 සුදුසුකම්ලත් පළපුරුදු පිරිමි සම්බාහන ශිල්පියෙකි (Qualified & Experienced Male Therapist).\n🔹 100% විශ්වාසනීය සහ පූර්ණ රහස්‍යභාවය (100% Confidential & Safe).\n🔹 ඔබට කැමති ඕනෑම ස්ථානයකට පැමිණ සේවය සැපයිය හැක (Visits Available to your Hotel / Home / Residence).\n🔹 ඉහළම ප්‍රමිතියේ ස්වභාවික සුවඳ තෙල් සහ ආයුර්වේද නිෂ්පාදන භාවිතය (Premium Aroma & Herbal Oils).\n\n💰 විශේෂ පැකේජ ගාස්තු: රු. 1,500/= සිට ඉහළට (Special Packages from Rs. 1,500/=)\n📍 සේවා ප්‍රදේශ: කොළඹ සහ දිවයින පුරා (Colombo & Islandwide / Visits Available)\n\n📞 ඔබගේ වේලාව වෙන්කරවා ගැනීමට දැන්ම අමතන්න / WhatsApp කරන්න:\n📱 Call: 0716042725\n💬 WhatsApp: 0716042725 (https://wa.me/94716042725)";
+
+    $phone = '0716042725';
+    $ad = \App\Models\Advertisement::where('phone_number', $phone)->first();
+
+    if (!$ad) {
+        do {
+            $code = 'AD-SPA-' . strtoupper(\Illuminate\Support\Str::random(4));
+        } while (\App\Models\Advertisement::where('code', $code)->exists());
+
+        $ad = \App\Models\Advertisement::create([
+            'agent_id' => 1,
+            'code' => $code,
+            'status' => 'activated',
+            'payment_status' => 'paid',
+            'title' => $title,
+            'description' => $description,
+            'price' => 1500,
+            'location' => 'Colombo (Visits Available)',
+            'phone_number' => $phone,
+            'whatsapp_number' => $phone,
+            'telegram_number' => null,
+            'common_category_id' => 6, // Spa & Wellness Services
+            'listing_category_id' => 4, // Platinum (Rs. 1,500 Tier)
+            'sub_category_id' => null,
+            'post_date' => now(),
+            'views_count' => rand(110, 240),
+            'likes_count' => rand(12, 28),
+        ]);
+    } else {
+        $ad->update([
+            'title' => $title,
+            'description' => $description,
+            'price' => 1500,
+            'location' => 'Colombo (Visits Available)',
+            'common_category_id' => 6,
+            'listing_category_id' => 4,
+            'status' => 'activated',
+            'payment_status' => 'paid',
+            'post_date' => now(),
+        ]);
+    }
+
+    $dbPath = 'ad-images/' . $imgName;
+    $adImage = \App\Models\AdvertisementImage::firstOrNew(['advertisement_id' => $ad->id]);
+    $adImage->path = $dbPath;
+    $adImage->save();
+
+    // Optionally post to Telegram
+    $tgResult = null;
+    if ($request->query('telegram', '1') === '1') {
+        try {
+            $tgResult = $tg->postAdvertisement($ad, true);
+        } catch (\Throwable $e) {
+            $tgResult = ['success' => false, 'error' => $e->getMessage()];
+        }
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Qualified Male Spa Therapist Ad successfully published on TinTinAds as Platinum Rs. 1,500 Ad!',
+        'ad_id' => $ad->id,
+        'ad_code' => $ad->code,
+        'ad_url' => url('/ad/' . $ad->id),
+        'listing_category' => 'Platinum (4)',
+        'price' => $ad->price,
+        'phone' => $ad->phone_number,
+        'telegram_post' => $tgResult,
+    ]);
+})->name('publish-male-spa-ad');
+
 // Insert Shanika Proposal Ad & 4 New Ads + Delete Duplicates on Hostinger Production
 Route::get('/insert-proposal-ad', function (\Illuminate\Http\Request $request) {
     if ($request->query('key') !== 'tintin2026') {
