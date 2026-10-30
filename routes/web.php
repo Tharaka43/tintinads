@@ -694,3 +694,31 @@ Route::get('/reports/competitor-analysis', function () {
 })->name('reports.html');
 
 
+
+// Clean and format cluttered ad descriptions across the entire database
+Route::get('/clean-ad-descriptions', function (\Illuminate\Http\Request $request) {
+    if ($request->query('key') !== 'tintin2026') {
+        abort(403, 'Unauthorized');
+    }
+    
+    $ads = \App\Models\Advertisement::all();
+    $updated = 0;
+    $total = count($ads);
+    
+    foreach ($ads as $ad) {
+        $original = $ad->description;
+        $cleaned = \App\Services\AdDescriptionFormatter::format($original);
+        if ($cleaned !== $original) {
+            $ad->description = $cleaned;
+            $ad->save();
+            $updated++;
+        }
+    }
+    
+    return response()->json([
+        'status' => 'success',
+        'message' => "Successfully formatted and cleaned {$updated} out of {$total} advertisements.",
+        'updated_count' => $updated,
+        'total_count' => $total,
+    ]);
+});
